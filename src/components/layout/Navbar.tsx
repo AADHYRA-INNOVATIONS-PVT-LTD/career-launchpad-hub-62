@@ -129,8 +129,13 @@ const Navbar = () => {
           </Link>
         </nav>
 
-        {/* CTA Button */}
+        {/* CTA Buttons */}
         <div className="flex items-center gap-3">
+          <Link to="/auth" className="hidden sm:block">
+            <Button variant="outline">
+              Student Login
+            </Button>
+          </Link>
           <Link to="/apply" className="hidden sm:block">
             <Button variant="accent" size="lg">
               Apply Now
