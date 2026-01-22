@@ -11,6 +11,7 @@ import {
   NavigationMenuTrigger,
 } from "@/components/ui/navigation-menu";
 import { cn } from "@/lib/utils";
+import shikshaLogo from "@/assets/shiksha-nex-logo.png";
 
 const courses = [
   { title: "IT Training", href: "/courses/it", description: "Java, Python, AI/ML, Cloud & more" },
@@ -31,12 +32,10 @@ const Navbar = () => {
       <div className="container flex h-16 items-center justify-between">
         {/* Logo */}
         <Link to="/" className="flex items-center gap-2">
-          <div className="flex h-10 w-10 items-center justify-center rounded-lg gradient-primary">
-            <span className="text-lg font-bold text-primary-foreground">SN</span>
-          </div>
+          <img src={shikshaLogo} alt="Shiksha Nex Technologies" className="h-12 w-auto" />
           <div className="hidden sm:block">
             <span className="text-lg font-heading font-bold text-foreground">Shiksha Nex</span>
-            <span className="block text-xs text-muted-foreground">Technologies</span>
+            <span className="block text-xs text-muted-foreground">Technologies OPC Pvt Ltd</span>
           </div>
         </Link>
 
