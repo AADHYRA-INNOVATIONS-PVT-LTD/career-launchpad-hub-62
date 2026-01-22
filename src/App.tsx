@@ -22,6 +22,7 @@ import DashboardHome from "./pages/dashboard/DashboardHome";
 import DashboardCourses from "./pages/dashboard/DashboardCourses";
 import DashboardInterview from "./pages/dashboard/DashboardInterview";
 import DashboardProfile from "./pages/dashboard/DashboardProfile";
+import InterviewRoundPage from "./pages/dashboard/InterviewRoundPage";
 import ComingSoon from "./components/dashboard/ComingSoon";
 
 const queryClient = new QueryClient();
@@ -50,6 +51,7 @@ const App = () => (
               <Route index element={<DashboardHome />} />
               <Route path="courses" element={<DashboardCourses />} />
               <Route path="interview" element={<DashboardInterview />} />
+              <Route path="interview/:categoryId/:round" element={<InterviewRoundPage />} />
               <Route path="payments" element={<ComingSoon title="Payments" description="View your payment history and invoices" />} />
               <Route path="certificates" element={<ComingSoon title="Certificates" description="Download your earned certificates" />} />
               <Route path="internship" element={<ComingSoon title="Internship" description="Track your internship progress" />} />

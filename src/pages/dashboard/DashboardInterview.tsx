@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { useAuth } from '@/contexts/AuthContext';
 import { supabase } from '@/integrations/supabase/client';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
@@ -52,6 +53,7 @@ const categoryIcons: Record<string, typeof Monitor> = {
 const DashboardInterview = () => {
   const { user } = useAuth();
   const { toast } = useToast();
+  const navigate = useNavigate();
   const [categories, setCategories] = useState<Category[]>([]);
   const [selectedCategory, setSelectedCategory] = useState<Category | null>(null);
   const [interviewStatus, setInterviewStatus] = useState<InterviewStatus | null>(null);
@@ -168,64 +170,9 @@ const DashboardInterview = () => {
     }
   };
 
-  const startInterview = async (round: 'mcq' | 'coding' | 'hr') => {
-    if (!selectedCategory || !user) return;
-
-    try {
-      // Check if attempt already exists
-      const { data: existing } = await supabase
-        .from('interview_attempts')
-        .select('id')
-        .eq('user_id', user.id)
-        .eq('course_id', selectedCategory.id)
-        .eq('round', round)
-        .single();
-
-      if (!existing) {
-        // Create new attempt
-        await supabase
-          .from('interview_attempts')
-          .insert({
-            user_id: user.id,
-            course_id: selectedCategory.id,
-            round,
-            status: 'in_progress',
-            started_at: new Date().toISOString(),
-          });
-      }
-
-      // Navigate to interview page
-      toast({
-        title: `Starting ${round.toUpperCase()} Round`,
-        description: 'Redirecting to the exam...',
-      });
-
-      // For now, simulate completion
-      setTimeout(async () => {
-        await supabase
-          .from('interview_attempts')
-          .update({
-            status: 'completed',
-            completed_at: new Date().toISOString(),
-            score: Math.floor(Math.random() * 40) + 60,
-            max_score: 100,
-            passed: Math.random() > 0.3,
-          })
-          .eq('user_id', user.id)
-          .eq('course_id', selectedCategory.id)
-          .eq('round', round);
-
-        await checkInterviewStatus(selectedCategory.id);
-        
-        toast({
-          title: 'Round Completed',
-          description: 'Check your results below.',
-        });
-      }, 2000);
-
-    } catch (error) {
-      console.error('Error starting interview:', error);
-    }
+  const startInterview = (round: 'mcq' | 'coding' | 'hr') => {
+    if (!selectedCategory) return;
+    navigate(`/dashboard/interview/${selectedCategory.id}/${round}`);
   };
 
   if (loading) {
