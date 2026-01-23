@@ -25,6 +25,16 @@ import DashboardProfile from "./pages/dashboard/DashboardProfile";
 import InterviewRoundPage from "./pages/dashboard/InterviewRoundPage";
 import ComingSoon from "./components/dashboard/ComingSoon";
 
+// Admin Pages
+import AdminDashboard from "./pages/admin/AdminDashboard";
+import AdminStudents from "./pages/admin/AdminStudents";
+import AdminCourses from "./pages/admin/AdminCourses";
+import AdminProjects from "./pages/admin/AdminProjects";
+import AdminInterviews from "./pages/admin/AdminInterviews";
+import AdminCertificates from "./pages/admin/AdminCertificates";
+import AdminPayments from "./pages/admin/AdminPayments";
+import AdminSettings from "./pages/admin/AdminSettings";
+
 const queryClient = new QueryClient();
 
 const App = () => (
@@ -64,14 +74,14 @@ const App = () => (
 
             {/* Admin Dashboard Routes */}
             <Route path="/admin" element={<DashboardLayout isAdmin />}>
-              <Route index element={<ComingSoon title="Admin Dashboard" description="Manage your platform" />} />
-              <Route path="students" element={<ComingSoon title="Student Management" description="View and manage all students" />} />
-              <Route path="courses" element={<ComingSoon title="Course Management" description="Add and edit courses" />} />
-              <Route path="projects" element={<ComingSoon title="Project Management" description="Manage live projects" />} />
-              <Route path="interviews" element={<ComingSoon title="Interview Management" description="Review interview recordings" />} />
-              <Route path="certificates" element={<ComingSoon title="Certificate Management" description="Issue and verify certificates" />} />
-              <Route path="payments" element={<ComingSoon title="Payment Management" description="Track all payments" />} />
-              <Route path="settings" element={<ComingSoon title="Settings" description="Platform settings" />} />
+              <Route index element={<AdminDashboard />} />
+              <Route path="students" element={<AdminStudents />} />
+              <Route path="courses" element={<AdminCourses />} />
+              <Route path="projects" element={<AdminProjects />} />
+              <Route path="interviews" element={<AdminInterviews />} />
+              <Route path="certificates" element={<AdminCertificates />} />
+              <Route path="payments" element={<AdminPayments />} />
+              <Route path="settings" element={<AdminSettings />} />
             </Route>
 
             {/* Catch-all */}
