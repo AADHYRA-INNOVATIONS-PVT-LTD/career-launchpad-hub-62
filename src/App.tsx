@@ -23,6 +23,13 @@ import DashboardCourses from "./pages/dashboard/DashboardCourses";
 import DashboardInterview from "./pages/dashboard/DashboardInterview";
 import DashboardProfile from "./pages/dashboard/DashboardProfile";
 import InterviewRoundPage from "./pages/dashboard/InterviewRoundPage";
+import DashboardPayments from "./pages/dashboard/DashboardPayments";
+import DashboardCertificates from "./pages/dashboard/DashboardCertificates";
+import DashboardInternship from "./pages/dashboard/DashboardInternship";
+import DashboardResume from "./pages/dashboard/DashboardResume";
+import DashboardPortfolio from "./pages/dashboard/DashboardPortfolio";
+import DashboardProjects from "./pages/dashboard/DashboardProjects";
+import DashboardPlacement from "./pages/dashboard/DashboardPlacement";
 import ComingSoon from "./components/dashboard/ComingSoon";
 
 // Admin Pages
@@ -62,12 +69,13 @@ const App = () => (
               <Route path="courses" element={<DashboardCourses />} />
               <Route path="interview" element={<DashboardInterview />} />
               <Route path="interview/:categoryId/:round" element={<InterviewRoundPage />} />
-              <Route path="payments" element={<ComingSoon title="Payments" description="View your payment history and invoices" />} />
-              <Route path="certificates" element={<ComingSoon title="Certificates" description="Download your earned certificates" />} />
-              <Route path="internship" element={<ComingSoon title="Internship" description="Track your internship progress" />} />
-              <Route path="resume" element={<ComingSoon title="Resume Builder" description="Create a professional resume" />} />
-              <Route path="portfolio" element={<ComingSoon title="Portfolio Builder" description="Showcase your work" />} />
-              <Route path="projects" element={<ComingSoon title="Live Projects" description="Access 300+ live projects" />} />
+              <Route path="payments" element={<DashboardPayments />} />
+              <Route path="certificates" element={<DashboardCertificates />} />
+              <Route path="internship" element={<DashboardInternship />} />
+              <Route path="resume" element={<DashboardResume />} />
+              <Route path="portfolio" element={<DashboardPortfolio />} />
+              <Route path="projects" element={<DashboardProjects />} />
+              <Route path="placement" element={<DashboardPlacement />} />
               <Route path="progress" element={<ComingSoon title="Progress Report" description="Track your learning progress" />} />
               <Route path="profile" element={<DashboardProfile />} />
             </Route>

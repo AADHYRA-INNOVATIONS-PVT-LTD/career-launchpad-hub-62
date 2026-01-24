@@ -238,6 +238,66 @@ export type Database = {
           },
         ]
       }
+      employers: {
+        Row: {
+          address: string | null
+          city: string | null
+          company_email: string
+          company_logo: string | null
+          company_name: string
+          company_phone: string | null
+          company_size: string | null
+          company_website: string | null
+          created_at: string
+          description: string | null
+          documents_url: string | null
+          id: string
+          industry: string | null
+          is_verified: boolean | null
+          state: string | null
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          address?: string | null
+          city?: string | null
+          company_email: string
+          company_logo?: string | null
+          company_name: string
+          company_phone?: string | null
+          company_size?: string | null
+          company_website?: string | null
+          created_at?: string
+          description?: string | null
+          documents_url?: string | null
+          id?: string
+          industry?: string | null
+          is_verified?: boolean | null
+          state?: string | null
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          address?: string | null
+          city?: string | null
+          company_email?: string
+          company_logo?: string | null
+          company_name?: string
+          company_phone?: string | null
+          company_size?: string | null
+          company_website?: string | null
+          created_at?: string
+          description?: string | null
+          documents_url?: string | null
+          id?: string
+          industry?: string | null
+          is_verified?: boolean | null
+          state?: string | null
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
       enrollments: {
         Row: {
           completed_at: string | null
@@ -363,6 +423,91 @@ export type Database = {
             columns: ["exam_id"]
             isOneToOne: false
             referencedRelation: "module_exams"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      internship_submissions: {
+        Row: {
+          grade: string | null
+          id: string
+          mentor_feedback: string | null
+          notes: string | null
+          reviewed_at: string | null
+          submission_url: string | null
+          submitted_at: string
+          task_id: string
+          user_id: string
+        }
+        Insert: {
+          grade?: string | null
+          id?: string
+          mentor_feedback?: string | null
+          notes?: string | null
+          reviewed_at?: string | null
+          submission_url?: string | null
+          submitted_at?: string
+          task_id: string
+          user_id: string
+        }
+        Update: {
+          grade?: string | null
+          id?: string
+          mentor_feedback?: string | null
+          notes?: string | null
+          reviewed_at?: string | null
+          submission_url?: string | null
+          submitted_at?: string
+          task_id?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "internship_submissions_task_id_fkey"
+            columns: ["task_id"]
+            isOneToOne: false
+            referencedRelation: "internship_tasks"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      internship_tasks: {
+        Row: {
+          created_at: string
+          description: string | null
+          due_date: string | null
+          id: string
+          internship_id: string
+          status: string | null
+          title: string
+          week_number: number
+        }
+        Insert: {
+          created_at?: string
+          description?: string | null
+          due_date?: string | null
+          id?: string
+          internship_id: string
+          status?: string | null
+          title: string
+          week_number: number
+        }
+        Update: {
+          created_at?: string
+          description?: string | null
+          due_date?: string | null
+          id?: string
+          internship_id?: string
+          status?: string | null
+          title?: string
+          week_number?: number
+        }
+        Relationships: [
+          {
+            foreignKeyName: "internship_tasks_internship_id_fkey"
+            columns: ["internship_id"]
+            isOneToOne: false
+            referencedRelation: "internships"
             referencedColumns: ["id"]
           },
         ]
@@ -616,6 +761,127 @@ export type Database = {
           },
         ]
       }
+      job_applications: {
+        Row: {
+          applied_at: string
+          cover_letter: string | null
+          employer_notes: string | null
+          id: string
+          interview_date: string | null
+          interview_notes: string | null
+          job_id: string
+          resume_url: string | null
+          status: string | null
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          applied_at?: string
+          cover_letter?: string | null
+          employer_notes?: string | null
+          id?: string
+          interview_date?: string | null
+          interview_notes?: string | null
+          job_id: string
+          resume_url?: string | null
+          status?: string | null
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          applied_at?: string
+          cover_letter?: string | null
+          employer_notes?: string | null
+          id?: string
+          interview_date?: string | null
+          interview_notes?: string | null
+          job_id?: string
+          resume_url?: string | null
+          status?: string | null
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "job_applications_job_id_fkey"
+            columns: ["job_id"]
+            isOneToOne: false
+            referencedRelation: "jobs"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      jobs: {
+        Row: {
+          created_at: string
+          description: string | null
+          employer_id: string
+          experience_max: number | null
+          experience_min: number | null
+          expires_at: string | null
+          id: string
+          is_active: boolean | null
+          is_approved: boolean | null
+          job_type: string | null
+          location: string | null
+          posted_at: string
+          requirements: string | null
+          salary_max: number | null
+          salary_min: number | null
+          skills: Json | null
+          title: string
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          description?: string | null
+          employer_id: string
+          experience_max?: number | null
+          experience_min?: number | null
+          expires_at?: string | null
+          id?: string
+          is_active?: boolean | null
+          is_approved?: boolean | null
+          job_type?: string | null
+          location?: string | null
+          posted_at?: string
+          requirements?: string | null
+          salary_max?: number | null
+          salary_min?: number | null
+          skills?: Json | null
+          title: string
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          description?: string | null
+          employer_id?: string
+          experience_max?: number | null
+          experience_min?: number | null
+          expires_at?: string | null
+          id?: string
+          is_active?: boolean | null
+          is_approved?: boolean | null
+          job_type?: string | null
+          location?: string | null
+          posted_at?: string
+          requirements?: string | null
+          salary_max?: number | null
+          salary_min?: number | null
+          skills?: Json | null
+          title?: string
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "jobs_employer_id_fkey"
+            columns: ["employer_id"]
+            isOneToOne: false
+            referencedRelation: "employers"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       live_projects: {
         Row: {
           category_id: string | null
@@ -861,6 +1127,44 @@ export type Database = {
           user_id?: string
         }
         Relationships: []
+      }
+      skill_matches: {
+        Row: {
+          created_at: string
+          id: string
+          is_notified: boolean | null
+          job_id: string
+          match_score: number | null
+          matched_skills: Json | null
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          is_notified?: boolean | null
+          job_id: string
+          match_score?: number | null
+          matched_skills?: Json | null
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          is_notified?: boolean | null
+          job_id?: string
+          match_score?: number | null
+          matched_skills?: Json | null
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "skill_matches_job_id_fkey"
+            columns: ["job_id"]
+            isOneToOne: false
+            referencedRelation: "jobs"
+            referencedColumns: ["id"]
+          },
+        ]
       }
       user_roles: {
         Row: {
