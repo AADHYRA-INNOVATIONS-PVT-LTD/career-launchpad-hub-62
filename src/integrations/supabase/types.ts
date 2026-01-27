@@ -1192,6 +1192,7 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
+      get_employer_id: { Args: never; Returns: string }
       has_role: {
         Args: {
           _role: Database["public"]["Enums"]["app_role"]
@@ -1200,6 +1201,7 @@ export type Database = {
         Returns: boolean
       }
       is_admin: { Args: never; Returns: boolean }
+      is_employer: { Args: never; Returns: boolean }
       is_enrolled_in_course: { Args: { _course_id: string }; Returns: boolean }
     }
     Enums: {
