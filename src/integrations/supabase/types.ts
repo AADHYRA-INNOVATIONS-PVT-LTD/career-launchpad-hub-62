@@ -1203,7 +1203,7 @@ export type Database = {
       is_enrolled_in_course: { Args: { _course_id: string }; Returns: boolean }
     }
     Enums: {
-      app_role: "admin" | "student"
+      app_role: "admin" | "student" | "employer"
     }
     CompositeTypes: {
       [_ in never]: never
@@ -1331,7 +1331,7 @@ export type CompositeTypes<
 export const Constants = {
   public: {
     Enums: {
-      app_role: ["admin", "student"],
+      app_role: ["admin", "student", "employer"],
     },
   },
 } as const
