@@ -42,6 +42,17 @@ import AdminCertificates from "./pages/admin/AdminCertificates";
 import AdminPayments from "./pages/admin/AdminPayments";
 import AdminSettings from "./pages/admin/AdminSettings";
 
+// Employer Pages
+import EmployerLayout from "./layouts/EmployerLayout";
+import EmployerAuth from "./pages/employer/EmployerAuth";
+import EmployerRegister from "./pages/employer/EmployerRegister";
+import EmployerDashboard from "./pages/employer/EmployerDashboard";
+import EmployerJobs from "./pages/employer/EmployerJobs";
+import EmployerCandidates from "./pages/employer/EmployerCandidates";
+import EmployerCompany from "./pages/employer/EmployerCompany";
+import EmployerDocuments from "./pages/employer/EmployerDocuments";
+import EmployerSettings from "./pages/employer/EmployerSettings";
+
 const queryClient = new QueryClient();
 
 const App = () => (
@@ -62,6 +73,20 @@ const App = () => (
             <Route path="/careers" element={<CareersPage />} />
             <Route path="/apply" element={<ApplyPage />} />
             <Route path="/auth" element={<AuthPage />} />
+
+            {/* Employer Auth Routes (outside layout) */}
+            <Route path="/employer/auth" element={<EmployerAuth />} />
+            <Route path="/employer/register" element={<EmployerRegister />} />
+
+            {/* Employer Dashboard Routes */}
+            <Route path="/employer" element={<EmployerLayout />}>
+              <Route index element={<EmployerDashboard />} />
+              <Route path="jobs" element={<EmployerJobs />} />
+              <Route path="candidates" element={<EmployerCandidates />} />
+              <Route path="company" element={<EmployerCompany />} />
+              <Route path="documents" element={<EmployerDocuments />} />
+              <Route path="settings" element={<EmployerSettings />} />
+            </Route>
 
             {/* Student Dashboard Routes */}
             <Route path="/dashboard" element={<DashboardLayout />}>
