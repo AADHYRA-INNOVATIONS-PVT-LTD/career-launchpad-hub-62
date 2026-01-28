@@ -38,6 +38,7 @@ import AdminStudents from "./pages/admin/AdminStudents";
 import AdminCourses from "./pages/admin/AdminCourses";
 import AdminProjects from "./pages/admin/AdminProjects";
 import AdminInterviews from "./pages/admin/AdminInterviews";
+import AdminEmployers from "./pages/admin/AdminEmployers";
 import AdminCertificates from "./pages/admin/AdminCertificates";
 import AdminPayments from "./pages/admin/AdminPayments";
 import AdminSettings from "./pages/admin/AdminSettings";
@@ -112,6 +113,7 @@ const App = () => (
               <Route path="courses" element={<AdminCourses />} />
               <Route path="projects" element={<AdminProjects />} />
               <Route path="interviews" element={<AdminInterviews />} />
+              <Route path="employers" element={<AdminEmployers />} />
               <Route path="certificates" element={<AdminCertificates />} />
               <Route path="payments" element={<AdminPayments />} />
               <Route path="settings" element={<AdminSettings />} />

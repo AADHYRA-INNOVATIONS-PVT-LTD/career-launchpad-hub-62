@@ -41,6 +41,7 @@ const adminMenuItems = [
   { icon: Layers, label: 'Courses', href: '/admin/courses' },
   { icon: Code, label: 'Projects', href: '/admin/projects' },
   { icon: ClipboardCheck, label: 'Interviews', href: '/admin/interviews' },
+  { icon: Briefcase, label: 'Employers', href: '/admin/employers' },
   { icon: Award, label: 'Certificates', href: '/admin/certificates' },
   { icon: CreditCard, label: 'Payments', href: '/admin/payments' },
   { icon: Settings, label: 'Settings', href: '/admin/settings' },
