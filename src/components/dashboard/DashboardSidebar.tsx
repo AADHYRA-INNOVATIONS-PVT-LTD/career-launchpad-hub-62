@@ -18,6 +18,7 @@ import {
   Settings,
   Users,
   Layers,
+  Building2,
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 
@@ -25,6 +26,7 @@ const studentMenuItems = [
   { icon: Home, label: 'Dashboard', href: '/dashboard' },
   { icon: BookOpen, label: 'My Courses', href: '/dashboard/courses' },
   { icon: ClipboardCheck, label: 'Interview / Exam', href: '/dashboard/interview' },
+  { icon: Building2, label: 'Placement Portal', href: '/dashboard/placement' },
   { icon: CreditCard, label: 'Payments', href: '/dashboard/payments' },
   { icon: Award, label: 'Certificates', href: '/dashboard/certificates' },
   { icon: Briefcase, label: 'Internship', href: '/dashboard/internship' },
