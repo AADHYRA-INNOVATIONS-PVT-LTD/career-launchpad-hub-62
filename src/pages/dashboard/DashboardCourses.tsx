@@ -201,10 +201,12 @@ const DashboardCourses = () => {
                               </div>
                               <Progress value={enrollment.progress} />
                             </div>
-                            <Button className="gap-2">
-                              <Play className="h-4 w-4" />
-                              Continue Learning
-                            </Button>
+                            <Link to={`/dashboard/courses/${enrollment.course?.id}/learn`}>
+                              <Button className="gap-2">
+                                <Play className="h-4 w-4" />
+                                Continue Learning
+                              </Button>
+                            </Link>
                           </div>
                         </div>
                       </div>

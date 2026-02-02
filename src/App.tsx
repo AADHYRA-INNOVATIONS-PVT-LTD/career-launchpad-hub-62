@@ -30,6 +30,7 @@ import DashboardResume from "./pages/dashboard/DashboardResume";
 import DashboardPortfolio from "./pages/dashboard/DashboardPortfolio";
 import DashboardProjects from "./pages/dashboard/DashboardProjects";
 import DashboardPlacement from "./pages/dashboard/DashboardPlacement";
+import CourseLearning from "./pages/dashboard/CourseLearning";
 import ComingSoon from "./components/dashboard/ComingSoon";
 
 // Admin Pages
@@ -93,6 +94,7 @@ const App = () => (
             <Route path="/dashboard" element={<DashboardLayout />}>
               <Route index element={<DashboardHome />} />
               <Route path="courses" element={<DashboardCourses />} />
+              <Route path="courses/:courseId/learn" element={<CourseLearning />} />
               <Route path="interview" element={<DashboardInterview />} />
               <Route path="interview/:categoryId/:round" element={<InterviewRoundPage />} />
               <Route path="payments" element={<DashboardPayments />} />
