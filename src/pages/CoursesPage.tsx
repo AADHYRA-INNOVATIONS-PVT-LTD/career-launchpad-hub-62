@@ -1,10 +1,13 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
 import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Clock, Users, Award, CheckCircle2, ArrowRight } from "lucide-react";
+import { Clock, Users, Award, CheckCircle2, ArrowRight, PlayCircle } from "lucide-react";
+import { supabase } from "@/integrations/supabase/client";
+import AICourseAdvisor from "@/components/courses/AICourseAdvisor";
+import { Badge } from "@/components/ui/badge";
 
 const courseCategories = {
   it: {
@@ -70,8 +73,73 @@ const courseCategories = {
   },
 };
 
+interface DBCourse {
+  id: string;
+  title: string;
+  slug: string;
+  description: string | null;
+  duration: string | null;
+  price: number;
+  tools_covered: string[] | null;
+  has_internship: boolean | null;
+  has_placement: boolean | null;
+  course_categories: { name: string; slug: string } | null;
+  modules: { id: string; duration_minutes: number | null }[];
+}
+
 const CoursesPage = () => {
   const [activeTab, setActiveTab] = useState("it");
+  const [dbCourses, setDbCourses] = useState<DBCourse[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchCourses = async () => {
+      const { data, error } = await supabase
+        .from('courses')
+        .select(`
+          id, title, slug, description, duration, price, tools_covered,
+          has_internship, has_placement,
+          course_categories(name, slug),
+          course_modules(id, duration_minutes)
+        `)
+        .eq('is_active', true);
+      
+      if (!error && data) {
+        setDbCourses(data.map(c => ({
+          ...c,
+          course_categories: c.course_categories as unknown as { name: string; slug: string } | null,
+          modules: (c.course_modules || []) as { id: string; duration_minutes: number | null }[]
+        })));
+      }
+      setLoading(false);
+    };
+    fetchCourses();
+  }, []);
+
+  const getTotalDuration = (modules: { duration_minutes: number | null }[]) => {
+    const totalMins = modules.reduce((acc, m) => acc + (m.duration_minutes || 0), 0);
+    const hours = Math.floor(totalMins / 60);
+    const mins = totalMins % 60;
+    if (hours === 0) return `${mins} min`;
+    if (mins === 0) return `${hours}h`;
+    return `${hours}h ${mins}m`;
+  };
+
+  const getCategorySlug = (tabKey: string) => {
+    const map: Record<string, string> = {
+      it: 'it',
+      hr: 'hr',
+      marketing: 'digital-marketing',
+      design: 'graphic-design',
+      nursing: 'nursing'
+    };
+    return map[tabKey] || tabKey;
+  };
+
+  const getFilteredDBCourses = (tabKey: string) => {
+    const slug = getCategorySlug(tabKey);
+    return dbCourses.filter(c => c.course_categories?.slug === slug);
+  };
 
   return (
     <div className="min-h-screen bg-background">
@@ -113,91 +181,190 @@ const CoursesPage = () => {
                 </TabsTrigger>
               </TabsList>
 
-              {Object.entries(courseCategories).map(([key, category]) => (
-                <TabsContent key={key} value={key} className="mt-0">
-                  <div className="mb-8">
-                    <h2 className={`font-heading text-2xl md:text-3xl font-bold text-${category.color} mb-2`}>
-                      {category.title}
-                    </h2>
-                    <p className="text-muted-foreground">{category.description}</p>
-                  </div>
+              {Object.entries(courseCategories).map(([key, category]) => {
+                const filteredDBCourses = getFilteredDBCourses(key);
+                
+                return (
+                  <TabsContent key={key} value={key} className="mt-0">
+                    <div className="mb-8">
+                      <h2 className={`font-heading text-2xl md:text-3xl font-bold text-${category.color} mb-2`}>
+                        {category.title}
+                      </h2>
+                      <p className="text-muted-foreground">{category.description}</p>
+                    </div>
 
-                  <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-                    {category.courses.map((course) => (
-                      <div key={course.title} className="bg-card rounded-xl border shadow-card hover:shadow-card-hover transition-all duration-300 overflow-hidden">
-                        <div className="p-6">
-                          <h3 className="font-heading text-lg font-semibold text-foreground mb-4">
-                            {course.title}
-                          </h3>
-                          
-                          <div className="flex items-center gap-4 text-sm text-muted-foreground mb-4">
-                            <div className="flex items-center gap-1.5">
-                              <Clock className="h-4 w-4" />
-                              <span>{course.duration}</span>
-                            </div>
-                            <div className="flex items-center gap-1.5">
-                              <Users className="h-4 w-4" />
-                              <span>{course.students}</span>
-                            </div>
-                          </div>
+                    {/* Database Courses with Video Duration */}
+                    {filteredDBCourses.length > 0 && (
+                      <div className="mb-12">
+                        <div className="flex items-center gap-2 mb-6">
+                          <PlayCircle className="h-5 w-5 text-primary" />
+                          <h3 className="font-heading text-xl font-semibold text-foreground">Available Now with Video Classes</h3>
+                          <Badge variant="secondary">Live LMS</Badge>
+                        </div>
+                        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                          {filteredDBCourses.map((course) => (
+                            <div key={course.id} className="bg-card rounded-xl border-2 border-primary/20 shadow-card hover:shadow-card-hover transition-all duration-300 overflow-hidden">
+                              <div className="p-6">
+                                <div className="flex items-start justify-between mb-3">
+                                  <h3 className="font-heading text-lg font-semibold text-foreground">
+                                    {course.title}
+                                  </h3>
+                                  <Badge className="bg-primary/10 text-primary text-xs">
+                                    ₹{course.price?.toLocaleString()}
+                                  </Badge>
+                                </div>
+                                
+                                {course.description && (
+                                  <p className="text-sm text-muted-foreground mb-4 line-clamp-2">
+                                    {course.description}
+                                  </p>
+                                )}
+                                
+                                <div className="flex items-center gap-4 text-sm text-muted-foreground mb-4">
+                                  <div className="flex items-center gap-1.5">
+                                    <Clock className="h-4 w-4" />
+                                    <span>{course.duration}</span>
+                                  </div>
+                                  {course.modules.length > 0 && (
+                                    <div className="flex items-center gap-1.5">
+                                      <PlayCircle className="h-4 w-4 text-primary" />
+                                      <span className="text-primary font-medium">
+                                        {course.modules.length} modules • {getTotalDuration(course.modules)}
+                                      </span>
+                                    </div>
+                                  )}
+                                </div>
 
-                          <div className="mb-4">
-                            <div className="text-xs font-medium text-muted-foreground uppercase tracking-wider mb-2">Tools Covered</div>
-                            <div className="flex flex-wrap gap-2">
-                              {course.tools.map((tool) => (
-                                <span key={tool} className={`px-2 py-1 text-xs rounded-md bg-${category.color}/10 text-${category.color}`}>
-                                  {tool}
-                                </span>
+                                {course.tools_covered && course.tools_covered.length > 0 && (
+                                  <div className="mb-4">
+                                    <div className="text-xs font-medium text-muted-foreground uppercase tracking-wider mb-2">Tools Covered</div>
+                                    <div className="flex flex-wrap gap-2">
+                                      {course.tools_covered.slice(0, 4).map((tool) => (
+                                        <span key={tool} className={`px-2 py-1 text-xs rounded-md bg-${category.color}/10 text-${category.color}`}>
+                                          {tool}
+                                        </span>
+                                      ))}
+                                      {course.tools_covered.length > 4 && (
+                                        <span className="px-2 py-1 text-xs rounded-md bg-muted text-muted-foreground">
+                                          +{course.tools_covered.length - 4} more
+                                        </span>
+                                      )}
+                                    </div>
+                                  </div>
+                                )}
+
+                                <div className="space-y-2">
+                                  {course.has_internship && (
+                                    <div className="flex items-center gap-2 text-sm text-foreground">
+                                      <CheckCircle2 className={`h-4 w-4 text-${category.color}`} />
+                                      <span>Internship Included</span>
+                                    </div>
+                                  )}
+                                  {course.has_placement && (
+                                    <div className="flex items-center gap-2 text-sm text-foreground">
+                                      <CheckCircle2 className={`h-4 w-4 text-${category.color}`} />
+                                      <span>Placement Support</span>
+                                    </div>
+                                  )}
+                                </div>
+                              </div>
+
+                              <div className="px-6 py-4 bg-primary/5 border-t border-primary/20 flex items-center justify-between">
+                                <div className="flex items-center gap-1.5 text-sm text-muted-foreground">
+                                  <Award className="h-4 w-4" />
+                                  <span>Certificate</span>
+                                </div>
+                                <Link to="/apply" className="text-sm font-medium text-primary hover:underline flex items-center gap-1">
+                                  Enroll Now <ArrowRight className="h-3 w-3" />
+                                </Link>
+                              </div>
+                            </div>
+                          ))}
+                        </div>
+                      </div>
+                    )}
+
+                    {/* Static Course Cards */}
+                    <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                      {category.courses.map((course) => (
+                        <div key={course.title} className="bg-card rounded-xl border shadow-card hover:shadow-card-hover transition-all duration-300 overflow-hidden">
+                          <div className="p-6">
+                            <h3 className="font-heading text-lg font-semibold text-foreground mb-4">
+                              {course.title}
+                            </h3>
+                            
+                            <div className="flex items-center gap-4 text-sm text-muted-foreground mb-4">
+                              <div className="flex items-center gap-1.5">
+                                <Clock className="h-4 w-4" />
+                                <span>{course.duration}</span>
+                              </div>
+                              <div className="flex items-center gap-1.5">
+                                <Users className="h-4 w-4" />
+                                <span>{course.students}</span>
+                              </div>
+                            </div>
+
+                            <div className="mb-4">
+                              <div className="text-xs font-medium text-muted-foreground uppercase tracking-wider mb-2">Tools Covered</div>
+                              <div className="flex flex-wrap gap-2">
+                                {course.tools.map((tool) => (
+                                  <span key={tool} className={`px-2 py-1 text-xs rounded-md bg-${category.color}/10 text-${category.color}`}>
+                                    {tool}
+                                  </span>
+                                ))}
+                              </div>
+                            </div>
+
+                            <div className="space-y-2">
+                              {course.features.map((feature) => (
+                                <div key={feature} className="flex items-center gap-2 text-sm text-foreground">
+                                  <CheckCircle2 className={`h-4 w-4 text-${category.color}`} />
+                                  <span>{feature}</span>
+                                </div>
                               ))}
                             </div>
                           </div>
 
-                          <div className="space-y-2">
-                            {course.features.map((feature) => (
-                              <div key={feature} className="flex items-center gap-2 text-sm text-foreground">
-                                <CheckCircle2 className={`h-4 w-4 text-${category.color}`} />
-                                <span>{feature}</span>
-                              </div>
-                            ))}
+                          <div className="px-6 py-4 bg-muted/30 border-t flex items-center justify-between">
+                            <div className="flex items-center gap-1.5 text-sm text-muted-foreground">
+                              <Award className="h-4 w-4" />
+                              <span>Certificate</span>
+                            </div>
+                            <Link to="/apply" className="text-sm font-medium text-primary hover:underline flex items-center gap-1">
+                              Enroll Now <ArrowRight className="h-3 w-3" />
+                            </Link>
                           </div>
                         </div>
-
-                        <div className="px-6 py-4 bg-muted/30 border-t flex items-center justify-between">
-                          <div className="flex items-center gap-1.5 text-sm text-muted-foreground">
-                            <Award className="h-4 w-4" />
-                            <span>Certificate</span>
-                          </div>
-                          <Link to="/apply" className="text-sm font-medium text-primary hover:underline flex items-center gap-1">
-                            Enroll Now <ArrowRight className="h-3 w-3" />
-                          </Link>
-                        </div>
-                      </div>
-                    ))}
-                  </div>
-                </TabsContent>
-              ))}
+                      ))}
+                    </div>
+                  </TabsContent>
+                );
+              })}
             </Tabs>
           </div>
         </section>
 
-        {/* CTA */}
+        {/* AI Course Advisor */}
         <section className="py-16 bg-muted/30">
           <div className="container">
-            <div className="bg-card rounded-2xl border shadow-card p-8 lg:p-12 text-center">
-              <h2 className="font-heading text-2xl md:text-3xl font-bold text-foreground mb-4">
-                Not Sure Which Course to Choose?
-              </h2>
-              <p className="text-muted-foreground mb-8 max-w-xl mx-auto">
-                Talk to our career counselor for personalized guidance based on your background and career goals.
-              </p>
-              <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                <Link to="/apply">
-                  <Button variant="hero" size="lg">Apply Now</Button>
-                </Link>
-                <a href="tel:+919876543210">
-                  <Button variant="outline" size="lg">Call Counselor</Button>
-                </a>
+            <div className="grid lg:grid-cols-2 gap-8 items-start">
+              <div>
+                <h2 className="font-heading text-2xl md:text-3xl font-bold text-foreground mb-4">
+                  Not Sure Which Course to Choose?
+                </h2>
+                <p className="text-muted-foreground mb-6">
+                  Let our AI-powered career advisor recommend the perfect courses based on your interests, qualifications, and career goals.
+                </p>
+                <div className="flex flex-col sm:flex-row gap-4">
+                  <Link to="/apply">
+                    <Button variant="hero" size="lg">Apply Now</Button>
+                  </Link>
+                  <a href="tel:+919876543210">
+                    <Button variant="outline" size="lg">Call Counselor</Button>
+                  </a>
+                </div>
               </div>
+              <AICourseAdvisor />
             </div>
           </div>
         </section>
