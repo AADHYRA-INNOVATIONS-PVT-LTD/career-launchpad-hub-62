@@ -21,10 +21,11 @@ const HeroSection = () => {
           
           {/* Headline */}
           <h1 className="font-heading text-4xl md:text-5xl lg:text-6xl font-bold leading-tight mb-6 animate-fade-in-up" style={{ animationDelay: "0.1s" }}>
-            One Platform for{" "}
+            One Unified Platform for{" "}
             <span className="text-tech">IT</span>,{" "}
             <span className="text-hr">HR</span>,{" "}
-            <span className="text-marketing">Digital Marketing</span> &{" "}
+            <span className="text-marketing">Digital Marketing</span>,{" "}
+            <span className="text-design">Graphic Design</span> &{" "}
             <span className="text-healthcare">Nursing</span> Careers
           </h1>
           

@@ -427,6 +427,86 @@ export type Database = {
           },
         ]
       }
+      hr_internship_tasks: {
+        Row: {
+          created_at: string
+          description: string | null
+          duration_days: number | null
+          id: string
+          is_active: boolean | null
+          max_payout: number | null
+          payout_per_unit: number
+          target_count: number
+          task_type: string
+          title: string
+        }
+        Insert: {
+          created_at?: string
+          description?: string | null
+          duration_days?: number | null
+          id?: string
+          is_active?: boolean | null
+          max_payout?: number | null
+          payout_per_unit?: number
+          target_count?: number
+          task_type: string
+          title: string
+        }
+        Update: {
+          created_at?: string
+          description?: string | null
+          duration_days?: number | null
+          id?: string
+          is_active?: boolean | null
+          max_payout?: number | null
+          payout_per_unit?: number
+          target_count?: number
+          task_type?: string
+          title?: string
+        }
+        Relationships: []
+      }
+      hr_task_progress: {
+        Row: {
+          completed_at: string | null
+          completed_count: number
+          earnings: number
+          id: string
+          started_at: string
+          status: string
+          task_id: string
+          user_id: string
+        }
+        Insert: {
+          completed_at?: string | null
+          completed_count?: number
+          earnings?: number
+          id?: string
+          started_at?: string
+          status?: string
+          task_id: string
+          user_id: string
+        }
+        Update: {
+          completed_at?: string | null
+          completed_count?: number
+          earnings?: number
+          id?: string
+          started_at?: string
+          status?: string
+          task_id?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "hr_task_progress_task_id_fkey"
+            columns: ["task_id"]
+            isOneToOne: false
+            referencedRelation: "hr_internship_tasks"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       internship_submissions: {
         Row: {
           grade: string | null
@@ -811,6 +891,69 @@ export type Database = {
           },
         ]
       }
+      job_postings: {
+        Row: {
+          company_name: string | null
+          created_at: string
+          department: string
+          description: string | null
+          experience_max: number | null
+          experience_min: number | null
+          expires_at: string | null
+          id: string
+          is_active: boolean | null
+          job_type: string
+          location: string | null
+          posted_by: string | null
+          requirements: string | null
+          salary_max: number | null
+          salary_min: number | null
+          skills: Json | null
+          title: string
+          updated_at: string
+        }
+        Insert: {
+          company_name?: string | null
+          created_at?: string
+          department: string
+          description?: string | null
+          experience_max?: number | null
+          experience_min?: number | null
+          expires_at?: string | null
+          id?: string
+          is_active?: boolean | null
+          job_type?: string
+          location?: string | null
+          posted_by?: string | null
+          requirements?: string | null
+          salary_max?: number | null
+          salary_min?: number | null
+          skills?: Json | null
+          title: string
+          updated_at?: string
+        }
+        Update: {
+          company_name?: string | null
+          created_at?: string
+          department?: string
+          description?: string | null
+          experience_max?: number | null
+          experience_min?: number | null
+          expires_at?: string | null
+          id?: string
+          is_active?: boolean | null
+          job_type?: string
+          location?: string | null
+          posted_by?: string | null
+          requirements?: string | null
+          salary_max?: number | null
+          salary_min?: number | null
+          skills?: Json | null
+          title?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
       jobs: {
         Row: {
           created_at: string
@@ -1183,6 +1326,83 @@ export type Database = {
           created_at?: string
           id?: string
           role?: Database["public"]["Enums"]["app_role"]
+          user_id?: string
+        }
+        Relationships: []
+      }
+      wallet_transactions: {
+        Row: {
+          amount: number
+          created_at: string
+          description: string | null
+          id: string
+          reference_id: string | null
+          reference_type: string | null
+          status: string
+          type: string
+          user_id: string
+          wallet_id: string
+        }
+        Insert: {
+          amount: number
+          created_at?: string
+          description?: string | null
+          id?: string
+          reference_id?: string | null
+          reference_type?: string | null
+          status?: string
+          type: string
+          user_id: string
+          wallet_id: string
+        }
+        Update: {
+          amount?: number
+          created_at?: string
+          description?: string | null
+          id?: string
+          reference_id?: string | null
+          reference_type?: string | null
+          status?: string
+          type?: string
+          user_id?: string
+          wallet_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "wallet_transactions_wallet_id_fkey"
+            columns: ["wallet_id"]
+            isOneToOne: false
+            referencedRelation: "wallets"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      wallets: {
+        Row: {
+          balance: number
+          created_at: string
+          id: string
+          total_earned: number
+          total_withdrawn: number
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          balance?: number
+          created_at?: string
+          id?: string
+          total_earned?: number
+          total_withdrawn?: number
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          balance?: number
+          created_at?: string
+          id?: string
+          total_earned?: number
+          total_withdrawn?: number
+          updated_at?: string
           user_id?: string
         }
         Relationships: []
