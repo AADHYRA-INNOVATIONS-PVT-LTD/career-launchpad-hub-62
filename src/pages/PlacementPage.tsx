@@ -2,21 +2,23 @@ import { Link } from "react-router-dom";
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
 import { Button } from "@/components/ui/button";
-import { Building2, Stethoscope, Briefcase, Megaphone, PenTool, FileText, Users, Target, CheckCircle2 } from "lucide-react";
+import { Building2, Stethoscope, Briefcase, Megaphone, PenTool, FileText, Users, Target, CheckCircle2, GraduationCap, Award, Handshake, Video, FileCheck } from "lucide-react";
 
 const candidateServices = [
-  { icon: FileText, title: "Resume Building", description: "Professional resume crafted by experts" },
-  { icon: PenTool, title: "Portfolio Support", description: "For designers and marketers" },
-  { icon: Users, title: "Mock Interviews", description: "Practice with industry professionals" },
-  { icon: Target, title: "Job Referrals", description: "Direct referrals to partner companies" },
+  { icon: FileText, title: "Resume Building", description: "AI-powered professional resume crafted by HR experts" },
+  { icon: PenTool, title: "Portfolio Support", description: "For designers & marketers with live project showcase" },
+  { icon: Video, title: "Mock Interviews", description: "AI-based interview practice with instant feedback" },
+  { icon: Target, title: "Job Referrals", description: "Direct referrals to 500+ partner companies" },
+  { icon: GraduationCap, title: "Skill Matching", description: "Auto-match your profile with job requirements" },
+  { icon: Award, title: "Certification", description: "Industry-recognized certificates boost your profile" },
 ];
 
 const companyServices = [
-  { title: "IT Hiring", description: "Developers, Data Scientists, Cloud Engineers", icon: Building2 },
-  { title: "HR Staffing", description: "HR Generalists, Recruiters, Payroll Specialists", icon: Briefcase },
-  { title: "Digital Marketing Resources", description: "SEO Specialists, Social Media Managers", icon: Megaphone },
-  { title: "Graphic Designers", description: "UI/UX Designers, Brand Designers", icon: PenTool },
-  { title: "Healthcare Staff", description: "Nurses, Clinical Staff, Care Specialists", icon: Stethoscope },
+  { title: "IT Hiring", description: "Java, Python, AI/ML, DevOps, Cloud Engineers", icon: Building2, salary: "8-35 LPA" },
+  { title: "HR Staffing", description: "HR Generalists, Recruiters, Payroll Specialists", icon: Briefcase, salary: "4-12 LPA" },
+  { title: "Digital Marketing Resources", description: "SEO, PPC, Social Media, Content Specialists", icon: Megaphone, salary: "4-12 LPA" },
+  { title: "Graphic Designers", description: "UI/UX, Brand Design, Motion Graphics", icon: PenTool, salary: "5-14 LPA" },
+  { title: "Healthcare Staff", description: "ICU, ER, Staff Nurses, Clinical Specialists", icon: Stethoscope, salary: "3.5-8 LPA" },
 ];
 
 const placementAreas = [
@@ -128,15 +130,15 @@ const PlacementPage = () => {
               </div>
               
               <div className="bg-card rounded-2xl border shadow-card p-8">
-                <h3 className="font-heading text-xl font-bold text-foreground mb-6">Our Placement Process</h3>
+                <h3 className="font-heading text-xl font-bold text-foreground mb-6">Apna-Style Hiring Process</h3>
                 <div className="space-y-6">
                   {[
-                    { step: "1", title: "Training Completion", desc: "Complete your chosen training program" },
-                    { step: "2", title: "Resume & Portfolio", desc: "Professional resume and portfolio creation" },
-                    { step: "3", title: "Interview Preparation", desc: "Mock interviews and soft skills training" },
-                    { step: "4", title: "Job Matching", desc: "Match with suitable job opportunities" },
-                    { step: "5", title: "Interview Support", desc: "Guidance throughout interview process" },
-                    { step: "6", title: "Placement", desc: "Land your dream job!" },
+                    { step: "1", title: "Select Department", desc: "Choose IT, HR, Marketing, Design, or Nursing" },
+                    { step: "2", title: "Pay Evaluation Fee (₹499)", desc: "Unlock access to entrance tests" },
+                    { step: "3", title: "MCQ Round", desc: "Domain-specific multiple choice questions" },
+                    { step: "4", title: "Technical Round", desc: "Coding test (IT) or case study (Non-IT)" },
+                    { step: "5", title: "AI-HR Interview", desc: "Video interview evaluated by AI" },
+                    { step: "6", title: "Profile Creation", desc: "Auto-created Apna-style candidate profile" },
                   ].map((item) => (
                     <div key={item.step} className="flex gap-4">
                       <div className="w-8 h-8 rounded-full gradient-primary flex items-center justify-center text-primary-foreground font-bold text-sm flex-shrink-0">
@@ -177,6 +179,7 @@ const PlacementPage = () => {
                     </div>
                     <h3 className="font-heading font-semibold text-foreground mb-2">{service.title}</h3>
                     <p className="text-sm text-muted-foreground">{service.description}</p>
+                    <p className="text-sm font-semibold text-healthcare mt-2">Salary: {service.salary}</p>
                   </div>
                 );
               })}
