@@ -1,10 +1,11 @@
- import { useState, useEffect } from 'react';
- import { useAuth } from '@/contexts/AuthContext';
- import { supabase } from '@/integrations/supabase/client';
- import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
- import { Button } from '@/components/ui/button';
- import { Badge } from '@/components/ui/badge';
- import { Wallet, TrendingUp, ArrowDownToLine, History, Loader2 } from 'lucide-react';
+import { useState, useEffect } from 'react';
+import { useAuth } from '@/contexts/AuthContext';
+import { supabase } from '@/integrations/supabase/client';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Button } from '@/components/ui/button';
+import { Badge } from '@/components/ui/badge';
+import { Wallet, TrendingUp, ArrowDownToLine, History, Loader2, CreditCard } from 'lucide-react';
+import WithdrawalDialog from '@/components/wallet/WithdrawalDialog';
  
  interface WalletData {
    id: string;
@@ -22,11 +23,13 @@
    created_at: string;
  }
  
- const WalletCard = () => {
-   const { user } = useAuth();
-   const [wallet, setWallet] = useState<WalletData | null>(null);
-   const [transactions, setTransactions] = useState<Transaction[]>([]);
-   const [loading, setLoading] = useState(true);
+const WalletCard = () => {
+  const { user } = useAuth();
+  const [wallet, setWallet] = useState<WalletData | null>(null);
+  const [transactions, setTransactions] = useState<Transaction[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [showWithdrawal, setShowWithdrawal] = useState(false);
+  const [bankAccountCount, setBankAccountCount] = useState(0);
  
    useEffect(() => {
      const fetchWallet = async () => {
@@ -61,19 +64,52 @@
              .order('created_at', { ascending: false })
              .limit(5);
  
-           if (txData) {
-             setTransactions(txData);
-           }
-         }
-       } catch (error) {
-         console.error('Error fetching wallet:', error);
-       } finally {
-         setLoading(false);
-       }
-     };
- 
-     fetchWallet();
-   }, [user]);
+          if (txData) {
+              setTransactions(txData);
+            }
+          }
+
+          // Fetch bank accounts count
+          const { count } = await supabase
+            .from('bank_accounts')
+            .select('*', { count: 'exact', head: true })
+            .eq('user_id', user.id);
+          
+          setBankAccountCount(count || 0);
+        } catch (error) {
+          console.error('Error fetching wallet:', error);
+        } finally {
+          setLoading(false);
+        }
+      };
+
+      fetchWallet();
+    }, [user]);
+
+  const refetchWallet = async () => {
+    if (!user || !wallet) return;
+    
+    const { data: walletData } = await supabase
+      .from('wallets')
+      .select('*')
+      .eq('user_id', user.id)
+      .single();
+    
+    if (walletData) {
+      setWallet(walletData);
+    }
+
+    const { data: txData } = await supabase
+      .from('wallet_transactions')
+      .select('*')
+      .eq('wallet_id', wallet.id)
+      .order('created_at', { ascending: false })
+      .limit(5);
+    
+    if (txData) {
+      setTransactions(txData);
+    }
+  };
  
    if (loading) {
      return (
@@ -125,18 +161,25 @@
            </div>
          </div>
  
-         {/* Withdraw Button */}
-         <Button
-           variant="outline"
-           className="w-full"
-           disabled={!canWithdraw}
-         >
-           <ArrowDownToLine className="h-4 w-4 mr-2" />
-           {canWithdraw ? 'Withdraw Funds' : `Min ₹500 required`}
-         </Button>
-         <p className="text-xs text-muted-foreground text-center">
-           Next withdrawal: {nextWithdrawDate.toLocaleDateString('en-IN', { day: 'numeric', month: 'short' })}
-         </p>
+          {/* Withdraw Button */}
+          <Button
+            variant="outline"
+            className="w-full"
+            disabled={!canWithdraw}
+            onClick={() => setShowWithdrawal(true)}
+          >
+            <ArrowDownToLine className="h-4 w-4 mr-2" />
+            {canWithdraw ? 'Withdraw Funds' : `Min ₹500 required`}
+          </Button>
+          <div className="flex items-center justify-between text-xs text-muted-foreground">
+            <span className="flex items-center gap-1">
+              <CreditCard className="h-3 w-3" />
+              {bankAccountCount} linked account{bankAccountCount !== 1 ? 's' : ''}
+            </span>
+            <span>
+              Next: {nextWithdrawDate.toLocaleDateString('en-IN', { day: 'numeric', month: 'short' })}
+            </span>
+          </div>
  
          {/* Recent Transactions */}
          {transactions.length > 0 && (
@@ -159,12 +202,26 @@
                    </Badge>
                  </div>
                ))}
-             </div>
-           </div>
-         )}
-       </CardContent>
-     </Card>
-   );
- };
- 
- export default WalletCard;
+              </div>
+            </div>
+          )}
+
+          {/* Withdrawal Dialog */}
+          {wallet && (
+            <WithdrawalDialog
+              open={showWithdrawal}
+              onOpenChange={setShowWithdrawal}
+              walletId={wallet.id}
+              balance={wallet.balance}
+              onSuccess={() => {
+                setShowWithdrawal(false);
+                refetchWallet();
+              }}
+            />
+          )}
+        </CardContent>
+      </Card>
+    );
+  };
+
+export default WalletCard;
