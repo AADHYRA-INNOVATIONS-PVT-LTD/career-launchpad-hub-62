@@ -14,6 +14,51 @@ export type Database = {
   }
   public: {
     Tables: {
+      bank_accounts: {
+        Row: {
+          account_holder_name: string
+          account_number: string | null
+          account_type: string
+          bank_name: string | null
+          created_at: string
+          id: string
+          ifsc_code: string | null
+          is_primary: boolean | null
+          is_verified: boolean | null
+          updated_at: string
+          upi_id: string | null
+          user_id: string
+        }
+        Insert: {
+          account_holder_name: string
+          account_number?: string | null
+          account_type: string
+          bank_name?: string | null
+          created_at?: string
+          id?: string
+          ifsc_code?: string | null
+          is_primary?: boolean | null
+          is_verified?: boolean | null
+          updated_at?: string
+          upi_id?: string | null
+          user_id: string
+        }
+        Update: {
+          account_holder_name?: string
+          account_number?: string | null
+          account_type?: string
+          bank_name?: string | null
+          created_at?: string
+          id?: string
+          ifsc_code?: string | null
+          is_primary?: boolean | null
+          is_verified?: boolean | null
+          updated_at?: string
+          upi_id?: string | null
+          user_id?: string
+        }
+        Relationships: []
+      }
       certificates: {
         Row: {
           certificate_id: string
@@ -1407,6 +1452,60 @@ export type Database = {
         }
         Relationships: []
       }
+      withdrawal_requests: {
+        Row: {
+          amount: number
+          bank_account_id: string
+          created_at: string
+          id: string
+          processed_at: string | null
+          rejection_reason: string | null
+          status: string
+          transaction_reference: string | null
+          user_id: string
+          wallet_id: string
+        }
+        Insert: {
+          amount: number
+          bank_account_id: string
+          created_at?: string
+          id?: string
+          processed_at?: string | null
+          rejection_reason?: string | null
+          status?: string
+          transaction_reference?: string | null
+          user_id: string
+          wallet_id: string
+        }
+        Update: {
+          amount?: number
+          bank_account_id?: string
+          created_at?: string
+          id?: string
+          processed_at?: string | null
+          rejection_reason?: string | null
+          status?: string
+          transaction_reference?: string | null
+          user_id?: string
+          wallet_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "withdrawal_requests_bank_account_id_fkey"
+            columns: ["bank_account_id"]
+            isOneToOne: false
+            referencedRelation: "bank_accounts"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "withdrawal_requests_wallet_id_fkey"
+            columns: ["wallet_id"]
+            isOneToOne: false
+            referencedRelation: "wallets"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
     }
     Views: {
       [_ in never]: never
@@ -1423,6 +1522,14 @@ export type Database = {
       is_admin: { Args: never; Returns: boolean }
       is_employer: { Args: never; Returns: boolean }
       is_enrolled_in_course: { Args: { _course_id: string }; Returns: boolean }
+      request_withdrawal: {
+        Args: {
+          p_amount: number
+          p_bank_account_id: string
+          p_wallet_id: string
+        }
+        Returns: string
+      }
     }
     Enums: {
       app_role: "admin" | "student" | "employer"
