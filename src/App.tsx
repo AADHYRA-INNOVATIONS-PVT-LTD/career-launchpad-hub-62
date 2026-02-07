@@ -33,6 +33,7 @@ import DashboardProjects from "./pages/dashboard/DashboardProjects";
 import DashboardPlacement from "./pages/dashboard/DashboardPlacement";
 import CourseLearning from "./pages/dashboard/CourseLearning";
 import ComingSoon from "./components/dashboard/ComingSoon";
+import DashboardProgress from "./pages/dashboard/DashboardProgress";
 
 // Admin Pages
 import AdminDashboard from "./pages/admin/AdminDashboard";
@@ -106,7 +107,7 @@ const App = () => (
               <Route path="portfolio" element={<DashboardPortfolio />} />
               <Route path="projects" element={<DashboardProjects />} />
               <Route path="placement" element={<DashboardPlacement />} />
-              <Route path="progress" element={<ComingSoon title="Progress Report" description="Track your learning progress" />} />
+              <Route path="progress" element={<DashboardProgress />} />
               <Route path="profile" element={<DashboardProfile />} />
             </Route>
 
