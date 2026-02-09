@@ -46,16 +46,12 @@ interface Purchase {
   created_at: string;
 }
 
-const projectCategories = [
+const projectTypes = [
   { id: 'all', name: 'All Projects' },
-  { id: 'it', name: 'IT Projects' },
-  { id: 'ai', name: 'AI Projects' },
-  { id: 'web', name: 'Web Applications' },
-  { id: 'mobile', name: 'Mobile Apps' },
-  { id: 'digital-marketing', name: 'Digital Marketing' },
-  { id: 'hr', name: 'HR Automation' },
-  { id: 'hospital', name: 'Hospital Management' },
-  { id: 'erp', name: 'ERP Systems' },
+  { id: 'live', name: 'Live Projects' },
+  { id: 'college', name: 'College Projects' },
+  { id: 'major', name: 'Major Projects' },
+  { id: 'mini', name: 'Mini Projects' },
 ];
 
 const DashboardProjects = () => {
@@ -65,8 +61,10 @@ const DashboardProjects = () => {
   const [purchases, setPurchases] = useState<Purchase[]>([]);
   const [loading, setLoading] = useState(true);
   const [searchQuery, setSearchQuery] = useState('');
-  const [selectedCategory, setSelectedCategory] = useState('all');
+  const [selectedType, setSelectedType] = useState('all');
   const [purchasing, setPurchasing] = useState<string | null>(null);
+  const [categories, setCategories] = useState<{id: string; name: string; slug: string}[]>([]);
+  const [selectedCategoryId, setSelectedCategoryId] = useState<string | null>(null);
 
   useEffect(() => {
     fetchData();
@@ -74,6 +72,14 @@ const DashboardProjects = () => {
 
   const fetchData = async () => {
     try {
+      // Fetch categories
+      const { data: categoriesData } = await supabase
+        .from('course_categories')
+        .select('id, name, slug')
+        .order('name');
+
+      setCategories(categoriesData || []);
+
       // Fetch projects
       const { data: projectsData } = await supabase
         .from('live_projects')
@@ -156,9 +162,11 @@ const DashboardProjects = () => {
 
   const filteredProjects = projects.filter(project => {
     const matchesSearch = project.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      project.description?.toLowerCase().includes(searchQuery.toLowerCase());
-    const matchesCategory = selectedCategory === 'all' || project.project_type === selectedCategory;
-    return matchesSearch && matchesCategory;
+      project.description?.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      project.tech_stack.some(tech => tech.toLowerCase().includes(searchQuery.toLowerCase()));
+    const matchesType = selectedType === 'all' || project.project_type === selectedType;
+    const matchesCategory = !selectedCategoryId || project.category_id === selectedCategoryId;
+    return matchesSearch && matchesType && matchesCategory;
   });
 
   if (loading) {
@@ -178,30 +186,60 @@ const DashboardProjects = () => {
 
       {/* Search and Filter */}
       <Card className="shadow-card">
-        <CardContent className="pt-6">
+        <CardContent className="pt-6 space-y-4">
           <div className="flex flex-col md:flex-row gap-4">
             <div className="relative flex-1">
               <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
               <Input
-                placeholder="Search projects..."
+                placeholder="Search by title, description, or tech stack..."
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
                 className="pl-10"
               />
             </div>
-            <div className="flex gap-2 overflow-x-auto pb-2 md:pb-0">
-              {projectCategories.slice(0, 5).map(cat => (
-                <Button
-                  key={cat.id}
-                  variant={selectedCategory === cat.id ? 'default' : 'outline'}
-                  size="sm"
-                  onClick={() => setSelectedCategory(cat.id)}
-                  className="whitespace-nowrap"
-                >
-                  {cat.name}
-                </Button>
-              ))}
-            </div>
+          </div>
+          
+          {/* Project Type Filter */}
+          <div className="flex flex-wrap gap-2">
+            <span className="text-sm text-muted-foreground flex items-center mr-2">
+              <Filter className="h-4 w-4 mr-1" /> Type:
+            </span>
+            {projectTypes.map(type => (
+              <Button
+                key={type.id}
+                variant={selectedType === type.id ? 'default' : 'outline'}
+                size="sm"
+                onClick={() => setSelectedType(type.id)}
+                className="whitespace-nowrap"
+              >
+                {type.name}
+              </Button>
+            ))}
+          </div>
+
+          {/* Category Filter */}
+          <div className="flex flex-wrap gap-2">
+            <span className="text-sm text-muted-foreground flex items-center mr-2">
+              Category:
+            </span>
+            <Button
+              variant={selectedCategoryId === null ? 'default' : 'outline'}
+              size="sm"
+              onClick={() => setSelectedCategoryId(null)}
+            >
+              All
+            </Button>
+            {categories.map(cat => (
+              <Button
+                key={cat.id}
+                variant={selectedCategoryId === cat.id ? 'default' : 'outline'}
+                size="sm"
+                onClick={() => setSelectedCategoryId(cat.id)}
+                className="whitespace-nowrap"
+              >
+                {cat.name}
+              </Button>
+            ))}
           </div>
         </CardContent>
       </Card>
@@ -338,7 +376,7 @@ const DashboardProjects = () => {
                           </div>
                         </div>
                         <div className="flex items-center gap-2">
-                          <Badge className="bg-green-100 text-green-800">
+                          <Badge className="bg-primary/10 text-primary border-primary/20">
                             <CheckCircle className="h-3 w-3 mr-1" />
                             Purchased
                           </Badge>
