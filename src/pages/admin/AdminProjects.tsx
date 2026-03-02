@@ -1,36 +1,18 @@
 import { useEffect, useState } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
-import { Textarea } from '@/components/ui/textarea';
-import { Label } from '@/components/ui/label';
-import { Switch } from '@/components/ui/switch';
 import {
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
+  Table, TableBody, TableCell, TableHead, TableHeader, TableRow,
 } from '@/components/ui/table';
-import {
-  Dialog,
-  DialogContent,
-  DialogHeader,
-  DialogTitle,
-  DialogFooter,
-} from '@/components/ui/dialog';
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from '@/components/ui/select';
 import { supabase } from '@/integrations/supabase/client';
-import { Plus, Edit, Loader2, Code } from 'lucide-react';
+import { Plus, Edit, Loader2, Code, Trash2 } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
+import ProjectFormDialog, { type ProjectFormData } from '@/components/admin/ProjectFormDialog';
+import {
+  AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent,
+  AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle,
+} from '@/components/ui/alert-dialog';
 
 interface Project {
   id: string;
@@ -42,15 +24,20 @@ interface Project {
   tech_stack: string[] | null;
   preview_url: string | null;
   category_id: string | null;
-  category?: {
-    name: string;
-  };
+  thumbnail_url: string | null;
+  source_code_url: string | null;
+  documentation_url: string | null;
+  demo_video_url: string | null;
+  category?: { name: string };
 }
 
-interface Category {
-  id: string;
-  name: string;
-}
+interface Category { id: string; name: string; }
+
+const emptyForm: ProjectFormData = {
+  title: '', description: '', project_type: '', price: 5000,
+  is_active: true, tech_stack: '', preview_url: '', category_id: '',
+  thumbnail_url: '', source_code_url: '', documentation_url: '', demo_video_url: '',
+};
 
 const AdminProjects = () => {
   const [projects, setProjects] = useState<Project[]>([]);
@@ -59,37 +46,23 @@ const AdminProjects = () => {
   const [saving, setSaving] = useState(false);
   const [dialogOpen, setDialogOpen] = useState(false);
   const [editingProject, setEditingProject] = useState<Project | null>(null);
+  const [deleteTarget, setDeleteTarget] = useState<Project | null>(null);
+  const [formData, setFormData] = useState<ProjectFormData>(emptyForm);
   const { toast } = useToast();
 
-  const [formData, setFormData] = useState({
-    title: '',
-    description: '',
-    project_type: '',
-    price: 5000,
-    is_active: true,
-    tech_stack: '',
-    preview_url: '',
-    category_id: '',
-  });
-
-  useEffect(() => {
-    fetchData();
-  }, []);
+  useEffect(() => { fetchData(); }, []);
 
   const fetchData = async () => {
     try {
       const [projectsRes, categoriesRes] = await Promise.all([
-        supabase
-          .from('live_projects')
+        supabase.from('live_projects')
           .select('*, category:course_categories(name)')
           .order('created_at', { ascending: false }),
         supabase.from('course_categories').select('id, name').order('name'),
       ]);
-
       if (projectsRes.error) throw projectsRes.error;
       if (categoriesRes.error) throw categoriesRes.error;
-
-      setProjects(projectsRes.data || []);
+      setProjects((projectsRes.data as any) || []);
       setCategories(categoriesRes.data || []);
     } catch (error) {
       console.error('Error fetching data:', error);
@@ -100,131 +73,102 @@ const AdminProjects = () => {
 
   const openCreateDialog = () => {
     setEditingProject(null);
-    setFormData({
-      title: '',
-      description: '',
-      project_type: '',
-      price: 5000,
-      is_active: true,
-      tech_stack: '',
-      preview_url: '',
-      category_id: '',
-    });
+    setFormData(emptyForm);
     setDialogOpen(true);
   };
 
-  const openEditDialog = (project: Project) => {
-    setEditingProject(project);
+  const openEditDialog = (p: Project) => {
+    setEditingProject(p);
     setFormData({
-      title: project.title,
-      description: project.description || '',
-      project_type: project.project_type || '',
-      price: project.price,
-      is_active: project.is_active,
-      tech_stack: project.tech_stack?.join(', ') || '',
-      preview_url: project.preview_url || '',
-      category_id: project.category_id || '',
+      title: p.title,
+      description: p.description || '',
+      project_type: p.project_type || '',
+      price: p.price,
+      is_active: p.is_active,
+      tech_stack: p.tech_stack?.join(', ') || '',
+      preview_url: p.preview_url || '',
+      category_id: p.category_id || '',
+      thumbnail_url: p.thumbnail_url || '',
+      source_code_url: p.source_code_url || '',
+      documentation_url: p.documentation_url || '',
+      demo_video_url: p.demo_video_url || '',
     });
     setDialogOpen(true);
   };
 
   const handleSubmit = async () => {
-    if (!formData.title) {
-      toast({
-        title: 'Validation Error',
-        description: 'Please enter a project title',
-        variant: 'destructive',
-      });
+    if (!formData.title.trim()) {
+      toast({ title: 'Validation Error', description: 'Please enter a project title', variant: 'destructive' });
       return;
     }
-
     setSaving(true);
     try {
-      const projectData = {
-        title: formData.title,
+      const data = {
+        title: formData.title.trim(),
         description: formData.description || null,
         project_type: formData.project_type || null,
         price: formData.price,
         is_active: formData.is_active,
-        tech_stack: formData.tech_stack
-          ? formData.tech_stack.split(',').map((t) => t.trim())
-          : null,
+        tech_stack: formData.tech_stack ? formData.tech_stack.split(',').map(t => t.trim()).filter(Boolean) : null,
         preview_url: formData.preview_url || null,
         category_id: formData.category_id || null,
+        thumbnail_url: formData.thumbnail_url || null,
+        source_code_url: formData.source_code_url || null,
+        documentation_url: formData.documentation_url || null,
+        demo_video_url: formData.demo_video_url || null,
       };
 
       if (editingProject) {
-        const { error } = await supabase
-          .from('live_projects')
-          .update(projectData)
-          .eq('id', editingProject.id);
+        const { error } = await supabase.from('live_projects').update(data).eq('id', editingProject.id);
         if (error) throw error;
         toast({ title: 'Project updated successfully' });
       } else {
-        const { error } = await supabase.from('live_projects').insert(projectData);
+        const { error } = await supabase.from('live_projects').insert(data);
         if (error) throw error;
         toast({ title: 'Project created successfully' });
       }
-
       setDialogOpen(false);
       fetchData();
     } catch (error: any) {
-      toast({
-        title: 'Error',
-        description: error.message,
-        variant: 'destructive',
-      });
+      toast({ title: 'Error', description: error.message, variant: 'destructive' });
     } finally {
       setSaving(false);
     }
   };
 
-  const toggleProjectStatus = async (project: Project) => {
+  const handleDelete = async () => {
+    if (!deleteTarget) return;
     try {
-      const { error } = await supabase
-        .from('live_projects')
-        .update({ is_active: !project.is_active })
-        .eq('id', project.id);
-
+      const { error } = await supabase.from('live_projects').delete().eq('id', deleteTarget.id);
       if (error) throw error;
-
-      setProjects(
-        projects.map((p) =>
-          p.id === project.id ? { ...p, is_active: !p.is_active } : p
-        )
-      );
-      toast({
-        title: project.is_active ? 'Project deactivated' : 'Project activated',
-      });
+      toast({ title: 'Project deleted' });
+      setDeleteTarget(null);
+      fetchData();
     } catch (error: any) {
-      toast({
-        title: 'Error',
-        description: error.message,
-        variant: 'destructive',
-      });
+      toast({ title: 'Error', description: error.message, variant: 'destructive' });
     }
   };
 
-  const projectTypes = [
-    'IT Projects',
-    'AI Projects',
-    'Web Applications',
-    'Mobile Apps',
-    'Digital Marketing',
-    'HR Automation',
-    'Hospital Management',
-    'ERP Systems',
-    'Final Year Project',
-    'Mini Project',
-    'Major Project',
-  ];
+  const toggleStatus = async (p: Project) => {
+    try {
+      const { error } = await supabase.from('live_projects').update({ is_active: !p.is_active }).eq('id', p.id);
+      if (error) throw error;
+      setProjects(projects.map(x => x.id === p.id ? { ...x, is_active: !x.is_active } : x));
+      toast({ title: p.is_active ? 'Project deactivated' : 'Project activated' });
+    } catch (error: any) {
+      toast({ title: 'Error', description: error.message, variant: 'destructive' });
+    }
+  };
+
+  const fileCount = (p: Project) =>
+    [p.thumbnail_url, p.source_code_url, p.documentation_url, p.demo_video_url].filter(Boolean).length;
 
   return (
     <div className="space-y-6">
       <div className="flex items-center justify-between">
         <div>
           <h2 className="text-2xl font-heading font-bold">Project Management</h2>
-          <p className="text-muted-foreground">Manage live projects and college projects</p>
+          <p className="text-muted-foreground">Manage live projects, files, and college projects</p>
         </div>
         <Button onClick={openCreateDialog}>
           <Plus className="h-4 w-4 mr-2" />
@@ -249,11 +193,11 @@ const AdminProjects = () => {
               <Table>
                 <TableHeader>
                   <TableRow>
-                    <TableHead>Title</TableHead>
+                    <TableHead>Project</TableHead>
                     <TableHead>Type</TableHead>
                     <TableHead>Category</TableHead>
                     <TableHead>Price</TableHead>
-                    <TableHead>Tech Stack</TableHead>
+                    <TableHead>Files</TableHead>
                     <TableHead>Status</TableHead>
                     <TableHead className="text-right">Actions</TableHead>
                   </TableRow>
@@ -266,51 +210,56 @@ const AdminProjects = () => {
                       </TableCell>
                     </TableRow>
                   ) : (
-                    projects.map((project) => (
-                      <TableRow key={project.id}>
-                        <TableCell className="font-medium max-w-[200px] truncate">
-                          {project.title}
-                        </TableCell>
-                        <TableCell>{project.project_type || '-'}</TableCell>
-                        <TableCell>{project.category?.name || '-'}</TableCell>
-                        <TableCell>₹{project.price.toLocaleString()}</TableCell>
-                        <TableCell className="max-w-[150px]">
-                          <div className="flex flex-wrap gap-1">
-                            {project.tech_stack?.slice(0, 2).map((tech) => (
-                              <Badge key={tech} variant="outline" className="text-xs">
-                                {tech}
-                              </Badge>
-                            ))}
-                            {(project.tech_stack?.length || 0) > 2 && (
-                              <Badge variant="outline" className="text-xs">
-                                +{project.tech_stack!.length - 2}
-                              </Badge>
+                    projects.map((p) => (
+                      <TableRow key={p.id}>
+                        <TableCell>
+                          <div className="flex items-center gap-3">
+                            {p.thumbnail_url ? (
+                              <img src={p.thumbnail_url} alt="" className="h-10 w-10 rounded object-cover" />
+                            ) : (
+                              <div className="h-10 w-10 rounded bg-muted flex items-center justify-center">
+                                <Code className="h-5 w-5 text-muted-foreground" />
+                              </div>
                             )}
+                            <div className="max-w-[180px]">
+                              <p className="font-medium truncate">{p.title}</p>
+                              <div className="flex flex-wrap gap-1 mt-0.5">
+                                {p.tech_stack?.slice(0, 2).map(t => (
+                                  <Badge key={t} variant="outline" className="text-[10px] px-1 py-0">{t}</Badge>
+                                ))}
+                                {(p.tech_stack?.length || 0) > 2 && (
+                                  <Badge variant="outline" className="text-[10px] px-1 py-0">+{p.tech_stack!.length - 2}</Badge>
+                                )}
+                              </div>
+                            </div>
                           </div>
+                        </TableCell>
+                        <TableCell className="capitalize">{p.project_type || '-'}</TableCell>
+                        <TableCell>{p.category?.name || '-'}</TableCell>
+                        <TableCell>₹{p.price.toLocaleString()}</TableCell>
+                        <TableCell>
+                          <Badge variant="secondary">{fileCount(p)}/4</Badge>
                         </TableCell>
                         <TableCell>
                           <Badge
-                            variant={project.is_active ? 'default' : 'secondary'}
-                            className={project.is_active ? 'bg-green-500' : ''}
+                            variant={p.is_active ? 'default' : 'secondary'}
+                            className={p.is_active ? 'bg-green-600 hover:bg-green-700' : ''}
                           >
-                            {project.is_active ? 'Active' : 'Inactive'}
+                            {p.is_active ? 'Active' : 'Inactive'}
                           </Badge>
                         </TableCell>
-                        <TableCell className="text-right space-x-2">
-                          <Button
-                            variant="ghost"
-                            size="sm"
-                            onClick={() => openEditDialog(project)}
-                          >
-                            <Edit className="h-4 w-4" />
-                          </Button>
-                          <Button
-                            variant="ghost"
-                            size="sm"
-                            onClick={() => toggleProjectStatus(project)}
-                          >
-                            {project.is_active ? 'Deactivate' : 'Activate'}
-                          </Button>
+                        <TableCell className="text-right">
+                          <div className="flex items-center justify-end gap-1">
+                            <Button variant="ghost" size="sm" onClick={() => openEditDialog(p)}>
+                              <Edit className="h-4 w-4" />
+                            </Button>
+                            <Button variant="ghost" size="sm" onClick={() => toggleStatus(p)}>
+                              {p.is_active ? 'Off' : 'On'}
+                            </Button>
+                            <Button variant="ghost" size="sm" onClick={() => setDeleteTarget(p)} className="text-destructive hover:text-destructive">
+                              <Trash2 className="h-4 w-4" />
+                            </Button>
+                          </div>
                         </TableCell>
                       </TableRow>
                     ))
@@ -322,141 +271,33 @@ const AdminProjects = () => {
         </CardContent>
       </Card>
 
-      {/* Project Form Dialog */}
-      <Dialog open={dialogOpen} onOpenChange={setDialogOpen}>
-        <DialogContent className="max-w-lg">
-          <DialogHeader>
-            <DialogTitle>
-              {editingProject ? 'Edit Project' : 'Create New Project'}
-            </DialogTitle>
-          </DialogHeader>
-          <div className="space-y-4 max-h-[60vh] overflow-y-auto pr-2">
-            <div className="space-y-2">
-              <Label htmlFor="title">Project Title *</Label>
-              <Input
-                id="title"
-                value={formData.title}
-                onChange={(e) =>
-                  setFormData({ ...formData, title: e.target.value })
-                }
-                placeholder="e.g., E-commerce Website with Admin Panel"
-              />
-            </div>
+      <ProjectFormDialog
+        open={dialogOpen}
+        onOpenChange={setDialogOpen}
+        formData={formData}
+        setFormData={setFormData}
+        onSubmit={handleSubmit}
+        saving={saving}
+        isEditing={!!editingProject}
+        categories={categories}
+      />
 
-            <div className="grid grid-cols-2 gap-4">
-              <div className="space-y-2">
-                <Label htmlFor="project_type">Project Type</Label>
-                <Select
-                  value={formData.project_type}
-                  onValueChange={(value) =>
-                    setFormData({ ...formData, project_type: value })
-                  }
-                >
-                  <SelectTrigger>
-                    <SelectValue placeholder="Select type" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    {projectTypes.map((type) => (
-                      <SelectItem key={type} value={type}>
-                        {type}
-                      </SelectItem>
-                    ))}
-                  </SelectContent>
-                </Select>
-              </div>
-              <div className="space-y-2">
-                <Label htmlFor="category">Category</Label>
-                <Select
-                  value={formData.category_id}
-                  onValueChange={(value) =>
-                    setFormData({ ...formData, category_id: value })
-                  }
-                >
-                  <SelectTrigger>
-                    <SelectValue placeholder="Select category" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    {categories.map((cat) => (
-                      <SelectItem key={cat.id} value={cat.id}>
-                        {cat.name}
-                      </SelectItem>
-                    ))}
-                  </SelectContent>
-                </Select>
-              </div>
-            </div>
-
-            <div className="space-y-2">
-              <Label htmlFor="price">Price (₹)</Label>
-              <Input
-                id="price"
-                type="number"
-                value={formData.price}
-                onChange={(e) =>
-                  setFormData({ ...formData, price: parseInt(e.target.value) || 0 })
-                }
-              />
-            </div>
-
-            <div className="space-y-2">
-              <Label htmlFor="description">Description</Label>
-              <Textarea
-                id="description"
-                value={formData.description}
-                onChange={(e) =>
-                  setFormData({ ...formData, description: e.target.value })
-                }
-                placeholder="Project description..."
-                rows={3}
-              />
-            </div>
-
-            <div className="space-y-2">
-              <Label htmlFor="tech_stack">Tech Stack (comma-separated)</Label>
-              <Input
-                id="tech_stack"
-                value={formData.tech_stack}
-                onChange={(e) =>
-                  setFormData({ ...formData, tech_stack: e.target.value })
-                }
-                placeholder="e.g., React, Node.js, MongoDB, Express"
-              />
-            </div>
-
-            <div className="space-y-2">
-              <Label htmlFor="preview_url">Preview URL</Label>
-              <Input
-                id="preview_url"
-                value={formData.preview_url}
-                onChange={(e) =>
-                  setFormData({ ...formData, preview_url: e.target.value })
-                }
-                placeholder="https://demo.example.com"
-              />
-            </div>
-
-            <div className="flex items-center gap-2">
-              <Switch
-                id="active"
-                checked={formData.is_active}
-                onCheckedChange={(checked) =>
-                  setFormData({ ...formData, is_active: checked })
-                }
-              />
-              <Label htmlFor="active">Project is active</Label>
-            </div>
-          </div>
-          <DialogFooter>
-            <Button variant="outline" onClick={() => setDialogOpen(false)}>
-              Cancel
-            </Button>
-            <Button onClick={handleSubmit} disabled={saving}>
-              {saving && <Loader2 className="h-4 w-4 mr-2 animate-spin" />}
-              {editingProject ? 'Update Project' : 'Create Project'}
-            </Button>
-          </DialogFooter>
-        </DialogContent>
-      </Dialog>
+      <AlertDialog open={!!deleteTarget} onOpenChange={(o) => !o && setDeleteTarget(null)}>
+        <AlertDialogContent>
+          <AlertDialogHeader>
+            <AlertDialogTitle>Delete Project</AlertDialogTitle>
+            <AlertDialogDescription>
+              Are you sure you want to delete "{deleteTarget?.title}"? This action cannot be undone.
+            </AlertDialogDescription>
+          </AlertDialogHeader>
+          <AlertDialogFooter>
+            <AlertDialogCancel>Cancel</AlertDialogCancel>
+            <AlertDialogAction onClick={handleDelete} className="bg-destructive text-destructive-foreground hover:bg-destructive/90">
+              Delete
+            </AlertDialogAction>
+          </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialog>
     </div>
   );
 };
