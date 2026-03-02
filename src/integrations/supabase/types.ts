@@ -1074,40 +1074,52 @@ export type Database = {
         Row: {
           category_id: string | null
           created_at: string
+          demo_video_url: string | null
           description: string | null
+          documentation_url: string | null
           id: string
           includes: Json | null
           is_active: boolean | null
           preview_url: string | null
           price: number
           project_type: string | null
+          source_code_url: string | null
           tech_stack: string[] | null
+          thumbnail_url: string | null
           title: string
         }
         Insert: {
           category_id?: string | null
           created_at?: string
+          demo_video_url?: string | null
           description?: string | null
+          documentation_url?: string | null
           id?: string
           includes?: Json | null
           is_active?: boolean | null
           preview_url?: string | null
           price?: number
           project_type?: string | null
+          source_code_url?: string | null
           tech_stack?: string[] | null
+          thumbnail_url?: string | null
           title: string
         }
         Update: {
           category_id?: string | null
           created_at?: string
+          demo_video_url?: string | null
           description?: string | null
+          documentation_url?: string | null
           id?: string
           includes?: Json | null
           is_active?: boolean | null
           preview_url?: string | null
           price?: number
           project_type?: string | null
+          source_code_url?: string | null
           tech_stack?: string[] | null
+          thumbnail_url?: string | null
           title?: string
         }
         Relationships: [
