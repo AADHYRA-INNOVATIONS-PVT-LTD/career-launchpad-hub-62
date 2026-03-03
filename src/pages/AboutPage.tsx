@@ -43,7 +43,7 @@ const AboutPage = () => {
               <h1 className="font-heading text-3xl md:text-4xl lg:text-5xl font-bold mb-6">
                 About Shiksha Nex Technologies
               </h1>
-              <p className="text-lg text-white/80">
+              <p className="text-lg text-primary-foreground/80">
                 Empowering careers through industry-oriented training in IT, HR, Digital Marketing, Graphic Design & Nursing.
               </p>
             </div>
@@ -72,12 +72,12 @@ const AboutPage = () => {
           </div>
         </section>
 
-        {/* Founder's Message */}
+        {/* Company Message (No personal names) */}
         <section className="py-16 lg:py-20 bg-gradient-to-b from-primary/5 to-transparent">
           <div className="container">
             <div className="max-w-4xl mx-auto">
               <div className="text-center mb-12">
-                <span className="text-primary font-semibold text-sm uppercase tracking-wider">Founder's Message</span>
+                <span className="text-primary font-semibold text-sm uppercase tracking-wider">Our Purpose</span>
                 <h2 className="font-heading text-3xl md:text-4xl font-bold text-foreground mt-3">
                   SHIKSHA NEX TECHNOLOGIES OPC PVT LTD
                 </h2>
@@ -88,19 +88,15 @@ const AboutPage = () => {
                 
                 <div className="space-y-6 text-muted-foreground leading-relaxed relative z-10">
                   <p className="text-lg font-medium text-foreground">
-                    I founded Shiksha Nex Technologies OPC Pvt Ltd with one clear purpose — to transform education into real employment and dignity into every individual's life.
+                    Shiksha Nex Technologies was founded with one clear purpose — to transform education into real employment and dignity into every individual's life.
                   </p>
                   
                   <p>
-                    Across our country, especially in rural and middle-class families, I have seen the same struggle repeated again and again: talented students with big dreams but no proper guidance, no industry exposure, and no clear path to a stable career.
-                  </p>
-                  
-                  <p>
-                    Parents dream that their children become Engineers, Doctors, Nurses, or skilled professionals — not just for status, but for security, respect, and a better future. Sadly, many of these dreams remain unfulfilled due to the gap between education and employability.
+                    Across our country, especially in rural and middle-class families, talented students with big dreams often lack proper guidance, industry exposure, and a clear path to a stable career. We exist to change that.
                   </p>
                   
                   <p className="font-semibold text-foreground text-lg">
-                    Shiksha Nex was created to bridge this gap.
+                    Shiksha Nex was created to bridge the gap between education and employability.
                   </p>
                   
                   <p>
@@ -126,17 +122,9 @@ const AboutPage = () => {
                   </div>
                   
                   <p>
-                    We also understand the challenges faced by companies in hiring the right talent. Through AI-driven HR solutions and skill-based training models, we aim to connect the right people to the right opportunities — ethically, efficiently, and transparently.
+                    We also understand the challenges faced by companies in hiring the right talent. Through AI-driven HR solutions and skill-based training models, we connect the right people to the right opportunities — ethically, efficiently, and transparently.
                   </p>
-                  
-                  <p>
-                    My dream is not limited to building a successful company. My dream is to help millions of people find direction, confidence, and sustainable careers, so that education truly becomes the foundation of a settled life.
-                  </p>
-                  
-                  <p className="font-semibold text-foreground">
-                    Shiksha Nex is not just an organization — it carries the dreams of parents, the ambitions of students, and the responsibility of shaping futures.
-                  </p>
-                  
+
                   <div className="bg-accent/10 rounded-xl p-6 border border-accent/20 text-center">
                     <p className="text-lg font-semibold text-accent">
                       To every learner who walks with us — If you are committed to learning, we are committed to your success.
@@ -146,13 +134,6 @@ const AboutPage = () => {
                   <p className="text-lg font-semibold text-primary text-center">
                     Together, we don't just create jobs — we create lives with purpose.
                   </p>
-                </div>
-                
-                <div className="mt-8 pt-6 border-t text-center">
-                  <p className="text-muted-foreground">Warm regards,</p>
-                  <p className="font-heading text-xl font-bold text-foreground mt-2">Prasanth</p>
-                  <p className="text-primary font-medium">Founder & Director</p>
-                  <p className="text-sm text-muted-foreground">Shiksha Nex Technologies OPC Pvt Ltd</p>
                 </div>
               </div>
             </div>
