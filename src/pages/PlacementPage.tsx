@@ -2,23 +2,54 @@ import { Link } from "react-router-dom";
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
 import { Button } from "@/components/ui/button";
-import { Building2, Stethoscope, Briefcase, Megaphone, PenTool, FileText, Users, Target, CheckCircle2, GraduationCap, Award, Handshake, Video, FileCheck } from "lucide-react";
+import { Building2, Stethoscope, Briefcase, Megaphone, PenTool, FileText, Users, Target, CheckCircle2, GraduationCap, Award, Video, Brain, Globe, Cpu, Heart, Code, Palette, Search } from "lucide-react";
+
+const shikshaProducts = [
+  {
+    title: "Shiksha Talent Connect",
+    emoji: "🔹",
+    tagline: "AI-Powered Recruitment Platform",
+    description: "Connecting trained professionals with top companies through AI-driven skill matching, smart job recommendations, and verified candidate profiles.",
+    features: ["AI Skill Matching", "Smart Job Alerts", "Verified Profiles", "Interview Scheduling"],
+    color: "tech",
+    icon: Search,
+  },
+  {
+    title: "Shiksha Tech Partner",
+    emoji: "🔹",
+    tagline: "Freelancing Marketplace",
+    description: "A dedicated marketplace for IT professionals, designers, and marketers to find freelance projects, build portfolios, and earn while learning.",
+    features: ["Project Bidding", "Secure Payments", "Portfolio Showcase", "Client Reviews"],
+    color: "marketing",
+    icon: Code,
+  },
+  {
+    title: "Shiksha Health Connect",
+    emoji: "🔹",
+    tagline: "Doctor & Nurse Consultation",
+    description: "Connecting healthcare professionals with hospitals, clinics, and home care services. Enabling telemedicine and on-site consultation opportunities.",
+    features: ["Teleconsultation", "Hospital Placements", "Home Care Jobs", "Nurse Staffing"],
+    color: "healthcare",
+    icon: Heart,
+  },
+  {
+    title: "Shiksha AI Lab",
+    emoji: "🔹",
+    tagline: "AI Tools / Builder Platform",
+    description: "An innovation hub providing AI-powered tools for resume building, interview preparation, code generation, and career planning — all in one place.",
+    features: ["AI Resume Builder", "Mock Interview AI", "Code Playground", "Career Path AI"],
+    color: "design",
+    icon: Brain,
+  },
+];
 
 const candidateServices = [
   { icon: FileText, title: "Resume Building", description: "AI-powered professional resume crafted by HR experts" },
-  { icon: PenTool, title: "Portfolio Support", description: "For designers & marketers with live project showcase" },
+  { icon: Palette, title: "Portfolio Support", description: "For designers & marketers with live project showcase" },
   { icon: Video, title: "Mock Interviews", description: "AI-based interview practice with instant feedback" },
   { icon: Target, title: "Job Referrals", description: "Direct referrals to 500+ partner companies" },
   { icon: GraduationCap, title: "Skill Matching", description: "Auto-match your profile with job requirements" },
   { icon: Award, title: "Certification", description: "Industry-recognized certificates boost your profile" },
-];
-
-const companyServices = [
-  { title: "IT Hiring", description: "Java, Python, AI/ML, DevOps, Cloud Engineers", icon: Building2, salary: "8-35 LPA" },
-  { title: "HR Staffing", description: "HR Generalists, Recruiters, Payroll Specialists", icon: Briefcase, salary: "4-12 LPA" },
-  { title: "Digital Marketing Resources", description: "SEO, PPC, Social Media, Content Specialists", icon: Megaphone, salary: "4-12 LPA" },
-  { title: "Graphic Designers", description: "UI/UX, Brand Design, Motion Graphics", icon: PenTool, salary: "5-14 LPA" },
-  { title: "Healthcare Staff", description: "ICU, ER, Staff Nurses, Clinical Specialists", icon: Stethoscope, salary: "3.5-8 LPA" },
 ];
 
 const placementAreas = [
@@ -39,33 +70,85 @@ const PlacementPage = () => {
           <div className="container">
             <div className="max-w-3xl mx-auto text-center">
               <h1 className="font-heading text-3xl md:text-4xl lg:text-5xl font-bold mb-6">
-                Placement Services
+                Placement Services & Shiksha Ecosystem
               </h1>
-              <p className="text-lg text-white/80 mb-8">
-                We provide comprehensive placement support across IT companies, hospitals, clinics, home care centers, and corporate offices. Our dedicated team ensures you land your dream job.
+              <p className="text-lg text-primary-foreground/80 mb-8">
+                More than placements — a complete career ecosystem. From AI-powered recruitment to freelancing marketplace and healthcare connect.
               </p>
               <div className="flex flex-wrap justify-center gap-6">
                 <div className="text-center">
                   <div className="text-4xl font-heading font-bold">95%</div>
-                  <div className="text-sm text-white/70">Placement Rate</div>
+                  <div className="text-sm text-primary-foreground/70">Placement Rate</div>
                 </div>
-                <div className="w-px bg-white/20" />
+                <div className="w-px bg-primary-foreground/20" />
                 <div className="text-center">
                   <div className="text-4xl font-heading font-bold">500+</div>
-                  <div className="text-sm text-white/70">Partner Companies</div>
+                  <div className="text-sm text-primary-foreground/70">Partner Companies</div>
                 </div>
-                <div className="w-px bg-white/20" />
+                <div className="w-px bg-primary-foreground/20" />
                 <div className="text-center">
                   <div className="text-4xl font-heading font-bold">5000+</div>
-                  <div className="text-sm text-white/70">Successful Placements</div>
+                  <div className="text-sm text-primary-foreground/70">Successful Placements</div>
                 </div>
               </div>
             </div>
           </div>
         </section>
 
+        {/* Shiksha Products Ecosystem */}
+        <section className="py-16 lg:py-24">
+          <div className="container">
+            <div className="text-center max-w-2xl mx-auto mb-16">
+              <span className="text-primary font-semibold text-sm uppercase tracking-wider">Our Ecosystem</span>
+              <h2 className="font-heading text-3xl md:text-4xl font-bold text-foreground mt-3 mb-4">
+                Shiksha Products & Platforms
+              </h2>
+              <p className="text-muted-foreground">
+                A suite of platforms designed to power every stage of your career journey.
+              </p>
+            </div>
+
+            <div className="grid md:grid-cols-2 gap-8">
+              {shikshaProducts.map((product) => {
+                const Icon = product.icon;
+                return (
+                  <div key={product.title} className={`bg-card rounded-2xl border-2 border-${product.color}/20 shadow-card hover:shadow-card-hover transition-all duration-300 overflow-hidden group`}>
+                    <div className={`px-8 py-4 bg-${product.color}/10 border-b border-${product.color}/20`}>
+                      <div className="flex items-center gap-3">
+                        <div className={`w-12 h-12 rounded-xl bg-${product.color}/20 flex items-center justify-center`}>
+                          <Icon className={`h-6 w-6 text-${product.color}`} />
+                        </div>
+                        <div>
+                          <h3 className="font-heading text-xl font-bold text-foreground">{product.emoji} {product.title}</h3>
+                          <p className={`text-sm font-medium text-${product.color}`}>{product.tagline}</p>
+                        </div>
+                      </div>
+                    </div>
+                    <div className="p-8">
+                      <p className="text-muted-foreground mb-6">{product.description}</p>
+                      <div className="grid grid-cols-2 gap-3">
+                        {product.features.map((feature) => (
+                          <div key={feature} className="flex items-center gap-2 text-sm text-foreground">
+                            <CheckCircle2 className={`h-4 w-4 text-${product.color} flex-shrink-0`} />
+                            <span>{feature}</span>
+                          </div>
+                        ))}
+                      </div>
+                      <Link to="/apply" className="inline-block mt-6">
+                        <Button variant="outline" size="sm" className={`border-${product.color}/30 text-${product.color} hover:bg-${product.color}/10`}>
+                          Learn More →
+                        </Button>
+                      </Link>
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+        </section>
+
         {/* Placement Areas */}
-        <section className="py-16 lg:py-20">
+        <section className="py-16 lg:py-20 bg-muted/30">
           <div className="container">
             <div className="text-center max-w-2xl mx-auto mb-12">
               <h2 className="font-heading text-3xl md:text-4xl font-bold text-foreground mb-4">
@@ -95,7 +178,7 @@ const PlacementPage = () => {
         </section>
 
         {/* For Candidates */}
-        <section className="py-16 lg:py-20 bg-muted/30">
+        <section className="py-16 lg:py-20">
           <div className="container">
             <div className="grid lg:grid-cols-2 gap-12 items-center">
               <div>
@@ -130,7 +213,7 @@ const PlacementPage = () => {
               </div>
               
               <div className="bg-card rounded-2xl border shadow-card p-8">
-                <h3 className="font-heading text-xl font-bold text-foreground mb-6">Apna-Style Hiring Process</h3>
+                <h3 className="font-heading text-xl font-bold text-foreground mb-6">Hiring Process</h3>
                 <div className="space-y-6">
                   {[
                     { step: "1", title: "Select Department", desc: "Choose IT, HR, Marketing, Design, or Nursing" },
@@ -138,7 +221,7 @@ const PlacementPage = () => {
                     { step: "3", title: "MCQ Round", desc: "Domain-specific multiple choice questions" },
                     { step: "4", title: "Technical Round", desc: "Coding test (IT) or case study (Non-IT)" },
                     { step: "5", title: "AI-HR Interview", desc: "Video interview evaluated by AI" },
-                    { step: "6", title: "Profile Creation", desc: "Auto-created Apna-style candidate profile" },
+                    { step: "6", title: "Profile Creation", desc: "Auto-created candidate profile for hiring" },
                   ].map((item) => (
                     <div key={item.step} className="flex gap-4">
                       <div className="w-8 h-8 rounded-full gradient-primary flex items-center justify-center text-primary-foreground font-bold text-sm flex-shrink-0">
@@ -156,35 +239,9 @@ const PlacementPage = () => {
           </div>
         </section>
 
-        {/* For Companies */}
-        <section className="py-16 lg:py-20">
+        {/* Partner CTA */}
+        <section className="py-16 lg:py-20 bg-muted/30">
           <div className="container">
-            <div className="text-center max-w-2xl mx-auto mb-12">
-              <span className="text-primary font-semibold text-sm uppercase tracking-wider">For Companies & Hospitals</span>
-              <h2 className="font-heading text-3xl md:text-4xl font-bold text-foreground mt-3 mb-4">
-                Hire Trained Professionals
-              </h2>
-              <p className="text-muted-foreground">
-                Partner with us to access a pool of skilled, job-ready candidates across multiple domains.
-              </p>
-            </div>
-            
-            <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
-              {companyServices.map((service) => {
-                const Icon = service.icon;
-                return (
-                  <div key={service.title} className="bg-card rounded-xl border shadow-card p-6 hover:shadow-card-hover transition-all">
-                    <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center mb-4">
-                      <Icon className="h-6 w-6 text-primary" />
-                    </div>
-                    <h3 className="font-heading font-semibold text-foreground mb-2">{service.title}</h3>
-                    <p className="text-sm text-muted-foreground">{service.description}</p>
-                    <p className="text-sm font-semibold text-healthcare mt-2">Salary: {service.salary}</p>
-                  </div>
-                );
-              })}
-            </div>
-            
             <div className="bg-primary/5 rounded-2xl border border-primary/20 p-8 lg:p-12">
               <div className="grid lg:grid-cols-2 gap-8 items-center">
                 <div>
@@ -211,7 +268,7 @@ const PlacementPage = () => {
                 </div>
                 <div className="text-center lg:text-right">
                   <Link to="/contact">
-                    <Button variant="hero" size="xl">Contact for Hiring</Button>
+                    <Button variant="hero" size="lg">Contact for Hiring</Button>
                   </Link>
                 </div>
               </div>

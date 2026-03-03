@@ -19,6 +19,7 @@ const courses = [
   { title: "Digital Marketing", href: "/courses/digital-marketing", description: "SEO, SMM, Google Ads, Analytics" },
   { title: "Graphic Design", href: "/courses/graphic-design", description: "Photoshop, Illustrator, UI/UX" },
   { title: "Nursing Training", href: "/courses/nursing", description: "Clinical Training, ICU, Emergency Care" },
+  { title: "Degree & Diploma", href: "/courses/degree-diploma", description: "BCA, BBA, MBA, Diploma Programs" },
 ];
 
 const Navbar = () => {
@@ -58,6 +59,24 @@ const Navbar = () => {
             )}
           >
             About Us
+          </Link>
+          <Link 
+            to="/internships" 
+            className={cn(
+              "px-3 py-2 text-sm font-medium rounded-md transition-colors",
+              isActive("/internships") ? "text-primary bg-primary/5" : "text-foreground/80 hover:text-primary hover:bg-primary/5"
+            )}
+          >
+            Internships
+          </Link>
+          <Link 
+            to="/jobs" 
+            className={cn(
+              "px-3 py-2 text-sm font-medium rounded-md transition-colors",
+              isActive("/jobs") ? "text-primary bg-primary/5" : "text-foreground/80 hover:text-primary hover:bg-primary/5"
+            )}
+          >
+            Jobs
           </Link>
           
           <NavigationMenu>
@@ -108,24 +127,6 @@ const Navbar = () => {
           >
             Placement Services
           </Link>
-          <Link 
-            to="/careers" 
-            className={cn(
-              "px-3 py-2 text-sm font-medium rounded-md transition-colors",
-              isActive("/careers") ? "text-primary bg-primary/5" : "text-foreground/80 hover:text-primary hover:bg-primary/5"
-            )}
-          >
-            Careers
-          </Link>
-          <Link 
-            to="/contact" 
-            className={cn(
-              "px-3 py-2 text-sm font-medium rounded-md transition-colors",
-              isActive("/contact") ? "text-primary bg-primary/5" : "text-foreground/80 hover:text-primary hover:bg-primary/5"
-            )}
-          >
-            Contact
-          </Link>
         </nav>
 
         {/* CTA Buttons */}
@@ -155,64 +156,23 @@ const Navbar = () => {
       {isMobileMenuOpen && (
         <div className="lg:hidden border-t bg-card animate-fade-in">
           <nav className="container py-4 flex flex-col gap-2">
-            <Link 
-              to="/" 
-              className="px-4 py-3 rounded-lg hover:bg-muted transition-colors font-medium"
-              onClick={() => setIsMobileMenuOpen(false)}
-            >
-              Home
-            </Link>
-            <Link 
-              to="/about" 
-              className="px-4 py-3 rounded-lg hover:bg-muted transition-colors font-medium"
-              onClick={() => setIsMobileMenuOpen(false)}
-            >
-              About Us
-            </Link>
+            <Link to="/" className="px-4 py-3 rounded-lg hover:bg-muted transition-colors font-medium" onClick={() => setIsMobileMenuOpen(false)}>Home</Link>
+            <Link to="/about" className="px-4 py-3 rounded-lg hover:bg-muted transition-colors font-medium" onClick={() => setIsMobileMenuOpen(false)}>About Us</Link>
+            <Link to="/internships" className="px-4 py-3 rounded-lg hover:bg-muted transition-colors font-medium" onClick={() => setIsMobileMenuOpen(false)}>Internships</Link>
+            <Link to="/jobs" className="px-4 py-3 rounded-lg hover:bg-muted transition-colors font-medium" onClick={() => setIsMobileMenuOpen(false)}>Jobs</Link>
             <div className="px-4 py-2">
               <span className="text-sm font-semibold text-muted-foreground">Courses</span>
               <div className="mt-2 ml-2 flex flex-col gap-1">
                 {courses.map((course) => (
-                  <Link
-                    key={course.title}
-                    to={course.href}
-                    className="px-3 py-2 rounded-md text-sm hover:bg-muted transition-colors"
-                    onClick={() => setIsMobileMenuOpen(false)}
-                  >
+                  <Link key={course.title} to={course.href} className="px-3 py-2 rounded-md text-sm hover:bg-muted transition-colors" onClick={() => setIsMobileMenuOpen(false)}>
                     {course.title}
                   </Link>
                 ))}
               </div>
             </div>
-            <Link 
-              to="/placement" 
-              className="px-4 py-3 rounded-lg hover:bg-muted transition-colors font-medium"
-              onClick={() => setIsMobileMenuOpen(false)}
-            >
-              Placement Services
-            </Link>
-            <Link 
-              to="/careers" 
-              className="px-4 py-3 rounded-lg hover:bg-muted transition-colors font-medium"
-              onClick={() => setIsMobileMenuOpen(false)}
-            >
-              Careers
-            </Link>
-            <Link 
-              to="/contact" 
-              className="px-4 py-3 rounded-lg hover:bg-muted transition-colors font-medium"
-              onClick={() => setIsMobileMenuOpen(false)}
-            >
-              Contact
-            </Link>
-            <Link 
-              to="/apply" 
-              className="mt-2"
-              onClick={() => setIsMobileMenuOpen(false)}
-            >
-              <Button variant="accent" className="w-full" size="lg">
-                Apply Now
-              </Button>
+            <Link to="/placement" className="px-4 py-3 rounded-lg hover:bg-muted transition-colors font-medium" onClick={() => setIsMobileMenuOpen(false)}>Placement Services</Link>
+            <Link to="/apply" className="mt-2" onClick={() => setIsMobileMenuOpen(false)}>
+              <Button variant="accent" className="w-full" size="lg">Apply Now</Button>
             </Link>
           </nav>
         </div>

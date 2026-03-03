@@ -71,6 +71,21 @@ const courseCategories = {
       { title: "Medical Equipment Handling", duration: "1 Month", students: "200+", tools: ["Medical Devices", "Safety Protocols", "Maintenance"], features: ["Lab Practice", "Certification", "Placement"] },
     ],
   },
+  "degree-diploma": {
+    title: "Degree & Diploma Programs",
+    description: "Recognized degree and diploma courses for career advancement",
+    color: "primary",
+    courses: [
+      { title: "BCA (Bachelor of Computer Applications)", duration: "3 Years", students: "200+", tools: ["Programming", "Database", "Web Development", "Networking"], features: ["University Degree", "Internship", "Placement"] },
+      { title: "BBA (Bachelor of Business Administration)", duration: "3 Years", students: "180+", tools: ["Management", "Marketing", "Finance", "HR"], features: ["University Degree", "Internship", "Placement"] },
+      { title: "MBA (Master of Business Administration)", duration: "2 Years", students: "150+", tools: ["Strategy", "Leadership", "Analytics", "Operations"], features: ["PG Degree", "Industry Projects", "Placement"] },
+      { title: "Diploma in IT", duration: "1 Year", students: "300+", tools: ["Java", "Python", "Web Dev", "Database"], features: ["Diploma Certificate", "Internship", "Placement"] },
+      { title: "Diploma in Digital Marketing", duration: "6 Months", students: "250+", tools: ["SEO", "Google Ads", "Social Media", "Analytics"], features: ["Diploma Certificate", "Live Projects", "Placement"] },
+      { title: "Diploma in Graphic Design", duration: "6 Months", students: "200+", tools: ["Photoshop", "Illustrator", "Figma", "InDesign"], features: ["Diploma Certificate", "Portfolio", "Placement"] },
+      { title: "Diploma in HR Management", duration: "6 Months", students: "180+", tools: ["HRMS", "Payroll", "Recruitment", "Compliance"], features: ["Diploma Certificate", "Internship", "Placement"] },
+      { title: "PG Diploma in Data Science", duration: "1 Year", students: "120+", tools: ["Python", "ML", "Deep Learning", "Big Data"], features: ["PG Diploma", "Research Project", "Placement"] },
+    ],
+  },
 };
 
 interface DBCourse {
@@ -178,6 +193,9 @@ const CoursesPage = () => {
                 </TabsTrigger>
                 <TabsTrigger value="nursing" className="flex-1 min-w-[120px] data-[state=active]:bg-healthcare data-[state=active]:text-healthcare-foreground">
                   Nursing
+                </TabsTrigger>
+                <TabsTrigger value="degree-diploma" className="flex-1 min-w-[120px] data-[state=active]:bg-primary data-[state=active]:text-primary-foreground">
+                  Degree & Diploma
                 </TabsTrigger>
               </TabsList>
 

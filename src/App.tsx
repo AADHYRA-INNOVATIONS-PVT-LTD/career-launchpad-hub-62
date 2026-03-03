@@ -16,6 +16,8 @@ import ApplyPage from "./pages/ApplyPage";
 import AuthPage from "./pages/AuthPage";
 import NotFound from "./pages/NotFound";
 import HRTrainingPage from "./pages/HRTrainingPage";
+import InternshipPage from "./pages/InternshipPage";
+import JobPage from "./pages/JobPage";
 
 // Dashboard Layout & Pages
 import DashboardLayout from "./layouts/DashboardLayout";
@@ -76,6 +78,8 @@ const App = () => (
             <Route path="/contact" element={<ContactPage />} />
             <Route path="/careers" element={<CareersPage />} />
             <Route path="/hr-training" element={<HRTrainingPage />} />
+            <Route path="/internships" element={<InternshipPage />} />
+            <Route path="/jobs" element={<JobPage />} />
             <Route path="/apply" element={<ApplyPage />} />
             <Route path="/auth" element={<AuthPage />} />
 
