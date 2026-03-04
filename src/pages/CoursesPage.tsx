@@ -4,7 +4,7 @@ import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
 import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Clock, Users, Award, CheckCircle2, ArrowRight, PlayCircle } from "lucide-react";
+import { Clock, Users, Award, CheckCircle2, ArrowRight, PlayCircle, GraduationCap, Building, Globe, BookOpen, Stethoscope, Briefcase, IndianRupee, Shield } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import AICourseAdvisor from "@/components/courses/AICourseAdvisor";
 import { Badge } from "@/components/ui/badge";
@@ -61,7 +61,7 @@ const courseCategories = {
     ],
   },
   nursing: {
-    title: "Nursing Training Programs",
+    title: "Nursing & Healthcare Training",
     description: "Advanced healthcare training for nursing professionals",
     color: "healthcare",
     courses: [
@@ -69,16 +69,24 @@ const courseCategories = {
       { title: "ICU & Emergency Care", duration: "3 Months", students: "250+", tools: ["ICU Equipment", "Emergency Protocols", "Life Support"], features: ["Hands-on Training", "Internship", "Placement"] },
       { title: "Patient Care & Documentation", duration: "2 Months", students: "400+", tools: ["EHR Systems", "Care Protocols", "Communication"], features: ["Practical Sessions", "Internship", "Placement"] },
       { title: "Medical Equipment Handling", duration: "1 Month", students: "200+", tools: ["Medical Devices", "Safety Protocols", "Maintenance"], features: ["Lab Practice", "Certification", "Placement"] },
+      { title: "Advanced Nursing Hospital Management - 1 Year", duration: "1 Year", students: "100+", tools: ["Hospital Admin", "Quality Assurance", "Patient Management"], features: ["Hospital Training", "Internship", "Placement"] },
+      { title: "Advanced Nursing Hospital Management - 2 Years", duration: "2 Years", students: "80+", tools: ["Hospital Admin", "Leadership", "Healthcare Policy"], features: ["Advanced Certification", "Internship", "Placement"] },
+      { title: "Advanced Nursing Hospital Management - 3 Years", duration: "3 Years", students: "50+", tools: ["Strategic Management", "Research", "Policy Making"], features: ["Degree Program", "Internship", "Placement"] },
     ],
   },
   "degree-diploma": {
     title: "Degree & Diploma Programs",
-    description: "Recognized degree and diploma courses for career advancement",
+    description: "UG, PG & Research programs through recognized universities — Online & Distance mode available",
     color: "primary",
     courses: [
       { title: "BCA (Bachelor of Computer Applications)", duration: "3 Years", students: "200+", tools: ["Programming", "Database", "Web Development", "Networking"], features: ["University Degree", "Internship", "Placement"] },
       { title: "BBA (Bachelor of Business Administration)", duration: "3 Years", students: "180+", tools: ["Management", "Marketing", "Finance", "HR"], features: ["University Degree", "Internship", "Placement"] },
+      { title: "B.Tech (Bachelor of Technology)", duration: "4 Years", students: "150+", tools: ["Engineering", "Lab Work", "Projects", "Research"], features: ["University Degree", "Internship", "Placement"] },
       { title: "MBA (Master of Business Administration)", duration: "2 Years", students: "150+", tools: ["Strategy", "Leadership", "Analytics", "Operations"], features: ["PG Degree", "Industry Projects", "Placement"] },
+      { title: "MCA (Master of Computer Applications)", duration: "2 Years", students: "120+", tools: ["Advanced Programming", "AI/ML", "Cloud", "DevOps"], features: ["PG Degree", "Research Project", "Placement"] },
+      { title: "M.Com (Master of Commerce)", duration: "2 Years", students: "100+", tools: ["Accounting", "Finance", "Taxation", "Auditing"], features: ["PG Degree", "Internship", "Placement"] },
+      { title: "M.Phil (Master of Philosophy)", duration: "1-2 Years", students: "50+", tools: ["Research Methodology", "Thesis Work", "Publication"], features: ["Research Degree", "Dissertation", "Academic Career"] },
+      { title: "Ph.D (Doctor of Philosophy)", duration: "3-5 Years", students: "30+", tools: ["Advanced Research", "Publication", "Teaching"], features: ["Doctoral Degree", "Research Grant", "Academic Career"] },
       { title: "Diploma in IT", duration: "1 Year", students: "300+", tools: ["Java", "Python", "Web Dev", "Database"], features: ["Diploma Certificate", "Internship", "Placement"] },
       { title: "Diploma in Digital Marketing", duration: "6 Months", students: "250+", tools: ["SEO", "Google Ads", "Social Media", "Analytics"], features: ["Diploma Certificate", "Live Projects", "Placement"] },
       { title: "Diploma in Graphic Design", duration: "6 Months", students: "200+", tools: ["Photoshop", "Illustrator", "Figma", "InDesign"], features: ["Diploma Certificate", "Portfolio", "Placement"] },
@@ -86,7 +94,28 @@ const courseCategories = {
       { title: "PG Diploma in Data Science", duration: "1 Year", students: "120+", tools: ["Python", "ML", "Deep Learning", "Big Data"], features: ["PG Diploma", "Research Project", "Placement"] },
     ],
   },
+  vocational: {
+    title: "Vocational Courses (VDGDA & More)",
+    description: "Skill-based vocational programs through TNOU, KAOU & BSS — Open to 12th Pass/Fail candidates",
+    color: "accent",
+    courses: [
+      { title: "Vocational Diploma in Computer Applications", duration: "1 Year", students: "200+", tools: ["MS Office", "Internet", "Tally", "DTP"], features: ["TNOU Certified", "Internship", "Job Support"] },
+      { title: "Vocational Diploma in Web Development", duration: "1 Year", students: "150+", tools: ["HTML", "CSS", "JavaScript", "PHP"], features: ["KAOU Certified", "Portfolio", "Placement"] },
+      { title: "Vocational Diploma in Healthcare Assistant", duration: "1 Year", students: "180+", tools: ["Patient Care", "First Aid", "Medical Records"], features: ["BSS Certified", "Hospital Training", "Placement"] },
+      { title: "Vocational Diploma in Digital Marketing", duration: "6 Months", students: "120+", tools: ["SEO", "Social Media", "Content", "Ads"], features: ["TNOU Certified", "Live Projects", "Placement"] },
+      { title: "Vocational Diploma in Accounting & Finance", duration: "1 Year", students: "100+", tools: ["Tally", "GST", "Tax Filing", "Excel"], features: ["KAOU Certified", "Internship", "Placement"] },
+      { title: "Vocational Diploma in Retail Management", duration: "6 Months", students: "90+", tools: ["POS Systems", "Inventory", "Customer Service"], features: ["BSS Certified", "OJT", "Placement"] },
+    ],
+  },
 };
+
+const partnerUniversities = [
+  { name: "IGNOU", full: "Indira Gandhi National Open University", mode: "Online & Distance", icon: "🏛️" },
+  { name: "JAIN University", full: "Jain (Deemed-to-be University)", mode: "Online & Distance", icon: "🎓" },
+  { name: "TNOU", full: "Tamil Nadu Open University", mode: "Online & Distance", icon: "📚" },
+  { name: "KAOU", full: "Karnataka State Open University", mode: "Online & Distance", icon: "🏫" },
+  { name: "BSS", full: "Bharathiar School of Studies", mode: "Distance", icon: "📖" },
+];
 
 interface DBCourse {
   id: string;
@@ -167,9 +196,77 @@ const CoursesPage = () => {
               <h1 className="font-heading text-3xl md:text-4xl lg:text-5xl font-bold mb-4">
                 Our Training Programs
               </h1>
-              <p className="text-lg text-white/80">
-                Industry-oriented courses designed to make you job-ready. Choose from IT, HR, Digital Marketing, Graphic Design, and Nursing programs.
+              <p className="text-lg text-primary-foreground/80">
+                Industry-oriented courses, university degrees & vocational programs. Online & Distance learning available through top universities.
               </p>
+            </div>
+          </div>
+        </section>
+
+        {/* Partner Universities */}
+        <section className="border-b bg-card py-8">
+          <div className="container">
+            <div className="text-center mb-6">
+              <h2 className="font-heading text-xl font-bold text-foreground mb-1">Partner Universities</h2>
+              <p className="text-sm text-muted-foreground">Pursue degrees through Online & Distance mode via Shiksha Nex</p>
+            </div>
+            <div className="flex flex-wrap justify-center gap-4">
+              {partnerUniversities.map((uni) => (
+                <div key={uni.name} className="bg-muted/50 border rounded-xl px-5 py-3 text-center hover:border-primary/50 transition-colors">
+                  <span className="text-2xl block mb-1">{uni.icon}</span>
+                  <p className="font-semibold text-sm text-foreground">{uni.name}</p>
+                  <p className="text-xs text-muted-foreground">{uni.mode}</p>
+                </div>
+              ))}
+            </div>
+            <div className="mt-6 flex flex-wrap justify-center gap-6 text-sm text-muted-foreground">
+              <div className="flex items-center gap-2"><GraduationCap className="h-4 w-4 text-primary" /><span>Biggest Alumni Network</span></div>
+              <div className="flex items-center gap-2"><Briefcase className="h-4 w-4 text-primary" /><span>Internship & Job Support</span></div>
+              <div className="flex items-center gap-2"><Globe className="h-4 w-4 text-primary" /><span>Online & Distance Available</span></div>
+            </div>
+          </div>
+        </section>
+
+        {/* Eligibility & Fee Banner */}
+        <section className="bg-primary/5 border-b py-6">
+          <div className="container">
+            <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
+              <div className="flex items-center gap-3 bg-card rounded-lg border p-4">
+                <div className="h-10 w-10 rounded-full bg-primary/10 flex items-center justify-center">
+                  <BookOpen className="h-5 w-5 text-primary" />
+                </div>
+                <div>
+                  <p className="text-xs text-muted-foreground">Eligibility</p>
+                  <p className="font-semibold text-sm text-foreground">12th Pass / Fail</p>
+                </div>
+              </div>
+              <div className="flex items-center gap-3 bg-card rounded-lg border p-4">
+                <div className="h-10 w-10 rounded-full bg-primary/10 flex items-center justify-center">
+                  <Users className="h-5 w-5 text-primary" />
+                </div>
+                <div>
+                  <p className="text-xs text-muted-foreground">Open For</p>
+                  <p className="font-semibold text-sm text-foreground">Male & Female</p>
+                </div>
+              </div>
+              <div className="flex items-center gap-3 bg-card rounded-lg border p-4">
+                <div className="h-10 w-10 rounded-full bg-primary/10 flex items-center justify-center">
+                  <IndianRupee className="h-5 w-5 text-primary" />
+                </div>
+                <div>
+                  <p className="text-xs text-muted-foreground">Course Fee</p>
+                  <p className="font-semibold text-sm text-foreground">₹30,000 / Semester</p>
+                </div>
+              </div>
+              <div className="flex items-center gap-3 bg-card rounded-lg border p-4">
+                <div className="h-10 w-10 rounded-full bg-primary/10 flex items-center justify-center">
+                  <Shield className="h-5 w-5 text-primary" />
+                </div>
+                <div>
+                  <p className="text-xs text-muted-foreground">Exam Fees</p>
+                  <p className="font-semibold text-sm text-foreground">Paid Separately</p>
+                </div>
+              </div>
             </div>
           </div>
         </section>
@@ -179,23 +276,26 @@ const CoursesPage = () => {
           <div className="container">
             <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
               <TabsList className="w-full flex-wrap h-auto gap-2 bg-muted/50 p-2 rounded-xl mb-12">
-                <TabsTrigger value="it" className="flex-1 min-w-[120px] data-[state=active]:bg-tech data-[state=active]:text-tech-foreground">
+                <TabsTrigger value="it" className="flex-1 min-w-[100px] data-[state=active]:bg-tech data-[state=active]:text-tech-foreground">
                   IT Courses
                 </TabsTrigger>
-                <TabsTrigger value="hr" className="flex-1 min-w-[120px] data-[state=active]:bg-hr data-[state=active]:text-hr-foreground">
+                <TabsTrigger value="hr" className="flex-1 min-w-[100px] data-[state=active]:bg-hr data-[state=active]:text-hr-foreground">
                   HR Courses
                 </TabsTrigger>
-                <TabsTrigger value="marketing" className="flex-1 min-w-[120px] data-[state=active]:bg-marketing data-[state=active]:text-marketing-foreground">
-                  Digital Marketing
+                <TabsTrigger value="marketing" className="flex-1 min-w-[100px] data-[state=active]:bg-marketing data-[state=active]:text-marketing-foreground">
+                  Marketing
                 </TabsTrigger>
-                <TabsTrigger value="design" className="flex-1 min-w-[120px] data-[state=active]:bg-design data-[state=active]:text-design-foreground">
-                  Graphic Design
+                <TabsTrigger value="design" className="flex-1 min-w-[100px] data-[state=active]:bg-design data-[state=active]:text-design-foreground">
+                  Design
                 </TabsTrigger>
-                <TabsTrigger value="nursing" className="flex-1 min-w-[120px] data-[state=active]:bg-healthcare data-[state=active]:text-healthcare-foreground">
+                <TabsTrigger value="nursing" className="flex-1 min-w-[100px] data-[state=active]:bg-healthcare data-[state=active]:text-healthcare-foreground">
                   Nursing
                 </TabsTrigger>
-                <TabsTrigger value="degree-diploma" className="flex-1 min-w-[120px] data-[state=active]:bg-primary data-[state=active]:text-primary-foreground">
-                  Degree & Diploma
+                <TabsTrigger value="degree-diploma" className="flex-1 min-w-[100px] data-[state=active]:bg-primary data-[state=active]:text-primary-foreground">
+                  Degree & PG
+                </TabsTrigger>
+                <TabsTrigger value="vocational" className="flex-1 min-w-[100px] data-[state=active]:bg-accent data-[state=active]:text-accent-foreground">
+                  Vocational
                 </TabsTrigger>
               </TabsList>
 
