@@ -8,6 +8,16 @@ import { Clock, Users, Award, CheckCircle2, ArrowRight, PlayCircle, GraduationCa
 import { supabase } from "@/integrations/supabase/client";
 import AICourseAdvisor from "@/components/courses/AICourseAdvisor";
 import { Badge } from "@/components/ui/badge";
+import DemoVideoSection from "@/components/shared/DemoVideoSection";
+
+const courseDemoVideos = [
+  { title: "Java Full Stack Development", description: "Learn Spring Boot, React, and MySQL with hands-on projects", duration: "5:30", category: "IT Training", thumbnail: "", gradient: "bg-gradient-to-br from-blue-600 to-indigo-800" },
+  { title: "Python & AI/ML Fundamentals", description: "Introduction to machine learning with TensorFlow and real datasets", duration: "6:15", category: "IT Training", thumbnail: "", gradient: "bg-gradient-to-br from-emerald-600 to-teal-800" },
+  { title: "HR Generalist Masterclass", description: "Complete HR operations from recruitment to payroll management", duration: "4:45", category: "HR Training", thumbnail: "", gradient: "bg-gradient-to-br from-orange-500 to-red-700" },
+  { title: "Digital Marketing Strategy", description: "SEO, Google Ads, and social media marketing essentials", duration: "5:00", category: "Digital Marketing", thumbnail: "", gradient: "bg-gradient-to-br from-pink-500 to-purple-700" },
+  { title: "UI/UX Design with Figma", description: "Design beautiful interfaces and interactive prototypes", duration: "4:30", category: "Graphic Design", thumbnail: "", gradient: "bg-gradient-to-br from-violet-500 to-purple-800" },
+  { title: "Advanced Nursing & Hospital Management", description: "Clinical training, ICU procedures, and hospital administration", duration: "6:00", category: "Nursing", thumbnail: "", gradient: "bg-gradient-to-br from-cyan-500 to-blue-700" },
+];
 
 const courseCategories = {
   it: {
