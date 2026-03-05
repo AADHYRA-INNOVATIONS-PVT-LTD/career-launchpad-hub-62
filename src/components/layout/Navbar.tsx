@@ -70,13 +70,13 @@ const Navbar = () => {
             Internships
           </Link>
           <Link 
-            to="/jobs" 
+            to="/career" 
             className={cn(
               "px-3 py-2 text-sm font-medium rounded-md transition-colors",
-              isActive("/jobs") ? "text-primary bg-primary/5" : "text-foreground/80 hover:text-primary hover:bg-primary/5"
+              isActive("/career") ? "text-primary bg-primary/5" : "text-foreground/80 hover:text-primary hover:bg-primary/5"
             )}
           >
-            Jobs
+            Career
           </Link>
           
           <NavigationMenu>
@@ -159,7 +159,7 @@ const Navbar = () => {
             <Link to="/" className="px-4 py-3 rounded-lg hover:bg-muted transition-colors font-medium" onClick={() => setIsMobileMenuOpen(false)}>Home</Link>
             <Link to="/about" className="px-4 py-3 rounded-lg hover:bg-muted transition-colors font-medium" onClick={() => setIsMobileMenuOpen(false)}>About Us</Link>
             <Link to="/internships" className="px-4 py-3 rounded-lg hover:bg-muted transition-colors font-medium" onClick={() => setIsMobileMenuOpen(false)}>Internships</Link>
-            <Link to="/jobs" className="px-4 py-3 rounded-lg hover:bg-muted transition-colors font-medium" onClick={() => setIsMobileMenuOpen(false)}>Jobs</Link>
+            <Link to="/career" className="px-4 py-3 rounded-lg hover:bg-muted transition-colors font-medium" onClick={() => setIsMobileMenuOpen(false)}>Career</Link>
             <div className="px-4 py-2">
               <span className="text-sm font-semibold text-muted-foreground">Courses</span>
               <div className="mt-2 ml-2 flex flex-col gap-1">

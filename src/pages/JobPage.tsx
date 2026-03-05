@@ -5,21 +5,28 @@ import { Link } from "react-router-dom";
 import { Badge } from "@/components/ui/badge";
 import { Clock, MapPin, Briefcase, IndianRupee, Users, ArrowRight, Filter, Star, Building2, TrendingUp, Camera, Mail, CheckCircle2, FileText, CreditCard, Video } from "lucide-react";
 import { useState } from "react";
+import DemoVideoSection from "@/components/shared/DemoVideoSection";
+
+const careerDemoVideos = [
+  { title: "Life at Shiksha Nex Technologies", description: "Explore our work culture, team, and growth opportunities", duration: "4:15", category: "Company Culture", thumbnail: "", gradient: "bg-gradient-to-br from-blue-600 to-primary" },
+  { title: "Our Hiring Process Explained", description: "Step-by-step guide to MCQ, Technical, and AI HR interview rounds", duration: "5:30", category: "Hiring Process", thumbnail: "", gradient: "bg-gradient-to-br from-emerald-500 to-teal-700" },
+  { title: "Partner Company Placements", description: "How students get placed at TCS, Infosys, and other partner companies", duration: "4:00", category: "Placements", thumbnail: "", gradient: "bg-gradient-to-br from-orange-500 to-red-600" },
+];
 
 const categories = ["All", "IT", "HR", "Digital Marketing", "Graphic Design", "Nursing", "Data Science"];
 const jobTypes = ["All Types", "Full-time", "Part-time", "Contract", "Freelance"];
 
 const jobs = [
-  { title: "Java Full Stack Developer", company: "TCS", location: "Bangalore", salary: "₹6-12 LPA", experience: "0-2 Years", category: "IT", skills: ["Java", "Spring Boot", "React", "AWS"], applicants: 520, isHot: true, type: "Full-time", posted: "2 days ago", description: "Build enterprise-grade Java applications using Spring Boot, React, and AWS. Work on microservices architecture and RESTful APIs." },
-  { title: "Python Developer", company: "Infosys", location: "Hyderabad", salary: "₹5-10 LPA", experience: "0-1 Years", category: "IT", skills: ["Python", "Django", "REST API", "PostgreSQL"], applicants: 380, isHot: true, type: "Full-time", posted: "1 day ago", description: "Develop scalable backend systems using Python and Django. Collaborate with cross-functional teams on REST API design." },
-  { title: "HR Executive", company: "Wipro", location: "Pune", salary: "₹3.5-6 LPA", experience: "0-2 Years", category: "HR", skills: ["Recruitment", "Onboarding", "HRMS", "Payroll"], applicants: 290, isHot: false, type: "Full-time", posted: "3 days ago", description: "Manage end-to-end recruitment, onboarding, and HR operations. Handle payroll processing and employee relations." },
-  { title: "Digital Marketing Executive", company: "Zoho", location: "Chennai", salary: "₹4-8 LPA", experience: "0-2 Years", category: "Digital Marketing", skills: ["SEO", "Google Ads", "Analytics", "Content"], applicants: 445, isHot: true, type: "Full-time", posted: "1 day ago", description: "Plan and execute digital marketing campaigns across SEO, PPC, and social media channels. Analyze campaign performance." },
-  { title: "UI/UX Designer", company: "Freshworks", location: "Bangalore", salary: "₹5-10 LPA", experience: "0-2 Years", category: "Graphic Design", skills: ["Figma", "Adobe XD", "Prototyping", "User Research"], applicants: 210, isHot: false, type: "Full-time", posted: "4 days ago", description: "Design intuitive user interfaces and create interactive prototypes. Conduct user research and usability testing." },
-  { title: "Staff Nurse", company: "Apollo Hospitals", location: "Bangalore", salary: "₹3-5 LPA", experience: "0-1 Years", category: "Nursing", skills: ["Patient Care", "ICU", "Emergency", "Documentation"], applicants: 180, isHot: false, type: "Full-time", posted: "2 days ago", description: "Provide patient care in hospital settings. Handle emergency situations, ICU monitoring, and medical documentation." },
-  { title: "Data Analyst", company: "Accenture", location: "Mumbai", salary: "₹5-9 LPA", experience: "0-2 Years", category: "Data Science", skills: ["SQL", "Python", "Tableau", "Excel"], applicants: 340, isHot: true, type: "Full-time", posted: "3 days ago", description: "Analyze business data using SQL and Python. Create dashboards and reports with Tableau for decision-making." },
-  { title: "AI/ML Engineer", company: "Amazon", location: "Hyderabad", salary: "₹12-25 LPA", experience: "1-3 Years", category: "IT", skills: ["Python", "TensorFlow", "NLP", "Deep Learning"], applicants: 620, isHot: true, type: "Full-time", posted: "1 day ago", description: "Build and deploy ML models for production. Work on NLP, computer vision, and recommendation systems." },
-  { title: "Talent Acquisition Specialist", company: "Deloitte", location: "Bangalore", salary: "₹4-8 LPA", experience: "0-2 Years", category: "HR", skills: ["LinkedIn Recruiting", "ATS", "Sourcing", "Interviewing"], applicants: 175, isHot: false, type: "Full-time", posted: "5 days ago", description: "Source and recruit top talent using LinkedIn and ATS platforms. Conduct initial screening and coordinate interviews." },
-  { title: "Social Media Manager", company: "Swiggy", location: "Bangalore", salary: "₹6-10 LPA", experience: "1-3 Years", category: "Digital Marketing", skills: ["Instagram", "Meta Ads", "Content Strategy", "Analytics"], applicants: 310, isHot: false, type: "Full-time", posted: "2 days ago", description: "Manage social media presence across platforms. Create content strategies and run paid advertising campaigns." },
+  { title: "Java Full Stack Trainer", company: "Shiksha Nex Technologies", location: "Bangalore", salary: "₹4-8 LPA", experience: "1-3 Years", category: "IT", skills: ["Java", "Spring Boot", "React", "Teaching"], applicants: 85, isHot: true, type: "Full-time", posted: "1 day ago", description: "Train students on Java Full Stack Development. Create course content, conduct live sessions, and mentor students through projects and internships." },
+  { title: "Python & AI Trainer", company: "Shiksha Nex Technologies", location: "Bangalore", salary: "₹5-10 LPA", experience: "1-3 Years", category: "IT", skills: ["Python", "TensorFlow", "ML", "Teaching"], applicants: 62, isHot: true, type: "Full-time", posted: "2 days ago", description: "Teach Python, AI/ML concepts to students. Design curriculum, build projects, and guide students through real-world applications." },
+  { title: "HR Training Coordinator", company: "Shiksha Nex Technologies", location: "Bangalore", salary: "₹3-5 LPA", experience: "0-2 Years", category: "HR", skills: ["Recruitment", "Training", "HRMS", "Communication"], applicants: 120, isHot: false, type: "Full-time", posted: "3 days ago", description: "Coordinate HR training programs, manage student batches, handle placement coordination and employer relations." },
+  { title: "Digital Marketing Executive", company: "Shiksha Nex Technologies", location: "Bangalore", salary: "₹3.5-6 LPA", experience: "0-2 Years", category: "Digital Marketing", skills: ["SEO", "Google Ads", "Social Media", "Content"], applicants: 145, isHot: true, type: "Full-time", posted: "1 day ago", description: "Manage Shiksha Nex's digital presence. Run campaigns, manage social media, create content, and drive student enrollments." },
+  { title: "Graphic Designer", company: "Shiksha Nex Technologies", location: "Bangalore", salary: "₹3-5 LPA", experience: "0-2 Years", category: "Graphic Design", skills: ["Photoshop", "Illustrator", "Figma", "Canva"], applicants: 95, isHot: false, type: "Full-time", posted: "4 days ago", description: "Create marketing creatives, course thumbnails, social media posts, and branding materials for Shiksha Nex." },
+  { title: "Nursing Faculty", company: "Shiksha Health Connect", location: "Bangalore", salary: "₹4-7 LPA", experience: "2-5 Years", category: "Nursing", skills: ["Clinical Training", "ICU", "Patient Care", "Teaching"], applicants: 45, isHot: false, type: "Full-time", posted: "5 days ago", description: "Teach nursing students clinical procedures, hospital management, and patient care. Conduct practical sessions." },
+  { title: "Data Analyst - Partner (TCS)", company: "TCS (via Shiksha Nex)", location: "Hyderabad", salary: "₹5-9 LPA", experience: "0-2 Years", category: "Data Science", skills: ["SQL", "Python", "Tableau", "Excel"], applicants: 340, isHot: true, type: "Full-time", posted: "2 days ago", description: "Analyze business data using SQL and Python. Create dashboards and reports. Placed through Shiksha Nex hiring network." },
+  { title: "Java Developer - Partner (Infosys)", company: "Infosys (via Shiksha Nex)", location: "Bangalore", salary: "₹6-12 LPA", experience: "0-2 Years", category: "IT", skills: ["Java", "Spring Boot", "Microservices", "AWS"], applicants: 420, isHot: true, type: "Full-time", posted: "1 day ago", description: "Build enterprise Java applications. Opportunity through Shiksha Nex partner hiring program with Infosys." },
+  { title: "Content Creator & Curriculum Designer", company: "Shiksha Nex Technologies", location: "Work From Home", salary: "₹2.5-4 LPA", experience: "0-1 Years", category: "Digital Marketing", skills: ["Content Writing", "Curriculum Design", "Video Script", "Research"], applicants: 210, isHot: false, type: "Full-time", posted: "3 days ago", description: "Create course content, write scripts for training videos, design curriculum for new programs." },
+  { title: "Student Success Manager", company: "Shiksha Nex Technologies", location: "Bangalore", salary: "₹3-5 LPA", experience: "0-2 Years", category: "HR", skills: ["Communication", "CRM", "Counseling", "Follow-up"], applicants: 175, isHot: false, type: "Full-time", posted: "2 days ago", description: "Guide enrolled students through their learning journey. Handle queries, track progress, and ensure completion." },
 ];
 
 const hiringSteps = [
@@ -50,12 +57,12 @@ const JobPage = () => {
         <section className="gradient-hero text-primary-foreground py-12 lg:py-16">
           <div className="container">
             <div className="max-w-3xl mx-auto text-center">
-              <Badge className="bg-accent/20 text-accent-foreground border-accent/30 mb-4">💼 {jobs.length}+ jobs available</Badge>
+              <Badge className="bg-accent/20 text-accent-foreground border-accent/30 mb-4">💼 Shiksha Nex Careers</Badge>
               <h1 className="font-heading text-3xl md:text-4xl lg:text-5xl font-bold mb-4">
-                Find Your Dream Job
+                Career at Shiksha Nex
               </h1>
               <p className="text-lg text-primary-foreground/80">
-                Browse curated job opportunities from top companies. Get placed through Shiksha Nex's hiring network.
+                Join our team or get placed with our partner companies. Build your career with Shiksha Nex Technologies.
               </p>
             </div>
           </div>
@@ -107,6 +114,13 @@ const JobPage = () => {
             </div>
           </div>
         </section>
+
+        {/* Demo Videos */}
+        <DemoVideoSection
+          title="Career at Shiksha Nex"
+          subtitle="Watch videos about our team, hiring process, and partner placements"
+          videos={careerDemoVideos}
+        />
 
         {/* Filters + Jobs */}
         <section className="py-8 lg:py-12">
