@@ -79,7 +79,7 @@ const App = () => (
             <Route path="/careers" element={<CareersPage />} />
             <Route path="/hr-training" element={<HRTrainingPage />} />
             <Route path="/internships" element={<InternshipPage />} />
-            <Route path="/jobs" element={<JobPage />} />
+            <Route path="/career" element={<JobPage />} />
             <Route path="/apply" element={<ApplyPage />} />
             <Route path="/auth" element={<AuthPage />} />
 
