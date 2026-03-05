@@ -70,13 +70,13 @@ const Navbar = () => {
             Internships
           </Link>
           <Link 
-            to="/jobs" 
+            to="/career" 
             className={cn(
               "px-3 py-2 text-sm font-medium rounded-md transition-colors",
-              isActive("/jobs") ? "text-primary bg-primary/5" : "text-foreground/80 hover:text-primary hover:bg-primary/5"
+              isActive("/career") ? "text-primary bg-primary/5" : "text-foreground/80 hover:text-primary hover:bg-primary/5"
             )}
           >
-            Jobs
+            Career
           </Link>
           
           <NavigationMenu>
