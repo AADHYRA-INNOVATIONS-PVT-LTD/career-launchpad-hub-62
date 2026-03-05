@@ -281,6 +281,13 @@ const CoursesPage = () => {
           </div>
         </section>
 
+        {/* Demo Videos */}
+        <DemoVideoSection
+          title="Watch Course Demo Videos"
+          subtitle="Preview our training content before enrolling. All videos are Shiksha Nex original content."
+          videos={courseDemoVideos}
+        />
+
         {/* Courses Tabs */}
         <section className="py-16 lg:py-20">
           <div className="container">
