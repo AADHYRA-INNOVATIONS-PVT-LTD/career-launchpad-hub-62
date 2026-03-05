@@ -50,12 +50,12 @@ const JobPage = () => {
         <section className="gradient-hero text-primary-foreground py-12 lg:py-16">
           <div className="container">
             <div className="max-w-3xl mx-auto text-center">
-              <Badge className="bg-accent/20 text-accent-foreground border-accent/30 mb-4">💼 {jobs.length}+ jobs available</Badge>
+              <Badge className="bg-accent/20 text-accent-foreground border-accent/30 mb-4">💼 Shiksha Nex Careers</Badge>
               <h1 className="font-heading text-3xl md:text-4xl lg:text-5xl font-bold mb-4">
-                Find Your Dream Job
+                Career at Shiksha Nex
               </h1>
               <p className="text-lg text-primary-foreground/80">
-                Browse curated job opportunities from top companies. Get placed through Shiksha Nex's hiring network.
+                Join our team or get placed with our partner companies. Build your career with Shiksha Nex Technologies.
               </p>
             </div>
           </div>
