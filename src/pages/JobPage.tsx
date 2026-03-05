@@ -115,6 +115,13 @@ const JobPage = () => {
           </div>
         </section>
 
+        {/* Demo Videos */}
+        <DemoVideoSection
+          title="Career at Shiksha Nex"
+          subtitle="Watch videos about our team, hiring process, and partner placements"
+          videos={careerDemoVideos}
+        />
+
         {/* Filters + Jobs */}
         <section className="py-8 lg:py-12">
           <div className="container">
