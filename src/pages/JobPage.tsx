@@ -5,6 +5,13 @@ import { Link } from "react-router-dom";
 import { Badge } from "@/components/ui/badge";
 import { Clock, MapPin, Briefcase, IndianRupee, Users, ArrowRight, Filter, Star, Building2, TrendingUp, Camera, Mail, CheckCircle2, FileText, CreditCard, Video } from "lucide-react";
 import { useState } from "react";
+import DemoVideoSection from "@/components/shared/DemoVideoSection";
+
+const careerDemoVideos = [
+  { title: "Life at Shiksha Nex Technologies", description: "Explore our work culture, team, and growth opportunities", duration: "4:15", category: "Company Culture", thumbnail: "", gradient: "bg-gradient-to-br from-blue-600 to-primary" },
+  { title: "Our Hiring Process Explained", description: "Step-by-step guide to MCQ, Technical, and AI HR interview rounds", duration: "5:30", category: "Hiring Process", thumbnail: "", gradient: "bg-gradient-to-br from-emerald-500 to-teal-700" },
+  { title: "Partner Company Placements", description: "How students get placed at TCS, Infosys, and other partner companies", duration: "4:00", category: "Placements", thumbnail: "", gradient: "bg-gradient-to-br from-orange-500 to-red-600" },
+];
 
 const categories = ["All", "IT", "HR", "Digital Marketing", "Graphic Design", "Nursing", "Data Science"];
 const jobTypes = ["All Types", "Full-time", "Part-time", "Contract", "Freelance"];

@@ -74,6 +74,13 @@ const InternshipPage = () => {
           </div>
         </section>
 
+        {/* Demo Videos */}
+        <DemoVideoSection
+          title="Internship Program Previews"
+          subtitle="See what our interns learn and build during their programs"
+          videos={internshipDemoVideos}
+        />
+
         {/* Filters + Listings */}
         <section className="py-8 lg:py-12">
           <div className="container">
