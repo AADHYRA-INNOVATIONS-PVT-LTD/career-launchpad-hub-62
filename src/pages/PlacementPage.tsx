@@ -151,9 +151,14 @@ const PlacementPage = () => {
                           </div>
                         ))}
                       </div>
-                      <Link to="/apply" className="inline-block mt-6">
+                      <Link to={
+                        product.title.includes("Talent") ? "/placement/talent-connect" :
+                        product.title.includes("Tech") ? "/placement/tech-partner" :
+                        product.title.includes("Health") ? "/placement/health-connect" :
+                        "/placement/ai-lab"
+                      } className="inline-block mt-6">
                         <Button variant="outline" size="sm" className={`border-${product.color}/30 text-${product.color} hover:bg-${product.color}/10`}>
-                          Learn More →
+                          Explore Platform →
                         </Button>
                       </Link>
                     </div>
