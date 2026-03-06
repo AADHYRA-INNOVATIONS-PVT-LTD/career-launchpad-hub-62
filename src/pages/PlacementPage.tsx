@@ -169,6 +169,13 @@ const PlacementPage = () => {
           </div>
         </section>
 
+        {/* Demo Videos */}
+        <DemoVideoSection
+          title="Placement Ecosystem Previews"
+          subtitle="Watch demos of our recruitment, freelancing, healthcare, and AI platforms"
+          videos={placementDemoVideos}
+        />
+
         {/* Placement Areas */}
         <section className="py-16 lg:py-20 bg-muted/30">
           <div className="container">
