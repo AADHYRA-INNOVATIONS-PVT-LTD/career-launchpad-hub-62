@@ -6,11 +6,16 @@ import { Badge } from "@/components/ui/badge";
 import { Clock, MapPin, Briefcase, IndianRupee, Users, ArrowRight, Filter, Star, Building2, TrendingUp, Camera, Mail, CheckCircle2, FileText, CreditCard, Video } from "lucide-react";
 import { useState } from "react";
 import DemoVideoSection from "@/components/shared/DemoVideoSection";
+import ApplyDialog from "@/components/career/ApplyDialog";
+
+import thumbCulture from "@/assets/demo-thumb-company-culture.jpg";
+import thumbHiring from "@/assets/demo-thumb-hiring-process.jpg";
+import thumbInternship from "@/assets/demo-thumb-internship.jpg";
 
 const careerDemoVideos = [
-  { title: "Life at Shiksha Nex Technologies", description: "Explore our work culture, team, and growth opportunities", duration: "4:15", category: "Company Culture", thumbnail: "", gradient: "bg-gradient-to-br from-blue-600 to-primary" },
-  { title: "Our Hiring Process Explained", description: "Step-by-step guide to MCQ, Technical, and AI HR interview rounds", duration: "5:30", category: "Hiring Process", thumbnail: "", gradient: "bg-gradient-to-br from-emerald-500 to-teal-700" },
-  { title: "Partner Company Placements", description: "How students get placed at TCS, Infosys, and other partner companies", duration: "4:00", category: "Placements", thumbnail: "", gradient: "bg-gradient-to-br from-orange-500 to-red-600" },
+  { title: "Life at Shiksha Nex Technologies", description: "Explore our work culture, team, and growth opportunities", duration: "4:15", category: "Company Culture", thumbnail: thumbCulture, gradient: "bg-gradient-to-br from-blue-600 to-primary" },
+  { title: "Our Hiring Process Explained", description: "Step-by-step guide to MCQ, Technical, and AI HR interview rounds", duration: "5:30", category: "Hiring Process", thumbnail: thumbHiring, gradient: "bg-gradient-to-br from-emerald-500 to-teal-700" },
+  { title: "Partner Company Placements", description: "How students get placed at TCS, Infosys, and other partner companies", duration: "4:00", category: "Placements", thumbnail: thumbInternship, gradient: "bg-gradient-to-br from-orange-500 to-red-600" },
 ];
 
 const categories = ["All", "IT", "HR", "Digital Marketing", "Graphic Design", "Nursing", "Data Science"];
@@ -42,6 +47,7 @@ const JobPage = () => {
   const [selectedCategory, setSelectedCategory] = useState("All");
   const [selectedType, setSelectedType] = useState("All Types");
   const [selectedJob, setSelectedJob] = useState<typeof jobs[0] | null>(null);
+  const [applyJob, setApplyJob] = useState<typeof jobs[0] | null>(null);
 
   const filtered = jobs.filter((j) => {
     const catMatch = selectedCategory === "All" || j.category === selectedCategory;
@@ -133,7 +139,6 @@ const JobPage = () => {
                     <Filter className="h-4 w-4 text-primary" />
                     <h3 className="font-heading font-semibold text-foreground">Filters</h3>
                   </div>
-
                   <div className="space-y-4">
                     <div>
                       <label className="text-sm font-medium text-foreground mb-2 block">Category</label>
@@ -145,7 +150,6 @@ const JobPage = () => {
                         ))}
                       </div>
                     </div>
-
                     <div>
                       <label className="text-sm font-medium text-foreground mb-2 block">Job Type</label>
                       <div className="flex flex-wrap gap-2">
@@ -189,25 +193,22 @@ const JobPage = () => {
                         <div className="flex flex-col sm:flex-row sm:items-start justify-between gap-4">
                           <div className="flex-1">
                             <div className="flex items-center gap-2 flex-wrap mb-1">
-                              <h3 className="font-heading font-semibold text-foreground group-hover:text-primary transition-colors">{job.title}</h3>
+                              <h3 className="font-heading font-semibold text-foreground">{job.title}</h3>
                               {job.isHot && <Badge className="bg-destructive/10 text-destructive text-xs">🔥 Hot</Badge>}
                             </div>
                             <p className="text-sm text-muted-foreground mb-3">{job.company}</p>
-
                             <div className="flex flex-wrap items-center gap-4 text-sm text-muted-foreground mb-3">
                               <span className="flex items-center gap-1"><MapPin className="h-3.5 w-3.5" />{job.location}</span>
                               <span className="flex items-center gap-1"><IndianRupee className="h-3.5 w-3.5" />{job.salary}</span>
                               <span className="flex items-center gap-1"><Briefcase className="h-3.5 w-3.5" />{job.experience}</span>
                               <span className="flex items-center gap-1"><Clock className="h-3.5 w-3.5" />{job.posted}</span>
                             </div>
-
                             <div className="flex flex-wrap gap-2">
                               {job.skills.map((s) => (
                                 <span key={s} className="px-2 py-0.5 text-xs rounded-md bg-primary/10 text-primary">{s}</span>
                               ))}
                             </div>
                           </div>
-
                           <div className="flex flex-col items-end gap-2">
                             <span className="text-xs text-muted-foreground flex items-center gap-1"><Users className="h-3 w-3" />{job.applicants} applicants</span>
                             <Button size="sm" variant="outline" onClick={() => setSelectedJob(selectedJob?.title === job.title ? null : job)}>
@@ -224,7 +225,6 @@ const JobPage = () => {
                             <h4 className="font-semibold text-sm text-foreground mb-2">Job Description</h4>
                             <p className="text-sm text-muted-foreground">{job.description}</p>
                           </div>
-
                           <div>
                             <h4 className="font-semibold text-sm text-foreground mb-2">Why Evaluation Fee?</h4>
                             <p className="text-sm text-muted-foreground">
@@ -250,11 +250,9 @@ const JobPage = () => {
                           </div>
 
                           <div className="flex flex-wrap gap-3">
-                            <Link to="/apply">
-                              <Button className="gap-2">
-                                Apply Now — Pay ₹{job.experience.startsWith("0") ? "300" : "700"} <ArrowRight className="h-4 w-4" />
-                              </Button>
-                            </Link>
+                            <Button className="gap-2" onClick={() => setApplyJob(job)}>
+                              Apply Now <ArrowRight className="h-4 w-4" />
+                            </Button>
                             <Button variant="outline" className="gap-2">
                               <Mail className="h-4 w-4" /> Get Email Alerts
                             </Button>
@@ -270,6 +268,15 @@ const JobPage = () => {
         </section>
       </main>
       <Footer />
+
+      {/* Apply Dialog */}
+      {applyJob && (
+        <ApplyDialog
+          job={applyJob}
+          open={!!applyJob}
+          onClose={() => setApplyJob(null)}
+        />
+      )}
     </div>
   );
 };
