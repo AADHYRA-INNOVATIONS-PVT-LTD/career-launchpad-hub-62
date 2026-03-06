@@ -7,7 +7,7 @@ interface DemoVideo {
   description: string;
   duration: string;
   category: string;
-  thumbnail: string;
+  thumbnail?: string;
   gradient: string;
 }
 
@@ -39,14 +39,16 @@ const DemoVideoSection = ({ title = "Watch Demo Videos", subtitle = "Get a previ
               >
                 {/* Thumbnail */}
                 <div className={`relative aspect-video ${video.gradient} flex items-center justify-center overflow-hidden`}>
-                  <div className="absolute inset-0 bg-black/20 group-hover:bg-black/10 transition-colors" />
+                  {video.thumbnail && (
+                    <img src={video.thumbnail} alt={video.title} className="absolute inset-0 w-full h-full object-cover" />
+                  )}
+                  <div className="absolute inset-0 bg-black/30 group-hover:bg-black/15 transition-colors" />
                   <div className="relative z-10 flex flex-col items-center gap-2">
                     <div className="h-14 w-14 rounded-full bg-white/90 flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform">
                       <PlayCircle className="h-8 w-8 text-primary" />
                     </div>
                     <span className="text-white text-xs font-medium bg-black/40 rounded-full px-3 py-1">{video.duration}</span>
                   </div>
-                  {/* Decorative elements */}
                   <div className="absolute top-3 left-3">
                     <Badge className="bg-white/20 text-white border-white/30 text-xs backdrop-blur-sm">{video.category}</Badge>
                   </div>
@@ -72,8 +74,12 @@ const DemoVideoSection = ({ title = "Watch Demo Videos", subtitle = "Get a previ
             >
               <X className="h-4 w-4" />
             </button>
-            <div className={`aspect-video ${activeVideo.gradient} flex items-center justify-center`}>
-              <div className="text-center text-white p-8">
+            <div className={`relative aspect-video ${activeVideo.gradient} flex items-center justify-center`}>
+              {activeVideo.thumbnail && (
+                <img src={activeVideo.thumbnail} alt={activeVideo.title} className="absolute inset-0 w-full h-full object-cover" />
+              )}
+              <div className="absolute inset-0 bg-black/40" />
+              <div className="relative z-10 text-center text-white p-8">
                 <PlayCircle className="h-16 w-16 mx-auto mb-4 opacity-80" />
                 <h3 className="text-xl font-bold mb-2">{activeVideo.title}</h3>
                 <p className="text-sm text-white/80 max-w-md mx-auto">{activeVideo.description}</p>

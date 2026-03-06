@@ -19,6 +19,12 @@ import HRTrainingPage from "./pages/HRTrainingPage";
 import InternshipPage from "./pages/InternshipPage";
 import JobPage from "./pages/JobPage";
 
+// Placement Sub-portals
+import TalentConnectPage from "./pages/placement/TalentConnectPage";
+import TechPartnerPage from "./pages/placement/TechPartnerPage";
+import HealthConnectPage from "./pages/placement/HealthConnectPage";
+import AILabPage from "./pages/placement/AILabPage";
+
 // Dashboard Layout & Pages
 import DashboardLayout from "./layouts/DashboardLayout";
 import DashboardHome from "./pages/dashboard/DashboardHome";
@@ -80,6 +86,10 @@ const App = () => (
             <Route path="/hr-training" element={<HRTrainingPage />} />
             <Route path="/internships" element={<InternshipPage />} />
             <Route path="/career" element={<JobPage />} />
+            <Route path="/placement/talent-connect" element={<TalentConnectPage />} />
+            <Route path="/placement/tech-partner" element={<TechPartnerPage />} />
+            <Route path="/placement/health-connect" element={<HealthConnectPage />} />
+            <Route path="/placement/ai-lab" element={<AILabPage />} />
             <Route path="/apply" element={<ApplyPage />} />
             <Route path="/auth" element={<AuthPage />} />
 
