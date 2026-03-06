@@ -86,6 +86,10 @@ const App = () => (
             <Route path="/hr-training" element={<HRTrainingPage />} />
             <Route path="/internships" element={<InternshipPage />} />
             <Route path="/career" element={<JobPage />} />
+            <Route path="/placement/talent-connect" element={<TalentConnectPage />} />
+            <Route path="/placement/tech-partner" element={<TechPartnerPage />} />
+            <Route path="/placement/health-connect" element={<HealthConnectPage />} />
+            <Route path="/placement/ai-lab" element={<AILabPage />} />
             <Route path="/apply" element={<ApplyPage />} />
             <Route path="/auth" element={<AuthPage />} />
 
