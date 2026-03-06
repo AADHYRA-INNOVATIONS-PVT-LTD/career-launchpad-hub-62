@@ -3,6 +3,23 @@ import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
 import { Button } from "@/components/ui/button";
 import { Building2, Stethoscope, Briefcase, Megaphone, PenTool, FileText, Users, Target, CheckCircle2, GraduationCap, Award, Video, Brain, Globe, Cpu, Heart, Code, Palette, Search } from "lucide-react";
+import DemoVideoSection from "@/components/shared/DemoVideoSection";
+
+import thumbTechPartner from "@/assets/demo-thumb-tech-partner.jpg";
+import thumbHealthConnect from "@/assets/demo-thumb-health-connect.jpg";
+import thumbAILab from "@/assets/demo-thumb-ai-lab.jpg";
+import thumbHiring from "@/assets/demo-thumb-hiring-process.jpg";
+import thumbCulture from "@/assets/demo-thumb-company-culture.jpg";
+import thumbInternship from "@/assets/demo-thumb-internship.jpg";
+
+const placementDemoVideos = [
+  { title: "Shiksha Talent Connect Overview", description: "AI-powered recruitment platform connecting candidates with employers", duration: "4:30", category: "Talent Connect", thumbnail: thumbCulture, gradient: "bg-gradient-to-br from-blue-600 to-primary" },
+  { title: "Shiksha Tech Partner Demo", description: "Freelancing marketplace for IT professionals and designers", duration: "5:00", category: "Tech Partner", thumbnail: thumbTechPartner, gradient: "bg-gradient-to-br from-emerald-500 to-teal-700" },
+  { title: "Shiksha Health Connect", description: "Doctor and patient healthcare consultation platform", duration: "4:15", category: "Health Connect", thumbnail: thumbHealthConnect, gradient: "bg-gradient-to-br from-cyan-500 to-blue-700" },
+  { title: "Shiksha AI Lab Features", description: "AI-powered project builder, resume maker, and career tools", duration: "5:30", category: "AI Lab", thumbnail: thumbAILab, gradient: "bg-gradient-to-br from-violet-500 to-purple-700" },
+  { title: "Hiring Process Explained", description: "Step-by-step guide through MCQ, Technical, and AI HR rounds", duration: "4:00", category: "Placements", thumbnail: thumbHiring, gradient: "bg-gradient-to-br from-orange-500 to-red-600" },
+  { title: "Success Stories", description: "How students got placed at top companies through Shiksha Nex", duration: "3:45", category: "Success Stories", thumbnail: thumbInternship, gradient: "bg-gradient-to-br from-pink-500 to-rose-700" },
+];
 
 const shikshaProducts = [
   {
