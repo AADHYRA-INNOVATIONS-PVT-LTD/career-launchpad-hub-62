@@ -1,22 +1,33 @@
- import { Link } from "react-router-dom";
- import Navbar from "@/components/layout/Navbar";
- import Footer from "@/components/layout/Footer";
- import { Button } from "@/components/ui/button";
- import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
- import { Badge } from "@/components/ui/badge";
- import {
-   Users,
-   Briefcase,
-   DollarSign,
-   CheckCircle2,
-   ArrowRight,
-   Wallet,
-   Target,
-   TrendingUp,
-   Calendar,
-   Award,
-   GraduationCap,
- } from "lucide-react";
+import { Link } from "react-router-dom";
+import Navbar from "@/components/layout/Navbar";
+import Footer from "@/components/layout/Footer";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
+import {
+  Users,
+  Briefcase,
+  DollarSign,
+  CheckCircle2,
+  ArrowRight,
+  Wallet,
+  Target,
+  TrendingUp,
+  Calendar,
+  Award,
+  GraduationCap,
+} from "lucide-react";
+import DemoVideoSection from "@/components/shared/DemoVideoSection";
+
+import thumbHR from "@/assets/demo-thumb-hr.jpg";
+import thumbInternship from "@/assets/demo-thumb-internship.jpg";
+import thumbHiring from "@/assets/demo-thumb-hiring-process.jpg";
+
+const hrDemoVideos = [
+  { title: "HR Generalist Complete Training", description: "End-to-end HR operations from recruitment to payroll management", duration: "5:30", category: "HR Training", thumbnail: thumbHR, gradient: "bg-gradient-to-br from-orange-500 to-red-700" },
+  { title: "HR Internship - Live Task Demo", description: "See how interns complete real hiring tasks and earn stipends", duration: "4:15", category: "Internship", thumbnail: thumbInternship, gradient: "bg-gradient-to-br from-blue-500 to-indigo-700" },
+  { title: "Placement After HR Training", description: "How HR trainees get placed in partner companies", duration: "3:45", category: "Placements", thumbnail: thumbHiring, gradient: "bg-gradient-to-br from-emerald-500 to-teal-700" },
+];
  
  const whoCanJoin = [
    "Fresh Graduates",
