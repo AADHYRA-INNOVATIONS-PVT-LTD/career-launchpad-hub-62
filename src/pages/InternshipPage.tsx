@@ -7,13 +7,20 @@ import { Clock, MapPin, Briefcase, IndianRupee, Users, ArrowRight, Filter, Star,
 import { useState } from "react";
 import DemoVideoSection from "@/components/shared/DemoVideoSection";
 
+import thumbInternship from "@/assets/demo-thumb-internship.jpg";
+import thumbJava from "@/assets/demo-thumb-java.jpg";
+import thumbHR from "@/assets/demo-thumb-hr.jpg";
+import thumbMarketing from "@/assets/demo-thumb-marketing.jpg";
+import thumbDesign from "@/assets/demo-thumb-design.jpg";
+import thumbNursing from "@/assets/demo-thumb-nursing.jpg";
+
 const internshipDemoVideos = [
-  { title: "How Internships Work at Shiksha Nex", description: "Complete walkthrough of the internship program, tasks, and mentorship", duration: "4:00", category: "Overview", thumbnail: "", gradient: "bg-gradient-to-br from-blue-500 to-indigo-700" },
-  { title: "IT Internship - Real Project Demo", description: "See how interns build real applications with Java, Python, and React", duration: "5:20", category: "IT Internship", thumbnail: "", gradient: "bg-gradient-to-br from-emerald-500 to-green-700" },
-  { title: "HR Internship Experience", description: "Learn recruitment, ATS systems, and talent sourcing hands-on", duration: "3:45", category: "HR Internship", thumbnail: "", gradient: "bg-gradient-to-br from-orange-500 to-amber-700" },
-  { title: "Digital Marketing Internship", description: "Run live campaigns on Google Ads and social media platforms", duration: "4:30", category: "Marketing Internship", thumbnail: "", gradient: "bg-gradient-to-br from-pink-500 to-rose-700" },
-  { title: "Design Internship Portfolio", description: "Create professional design portfolios during your internship", duration: "3:50", category: "Design Internship", thumbnail: "", gradient: "bg-gradient-to-br from-violet-500 to-purple-700" },
-  { title: "Nursing Clinical Internship", description: "Hospital-based clinical training and patient care experience", duration: "5:00", category: "Healthcare", thumbnail: "", gradient: "bg-gradient-to-br from-cyan-500 to-teal-700" },
+  { title: "How Internships Work at Shiksha Nex", description: "Complete walkthrough of the internship program, tasks, and mentorship", duration: "4:00", category: "Overview", thumbnail: thumbInternship, gradient: "bg-gradient-to-br from-blue-500 to-indigo-700" },
+  { title: "IT Internship - Real Project Demo", description: "See how interns build real applications with Java, Python, and React", duration: "5:20", category: "IT Internship", thumbnail: thumbJava, gradient: "bg-gradient-to-br from-emerald-500 to-green-700" },
+  { title: "HR Internship Experience", description: "Learn recruitment, ATS systems, and talent sourcing hands-on", duration: "3:45", category: "HR Internship", thumbnail: thumbHR, gradient: "bg-gradient-to-br from-orange-500 to-amber-700" },
+  { title: "Digital Marketing Internship", description: "Run live campaigns on Google Ads and social media platforms", duration: "4:30", category: "Marketing Internship", thumbnail: thumbMarketing, gradient: "bg-gradient-to-br from-pink-500 to-rose-700" },
+  { title: "Design Internship Portfolio", description: "Create professional design portfolios during your internship", duration: "3:50", category: "Design Internship", thumbnail: thumbDesign, gradient: "bg-gradient-to-br from-violet-500 to-purple-700" },
+  { title: "Nursing Clinical Internship", description: "Hospital-based clinical training and patient care experience", duration: "5:00", category: "Healthcare", thumbnail: thumbNursing, gradient: "bg-gradient-to-br from-cyan-500 to-teal-700" },
 ];
 
 const categories = ["All", "IT", "HR", "Digital Marketing", "Graphic Design", "Nursing", "Data Science", "Content Writing"];

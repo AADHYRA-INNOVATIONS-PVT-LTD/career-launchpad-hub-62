@@ -241,8 +241,15 @@ const hrDemoVideos = [
            </div>
          </section>
  
-         {/* CTA */}
-         <section className="py-16 lg:py-20">
+        {/* Demo Videos */}
+        <DemoVideoSection
+          title="HR Training Demo Videos"
+          subtitle="Preview our HR training content, internship tasks, and placement support"
+          videos={hrDemoVideos}
+        />
+
+        {/* CTA */}
+        <section className="py-16 lg:py-20">
            <div className="container">
              <div className="bg-card rounded-2xl border shadow-card p-8 lg:p-12 text-center">
                <Award className="h-16 w-16 mx-auto text-primary mb-6" />
