@@ -188,7 +188,11 @@ const HealthConnectPage = () => {
                         <p className="text-sm text-muted-foreground mb-3">{c.desc}</p>
                         <div className="flex items-center justify-between">
                           <span className="font-bold text-primary text-sm">{c.price}</span>
-                          <Button size="sm" variant="outline" className="gap-1 text-xs">Book Now <ArrowRight className="h-3 w-3" /></Button>
+                          {c.title === "AI Symptom Checker" ? (
+                            <SymptomChecker />
+                          ) : (
+                            <Button size="sm" variant="outline" className="gap-1 text-xs">Book Now <ArrowRight className="h-3 w-3" /></Button>
+                          )}
                         </div>
                       </div>
                     );
