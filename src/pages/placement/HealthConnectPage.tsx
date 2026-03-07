@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import SymptomChecker from "@/components/health/SymptomChecker";
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
 import { Button } from "@/components/ui/button";
