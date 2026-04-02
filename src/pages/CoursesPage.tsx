@@ -16,13 +16,30 @@ import thumbHR from "@/assets/demo-thumb-hr.jpg";
 import thumbMarketing from "@/assets/demo-thumb-marketing.jpg";
 import thumbDesign from "@/assets/demo-thumb-design.jpg";
 import thumbNursing from "@/assets/demo-thumb-nursing.jpg";
+import thumbDataAnalytics from "@/assets/demo-thumb-data-analytics.jpg";
+import thumbCloud from "@/assets/demo-thumb-cloud.jpg";
+import thumbCyber from "@/assets/demo-thumb-cybersecurity.jpg";
+import thumbPayroll from "@/assets/demo-thumb-payroll.jpg";
+import thumbSEO from "@/assets/demo-thumb-seo.jpg";
+import thumbMobileDev from "@/assets/demo-thumb-mobile-dev.jpg";
 
 const courseDemoVideos = [
+  // IT Training
   { title: "Java Full Stack Development", description: "Learn Spring Boot, React, and MySQL with hands-on projects", duration: "5:30", category: "IT Training", thumbnail: thumbJava, gradient: "bg-gradient-to-br from-blue-600 to-indigo-800" },
   { title: "Python & AI/ML Fundamentals", description: "Introduction to machine learning with TensorFlow and real datasets", duration: "6:15", category: "IT Training", thumbnail: thumbPythonAI, gradient: "bg-gradient-to-br from-emerald-600 to-teal-800" },
+  { title: "Data Analytics with Python & SQL", description: "Master data visualization with Tableau, Power BI and SQL queries", duration: "5:45", category: "IT Training", thumbnail: thumbDataAnalytics, gradient: "bg-gradient-to-br from-cyan-600 to-blue-800" },
+  { title: "AWS Cloud Computing", description: "Deploy and manage cloud infrastructure with AWS, Docker & Kubernetes", duration: "6:30", category: "IT Training", thumbnail: thumbCloud, gradient: "bg-gradient-to-br from-amber-500 to-orange-700" },
+  { title: "Cyber Security Essentials", description: "Learn ethical hacking, penetration testing with Kali Linux & Wireshark", duration: "5:15", category: "IT Training", thumbnail: thumbCyber, gradient: "bg-gradient-to-br from-green-700 to-emerald-900" },
+  { title: "Mobile App Development", description: "Build Android & iOS apps with React Native and Flutter", duration: "5:50", category: "IT Training", thumbnail: thumbMobileDev, gradient: "bg-gradient-to-br from-violet-600 to-purple-900" },
+  // HR Training
   { title: "HR Generalist Masterclass", description: "Complete HR operations from recruitment to payroll management", duration: "4:45", category: "HR Training", thumbnail: thumbHR, gradient: "bg-gradient-to-br from-orange-500 to-red-700" },
+  { title: "Payroll & Statutory Compliance", description: "Master salary processing, PF, ESI, TDS and labor law compliance", duration: "4:20", category: "HR Training", thumbnail: thumbPayroll, gradient: "bg-gradient-to-br from-rose-500 to-pink-800" },
+  // Digital Marketing
   { title: "Digital Marketing Strategy", description: "SEO, Google Ads, and social media marketing essentials", duration: "5:00", category: "Digital Marketing", thumbnail: thumbMarketing, gradient: "bg-gradient-to-br from-pink-500 to-purple-700" },
+  { title: "SEO & Content Marketing", description: "Rank #1 on Google with advanced SEO techniques and content strategy", duration: "4:40", category: "Digital Marketing", thumbnail: thumbSEO, gradient: "bg-gradient-to-br from-green-500 to-teal-700" },
+  // Design
   { title: "UI/UX Design with Figma", description: "Design beautiful interfaces and interactive prototypes", duration: "4:30", category: "Graphic Design", thumbnail: thumbDesign, gradient: "bg-gradient-to-br from-violet-500 to-purple-800" },
+  // Nursing
   { title: "Advanced Nursing & Hospital Management", description: "Clinical training, ICU procedures, and hospital administration", duration: "6:00", category: "Nursing", thumbnail: thumbNursing, gradient: "bg-gradient-to-br from-cyan-500 to-blue-700" },
 ];
 

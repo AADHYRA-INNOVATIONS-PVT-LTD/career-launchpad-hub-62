@@ -19,6 +19,7 @@ import HRTrainingPage from "./pages/HRTrainingPage";
 import InternshipPage from "./pages/InternshipPage";
 import JobPage from "./pages/JobPage";
 import AdminAuth from "./pages/admin/AdminAuth";
+import CertificateVerifyPage from "./pages/CertificateVerifyPage";
 
 // Placement Sub-portals
 import TalentConnectPage from "./pages/placement/TalentConnectPage";
@@ -92,6 +93,7 @@ const App = () => (
             <Route path="/placement/health-connect" element={<HealthConnectPage />} />
             <Route path="/placement/ai-lab" element={<AILabPage />} />
             <Route path="/apply" element={<ApplyPage />} />
+            <Route path="/verify" element={<CertificateVerifyPage />} />
             <Route path="/auth" element={<AuthPage />} />
             <Route path="/admin/login" element={<AdminAuth />} />
 
