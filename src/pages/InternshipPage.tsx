@@ -13,12 +13,24 @@ import thumbHR from "@/assets/demo-thumb-hr.jpg";
 import thumbMarketing from "@/assets/demo-thumb-marketing.jpg";
 import thumbDesign from "@/assets/demo-thumb-design.jpg";
 import thumbNursing from "@/assets/demo-thumb-nursing.jpg";
+import thumbDataAnalytics from "@/assets/demo-thumb-data-analytics.jpg";
+import thumbCloud from "@/assets/demo-thumb-cloud.jpg";
+import thumbCyber from "@/assets/demo-thumb-cybersecurity.jpg";
+import thumbPayroll from "@/assets/demo-thumb-payroll.jpg";
+import thumbSEO from "@/assets/demo-thumb-seo.jpg";
+import thumbMobileDev from "@/assets/demo-thumb-mobile-dev.jpg";
 
 const internshipDemoVideos = [
   { title: "How Internships Work at Shiksha Nex", description: "Complete walkthrough of the internship program, tasks, and mentorship", duration: "4:00", category: "Overview", thumbnail: thumbInternship, gradient: "bg-gradient-to-br from-blue-500 to-indigo-700" },
   { title: "IT Internship - Real Project Demo", description: "See how interns build real applications with Java, Python, and React", duration: "5:20", category: "IT Internship", thumbnail: thumbJava, gradient: "bg-gradient-to-br from-emerald-500 to-green-700" },
+  { title: "Data Analytics Internship", description: "Work on real datasets, build dashboards and generate business insights", duration: "4:45", category: "IT Internship", thumbnail: thumbDataAnalytics, gradient: "bg-gradient-to-br from-cyan-500 to-blue-700" },
+  { title: "Cloud & DevOps Internship", description: "Deploy applications on AWS, manage CI/CD pipelines and containers", duration: "5:10", category: "IT Internship", thumbnail: thumbCloud, gradient: "bg-gradient-to-br from-amber-500 to-orange-700" },
+  { title: "Cyber Security Internship", description: "Perform vulnerability assessments and penetration testing on live systems", duration: "4:55", category: "IT Internship", thumbnail: thumbCyber, gradient: "bg-gradient-to-br from-green-700 to-emerald-900" },
+  { title: "Mobile App Dev Internship", description: "Build and publish real mobile apps for Android and iOS platforms", duration: "5:15", category: "IT Internship", thumbnail: thumbMobileDev, gradient: "bg-gradient-to-br from-violet-600 to-purple-800" },
   { title: "HR Internship Experience", description: "Learn recruitment, ATS systems, and talent sourcing hands-on", duration: "3:45", category: "HR Internship", thumbnail: thumbHR, gradient: "bg-gradient-to-br from-orange-500 to-amber-700" },
+  { title: "Payroll & Compliance Internship", description: "Process real payroll, handle PF/ESI and statutory compliance", duration: "4:10", category: "HR Internship", thumbnail: thumbPayroll, gradient: "bg-gradient-to-br from-rose-500 to-pink-700" },
   { title: "Digital Marketing Internship", description: "Run live campaigns on Google Ads and social media platforms", duration: "4:30", category: "Marketing Internship", thumbnail: thumbMarketing, gradient: "bg-gradient-to-br from-pink-500 to-rose-700" },
+  { title: "SEO & Content Internship", description: "Optimize real websites for search engines and create content strategies", duration: "4:00", category: "Marketing Internship", thumbnail: thumbSEO, gradient: "bg-gradient-to-br from-green-500 to-teal-700" },
   { title: "Design Internship Portfolio", description: "Create professional design portfolios during your internship", duration: "3:50", category: "Design Internship", thumbnail: thumbDesign, gradient: "bg-gradient-to-br from-violet-500 to-purple-700" },
   { title: "Nursing Clinical Internship", description: "Hospital-based clinical training and patient care experience", duration: "5:00", category: "Healthcare", thumbnail: thumbNursing, gradient: "bg-gradient-to-br from-cyan-500 to-teal-700" },
 ];
