@@ -18,6 +18,7 @@ import NotFound from "./pages/NotFound";
 import HRTrainingPage from "./pages/HRTrainingPage";
 import InternshipPage from "./pages/InternshipPage";
 import JobPage from "./pages/JobPage";
+import AdminAuth from "./pages/admin/AdminAuth";
 
 // Placement Sub-portals
 import TalentConnectPage from "./pages/placement/TalentConnectPage";
