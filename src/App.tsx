@@ -93,6 +93,7 @@ const App = () => (
             <Route path="/placement/ai-lab" element={<AILabPage />} />
             <Route path="/apply" element={<ApplyPage />} />
             <Route path="/auth" element={<AuthPage />} />
+            <Route path="/admin/login" element={<AdminAuth />} />
 
             {/* Employer Auth Routes (outside layout) */}
             <Route path="/employer/auth" element={<EmployerAuth />} />
