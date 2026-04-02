@@ -93,6 +93,7 @@ const App = () => (
             <Route path="/placement/health-connect" element={<HealthConnectPage />} />
             <Route path="/placement/ai-lab" element={<AILabPage />} />
             <Route path="/apply" element={<ApplyPage />} />
+            <Route path="/verify" element={<CertificateVerifyPage />} />
             <Route path="/auth" element={<AuthPage />} />
             <Route path="/admin/login" element={<AdminAuth />} />
 
