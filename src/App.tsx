@@ -19,6 +19,7 @@ import HRTrainingPage from "./pages/HRTrainingPage";
 import InternshipPage from "./pages/InternshipPage";
 import JobPage from "./pages/JobPage";
 import AdminAuth from "./pages/admin/AdminAuth";
+import CertificateVerifyPage from "./pages/CertificateVerifyPage";
 
 // Placement Sub-portals
 import TalentConnectPage from "./pages/placement/TalentConnectPage";
