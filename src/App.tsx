@@ -18,6 +18,7 @@ import NotFound from "./pages/NotFound";
 import HRTrainingPage from "./pages/HRTrainingPage";
 import InternshipPage from "./pages/InternshipPage";
 import JobPage from "./pages/JobPage";
+import AdminAuth from "./pages/admin/AdminAuth";
 
 // Placement Sub-portals
 import TalentConnectPage from "./pages/placement/TalentConnectPage";
@@ -92,6 +93,7 @@ const App = () => (
             <Route path="/placement/ai-lab" element={<AILabPage />} />
             <Route path="/apply" element={<ApplyPage />} />
             <Route path="/auth" element={<AuthPage />} />
+            <Route path="/admin/login" element={<AdminAuth />} />
 
             {/* Employer Auth Routes (outside layout) */}
             <Route path="/employer/auth" element={<EmployerAuth />} />
