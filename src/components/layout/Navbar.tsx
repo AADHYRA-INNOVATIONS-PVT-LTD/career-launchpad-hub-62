@@ -25,108 +25,46 @@ const courses = [
 const serviceCategories = [
   {
     title: "AI & Next-Gen Technology",
-    items: [
-      "AI Powered Platforms",
-      "Next Generation Technologies",
-      "AI Chatbots",
-      "Automation Solutions",
-      "Machine Learning Solutions",
-    ],
+    href: "/services/ai",
+    items: ["AI Powered Platforms", "Next Generation Tech", "AI Chatbots", "Automation", "Machine Learning"],
   },
   {
-    title: "Cloud & Enterprise Solutions",
-    items: [
-      "Cloud Based Solutions",
-      "Enterprise Integrations",
-      "SaaS Platforms",
-      "Data Storage & Cloud Migration",
-    ],
+    title: "Cloud & Enterprise",
+    href: "/services/cloud",
+    items: ["Cloud Solutions", "Enterprise Integrations", "SaaS Platforms", "Cloud Migration"],
   },
   {
     title: "Data & Analytics",
-    items: [
-      "Analytics Platforms",
-      "Data Analytics Solutions",
-      "Business Intelligence Dashboards",
-      "Data Visualization",
-    ],
+    href: "/services/data-analytics",
+    items: ["Analytics Platforms", "BI Dashboards", "Data Visualization", "Predictive Analytics"],
   },
   {
     title: "Cyber Security",
-    items: [
-      "Cyber Security Solutions",
-      "Network Security",
-      "Data Protection",
-      "Security Monitoring",
-    ],
+    href: "/services/cyber-security",
+    items: ["Security Solutions", "Network Security", "Data Protection", "SOC Monitoring"],
   },
   {
-    title: "Web & Mobile Development",
-    items: [
-      "Website Development",
-      "Web Applications",
-      "Mobile App Development",
-      "Android & iOS Apps",
-    ],
+    title: "Web & Mobile",
+    href: "/services/web-mobile",
+    items: ["Website Development", "Web Applications", "iOS & Android Apps", "E-commerce"],
   },
 ];
 
 const crmCategories = [
   {
-    title: "CRM & Sales Solutions",
-    items: [
-      "CRM Software",
-      "Lead Management",
-      "Sales Management",
-      "Contact Management CRM",
-      "Project Management CRM",
-      "Invoice & Quotations",
-      "Mobile CRM App",
-    ],
+    title: "CRM & Sales",
+    href: "/services/crm",
+    items: ["CRM Software", "Lead Management", "Sales Pipeline", "Mobile CRM App", "Invoice & Quotes"],
   },
   {
     title: "CRM by Industry",
-    items: [
-      "Real Estate CRM",
-      "Educational Institute CRM",
-      "Healthcare CRM",
-      "Automobile CRM",
-      "Banking & Financial CRM",
-      "Logistics CRM",
-      "Travel Agency CRM",
-      "Retail & Manufacturing CRM",
-    ],
+    href: "/services/crm",
+    items: ["Real Estate", "Education", "Healthcare", "Automobile", "Banking", "Logistics", "Travel", "Retail"],
   },
   {
-    title: "Communication & Automation",
-    items: [
-      "IVR Support (Cloud IVR)",
-      "Auto Dialer",
-      "AI Chatbot",
-      "WhatsApp Business API",
-      "Chatbot Integration",
-    ],
-  },
-  {
-    title: "Digital Business Tools",
-    items: [
-      "Survey Forms",
-      "Digital Visiting Cards",
-      "Lead Tracking",
-      "Location Tracking",
-      "Affiliate Program",
-    ],
-  },
-  {
-    title: "Product Suite",
-    items: [
-      "R Phone – Cloud IVR",
-      "R Dialer – Auto Dialer",
-      "R Bot – AI Chatbot",
-      "R Forms – Survey Forms",
-      "R Track – Tracking System",
-      "R Locate – Location Tracking",
-    ],
+    title: "R Product Suite",
+    href: "/services/r-suite",
+    items: ["R Phone — Cloud IVR", "R Dialer — Auto Dialer", "R Bot — AI Chatbot", "R Forms — Surveys", "R Track", "R Locate"],
   },
 ];
 
@@ -172,15 +110,20 @@ const Navbar = () => {
                   <div className="w-[750px] p-5">
                     {/* IT Services */}
                     <div className="mb-4">
-                      <h4 className="text-xs font-bold uppercase tracking-wider text-primary mb-3">IT Services</h4>
+                      <div className="flex items-center justify-between mb-3">
+                        <h4 className="text-xs font-bold uppercase tracking-wider text-primary">IT Services</h4>
+                        <Link to="/services" className="text-xs text-primary hover:underline">View all →</Link>
+                      </div>
                       <div className="grid grid-cols-3 gap-x-6 gap-y-1">
                         {serviceCategories.map((cat) => (
                           <div key={cat.title} className="mb-3">
-                            <p className="text-sm font-semibold text-foreground mb-1">{cat.title}</p>
+                            <Link to={cat.href} className="text-sm font-semibold text-foreground hover:text-primary mb-1 block">
+                              {cat.title}
+                            </Link>
                             {cat.items.map((item) => (
-                              <p key={item} className="text-xs text-muted-foreground py-0.5 hover:text-primary cursor-pointer transition-colors">
+                              <Link key={item} to={cat.href} className="block text-xs text-muted-foreground py-0.5 hover:text-primary transition-colors">
                                 {item}
-                              </p>
+                              </Link>
                             ))}
                           </div>
                         ))}
@@ -191,19 +134,24 @@ const Navbar = () => {
                       <div className="grid grid-cols-3 gap-x-6 gap-y-1">
                         {crmCategories.map((cat) => (
                           <div key={cat.title} className="mb-3">
-                            <p className="text-sm font-semibold text-foreground mb-1">{cat.title}</p>
+                            <Link to={cat.href} className="text-sm font-semibold text-foreground hover:text-primary mb-1 block">
+                              {cat.title}
+                            </Link>
                             {cat.items.map((item) => (
-                              <p key={item} className="text-xs text-muted-foreground py-0.5 hover:text-primary cursor-pointer transition-colors">
+                              <Link key={item} to={cat.href} className="block text-xs text-muted-foreground py-0.5 hover:text-primary transition-colors">
                                 {item}
-                              </p>
+                              </Link>
                             ))}
                           </div>
                         ))}
                       </div>
                     </div>
-                    <div className="border-t border-border pt-3 mt-3">
-                      <Link to="/contact" className="text-sm font-medium text-primary hover:underline inline-flex items-center gap-1">
-                        Contact us for custom solutions <ChevronRight className="h-4 w-4" />
+                    <div className="border-t border-border pt-3 mt-3 flex items-center justify-between">
+                      <Link to="/services" className="text-sm font-medium text-primary hover:underline inline-flex items-center gap-1">
+                        Browse all services <ChevronRight className="h-4 w-4" />
+                      </Link>
+                      <Link to="/contact" className="text-sm font-medium text-primary hover:underline">
+                        Contact for custom solutions →
                       </Link>
                     </div>
                   </div>
@@ -261,6 +209,9 @@ const Navbar = () => {
           <Link to="/auth" className="hidden sm:block">
             <Button variant="outline" size="sm">Student Login</Button>
           </Link>
+          <Link to="/employer/auth" className="hidden md:block">
+            <Button variant="outline" size="sm">Employer Login</Button>
+          </Link>
           <Link to="/apply" className="hidden sm:block">
             <Button variant="accent" size="sm">Apply Now</Button>
           </Link>
@@ -292,22 +243,19 @@ const Navbar = () => {
               <div className="ml-4 pl-4 border-l border-border space-y-3 py-2">
                 <p className="text-xs font-bold uppercase tracking-wider text-primary">IT Services</p>
                 {serviceCategories.map((cat) => (
-                  <div key={cat.title}>
-                    <p className="text-sm font-semibold text-foreground">{cat.title}</p>
-                    {cat.items.map((item) => (
-                      <p key={item} className="text-xs text-muted-foreground py-0.5 pl-2">{item}</p>
-                    ))}
-                  </div>
+                  <Link key={cat.title} to={cat.href} onClick={() => setIsMobileMenuOpen(false)} className="block">
+                    <p className="text-sm font-semibold text-foreground hover:text-primary">{cat.title}</p>
+                  </Link>
                 ))}
                 <p className="text-xs font-bold uppercase tracking-wider text-primary pt-2">CRM & Business</p>
                 {crmCategories.map((cat) => (
-                  <div key={cat.title}>
-                    <p className="text-sm font-semibold text-foreground">{cat.title}</p>
-                    {cat.items.map((item) => (
-                      <p key={item} className="text-xs text-muted-foreground py-0.5 pl-2">{item}</p>
-                    ))}
-                  </div>
+                  <Link key={cat.title} to={cat.href} onClick={() => setIsMobileMenuOpen(false)} className="block">
+                    <p className="text-sm font-semibold text-foreground hover:text-primary">{cat.title}</p>
+                  </Link>
                 ))}
+                <Link to="/services" onClick={() => setIsMobileMenuOpen(false)} className="block text-primary text-sm font-medium pt-2">
+                  View all services →
+                </Link>
               </div>
             )}
 
