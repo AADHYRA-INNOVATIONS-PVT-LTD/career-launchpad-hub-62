@@ -2,146 +2,250 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
+import AnimatedBackground from "@/components/shared/AnimatedBackground";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { Brain, Sparkles, Code, FileText, Video, Palette, ArrowRight, CheckCircle2, Zap, Wand2, Send } from "lucide-react";
-import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
+import { Sparkles, Send, Loader2, Code, FileText, Database, Layers, ListChecks, Wand2 } from "lucide-react";
+import { supabase } from "@/integrations/supabase/client";
+import { toast } from "sonner";
 
-const aiTools = [
-  { icon: FileText, title: "AI Resume Builder", description: "Generate ATS-friendly professional resumes with AI suggestions", color: "primary", badge: "Popular" },
-  { icon: Video, title: "Mock Interview AI", description: "Practice interviews with AI interviewer, get instant feedback", color: "primary", badge: "New" },
-  { icon: Code, title: "Code Playground", description: "Write, run, and debug code with AI assistance across 10+ languages", color: "primary", badge: "Beta" },
-  { icon: Brain, title: "Career Path AI", description: "AI-powered career recommendations based on your skills and goals", color: "primary", badge: "" },
-  { icon: Palette, title: "Design Generator", description: "Generate logos, banners, and social media creatives with AI", color: "primary", badge: "" },
-  { icon: Wand2, title: "Project Builder", description: "Describe your project idea, AI generates the complete codebase", color: "primary", badge: "Featured" },
+interface ProjectPlan {
+  name: string;
+  tagline: string;
+  description: string;
+  techStack: string[];
+  features: string[];
+  pages: string[];
+  dataModel: { table: string; fields: string[] }[];
+  nextSteps: string[];
+}
+
+const examples = [
+  "Build a portfolio website with contact form and dark mode",
+  "Create an e-commerce app for handmade jewelry with Razorpay checkout",
+  "A SaaS dashboard for tracking gym workouts with charts",
+  "A blog platform with markdown support and AI summary",
 ];
 
 const AILabPage = () => {
   const [prompt, setPrompt] = useState("");
+  const [loading, setLoading] = useState(false);
+  const [plan, setPlan] = useState<ProjectPlan | null>(null);
+
+  const handleGenerate = async () => {
+    if (!prompt.trim()) {
+      toast.error("Please describe your project idea first");
+      return;
+    }
+    setLoading(true);
+    setPlan(null);
+    try {
+      const { data, error } = await supabase.functions.invoke("ai-lab-builder", {
+        body: { prompt },
+      });
+      if (error) throw error;
+      if (data?.error) throw new Error(data.error);
+      setPlan(data.plan);
+      toast.success("Your project plan is ready!");
+    } catch (err: any) {
+      toast.error(err?.message || "Failed to generate. Please try again.");
+    } finally {
+      setLoading(false);
+    }
+  };
 
   return (
     <div className="min-h-screen bg-background">
       <Navbar />
       <main>
-        {/* Hero */}
-        <section className="gradient-hero text-primary-foreground py-16 lg:py-24">
-          <div className="container">
-            <div className="max-w-3xl mx-auto text-center">
-              <Badge className="bg-white/10 text-white mb-4">🔹 Shiksha AI Lab</Badge>
-              <h1 className="font-heading text-3xl md:text-4xl lg:text-5xl font-bold mb-4">
-                AI-Powered Builder Platform
+        {/* Hero with prompt */}
+        <section className="relative py-16 lg:py-20 overflow-hidden">
+          <AnimatedBackground />
+          <div className="container relative">
+            <div className="max-w-3xl mx-auto text-center mb-10">
+              <Badge className="mb-4 bg-primary/10 text-primary border-primary/20">🔹 Shiksha AI Lab</Badge>
+              <h1 className="font-heading text-4xl md:text-5xl lg:text-6xl font-bold text-foreground mb-4">
+                Prompt to <span className="text-gradient">Project</span> in seconds
               </h1>
-              <p className="text-lg text-primary-foreground/80 mb-8">
-                Give a prompt, get a project. AI resume builder, mock interviews, code playground, and career tools — all in one place.
+              <p className="text-lg text-muted-foreground">
+                Describe what you want to build. Our AI plans the features, pages, tech stack, and data model — just like
+                Lovable.
               </p>
-              <div className="flex flex-wrap gap-4 justify-center">
-                <Link to="/auth">
-                  <Button variant="accent" size="xl" className="gap-2">
-                    <Sparkles className="h-5 w-5" /> Start Building
-                  </Button>
-                </Link>
+            </div>
+
+            {/* Prompt box */}
+            <div className="max-w-3xl mx-auto bg-card rounded-3xl border-2 border-primary/20 shadow-card-hover p-6 md:p-8">
+              <div className="flex items-center gap-2 mb-4">
+                <Sparkles className="h-5 w-5 text-primary" />
+                <h3 className="font-heading font-semibold text-foreground">AI Project Builder</h3>
+              </div>
+              <Textarea
+                value={prompt}
+                onChange={(e) => setPrompt(e.target.value)}
+                placeholder="e.g., Build a marketplace where freelance designers can sell logo templates with Stripe checkout..."
+                rows={4}
+                className="mb-4 text-base resize-none"
+                disabled={loading}
+              />
+              <div className="flex flex-wrap gap-2 mb-4">
+                {examples.map((eg) => (
+                  <button
+                    key={eg}
+                    type="button"
+                    disabled={loading}
+                    onClick={() => setPrompt(eg)}
+                    className="px-3 py-1.5 text-xs rounded-full border border-primary/20 text-primary hover:bg-primary/10 transition-colors disabled:opacity-50"
+                  >
+                    {eg}
+                  </button>
+                ))}
+              </div>
+              <div className="flex gap-2">
+                <Button onClick={handleGenerate} disabled={loading} size="lg" className="gap-2 flex-1">
+                  {loading ? (
+                    <>
+                      <Loader2 className="h-4 w-4 animate-spin" /> Generating your project...
+                    </>
+                  ) : (
+                    <>
+                      <Send className="h-4 w-4" /> Generate Project Plan
+                    </>
+                  )}
+                </Button>
               </div>
             </div>
           </div>
         </section>
 
-        {/* AI Prompt Box */}
-        <section className="py-12 border-b">
-          <div className="container">
-            <div className="max-w-2xl mx-auto">
-              <div className="bg-card rounded-2xl border-2 border-primary/20 shadow-card p-6">
-                <div className="flex items-center gap-2 mb-4">
-                  <Sparkles className="h-5 w-5 text-primary" />
-                  <h3 className="font-heading font-semibold text-foreground">Try AI Project Builder</h3>
+        {/* Result */}
+        {plan && (
+          <section className="py-16">
+            <div className="container max-w-5xl">
+              <div className="bg-card rounded-3xl border shadow-card-hover overflow-hidden">
+                <div className="bg-gradient-to-br from-primary to-violet-600 text-primary-foreground p-8">
+                  <Badge className="bg-white/20 text-white border-0 mb-3">Generated Project</Badge>
+                  <h2 className="font-heading text-3xl md:text-4xl font-bold mb-2">{plan.name}</h2>
+                  <p className="text-lg text-primary-foreground/90 mb-3">{plan.tagline}</p>
+                  <p className="text-primary-foreground/80">{plan.description}</p>
                 </div>
-                <p className="text-sm text-muted-foreground mb-4">Describe your project and our AI will generate the code for you</p>
-                <div className="flex gap-2">
-                  <Input
-                    value={prompt}
-                    onChange={(e) => setPrompt(e.target.value)}
-                    placeholder="e.g., Build a portfolio website with contact form..."
-                    className="flex-1"
-                  />
+
+                <div className="p-8 grid md:grid-cols-2 gap-8">
+                  <div>
+                    <div className="flex items-center gap-2 mb-3">
+                      <Layers className="h-5 w-5 text-primary" />
+                      <h3 className="font-heading font-semibold">Tech Stack</h3>
+                    </div>
+                    <div className="flex flex-wrap gap-2">
+                      {plan.techStack.map((t) => (
+                        <Badge key={t} variant="outline">
+                          {t}
+                        </Badge>
+                      ))}
+                    </div>
+                  </div>
+
+                  <div>
+                    <div className="flex items-center gap-2 mb-3">
+                      <FileText className="h-5 w-5 text-primary" />
+                      <h3 className="font-heading font-semibold">Pages</h3>
+                    </div>
+                    <ul className="space-y-1.5">
+                      {plan.pages.map((p) => (
+                        <li key={p} className="text-sm text-foreground flex items-center gap-2">
+                          <Code className="h-3.5 w-3.5 text-primary" /> {p}
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+
+                  <div className="md:col-span-2">
+                    <div className="flex items-center gap-2 mb-3">
+                      <Wand2 className="h-5 w-5 text-primary" />
+                      <h3 className="font-heading font-semibold">Features</h3>
+                    </div>
+                    <div className="grid sm:grid-cols-2 gap-2">
+                      {plan.features.map((f) => (
+                        <div key={f} className="flex items-start gap-2 text-sm bg-muted/40 rounded-lg p-3">
+                          <Sparkles className="h-4 w-4 text-primary mt-0.5 flex-shrink-0" />
+                          <span>{f}</span>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+
+                  <div className="md:col-span-2">
+                    <div className="flex items-center gap-2 mb-3">
+                      <Database className="h-5 w-5 text-primary" />
+                      <h3 className="font-heading font-semibold">Data Model</h3>
+                    </div>
+                    <div className="grid sm:grid-cols-2 gap-3">
+                      {plan.dataModel.map((d) => (
+                        <div key={d.table} className="rounded-lg border bg-background p-4">
+                          <div className="font-mono text-sm font-bold text-primary mb-2">{d.table}</div>
+                          <ul className="text-xs text-muted-foreground space-y-1">
+                            {d.fields.map((f) => (
+                              <li key={f} className="font-mono">• {f}</li>
+                            ))}
+                          </ul>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+
+                  <div className="md:col-span-2">
+                    <div className="flex items-center gap-2 mb-3">
+                      <ListChecks className="h-5 w-5 text-primary" />
+                      <h3 className="font-heading font-semibold">Next Steps</h3>
+                    </div>
+                    <ol className="space-y-2">
+                      {plan.nextSteps.map((s, i) => (
+                        <li key={s} className="flex gap-3 text-sm">
+                          <span className="h-6 w-6 rounded-full bg-primary text-primary-foreground flex items-center justify-center font-bold text-xs flex-shrink-0">
+                            {i + 1}
+                          </span>
+                          <span className="text-foreground">{s}</span>
+                        </li>
+                      ))}
+                    </ol>
+                  </div>
+                </div>
+
+                <div className="border-t bg-muted/30 p-6 flex flex-wrap gap-3 justify-center">
                   <Link to="/auth">
-                    <Button className="gap-2">
-                      <Send className="h-4 w-4" /> Generate
+                    <Button size="lg" className="gap-2">
+                      <Sparkles className="h-4 w-4" /> Sign in to save & build
                     </Button>
                   </Link>
-                </div>
-                <div className="flex flex-wrap gap-2 mt-4">
-                  {["Portfolio Website", "E-commerce App", "Blog Platform", "Dashboard"].map((eg) => (
-                    <button
-                      key={eg}
-                      onClick={() => setPrompt(`Build a ${eg.toLowerCase()}`)}
-                      className="px-3 py-1 text-xs rounded-full border border-primary/20 text-primary hover:bg-primary/5 transition-colors"
-                    >
-                      {eg}
-                    </button>
-                  ))}
+                  <Button variant="outline" size="lg" onClick={() => { setPlan(null); setPrompt(""); }}>
+                    Generate another
+                  </Button>
                 </div>
               </div>
             </div>
-          </div>
-        </section>
+          </section>
+        )}
 
-        {/* AI Tools */}
-        <section className="py-16">
-          <div className="container">
-            <div className="text-center mb-12">
-              <h2 className="font-heading text-3xl font-bold text-foreground mb-3">AI Tools & Features</h2>
-              <p className="text-muted-foreground">Everything powered by AI to accelerate your career</p>
-            </div>
-            <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-8">
-              {aiTools.map((tool) => {
-                const Icon = tool.icon;
-                return (
-                  <div key={tool.title} className="bg-card rounded-xl border shadow-card p-6 hover:shadow-card-hover transition-all group">
-                    <div className="flex items-start justify-between mb-4">
-                      <div className="h-12 w-12 rounded-xl bg-primary/10 flex items-center justify-center">
-                        <Icon className="h-6 w-6 text-primary" />
-                      </div>
-                      {tool.badge && <Badge className="bg-primary/10 text-primary text-xs">{tool.badge}</Badge>}
-                    </div>
-                    <h3 className="font-heading font-semibold text-foreground mb-2 group-hover:text-primary transition-colors">{tool.title}</h3>
-                    <p className="text-sm text-muted-foreground mb-4">{tool.description}</p>
-                    <Link to="/auth">
-                      <Button variant="outline" size="sm" className="gap-1">
-                        Try Now <ArrowRight className="h-3 w-3" />
-                      </Button>
-                    </Link>
-                  </div>
-                );
-              })}
-            </div>
-          </div>
-        </section>
-
-        {/* How it works */}
+        {/* AI Tools strip */}
         <section className="py-16 bg-muted/30">
           <div className="container">
-            <div className="text-center mb-12">
-              <h2 className="font-heading text-3xl font-bold text-foreground mb-3">How AI Lab Works</h2>
+            <div className="text-center mb-10">
+              <h2 className="font-heading text-3xl font-bold text-foreground mb-2">More AI Tools</h2>
+              <p className="text-muted-foreground">Everything else our AI Lab can do for your career</p>
             </div>
-            <div className="grid md:grid-cols-3 gap-8 max-w-3xl mx-auto">
+            <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
               {[
-                { step: "1", title: "Give a Prompt", desc: "Describe what you want to build or create", icon: "💬" },
-                { step: "2", title: "AI Generates", desc: "Our AI processes your request and generates output", icon: "⚡" },
-                { step: "3", title: "Download & Use", desc: "Get your project, resume, or design instantly", icon: "📥" },
-              ].map((s) => (
-                <div key={s.step} className="text-center">
-                  <div className="text-4xl mb-4">{s.icon}</div>
-                  <Badge variant="outline" className="mb-3">Step {s.step}</Badge>
-                  <h3 className="font-heading font-semibold text-foreground mb-2">{s.title}</h3>
-                  <p className="text-sm text-muted-foreground">{s.desc}</p>
+                { t: "AI Resume Builder", d: "ATS-friendly resumes in minutes" },
+                { t: "Mock Interview AI", d: "Practice with instant feedback" },
+                { t: "Code Playground", d: "10+ languages with AI assist" },
+                { t: "Career Path AI", d: "Personalized guidance" },
+              ].map((x) => (
+                <div key={x.t} className="bg-card border rounded-xl p-5 hover:shadow-card-hover transition">
+                  <Sparkles className="h-5 w-5 text-primary mb-3" />
+                  <h3 className="font-semibold text-foreground">{x.t}</h3>
+                  <p className="text-xs text-muted-foreground mt-1">{x.d}</p>
                 </div>
               ))}
-            </div>
-            <div className="text-center mt-10">
-              <Link to="/auth">
-                <Button variant="hero" size="lg" className="gap-2">
-                  <Zap className="h-5 w-5" /> Start Using AI Lab
-                </Button>
-              </Link>
             </div>
           </div>
         </section>
