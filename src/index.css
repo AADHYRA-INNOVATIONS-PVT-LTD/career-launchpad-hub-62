@@ -166,4 +166,43 @@
     @apply bg-clip-text text-transparent;
     background: var(--gradient-primary);
   }
+
+  /* Animated mesh / blob background for hub pages */
+  .bg-animated-mesh {
+    background:
+      radial-gradient(at 20% 20%, hsl(var(--primary) / 0.35) 0px, transparent 50%),
+      radial-gradient(at 80% 0%, hsl(var(--accent) / 0.25) 0px, transparent 50%),
+      radial-gradient(at 0% 80%, hsl(var(--healthcare) / 0.25) 0px, transparent 50%),
+      radial-gradient(at 80% 80%, hsl(var(--design) / 0.30) 0px, transparent 50%),
+      hsl(var(--background));
+    background-size: 200% 200%;
+    animation: meshShift 18s ease-in-out infinite;
+  }
+
+  .blob {
+    position: absolute;
+    border-radius: 9999px;
+    filter: blur(60px);
+    opacity: 0.55;
+    pointer-events: none;
+    animation: floatBlob 14s ease-in-out infinite;
+  }
+
+  .grid-pattern {
+    background-image:
+      linear-gradient(hsl(var(--primary) / 0.08) 1px, transparent 1px),
+      linear-gradient(90deg, hsl(var(--primary) / 0.08) 1px, transparent 1px);
+    background-size: 40px 40px;
+  }
+}
+
+@keyframes meshShift {
+  0%, 100% { background-position: 0% 0%; }
+  50% { background-position: 100% 100%; }
+}
+
+@keyframes floatBlob {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  33% { transform: translate(30px, -40px) scale(1.1); }
+  66% { transform: translate(-20px, 30px) scale(0.95); }
 }

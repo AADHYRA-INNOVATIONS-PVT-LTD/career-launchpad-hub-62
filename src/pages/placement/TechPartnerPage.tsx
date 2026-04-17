@@ -1,17 +1,18 @@
 import { Link } from "react-router-dom";
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
+import AnimatedBackground from "@/components/shared/AnimatedBackground";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { Code, Users, DollarSign, Star, CheckCircle2, ArrowRight, Briefcase, Shield, Clock, Globe, Layers, MessageSquare } from "lucide-react";
+import { Code, Users, Briefcase, ArrowRight, CheckCircle2, Shield, Star, Layers, MessageSquare, Globe, Building2 } from "lucide-react";
 
 const features = [
   { icon: Briefcase, title: "Project Bidding", description: "Browse and bid on projects from verified clients" },
-  { icon: Shield, title: "Secure Escrow Payments", description: "Payments held in escrow until project milestones are approved" },
+  { icon: Shield, title: "Secure Escrow Payments", description: "Payments held in escrow until milestones approved" },
   { icon: Layers, title: "Portfolio Showcase", description: "Build and showcase your portfolio to attract clients" },
-  { icon: Star, title: "Ratings & Reviews", description: "Build reputation through client reviews and ratings" },
-  { icon: MessageSquare, title: "Project Chat", description: "In-app messaging for real-time collaboration with clients" },
-  { icon: Globe, title: "Global Opportunities", description: "Work with clients worldwide from anywhere" },
+  { icon: Star, title: "Ratings & Reviews", description: "Build reputation through client reviews" },
+  { icon: MessageSquare, title: "Project Chat", description: "In-app messaging for real-time collaboration" },
+  { icon: Globe, title: "Global Opportunities", description: "Work with clients worldwide" },
 ];
 
 const projectCategories = [
@@ -28,29 +29,33 @@ const TechPartnerPage = () => {
     <div className="min-h-screen bg-background">
       <Navbar />
       <main>
-        {/* Hero */}
-        <section className="gradient-hero text-primary-foreground py-16 lg:py-24">
-          <div className="container">
+        {/* Hero with animated bg */}
+        <section className="relative py-16 lg:py-24 overflow-hidden">
+          <AnimatedBackground />
+          <div className="container relative">
             <div className="max-w-3xl mx-auto text-center">
-              <Badge className="bg-white/10 text-white mb-4">🔹 Shiksha Tech Partner</Badge>
-              <h1 className="font-heading text-3xl md:text-4xl lg:text-5xl font-bold mb-4">
+              <Badge className="mb-4 bg-primary/10 text-primary border-primary/20">🔹 Shiksha Tech Partner</Badge>
+              <h1 className="font-heading text-4xl md:text-5xl lg:text-6xl font-bold text-foreground mb-4">
                 Freelancing Marketplace
               </h1>
-              <p className="text-lg text-primary-foreground/80 mb-8">
+              <p className="text-lg text-muted-foreground mb-8">
                 Like Upwork — find freelance projects, build your portfolio, and earn. Connect freelancers with project owners.
               </p>
-              <div className="flex flex-wrap gap-4 justify-center">
+              <div className="flex flex-wrap gap-3 justify-center">
                 <Link to="/auth">
-                  <Button variant="accent" size="xl" className="gap-2">
+                  <Button size="xl" className="gap-2">
                     <Users className="h-5 w-5" /> Freelancer Login
                   </Button>
                 </Link>
                 <Link to="/employer/auth">
-                  <Button variant="outline" size="xl" className="gap-2 border-white/30 text-white hover:bg-white/10">
-                    <Code className="h-5 w-5" /> Project Owner Login
+                  <Button size="xl" variant="outline" className="gap-2">
+                    <Building2 className="h-5 w-5" /> Project Owner Login
                   </Button>
                 </Link>
               </div>
+              <p className="text-xs text-muted-foreground mt-3">
+                New here? <Link to="/auth" className="text-primary hover:underline">Sign up as Freelancer</Link> · <Link to="/employer/register" className="text-primary hover:underline">Register as Project Owner</Link>
+              </p>
             </div>
           </div>
         </section>
@@ -98,7 +103,7 @@ const TechPartnerPage = () => {
         <section className="py-16 bg-muted/30">
           <div className="container">
             <div className="grid md:grid-cols-2 gap-8">
-              <div className="bg-card rounded-2xl border shadow-card p-8">
+              <div className="bg-card rounded-2xl border-2 border-primary/20 shadow-card p-8">
                 <div className="text-4xl mb-4">💻</div>
                 <h3 className="font-heading text-2xl font-bold text-foreground mb-3">For Freelancers</h3>
                 <ul className="space-y-3 mb-6">
@@ -110,7 +115,7 @@ const TechPartnerPage = () => {
                 </ul>
                 <Link to="/auth"><Button className="w-full gap-2">Freelancer Login <ArrowRight className="h-4 w-4" /></Button></Link>
               </div>
-              <div className="bg-card rounded-2xl border shadow-card p-8">
+              <div className="bg-card rounded-2xl border-2 border-accent/20 shadow-card p-8">
                 <div className="text-4xl mb-4">🏗️</div>
                 <h3 className="font-heading text-2xl font-bold text-foreground mb-3">For Project Owners</h3>
                 <ul className="space-y-3 mb-6">

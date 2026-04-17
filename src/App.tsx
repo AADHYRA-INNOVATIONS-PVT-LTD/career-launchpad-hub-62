@@ -21,6 +21,23 @@ import JobPage from "./pages/JobPage";
 import AdminAuth from "./pages/admin/AdminAuth";
 import CertificateVerifyPage from "./pages/CertificateVerifyPage";
 
+// Services Pages
+import ServicesPage from "./pages/ServicesPage";
+import AIServicesPage from "./pages/services/AIServicesPage";
+import CloudServicesPage from "./pages/services/CloudServicesPage";
+import DataAnalyticsPage from "./pages/services/DataAnalyticsPage";
+import CyberSecurityPage from "./pages/services/CyberSecurityPage";
+import WebMobilePage from "./pages/services/WebMobilePage";
+import CRMServicesPage from "./pages/services/CRMServicesPage";
+import RSuitePage from "./pages/services/RSuitePage";
+
+// Legal Pages
+import TermsPage from "./pages/legal/TermsPage";
+import PrivacyPage from "./pages/legal/PrivacyPage";
+import RefundPage from "./pages/legal/RefundPage";
+import CookiesPage from "./pages/legal/CookiesPage";
+import DisclaimerPage from "./pages/legal/DisclaimerPage";
+
 // Placement Sub-portals
 import TalentConnectPage from "./pages/placement/TalentConnectPage";
 import TechPartnerPage from "./pages/placement/TechPartnerPage";
@@ -96,6 +113,23 @@ const App = () => (
             <Route path="/verify" element={<CertificateVerifyPage />} />
             <Route path="/auth" element={<AuthPage />} />
             <Route path="/admin/login" element={<AdminAuth />} />
+
+            {/* Services */}
+            <Route path="/services" element={<ServicesPage />} />
+            <Route path="/services/ai" element={<AIServicesPage />} />
+            <Route path="/services/cloud" element={<CloudServicesPage />} />
+            <Route path="/services/data-analytics" element={<DataAnalyticsPage />} />
+            <Route path="/services/cyber-security" element={<CyberSecurityPage />} />
+            <Route path="/services/web-mobile" element={<WebMobilePage />} />
+            <Route path="/services/crm" element={<CRMServicesPage />} />
+            <Route path="/services/r-suite" element={<RSuitePage />} />
+
+            {/* Legal */}
+            <Route path="/terms" element={<TermsPage />} />
+            <Route path="/privacy" element={<PrivacyPage />} />
+            <Route path="/refund" element={<RefundPage />} />
+            <Route path="/cookies" element={<CookiesPage />} />
+            <Route path="/disclaimer" element={<DisclaimerPage />} />
 
             {/* Employer Auth Routes (outside layout) */}
             <Route path="/employer/auth" element={<EmployerAuth />} />

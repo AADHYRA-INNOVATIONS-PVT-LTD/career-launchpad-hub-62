@@ -8,3 +8,7 @@ verify_jwt = false
 
 [functions.symptom-checker]
 verify_jwt = false
+
+[functions.ai-lab-builder]
+verify_jwt = false
+
