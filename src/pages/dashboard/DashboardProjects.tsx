@@ -425,6 +425,15 @@ const DashboardProjects = () => {
           </div>
         </CardContent>
       </Card>
+
+      <ProjectDetailDialog
+        project={detailProject}
+        open={!!detailProject}
+        onClose={() => setDetailProject(null)}
+        isPurchased={detailProject ? isPurchased(detailProject.id) : false}
+        purchasing={purchasing === detailProject?.id}
+        onPurchase={() => detailProject && handlePurchase(detailProject)}
+      />
     </div>
   );
 };

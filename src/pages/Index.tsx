@@ -4,6 +4,7 @@ import HeroSection from "@/components/home/HeroSection";
 import TrainingDomains from "@/components/home/TrainingDomains";
 import CourseCards from "@/components/home/CourseCards";
 import PlacementSection from "@/components/home/PlacementSection";
+import CertificateShowcase from "@/components/home/CertificateShowcase";
 import CTASection from "@/components/home/CTASection";
 
 const Index = () => {
@@ -15,6 +16,7 @@ const Index = () => {
         <TrainingDomains />
         <CourseCards />
         <PlacementSection />
+        <CertificateShowcase />
         <CTASection />
       </main>
       <Footer />

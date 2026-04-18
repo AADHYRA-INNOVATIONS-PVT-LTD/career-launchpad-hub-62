@@ -20,6 +20,7 @@ import InternshipPage from "./pages/InternshipPage";
 import JobPage from "./pages/JobPage";
 import AdminAuth from "./pages/admin/AdminAuth";
 import CertificateVerifyPage from "./pages/CertificateVerifyPage";
+import InternshipEnrollPage from "./pages/InternshipEnrollPage";
 
 // Services Pages
 import ServicesPage from "./pages/ServicesPage";
@@ -64,6 +65,7 @@ import DashboardProgress from "./pages/dashboard/DashboardProgress";
 
 // Admin Pages
 import AdminDashboard from "./pages/admin/AdminDashboard";
+import AdminAnalytics from "./pages/admin/AdminAnalytics";
 import AdminStudents from "./pages/admin/AdminStudents";
 import AdminCourses from "./pages/admin/AdminCourses";
 import AdminProjects from "./pages/admin/AdminProjects";
@@ -104,6 +106,7 @@ const App = () => (
             <Route path="/careers" element={<CareersPage />} />
             <Route path="/hr-training" element={<HRTrainingPage />} />
             <Route path="/internships" element={<InternshipPage />} />
+            <Route path="/internships/enroll" element={<InternshipEnrollPage />} />
             <Route path="/career" element={<JobPage />} />
             <Route path="/placement/talent-connect" element={<TalentConnectPage />} />
             <Route path="/placement/tech-partner" element={<TechPartnerPage />} />
@@ -166,6 +169,7 @@ const App = () => (
             {/* Admin Dashboard Routes */}
             <Route path="/admin" element={<DashboardLayout isAdmin />}>
               <Route index element={<AdminDashboard />} />
+              <Route path="analytics" element={<AdminAnalytics />} />
               <Route path="students" element={<AdminStudents />} />
               <Route path="courses" element={<AdminCourses />} />
               <Route path="projects" element={<AdminProjects />} />
