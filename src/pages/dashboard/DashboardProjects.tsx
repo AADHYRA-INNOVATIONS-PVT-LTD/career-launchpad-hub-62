@@ -16,9 +16,11 @@ import {
   FileText,
   Play,
   Filter,
-  CheckCircle
+  CheckCircle,
+  Eye
 } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
+import ProjectDetailDialog from '@/components/projects/ProjectDetailDialog';
 
 interface Project {
   id: string;
@@ -65,6 +67,9 @@ const DashboardProjects = () => {
   const [purchasing, setPurchasing] = useState<string | null>(null);
   const [categories, setCategories] = useState<{id: string; name: string; slug: string}[]>([]);
   const [selectedCategoryId, setSelectedCategoryId] = useState<string | null>(null);
+  const [detailProject, setDetailProject] = useState<Project | null>(null);
+  const [page, setPage] = useState(1);
+  const PAGE_SIZE = 24;
 
   useEffect(() => {
     fetchData();
@@ -180,8 +185,8 @@ const DashboardProjects = () => {
   return (
     <div className="space-y-6">
       <div>
-        <h2 className="text-2xl font-heading font-bold">Live Projects</h2>
-        <p className="text-muted-foreground">Access 300+ ready-to-use projects for your portfolio</p>
+        <h2 className="text-2xl font-heading font-bold">Project Marketplace</h2>
+        <p className="text-muted-foreground">{projects.length}+ ready-to-use projects across IT, HR, Marketing, Design & Nursing — ₹5,000 each</p>
       </div>
 
       {/* Search and Filter */}
