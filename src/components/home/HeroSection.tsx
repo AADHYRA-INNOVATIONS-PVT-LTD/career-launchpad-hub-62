@@ -1,77 +1,133 @@
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import { ArrowRight, Play } from "lucide-react";
+import { ArrowRight, Search, Code, Heart, Brain, Users, Building2, MapPin, Sparkles } from "lucide-react";
+import AnimatedBackground from "@/components/shared/AnimatedBackground";
 
 const HeroSection = () => {
   return (
     <section className="relative overflow-hidden gradient-hero text-primary-foreground">
-      {/* Background Pattern */}
       <div className="absolute inset-0 opacity-10">
-        <div className="absolute top-20 left-10 w-72 h-72 bg-white/20 rounded-full blur-3xl" />
-        <div className="absolute bottom-10 right-10 w-96 h-96 bg-white/10 rounded-full blur-3xl" />
+        <div className="absolute top-20 left-10 w-72 h-72 bg-white/20 rounded-full blur-3xl animate-pulse" />
+        <div className="absolute bottom-10 right-10 w-96 h-96 bg-white/10 rounded-full blur-3xl animate-pulse" style={{ animationDelay: "1.5s" }} />
+        <div className="absolute top-1/2 left-1/2 w-80 h-80 bg-accent/20 rounded-full blur-3xl animate-pulse" style={{ animationDelay: "3s" }} />
       </div>
-      
-      <div className="container relative py-20 lg:py-32">
-        <div className="max-w-4xl mx-auto text-center">
-          {/* Badge */}
-          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/10 backdrop-blur-sm mb-8 animate-fade-in">
+
+      <div className="container relative py-16 lg:py-24">
+        <div className="max-w-4xl mx-auto text-center mb-12">
+          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/10 backdrop-blur-sm mb-6 animate-fade-in">
             <span className="flex h-2 w-2 rounded-full bg-healthcare animate-pulse" />
-            <span className="text-sm font-medium">Now Offering 5 Major Training Verticals</span>
+            <span className="text-sm font-medium">One Unified Platform · 4 Powerful Products</span>
           </div>
-          
-          {/* Headline */}
-          <h1 className="font-heading text-4xl md:text-5xl lg:text-6xl font-bold leading-tight mb-6 animate-fade-in-up" style={{ animationDelay: "0.1s" }}>
-            One Unified Platform for{" "}
-            <span className="text-tech">IT</span>,{" "}
-            <span className="text-hr">HR</span>,{" "}
-            <span className="text-marketing">Digital Marketing</span>,{" "}
-            <span className="text-design">Graphic Design</span> &{" "}
-            <span className="text-healthcare">Nursing</span> Careers
+
+          <h1 className="font-heading text-3xl md:text-5xl lg:text-6xl font-bold leading-tight mb-5 animate-fade-in-up" style={{ animationDelay: "0.1s" }}>
+            The Complete{" "}
+            <span className="text-accent">SHIKSHA</span>{" "}
+            Career Ecosystem
           </h1>
-          
-          {/* Subheading */}
-          <p className="text-lg md:text-xl text-white/80 mb-10 max-w-2xl mx-auto animate-fade-in-up" style={{ animationDelay: "0.2s" }}>
-            Industry-Oriented Training | Internship | Placement Assistance
+
+          <p className="text-base md:text-lg text-white/85 mb-8 max-w-2xl mx-auto animate-fade-in-up" style={{ animationDelay: "0.2s" }}>
+            Talent hiring · Freelance projects · AI healthcare · AI project builder — all under one roof
           </p>
-          
-          {/* CTA Buttons */}
-          <div className="flex flex-col sm:flex-row gap-4 justify-center items-center animate-fade-in-up" style={{ animationDelay: "0.3s" }}>
+
+          <div className="flex flex-col sm:flex-row gap-3 justify-center items-center animate-fade-in-up" style={{ animationDelay: "0.3s" }}>
             <Link to="/apply">
               <Button variant="accent" size="xl" className="group">
                 Apply Now
                 <ArrowRight className="h-5 w-5 transition-transform group-hover:translate-x-1" />
               </Button>
             </Link>
-            <Link to="/courses">
+            <Link to="/placement">
               <Button variant="heroOutline" size="xl">
-                Explore Courses
+                Explore Ecosystem
               </Button>
             </Link>
           </div>
-          
-          {/* Stats */}
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-6 mt-16 pt-12 border-t border-white/10 animate-fade-in-up" style={{ animationDelay: "0.4s" }}>
-            <div>
-              <div className="text-3xl md:text-4xl font-heading font-bold">5000+</div>
-              <div className="text-sm text-white/70 mt-1">Students Trained</div>
-            </div>
-            <div>
-              <div className="text-3xl md:text-4xl font-heading font-bold">500+</div>
-              <div className="text-sm text-white/70 mt-1">Partner Companies</div>
-            </div>
-            <div>
-              <div className="text-3xl md:text-4xl font-heading font-bold">95%</div>
-              <div className="text-sm text-white/70 mt-1">Placement Rate</div>
-            </div>
-            <div>
-              <div className="text-3xl md:text-4xl font-heading font-bold">50+</div>
-              <div className="text-sm text-white/70 mt-1">Hospital Partners</div>
-            </div>
-          </div>
+        </div>
+
+        {/* Product showcase grid */}
+        <div className="grid md:grid-cols-2 gap-5 max-w-6xl mx-auto animate-fade-in-up" style={{ animationDelay: "0.4s" }}>
+          {/* Talent Connect */}
+          <ProductCard
+            title="SHIKSHA Talent Connect"
+            tagline="AI Recruitment · Pan-India Hiring"
+            icon={Search}
+            gradient="from-blue-500/30 to-primary/40"
+            ringColor="ring-blue-300/40"
+            features={[
+              { icon: MapPin, text: "Pan-India job opportunities for candidates" },
+              { icon: Building2, text: "Employers find verified talent fast" },
+              { icon: Users, text: "Campus & placement drives across India" },
+              { icon: Sparkles, text: "Upcoming: Employer onboarding open now" },
+            ]}
+            primaryCta={{ label: "Candidate Login", to: "/auth" }}
+            secondaryCta={{ label: "Employer Login", to: "/employer/auth" }}
+            learnMore="/placement/talent-connect"
+          />
+
+          {/* Tech Partner */}
+          <ProductCard
+            title="SHIKSHA Tech Partner"
+            tagline="Freelance Marketplace · Like Upwork"
+            icon={Code}
+            gradient="from-emerald-400/30 to-teal-500/40"
+            ringColor="ring-emerald-300/40"
+            features={[
+              { icon: Code, text: "Bid on real freelance projects" },
+              { icon: Building2, text: "Project owners post & hire securely" },
+              { icon: Sparkles, text: "Escrow payments + portfolio showcase" },
+              { icon: Users, text: "Verified freelancers across India" },
+            ]}
+            primaryCta={{ label: "Freelancer Login", to: "/auth" }}
+            secondaryCta={{ label: "Project Owner Login", to: "/employer/auth" }}
+            learnMore="/placement/tech-partner"
+          />
+
+          {/* Health Connect */}
+          <ProductCard
+            title="SHIKSHA Health Connect"
+            tagline="AI Healthcare · Telemedicine"
+            icon={Heart}
+            gradient="from-cyan-400/30 to-blue-500/40"
+            ringColor="ring-cyan-300/40"
+            features={[
+              { icon: Sparkles, text: "AI symptom checker & health scans" },
+              { icon: Users, text: "Online doctor consultations 24/7" },
+              { icon: Heart, text: "Lab tests, pharmacy & home nursing" },
+              { icon: Building2, text: "Doctors & nurses join the network" },
+            ]}
+            primaryCta={{ label: "Patient Login", to: "/auth" }}
+            secondaryCta={{ label: "Doctor / Nurse Login", to: "/employer/auth" }}
+            learnMore="/placement/health-connect"
+          />
+
+          {/* AI Lab */}
+          <ProductCard
+            title="SHIKSHA AI Lab"
+            tagline="Prompt → Project Builder"
+            icon={Brain}
+            gradient="from-violet-400/30 to-purple-600/40"
+            ringColor="ring-violet-300/40"
+            features={[
+              { icon: Sparkles, text: "Describe an idea — AI builds the plan" },
+              { icon: Code, text: "Tech stack, pages & data model auto-generated" },
+              { icon: Brain, text: "Resume, mock interview & career path AI" },
+              { icon: Users, text: "Free to try — no signup required" },
+            ]}
+            primaryCta={{ label: "Open AI Lab", to: "/placement/ai-lab" }}
+            secondaryCta={{ label: "Learn More", to: "/placement" }}
+            learnMore="/placement/ai-lab"
+          />
+        </div>
+
+        {/* Stats */}
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-6 mt-16 pt-10 border-t border-white/10 max-w-5xl mx-auto animate-fade-in-up" style={{ animationDelay: "0.5s" }}>
+          <Stat value="5,000+" label="Students Placed" />
+          <Stat value="500+" label="Hiring Partners" />
+          <Stat value="95%" label="Placement Rate" />
+          <Stat value="50+" label="Hospital Partners" />
         </div>
       </div>
-      
-      {/* Wave Bottom */}
+
       <div className="absolute bottom-0 left-0 right-0">
         <svg viewBox="0 0 1440 120" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-full h-auto">
           <path d="M0 120L60 105C120 90 240 60 360 45C480 30 600 30 720 37.5C840 45 960 60 1080 67.5C1200 75 1320 75 1380 75L1440 75V120H1380C1320 120 1200 120 1080 120C960 120 840 120 720 120C600 120 480 120 360 120C240 120 120 120 60 120H0Z" fill="hsl(var(--background))" />
@@ -80,5 +136,87 @@ const HeroSection = () => {
     </section>
   );
 };
+
+type Feature = { icon: React.ComponentType<{ className?: string }>; text: string };
+type Cta = { label: string; to: string };
+
+const ProductCard = ({
+  title,
+  tagline,
+  icon: Icon,
+  gradient,
+  ringColor,
+  features,
+  primaryCta,
+  secondaryCta,
+  learnMore,
+}: {
+  title: string;
+  tagline: string;
+  icon: React.ComponentType<{ className?: string }>;
+  gradient: string;
+  ringColor: string;
+  features: Feature[];
+  primaryCta: Cta;
+  secondaryCta: Cta;
+  learnMore: string;
+}) => {
+  return (
+    <div className={`group relative rounded-3xl bg-white/5 backdrop-blur-md border border-white/10 ring-1 ${ringColor} hover:bg-white/10 transition-all duration-500 overflow-hidden hover:-translate-y-1`}>
+      {/* Animated gradient background */}
+      <div className={`absolute inset-0 bg-gradient-to-br ${gradient} opacity-60 group-hover:opacity-100 transition-opacity duration-500`} />
+      <div className="absolute -top-10 -right-10 h-40 w-40 rounded-full bg-white/10 blur-3xl group-hover:bg-white/20 transition-all" />
+
+      <div className="relative p-6 md:p-7">
+        <div className="flex items-start gap-4 mb-4">
+          <div className="h-14 w-14 rounded-2xl bg-white/15 backdrop-blur-md border border-white/20 flex items-center justify-center flex-shrink-0">
+            <Icon className="h-7 w-7 text-white" />
+          </div>
+          <div className="flex-1 min-w-0">
+            <h3 className="font-heading text-lg md:text-xl font-bold text-white leading-tight">{title}</h3>
+            <p className="text-xs md:text-sm text-white/70 mt-0.5">{tagline}</p>
+          </div>
+        </div>
+
+        <ul className="space-y-2 mb-5">
+          {features.map((f) => {
+            const FIcon = f.icon;
+            return (
+              <li key={f.text} className="flex items-start gap-2.5 text-sm text-white/85">
+                <FIcon className="h-4 w-4 text-accent flex-shrink-0 mt-0.5" />
+                <span>{f.text}</span>
+              </li>
+            );
+          })}
+        </ul>
+
+        <div className="flex flex-wrap gap-2">
+          <Link to={primaryCta.to} className="flex-1 min-w-[140px]">
+            <Button variant="accent" size="sm" className="w-full">
+              {primaryCta.label}
+            </Button>
+          </Link>
+          <Link to={secondaryCta.to} className="flex-1 min-w-[140px]">
+            <Button variant="heroOutline" size="sm" className="w-full">
+              {secondaryCta.label}
+            </Button>
+          </Link>
+        </div>
+
+        <Link to={learnMore} className="inline-flex items-center gap-1 text-xs text-white/70 hover:text-white mt-3 group/link">
+          Learn more
+          <ArrowRight className="h-3 w-3 transition-transform group-hover/link:translate-x-0.5" />
+        </Link>
+      </div>
+    </div>
+  );
+};
+
+const Stat = ({ value, label }: { value: string; label: string }) => (
+  <div className="text-center">
+    <div className="text-2xl md:text-4xl font-heading font-bold">{value}</div>
+    <div className="text-xs md:text-sm text-white/70 mt-1">{label}</div>
+  </div>
+);
 
 export default HeroSection;
