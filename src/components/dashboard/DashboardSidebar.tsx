@@ -39,6 +39,7 @@ const studentMenuItems = [
 
 const adminMenuItems = [
   { icon: Home, label: 'Dashboard', href: '/admin' },
+  { icon: ClipboardCheck, label: 'Analytics', href: '/admin/analytics' },
   { icon: Users, label: 'Students', href: '/admin/students' },
   { icon: Layers, label: 'Courses', href: '/admin/courses' },
   { icon: Code, label: 'Projects', href: '/admin/projects' },

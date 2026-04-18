@@ -16,9 +16,11 @@ import {
   FileText,
   Play,
   Filter,
-  CheckCircle
+  CheckCircle,
+  Eye
 } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
+import ProjectDetailDialog from '@/components/projects/ProjectDetailDialog';
 
 interface Project {
   id: string;
@@ -65,6 +67,9 @@ const DashboardProjects = () => {
   const [purchasing, setPurchasing] = useState<string | null>(null);
   const [categories, setCategories] = useState<{id: string; name: string; slug: string}[]>([]);
   const [selectedCategoryId, setSelectedCategoryId] = useState<string | null>(null);
+  const [detailProject, setDetailProject] = useState<Project | null>(null);
+  const [page, setPage] = useState(1);
+  const PAGE_SIZE = 24;
 
   useEffect(() => {
     fetchData();
@@ -180,8 +185,8 @@ const DashboardProjects = () => {
   return (
     <div className="space-y-6">
       <div>
-        <h2 className="text-2xl font-heading font-bold">Live Projects</h2>
-        <p className="text-muted-foreground">Access 300+ ready-to-use projects for your portfolio</p>
+        <h2 className="text-2xl font-heading font-bold">Project Marketplace</h2>
+        <p className="text-muted-foreground">{projects.length}+ ready-to-use projects across IT, HR, Marketing, Design & Nursing — ₹5,000 each</p>
       </div>
 
       {/* Search and Filter */}
@@ -252,81 +257,51 @@ const DashboardProjects = () => {
         </TabsList>
 
         <TabsContent value="browse" className="mt-4">
+          <p className="text-sm text-muted-foreground mb-3">
+            Showing {Math.min((page - 1) * PAGE_SIZE + 1, filteredProjects.length)}-{Math.min(page * PAGE_SIZE, filteredProjects.length)} of {filteredProjects.length} projects
+          </p>
           <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
-            {filteredProjects.map(project => (
-              <Card key={project.id} className="shadow-card hover:shadow-card-hover transition-shadow">
+            {filteredProjects.slice((page - 1) * PAGE_SIZE, page * PAGE_SIZE).map(project => (
+              <Card key={project.id} className="shadow-card hover:shadow-card-hover transition-shadow cursor-pointer" onClick={() => setDetailProject(project)}>
                 <CardHeader className="pb-3">
-                  <div className="flex items-start justify-between">
-                    <div>
-                      <CardTitle className="text-lg">{project.title}</CardTitle>
-                      <Badge variant="outline" className="mt-1">
-                        {project.project_type || 'General'}
+                  <div className="flex items-start justify-between gap-2">
+                    <div className="min-w-0">
+                      <CardTitle className="text-base line-clamp-2">{project.title}</CardTitle>
+                      <Badge variant="outline" className="mt-1 capitalize text-xs">
+                        {project.project_type || 'general'}
                       </Badge>
                     </div>
-                    <div className="text-right">
-                      <p className="text-lg font-bold text-primary">₹{project.price.toLocaleString()}</p>
+                    <div className="text-right flex-shrink-0">
+                      <p className="text-base font-bold text-primary">₹{project.price.toLocaleString()}</p>
                     </div>
                   </div>
                 </CardHeader>
-                <CardContent className="space-y-4">
-                  <p className="text-sm text-muted-foreground line-clamp-2">
-                    {project.description || 'Complete project with source code and documentation.'}
-                  </p>
-
-                  {/* Tech Stack */}
+                <CardContent className="space-y-3">
                   <div className="flex flex-wrap gap-1">
-                    {project.tech_stack.slice(0, 4).map((tech, index) => (
-                      <Badge key={index} variant="secondary" className="text-xs">
-                        {tech}
-                      </Badge>
+                    {project.tech_stack.slice(0, 3).map((tech, index) => (
+                      <Badge key={index} variant="secondary" className="text-[10px]">{tech}</Badge>
                     ))}
-                    {project.tech_stack.length > 4 && (
-                      <Badge variant="secondary" className="text-xs">
-                        +{project.tech_stack.length - 4}
-                      </Badge>
+                    {project.tech_stack.length > 3 && (
+                      <Badge variant="secondary" className="text-[10px]">+{project.tech_stack.length - 3}</Badge>
                     )}
                   </div>
 
-                  {/* Includes */}
-                  <div className="text-xs text-muted-foreground space-y-1">
-                    <p className="font-medium">Includes:</p>
-                    <div className="flex flex-wrap gap-x-3 gap-y-1">
-                      {project.includes.source_code && <span>✓ Source Code</span>}
-                      {project.includes.documentation && <span>✓ Documentation</span>}
-                      {project.includes.ppt && <span>✓ PPT</span>}
-                      {project.includes.synopsis && <span>✓ Synopsis</span>}
-                      {project.includes.demo_video && <span>✓ Demo Video</span>}
-                    </div>
-                  </div>
-
-                  {/* Actions */}
-                  <div className="flex gap-2">
-                    {project.preview_url && (
-                      <Button variant="outline" size="sm" className="flex-1" asChild>
-                        <a href={project.preview_url} target="_blank" rel="noopener noreferrer">
-                          <ExternalLink className="h-4 w-4 mr-2" />
-                          Preview
-                        </a>
-                      </Button>
-                    )}
+                  <div className="flex gap-2" onClick={e => e.stopPropagation()}>
+                    <Button variant="outline" size="sm" className="flex-1" onClick={() => setDetailProject(project)}>
+                      <Eye className="h-3 w-3 mr-1" /> Details
+                    </Button>
                     {isPurchased(project.id) ? (
                       <Button size="sm" className="flex-1" variant="secondary">
-                        <Download className="h-4 w-4 mr-2" />
-                        Download
+                        <Download className="h-3 w-3 mr-1" /> Download
                       </Button>
                     ) : (
-                      <Button 
-                        size="sm" 
-                        className="flex-1"
-                        onClick={() => handlePurchase(project)}
-                        disabled={purchasing === project.id}
-                      >
+                      <Button size="sm" className="flex-1" onClick={() => handlePurchase(project)} disabled={purchasing === project.id}>
                         {purchasing === project.id ? (
-                          <Loader2 className="h-4 w-4 animate-spin mr-2" />
+                          <Loader2 className="h-3 w-3 animate-spin mr-1" />
                         ) : (
-                          <ShoppingCart className="h-4 w-4 mr-2" />
+                          <ShoppingCart className="h-3 w-3 mr-1" />
                         )}
-                        Buy Now
+                        Buy
                       </Button>
                     )}
                   </div>
@@ -334,6 +309,21 @@ const DashboardProjects = () => {
               </Card>
             ))}
           </div>
+
+          {/* Pagination */}
+          {filteredProjects.length > PAGE_SIZE && (
+            <div className="flex items-center justify-center gap-2 mt-6">
+              <Button variant="outline" size="sm" onClick={() => setPage(p => Math.max(1, p - 1))} disabled={page === 1}>
+                Previous
+              </Button>
+              <span className="text-sm text-muted-foreground px-3">
+                Page {page} of {Math.ceil(filteredProjects.length / PAGE_SIZE)}
+              </span>
+              <Button variant="outline" size="sm" onClick={() => setPage(p => Math.min(Math.ceil(filteredProjects.length / PAGE_SIZE), p + 1))} disabled={page >= Math.ceil(filteredProjects.length / PAGE_SIZE)}>
+                Next
+              </Button>
+            </div>
+          )}
 
           {filteredProjects.length === 0 && (
             <div className="text-center py-16">
@@ -435,6 +425,15 @@ const DashboardProjects = () => {
           </div>
         </CardContent>
       </Card>
+
+      <ProjectDetailDialog
+        project={detailProject}
+        open={!!detailProject}
+        onClose={() => setDetailProject(null)}
+        isPurchased={detailProject ? isPurchased(detailProject.id) : false}
+        purchasing={purchasing === detailProject?.id}
+        onPurchase={() => detailProject && handlePurchase(detailProject)}
+      />
     </div>
   );
 };
