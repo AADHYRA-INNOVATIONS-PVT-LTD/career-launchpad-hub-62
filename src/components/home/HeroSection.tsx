@@ -2,6 +2,10 @@ import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { ArrowRight, Search, Code, Heart, Brain, Users, Building2, MapPin, Sparkles } from "lucide-react";
 import AnimatedBackground from "@/components/shared/AnimatedBackground";
+import bgTalent from "@/assets/card-bg-talent.jpg";
+import bgTech from "@/assets/card-bg-tech.jpg";
+import bgHealth from "@/assets/card-bg-health.jpg";
+import bgAiLab from "@/assets/card-bg-ailab.jpg";
 
 const HeroSection = () => {
   return (
