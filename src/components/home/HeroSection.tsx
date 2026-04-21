@@ -57,6 +57,7 @@ const HeroSection = () => {
             icon={Search}
             gradient="from-blue-500/30 to-primary/40"
             ringColor="ring-blue-300/40"
+            bgImage={bgTalent}
             features={[
               { icon: MapPin, text: "Pan-India job opportunities for candidates" },
               { icon: Building2, text: "Employers find verified talent fast" },
@@ -75,6 +76,7 @@ const HeroSection = () => {
             icon={Code}
             gradient="from-emerald-400/30 to-teal-500/40"
             ringColor="ring-emerald-300/40"
+            bgImage={bgTech}
             features={[
               { icon: Code, text: "Bid on real freelance projects" },
               { icon: Building2, text: "Project owners post & hire securely" },
@@ -93,6 +95,7 @@ const HeroSection = () => {
             icon={Heart}
             gradient="from-cyan-400/30 to-blue-500/40"
             ringColor="ring-cyan-300/40"
+            bgImage={bgHealth}
             features={[
               { icon: Sparkles, text: "AI symptom checker & health scans" },
               { icon: Users, text: "Online doctor consultations 24/7" },
@@ -111,6 +114,7 @@ const HeroSection = () => {
             icon={Brain}
             gradient="from-violet-400/30 to-purple-600/40"
             ringColor="ring-violet-300/40"
+            bgImage={bgAiLab}
             features={[
               { icon: Sparkles, text: "Describe an idea — AI builds the plan" },
               { icon: Code, text: "Tech stack, pages & data model auto-generated" },
