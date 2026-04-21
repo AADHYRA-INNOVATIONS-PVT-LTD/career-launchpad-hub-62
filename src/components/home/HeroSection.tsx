@@ -2,6 +2,10 @@ import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { ArrowRight, Search, Code, Heart, Brain, Users, Building2, MapPin, Sparkles } from "lucide-react";
 import AnimatedBackground from "@/components/shared/AnimatedBackground";
+import bgTalent from "@/assets/card-bg-talent.jpg";
+import bgTech from "@/assets/card-bg-tech.jpg";
+import bgHealth from "@/assets/card-bg-health.jpg";
+import bgAiLab from "@/assets/card-bg-ailab.jpg";
 
 const HeroSection = () => {
   return (
@@ -53,6 +57,7 @@ const HeroSection = () => {
             icon={Search}
             gradient="from-blue-500/30 to-primary/40"
             ringColor="ring-blue-300/40"
+            bgImage={bgTalent}
             features={[
               { icon: MapPin, text: "Pan-India job opportunities for candidates" },
               { icon: Building2, text: "Employers find verified talent fast" },
@@ -71,6 +76,7 @@ const HeroSection = () => {
             icon={Code}
             gradient="from-emerald-400/30 to-teal-500/40"
             ringColor="ring-emerald-300/40"
+            bgImage={bgTech}
             features={[
               { icon: Code, text: "Bid on real freelance projects" },
               { icon: Building2, text: "Project owners post & hire securely" },
@@ -89,6 +95,7 @@ const HeroSection = () => {
             icon={Heart}
             gradient="from-cyan-400/30 to-blue-500/40"
             ringColor="ring-cyan-300/40"
+            bgImage={bgHealth}
             features={[
               { icon: Sparkles, text: "AI symptom checker & health scans" },
               { icon: Users, text: "Online doctor consultations 24/7" },
@@ -107,6 +114,7 @@ const HeroSection = () => {
             icon={Brain}
             gradient="from-violet-400/30 to-purple-600/40"
             ringColor="ring-violet-300/40"
+            bgImage={bgAiLab}
             features={[
               { icon: Sparkles, text: "Describe an idea — AI builds the plan" },
               { icon: Code, text: "Tech stack, pages & data model auto-generated" },
@@ -146,6 +154,7 @@ const ProductCard = ({
   icon: Icon,
   gradient,
   ringColor,
+  bgImage,
   features,
   primaryCta,
   secondaryCta,
@@ -156,6 +165,7 @@ const ProductCard = ({
   icon: React.ComponentType<{ className?: string }>;
   gradient: string;
   ringColor: string;
+  bgImage: string;
   features: Feature[];
   primaryCta: Cta;
   secondaryCta: Cta;
@@ -163,8 +173,20 @@ const ProductCard = ({
 }) => {
   return (
     <div className={`group relative rounded-3xl bg-white/5 backdrop-blur-md border border-white/10 ring-1 ${ringColor} hover:bg-white/10 transition-all duration-500 overflow-hidden hover:-translate-y-1`}>
-      {/* Animated gradient background */}
-      <div className={`absolute inset-0 bg-gradient-to-br ${gradient} opacity-60 group-hover:opacity-100 transition-opacity duration-500`} />
+      {/* Hero background image with slow Ken Burns motion */}
+      <img
+        src={bgImage}
+        alt=""
+        aria-hidden="true"
+        loading="lazy"
+        width={1024}
+        height={640}
+        className="absolute inset-0 w-full h-full object-cover scale-110 group-hover:scale-125 transition-transform duration-[6000ms] ease-out animate-[float_12s_ease-in-out_infinite]"
+      />
+      {/* Dark overlay for text legibility */}
+      <div className="absolute inset-0 bg-gradient-to-br from-background/85 via-background/70 to-background/85" />
+      {/* Brand color tint */}
+      <div className={`absolute inset-0 bg-gradient-to-br ${gradient} opacity-50 group-hover:opacity-70 transition-opacity duration-500 mix-blend-overlay`} />
       <div className="absolute -top-10 -right-10 h-40 w-40 rounded-full bg-white/10 blur-3xl group-hover:bg-white/20 transition-all" />
 
       <div className="relative p-6 md:p-7">
