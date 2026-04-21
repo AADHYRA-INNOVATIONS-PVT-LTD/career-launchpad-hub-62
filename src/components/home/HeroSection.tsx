@@ -154,6 +154,7 @@ const ProductCard = ({
   icon: Icon,
   gradient,
   ringColor,
+  bgImage,
   features,
   primaryCta,
   secondaryCta,
@@ -164,6 +165,7 @@ const ProductCard = ({
   icon: React.ComponentType<{ className?: string }>;
   gradient: string;
   ringColor: string;
+  bgImage: string;
   features: Feature[];
   primaryCta: Cta;
   secondaryCta: Cta;
@@ -171,8 +173,20 @@ const ProductCard = ({
 }) => {
   return (
     <div className={`group relative rounded-3xl bg-white/5 backdrop-blur-md border border-white/10 ring-1 ${ringColor} hover:bg-white/10 transition-all duration-500 overflow-hidden hover:-translate-y-1`}>
-      {/* Animated gradient background */}
-      <div className={`absolute inset-0 bg-gradient-to-br ${gradient} opacity-60 group-hover:opacity-100 transition-opacity duration-500`} />
+      {/* Hero background image with slow Ken Burns motion */}
+      <img
+        src={bgImage}
+        alt=""
+        aria-hidden="true"
+        loading="lazy"
+        width={1024}
+        height={640}
+        className="absolute inset-0 w-full h-full object-cover scale-110 group-hover:scale-125 transition-transform duration-[6000ms] ease-out animate-[float_12s_ease-in-out_infinite]"
+      />
+      {/* Dark overlay for text legibility */}
+      <div className="absolute inset-0 bg-gradient-to-br from-background/85 via-background/70 to-background/85" />
+      {/* Brand color tint */}
+      <div className={`absolute inset-0 bg-gradient-to-br ${gradient} opacity-50 group-hover:opacity-70 transition-opacity duration-500 mix-blend-overlay`} />
       <div className="absolute -top-10 -right-10 h-40 w-40 rounded-full bg-white/10 blur-3xl group-hover:bg-white/20 transition-all" />
 
       <div className="relative p-6 md:p-7">
