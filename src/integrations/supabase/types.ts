@@ -59,6 +59,69 @@ export type Database = {
         }
         Relationships: []
       }
+      campus_drive_requests: {
+        Row: {
+          address: string | null
+          admin_notes: string | null
+          city: string
+          college_name: string
+          contact_person: string
+          created_at: string
+          departments: string[] | null
+          designation: string | null
+          drive_mode: string
+          email: string
+          expected_students: number | null
+          id: string
+          notes: string | null
+          phone: string
+          preferred_date: string | null
+          state: string
+          status: string
+          updated_at: string
+        }
+        Insert: {
+          address?: string | null
+          admin_notes?: string | null
+          city: string
+          college_name: string
+          contact_person: string
+          created_at?: string
+          departments?: string[] | null
+          designation?: string | null
+          drive_mode?: string
+          email: string
+          expected_students?: number | null
+          id?: string
+          notes?: string | null
+          phone: string
+          preferred_date?: string | null
+          state: string
+          status?: string
+          updated_at?: string
+        }
+        Update: {
+          address?: string | null
+          admin_notes?: string | null
+          city?: string
+          college_name?: string
+          contact_person?: string
+          created_at?: string
+          departments?: string[] | null
+          designation?: string | null
+          drive_mode?: string
+          email?: string
+          expected_students?: number | null
+          id?: string
+          notes?: string | null
+          phone?: string
+          preferred_date?: string | null
+          state?: string
+          status?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
       certificates: {
         Row: {
           certificate_id: string
