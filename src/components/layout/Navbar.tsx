@@ -87,10 +87,12 @@ const Navbar = () => {
       <div className="container flex h-16 items-center justify-between">
         {/* Logo */}
         <Link to="/" className="flex items-center gap-2">
-          <img src={shikshaLogo} alt="AADHYRA INNOVATIONS PVT LTD" className="h-12 w-auto" />
-          <div className="hidden sm:block">
-            <span className="text-lg font-heading font-bold text-foreground">Aadhyra Innovations</span>
-            <span className="block text-xs text-muted-foreground">Technologies OPC Pvt Ltd</span>
+          <img src={shikshaLogo} alt="AADHYRA INNOVATIONS PVT LTD" className="h-12 w-auto animate-spin-slow" />
+          <div className="block overflow-hidden">
+            <span className="block text-sm sm:text-lg font-heading font-bold text-foreground whitespace-nowrap animate-marquee">
+              AADHYRA INNOVATIONS PVT LTD
+            </span>
+            <span className="hidden sm:block text-xs text-muted-foreground">Innovating Tomorrow, Today</span>
           </div>
         </Link>
 
