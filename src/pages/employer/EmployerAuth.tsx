@@ -8,7 +8,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { useToast } from '@/hooks/use-toast';
 import { Loader2, Building2, ArrowLeft } from 'lucide-react';
-import logo from '@/assets/shiksha-nex-logo.png';
+import logo from '@/assets/aadhyra-logo.png';
 
 const EmployerAuth = () => {
   const [loading, setLoading] = useState(false);
@@ -123,7 +123,7 @@ const EmployerAuth = () => {
         <Card className="w-full max-w-md">
           <CardHeader className="text-center space-y-4">
             <Link to="/" className="inline-block mx-auto">
-              <img src={logo} alt="Shiksha Nex" className="h-12 w-auto" />
+              <img src={logo} alt="Aadhyra Innovations" className="h-12 w-auto" />
             </Link>
             <div className="space-y-2">
               <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center mx-auto">
@@ -131,7 +131,7 @@ const EmployerAuth = () => {
               </div>
               <CardTitle>Employer Portal</CardTitle>
               <CardDescription>
-                Post jobs and hire talented students from Shiksha Nex
+                Post jobs and hire talented students from Aadhyra Innovations
               </CardDescription>
             </div>
           </CardHeader>

@@ -242,7 +242,7 @@ const CoursesPage = () => {
           <div className="container">
             <div className="text-center mb-6">
               <h2 className="font-heading text-xl font-bold text-foreground mb-1">Partner Universities</h2>
-              <p className="text-sm text-muted-foreground">Pursue degrees through Online & Distance mode via Shiksha Nex</p>
+              <p className="text-sm text-muted-foreground">Pursue degrees through Online & Distance mode via Aadhyra Innovations</p>
             </div>
             <div className="flex flex-wrap justify-center gap-4">
               {partnerUniversities.map((uni) => (
@@ -308,7 +308,7 @@ const CoursesPage = () => {
         {/* Demo Videos */}
         <DemoVideoSection
           title="Watch Course Demo Videos"
-          subtitle="Preview our training content before enrolling. All videos are Shiksha Nex original content."
+          subtitle="Preview our training content before enrolling. All videos are Aadhyra Innovations original content."
           videos={courseDemoVideos}
         />
 

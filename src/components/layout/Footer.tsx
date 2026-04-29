@@ -13,7 +13,7 @@ const Footer = () => {
                 <span className="text-lg font-bold text-primary-foreground">SN</span>
               </div>
               <div>
-                <span className="text-lg font-heading font-bold">Shiksha Nex</span>
+                <span className="text-lg font-heading font-bold">Aadhyra Innovations</span>
                 <span className="block text-xs text-muted-foreground">Technologies</span>
               </div>
             </div>
@@ -47,7 +47,7 @@ const Footer = () => {
               </li>
               <li className="flex items-center gap-3">
                 <Mail className="h-5 w-5 text-primary flex-shrink-0" />
-                <a href="mailto:info@shikshanex.com" className="text-sm text-muted-foreground hover:text-primary transition-colors">info@shikshanex.com</a>
+                <a href="mailto:info@Aadhyra Innovations.com" className="text-sm text-muted-foreground hover:text-primary transition-colors">info@Aadhyra Innovations.com</a>
               </li>
             </ul>
           </div>
@@ -106,7 +106,7 @@ const Footer = () => {
       <div className="border-t border-background/10">
         <div className="container py-6 flex flex-col sm:flex-row justify-between items-center gap-4">
           <p className="text-sm text-muted-foreground">
-            © {new Date().getFullYear()} Shiksha Nex Technologies. All rights reserved.
+            © {new Date().getFullYear()} AADHYRA INNOVATIONS PVT LTD. All rights reserved.
           </p>
           <div className="flex flex-wrap gap-6 justify-center">
             <Link to="/terms" className="text-sm text-muted-foreground hover:text-primary transition-colors">Terms</Link>

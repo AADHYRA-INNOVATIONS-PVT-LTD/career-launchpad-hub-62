@@ -130,7 +130,7 @@ const DashboardCertificates = () => {
                   <div>
                     <div className="flex items-center gap-2 mb-1">
                       <Shield className="h-4 w-4" />
-                      <span className="text-xs font-medium uppercase tracking-wider opacity-90">ShikshaNex Certified</span>
+                      <span className="text-xs font-medium uppercase tracking-wider opacity-90">Aadhyra Innovations Certified</span>
                     </div>
                     <h3 className="text-xl font-bold">{getCertificateTypeName(cert.certificate_type)}</h3>
                   </div>
@@ -202,7 +202,7 @@ const DashboardCertificates = () => {
               <h4 className="font-semibold mb-1">Certificate Verification</h4>
               <p className="text-sm text-muted-foreground">
                 All certificates include a unique QR code and Certificate ID for employer verification. 
-                Scan the QR code or visit <span className="text-primary font-medium">shikshanex.com/verify</span> to authenticate.
+                Scan the QR code or visit <span className="text-primary font-medium">Aadhyra Innovations.com/verify</span> to authenticate.
               </p>
             </div>
           </div>
@@ -226,7 +226,7 @@ const DashboardCertificates = () => {
                   {[...Array(3)].map((_, i) => <Star key={i} className="h-5 w-5 text-accent fill-accent" />)}
                 </div>
                 <div>
-                  <p className="text-xs uppercase tracking-[0.3em] text-muted-foreground font-medium">ShikshaNex Academy</p>
+                  <p className="text-xs uppercase tracking-[0.3em] text-muted-foreground font-medium">Aadhyra Innovations Academy</p>
                   <h2 className="text-2xl font-heading font-bold text-foreground mt-1">Certificate of {previewCert.certificate_type === 'completion' ? 'Completion' : 'Achievement'}</h2>
                 </div>
                 <div className="py-4">
@@ -235,7 +235,7 @@ const DashboardCertificates = () => {
                 </div>
                 <p className="text-sm text-muted-foreground max-w-md mx-auto">
                   has successfully completed the {getCertificateTypeName(previewCert.certificate_type)} program
-                  at ShikshaNex Academy and has demonstrated proficiency in the required skills.
+                  at Aadhyra Innovations Academy and has demonstrated proficiency in the required skills.
                 </p>
                 <div className="flex items-center justify-center gap-8 pt-4">
                   <div className="text-center">
@@ -245,7 +245,7 @@ const DashboardCertificates = () => {
                   <div className="bg-muted p-2 rounded"><QrCode className="h-10 w-10 text-muted-foreground" /></div>
                   <div className="text-center">
                     <div className="h-px w-32 bg-border mb-1" />
-                    <p className="text-xs text-muted-foreground">Director, ShikshaNex</p>
+                    <p className="text-xs text-muted-foreground">Director, Aadhyra Innovations</p>
                   </div>
                 </div>
                 <p className="text-[10px] text-muted-foreground pt-2">Certificate ID: {previewCert.certificate_id}</p>

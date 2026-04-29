@@ -83,7 +83,7 @@ const ContactPage = () => {
                     <Mail className="h-6 w-6 text-primary" />
                   </div>
                   <h3 className="font-heading font-semibold text-foreground mb-2">Email Us</h3>
-                  <a href="mailto:info@shikshanex.com" className="text-primary hover:underline">info@shikshanex.com</a>
+                  <a href="mailto:info@Aadhyra Innovations.com" className="text-primary hover:underline">info@Aadhyra Innovations.com</a>
                   <p className="text-sm text-muted-foreground mt-1">We respond within 24 hours</p>
                 </div>
                 

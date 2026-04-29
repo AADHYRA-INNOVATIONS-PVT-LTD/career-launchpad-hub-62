@@ -206,7 +206,7 @@ const EmployerDocuments = () => {
                 required
               />
               <p className="text-xs text-muted-foreground">
-                Make sure the link is publicly accessible or shared with admin@shikshanex.com
+                Make sure the link is publicly accessible or shared with admin@Aadhyra Innovations.com
               </p>
             </div>
 
@@ -237,8 +237,8 @@ const EmployerDocuments = () => {
         <CardContent className="py-4">
           <p className="text-sm text-muted-foreground">
             <strong>Need help?</strong> Contact our support team at{' '}
-            <a href="mailto:support@shikshanex.com" className="text-primary hover:underline">
-              support@shikshanex.com
+            <a href="mailto:support@Aadhyra Innovations.com" className="text-primary hover:underline">
+              support@Aadhyra Innovations.com
             </a>{' '}
             for assistance with the verification process.
           </p>

@@ -34,7 +34,7 @@ const TechPartnerPage = () => {
           <AnimatedBackground />
           <div className="container relative">
             <div className="max-w-3xl mx-auto text-center">
-              <Badge className="mb-4 bg-primary/10 text-primary border-primary/20">🔹 Shiksha Tech Partner</Badge>
+              <Badge className="mb-4 bg-primary/10 text-primary border-primary/20">🔹 AI Tech Partner</Badge>
               <h1 className="font-heading text-4xl md:text-5xl lg:text-6xl font-bold text-foreground mb-4">
                 Freelancing Marketplace
               </h1>
