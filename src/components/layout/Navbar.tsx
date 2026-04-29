@@ -87,7 +87,7 @@ const Navbar = () => {
       <div className="container flex h-16 items-center justify-between">
         {/* Logo */}
         <Link to="/" className="flex items-center gap-2">
-          <img src={shikshaLogo} alt="AADHYRA INNOVATIONS PVT LTD" className="h-12 w-auto" />
+          <img src={shikshaLogo} alt="AADHYRA INNOVATIONS PVT LTD" className="h-12 w-auto animate-spin-slow" />
           <div className="block overflow-hidden">
             <span className="block text-sm sm:text-lg font-heading font-bold text-foreground whitespace-nowrap animate-marquee">
               AADHYRA INNOVATIONS PVT LTD
