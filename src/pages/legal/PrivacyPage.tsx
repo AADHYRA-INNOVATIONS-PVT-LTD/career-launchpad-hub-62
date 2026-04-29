@@ -11,7 +11,7 @@ const PrivacyPage = () => (
     <ul>
       <li>Account info: name, email, phone, qualifications, photo</li>
       <li>Profile info: skills, resume, portfolio, bank account (for payouts)</li>
-      <li>Health data: symptoms, age, gender (only when you use AI Health Connect)</li>
+      <li>Health data: symptoms, age, gender (only when you use AADHYRA HEALTH CONNECT)</li>
       <li>Usage data: pages visited, course progress, interview scores</li>
       <li>Device data: browser, IP, device type</li>
       <li>Webcam / mic data: only during proctored interviews, with your consent</li>

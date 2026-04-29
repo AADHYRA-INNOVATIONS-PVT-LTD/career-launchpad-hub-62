@@ -49,9 +49,9 @@ const HeroSection = () => {
 
         {/* Product showcase grid */}
         <div className="grid md:grid-cols-2 gap-5 max-w-6xl mx-auto animate-fade-in-up" style={{ animationDelay: "0.4s" }}>
-          {/* AI Talent Connect */}
+          {/* AADHYRA TALENT CONNECT */}
           <ProductCard
-            title="AI Talent Connect"
+            title="AADHYRA TALENT CONNECT"
             tagline="AI Recruitment · Pan-India Hiring"
             icon={Search}
             gradient="from-blue-500/30 to-primary/40"
@@ -68,9 +68,9 @@ const HeroSection = () => {
             learnMore="/placement/talent-connect"
           />
 
-          {/* AI Tech Partner */}
+          {/* AADHYRA TECH PARTNER */}
           <ProductCard
-            title="AI Tech Partner"
+            title="AADHYRA TECH PARTNER"
             tagline="Freelance Marketplace · Like Upwork"
             icon={Code}
             gradient="from-emerald-400/30 to-teal-500/40"
@@ -87,9 +87,9 @@ const HeroSection = () => {
             learnMore="/placement/tech-partner"
           />
 
-          {/* AI Health Connect */}
+          {/* AADHYRA HEALTH CONNECT */}
           <ProductCard
-            title="AI Health Connect"
+            title="AADHYRA HEALTH CONNECT"
             tagline="AI Healthcare · Telemedicine"
             icon={Heart}
             gradient="from-cyan-400/30 to-blue-500/40"

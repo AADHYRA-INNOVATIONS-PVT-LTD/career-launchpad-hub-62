@@ -4,7 +4,7 @@ const TermsPage = () => (
   <LegalPageLayout badge="Legal" title="Terms & Conditions" lastUpdated="April 2026">
     <p>
       Welcome to AADHYRA INNOVATIONS PVT LTD. By accessing or using our website, training programs, internships, placement
-      services, freelancing marketplace (AI Tech Partner), healthcare services (AI Health Connect), AI tools (AADHYRA LAB), or any
+      services, freelancing marketplace (AADHYRA TECH PARTNER), healthcare services (AADHYRA HEALTH CONNECT), AI tools (AADHYRA LAB), or any
       other product offered by Aadhyra Innovations (collectively, the "Services"), you agree to be bound by these Terms.
     </p>
 
@@ -15,8 +15,8 @@ const TermsPage = () => (
     <ul>
       <li>Candidate / Student accounts (training, internships, placements)</li>
       <li>Employer / Project Owner accounts (job posting, hiring, project posting)</li>
-      <li>Freelancer accounts (AI Tech Partner marketplace)</li>
-      <li>Doctor / Nurse accounts (AI Health Connect)</li>
+      <li>Freelancer accounts (AADHYRA TECH PARTNER marketplace)</li>
+      <li>Doctor / Nurse accounts (AADHYRA HEALTH CONNECT)</li>
       <li>Administrator accounts (internal operations)</li>
     </ul>
     <p>You are responsible for safeguarding your password and for all activities under your account.</p>
@@ -27,11 +27,11 @@ const TermsPage = () => (
     <h2>4. Placement Services</h2>
     <p>We facilitate introductions between candidates and employers but do not guarantee placement, salary, role, or specific company. Evaluation/assessment fees (e.g., ₹300 fresher / ₹700 experienced) are non-refundable once the test is started.</p>
 
-    <h2>5. Freelancing (AI Tech Partner)</h2>
-    <p>AI Tech Partner connects freelancers and project owners. Project payments are routed through escrow. Aadhyra Innovations charges a service commission per transaction. Disputes are handled per our Refund & Dispute policy.</p>
+    <h2>5. Freelancing (AADHYRA TECH PARTNER)</h2>
+    <p>AADHYRA TECH PARTNER connects freelancers and project owners. Project payments are routed through escrow. Aadhyra Innovations charges a service commission per transaction. Disputes are handled per our Refund & Dispute policy.</p>
 
-    <h2>6. Healthcare (AI Health Connect)</h2>
-    <p>AI Health Connect provides AI-assisted information and connects you to qualified professionals. AI-generated information (e.g., symptom checker output) is for informational purposes only and is not a substitute for professional medical advice, diagnosis, or treatment.</p>
+    <h2>6. Healthcare (AADHYRA HEALTH CONNECT)</h2>
+    <p>AADHYRA HEALTH CONNECT provides AI-assisted information and connects you to qualified professionals. AI-generated information (e.g., symptom checker output) is for informational purposes only and is not a substitute for professional medical advice, diagnosis, or treatment.</p>
 
     <h2>7. AADHYRA LAB</h2>
     <p>AADHYRA LAB generates project plans, code suggestions, resumes, and other content. You are responsible for reviewing, validating, and lawfully using AI-generated output.</p>
