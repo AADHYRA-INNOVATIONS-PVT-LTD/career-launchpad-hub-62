@@ -8,7 +8,7 @@ import { Search, Code, Heart, Brain, ArrowRight, Users, Building2, Sparkles, Che
 
 const products = [
   {
-    title: "AI Talent Connect",
+    title: "AADHYRA TALENT CONNECT",
     tagline: "AI-Powered Recruitment — like Apna",
     description:
       "Smart job matching, verified candidate profiles, and direct in-app chat between candidates and employers.",
@@ -22,7 +22,7 @@ const products = [
     bullets: ["AI Skill Matching", "Verified Profiles", "Smart Job Alerts", "In-App Messaging"],
   },
   {
-    title: "AI Tech Partner",
+    title: "AADHYRA TECH PARTNER",
     tagline: "Freelancing Marketplace — like Upwork",
     description:
       "Find freelance projects, build your portfolio, win bids, and get paid securely through escrow.",
@@ -36,7 +36,7 @@ const products = [
     bullets: ["Project Bidding", "Escrow Payments", "Portfolio Showcase", "Client Reviews"],
   },
   {
-    title: "AI Health Connect",
+    title: "AADHYRA HEALTH CONNECT",
     tagline: "AI Healthcare & Telemedicine",
     description:
       "AI symptom checker, online doctor consultations, lab bookings, pharmacy, and home nursing services.",

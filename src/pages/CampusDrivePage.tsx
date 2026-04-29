@@ -103,7 +103,7 @@ const CampusDrivePage = () => {
             </div>
             <h2 className="text-2xl font-bold">Request Received! 🎓</h2>
             <p className="text-muted-foreground">
-              Thank you for inviting <strong>AI Talent Connect</strong> to your campus.
+              Thank you for inviting <strong>AADHYRA TALENT CONNECT</strong> to your campus.
               Our placement team will reach out within <strong>24-48 hours</strong> to coordinate the drive.
             </p>
             <div className="flex flex-col sm:flex-row gap-2 pt-2">
@@ -139,7 +139,7 @@ const CampusDrivePage = () => {
           <h1 className="text-3xl md:text-5xl font-bold tracking-tight mb-4">
             Invite{' '}
             <span className="bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
-              AI Talent Connect
+              AADHYRA TALENT CONNECT
             </span>{' '}
             to your Campus
           </h1>
