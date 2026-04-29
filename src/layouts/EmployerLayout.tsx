@@ -16,7 +16,7 @@ import {
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
-import logo from '@/assets/shiksha-nex-logo.png';
+import logo from '@/assets/aadhyra-logo.png';
 
 interface EmployerData {
   id: string;

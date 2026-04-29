@@ -3,7 +3,7 @@ import Footer from "@/components/layout/Footer";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
 import { Target, Eye, Heart, Award, Users, Building2, GraduationCap, Briefcase, Quote } from "lucide-react";
-import shikshaLogo from "@/assets/shiksha-nex-logo.png";
+import shikshaLogo from "@/assets/aadhyra-logo.png";
 
 const stats = [
   { icon: GraduationCap, value: "5000+", label: "Students Trained" },

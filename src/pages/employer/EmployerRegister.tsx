@@ -14,7 +14,7 @@ import {
   Loader2, Building2, ArrowLeft, ArrowRight, CheckCircle2, Users, Briefcase,
   Sparkles, ShieldCheck, Rocket, Target, TrendingUp, Award, MapPin, Globe,
 } from 'lucide-react';
-import logo from '@/assets/shiksha-nex-logo.png';
+import logo from '@/assets/aadhyra-logo.png';
 import { cn } from '@/lib/utils';
 
 const industries = [
@@ -38,7 +38,7 @@ const benefits = [
   { icon: Rocket, title: 'Campus & Placement Drives', desc: 'Host virtual or on-campus drives across our partner network in 50+ cities.' },
   { icon: Target, title: 'Smart Skill Matching', desc: 'AI-powered matching shortlists top candidates based on your job requirements.' },
   { icon: TrendingUp, title: 'Hiring Analytics', desc: 'Track applications, interview funnels and time-to-hire from your dashboard.' },
-  { icon: Award, title: 'Verified Employer Badge', desc: 'Stand out with a Shiksha-verified company badge on every job posting.' },
+  { icon: Award, title: 'Verified Employer Badge', desc: 'Stand out with a Aadhyra-verified company badge on every job posting.' },
 ];
 
 const steps = [

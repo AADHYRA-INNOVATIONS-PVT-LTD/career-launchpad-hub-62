@@ -13,7 +13,7 @@ import {
   ArrowLeft, GraduationCap, Building2, Users, Calendar, Sparkles,
   CheckCircle2, Loader2, Briefcase, MapPin, Award,
 } from 'lucide-react';
-import logo from '@/assets/shiksha-nex-logo.png';
+import logo from '@/assets/aadhyra-logo.png';
 import { cn } from '@/lib/utils';
 
 const departments = [

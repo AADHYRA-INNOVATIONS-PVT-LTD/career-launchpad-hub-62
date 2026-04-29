@@ -22,7 +22,7 @@ const products = [
     bullets: ["AI Skill Matching", "Verified Profiles", "Smart Job Alerts", "In-App Messaging"],
   },
   {
-    title: "Shiksha AI Tech Partner",
+    title: "AI Tech Partner",
     tagline: "Freelancing Marketplace — like Upwork",
     description:
       "Find freelance projects, build your portfolio, win bids, and get paid securely through escrow.",
@@ -36,7 +36,7 @@ const products = [
     bullets: ["Project Bidding", "Escrow Payments", "Portfolio Showcase", "Client Reviews"],
   },
   {
-    title: "Shiksha AI Health Connect",
+    title: "AI Health Connect",
     tagline: "AI Healthcare & Telemedicine",
     description:
       "AI symptom checker, online doctor consultations, lab bookings, pharmacy, and home nursing services.",
@@ -50,7 +50,7 @@ const products = [
     bullets: ["AI Symptom Checker", "Online Consultations", "Lab + Pharmacy", "Home Nursing"],
   },
   {
-    title: "Shiksha AADHYRA LAB",
+    title: "AADHYRA LAB",
     tagline: "Prompt → Project Builder (like Lovable)",
     description:
       "Describe your idea — our AI generates the full project plan: features, pages, tech stack and data model.",
@@ -74,7 +74,7 @@ const PlacementPage = () => {
             <div className="max-w-3xl mx-auto text-center">
               <Badge className="mb-4 bg-primary/10 text-primary border-primary/20">One Unified Platform</Badge>
               <h1 className="font-heading text-4xl md:text-5xl lg:text-6xl font-bold text-foreground mb-6">
-                The Shiksha <span className="text-gradient">Career Ecosystem</span>
+                The Aadhyra <span className="text-gradient">Career Ecosystem</span>
               </h1>
               <p className="text-lg text-muted-foreground mb-8">
                 Four powerful platforms — recruitment, freelancing, healthcare and AI tools — designed to power every

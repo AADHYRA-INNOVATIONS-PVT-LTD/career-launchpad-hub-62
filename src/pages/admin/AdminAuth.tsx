@@ -8,7 +8,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { useToast } from '@/hooks/use-toast';
 import { z } from 'zod';
 import { Shield, Mail, Lock, Loader2 } from 'lucide-react';
-import shikshaLogo from '@/assets/shiksha-nex-logo.png';
+import shikshaLogo from '@/assets/aadhyra-logo.png';
 
 const loginSchema = z.object({
   email: z.string().email('Please enter a valid email address'),

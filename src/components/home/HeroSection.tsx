@@ -25,7 +25,6 @@ const HeroSection = () => {
 
           <h1 className="font-heading text-3xl md:text-5xl lg:text-6xl font-bold leading-tight mb-5 animate-fade-in-up" style={{ animationDelay: "0.1s" }}>
             The Complete{" "}
-            <span className="text-accent">SHIKSHA</span>{" "}
             Career Ecosystem
           </h1>
 
@@ -71,7 +70,7 @@ const HeroSection = () => {
 
           {/* AI Tech Partner */}
           <ProductCard
-            title="SHIKSHA AI Tech Partner"
+            title="AI Tech Partner"
             tagline="Freelance Marketplace · Like Upwork"
             icon={Code}
             gradient="from-emerald-400/30 to-teal-500/40"
@@ -90,7 +89,7 @@ const HeroSection = () => {
 
           {/* AI Health Connect */}
           <ProductCard
-            title="SHIKSHA AI Health Connect"
+            title="AI Health Connect"
             tagline="AI Healthcare · Telemedicine"
             icon={Heart}
             gradient="from-cyan-400/30 to-blue-500/40"
@@ -109,7 +108,7 @@ const HeroSection = () => {
 
           {/* AADHYRA LAB */}
           <ProductCard
-            title="SHIKSHA AADHYRA LAB"
+            title="AADHYRA LAB"
             tagline="Prompt → Project Builder"
             icon={Brain}
             gradient="from-violet-400/30 to-purple-600/40"

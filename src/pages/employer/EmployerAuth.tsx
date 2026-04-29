@@ -8,7 +8,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { useToast } from '@/hooks/use-toast';
 import { Loader2, Building2, ArrowLeft } from 'lucide-react';
-import logo from '@/assets/shiksha-nex-logo.png';
+import logo from '@/assets/aadhyra-logo.png';
 
 const EmployerAuth = () => {
   const [loading, setLoading] = useState(false);

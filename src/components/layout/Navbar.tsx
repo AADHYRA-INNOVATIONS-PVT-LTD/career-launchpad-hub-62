@@ -11,7 +11,7 @@ import {
   NavigationMenuTrigger,
 } from "@/components/ui/navigation-menu";
 import { cn } from "@/lib/utils";
-import shikshaLogo from "@/assets/shiksha-nex-logo.png";
+import shikshaLogo from "@/assets/aadhyra-logo.png";
 
 const courses = [
   { title: "IT Training", href: "/courses/it", description: "Java, Python, AI/ML, Cloud & more" },
