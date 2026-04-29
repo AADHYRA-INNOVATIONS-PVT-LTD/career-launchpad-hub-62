@@ -3,7 +3,7 @@ import LegalPageLayout from "@/components/legal/LegalPageLayout";
 const PrivacyPage = () => (
   <LegalPageLayout badge="Legal" title="Privacy Policy" lastUpdated="April 2026">
     <p>
-      Shiksha Nex Technologies ("we", "us") respects your privacy. This policy explains what data we collect, how we use it,
+      AADHYRA INNOVATIONS PVT LTD ("we", "us") respects your privacy. This policy explains what data we collect, how we use it,
       and the choices you have.
     </p>
 
@@ -11,7 +11,7 @@ const PrivacyPage = () => (
     <ul>
       <li>Account info: name, email, phone, qualifications, photo</li>
       <li>Profile info: skills, resume, portfolio, bank account (for payouts)</li>
-      <li>Health data: symptoms, age, gender (only when you use Health Connect)</li>
+      <li>Health data: symptoms, age, gender (only when you use AI Health Connect)</li>
       <li>Usage data: pages visited, course progress, interview scores</li>
       <li>Device data: browser, IP, device type</li>
       <li>Webcam / mic data: only during proctored interviews, with your consent</li>
@@ -27,7 +27,7 @@ const PrivacyPage = () => (
     </ul>
 
     <h2>3. AI & Third-Party Processing</h2>
-    <p>We use Lovable AI (Google Gemini) for AI features such as the symptom checker, AI Lab project generation, mock interview evaluation, and resume building. Your prompts and responses are processed securely.</p>
+    <p>We use Lovable AI (Google Gemini) for AI features such as the symptom checker, AADHYRA LAB project generation, mock interview evaluation, and resume building. Your prompts and responses are processed securely.</p>
 
     <h2>4. Sharing of Data</h2>
     <p>We share your data only with:</p>
@@ -57,7 +57,7 @@ const PrivacyPage = () => (
     <p>Our Services are not intended for children under 16.</p>
 
     <h2>9. Contact</h2>
-    <p>For privacy questions or data requests, write to <a href="mailto:privacy@shikshanex.com" className="text-primary underline">privacy@shikshanex.com</a>.</p>
+    <p>For privacy questions or data requests, write to <a href="mailto:privacy@Aadhyra Innovations.com" className="text-primary underline">privacy@Aadhyra Innovations.com</a>.</p>
   </LegalPageLayout>
 );
 

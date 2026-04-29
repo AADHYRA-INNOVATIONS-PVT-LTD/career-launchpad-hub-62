@@ -50,9 +50,9 @@ const HeroSection = () => {
 
         {/* Product showcase grid */}
         <div className="grid md:grid-cols-2 gap-5 max-w-6xl mx-auto animate-fade-in-up" style={{ animationDelay: "0.4s" }}>
-          {/* Talent Connect */}
+          {/* AI Talent Connect */}
           <ProductCard
-            title="SHIKSHA Talent Connect"
+            title="AI Talent Connect"
             tagline="AI Recruitment · Pan-India Hiring"
             icon={Search}
             gradient="from-blue-500/30 to-primary/40"
@@ -69,9 +69,9 @@ const HeroSection = () => {
             learnMore="/placement/talent-connect"
           />
 
-          {/* Tech Partner */}
+          {/* AI Tech Partner */}
           <ProductCard
-            title="SHIKSHA Tech Partner"
+            title="SHIKSHA AI Tech Partner"
             tagline="Freelance Marketplace · Like Upwork"
             icon={Code}
             gradient="from-emerald-400/30 to-teal-500/40"
@@ -88,9 +88,9 @@ const HeroSection = () => {
             learnMore="/placement/tech-partner"
           />
 
-          {/* Health Connect */}
+          {/* AI Health Connect */}
           <ProductCard
-            title="SHIKSHA Health Connect"
+            title="SHIKSHA AI Health Connect"
             tagline="AI Healthcare · Telemedicine"
             icon={Heart}
             gradient="from-cyan-400/30 to-blue-500/40"
@@ -107,9 +107,9 @@ const HeroSection = () => {
             learnMore="/placement/health-connect"
           />
 
-          {/* AI Lab */}
+          {/* AADHYRA LAB */}
           <ProductCard
-            title="SHIKSHA AI Lab"
+            title="SHIKSHA AADHYRA LAB"
             tagline="Prompt → Project Builder"
             icon={Brain}
             gradient="from-violet-400/30 to-purple-600/40"
@@ -121,7 +121,7 @@ const HeroSection = () => {
               { icon: Brain, text: "Resume, mock interview & career path AI" },
               { icon: Users, text: "Free to try — no signup required" },
             ]}
-            primaryCta={{ label: "Open AI Lab", to: "/placement/ai-lab" }}
+            primaryCta={{ label: "Open AADHYRA LAB", to: "/placement/ai-lab" }}
             secondaryCta={{ label: "Learn More", to: "/placement" }}
             learnMore="/placement/ai-lab"
           />

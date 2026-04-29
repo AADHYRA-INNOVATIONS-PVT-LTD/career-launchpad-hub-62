@@ -84,7 +84,7 @@ const CertificateVerifyPage = () => {
                 <Shield className="h-8 w-8" />
               </div>
               <h1 className="font-heading text-3xl md:text-4xl font-bold mb-3">Certificate Verification</h1>
-              <p className="text-primary-foreground/80">Verify the authenticity of ShikshaNex certificates using the Certificate ID or QR code</p>
+              <p className="text-primary-foreground/80">Verify the authenticity of Aadhyra Innovations certificates using the Certificate ID or QR code</p>
             </div>
           </div>
         </section>
@@ -144,7 +144,7 @@ const CertificateVerifyPage = () => {
                           <div className="flex justify-center gap-1">
                             {[...Array(3)].map((_, i) => <Star key={i} className="h-4 w-4 text-accent fill-accent" />)}
                           </div>
-                          <p className="text-xs uppercase tracking-[0.3em] text-muted-foreground">ShikshaNex Academy</p>
+                          <p className="text-xs uppercase tracking-[0.3em] text-muted-foreground">Aadhyra Innovations Academy</p>
                           <h2 className="text-xl font-heading font-bold text-foreground">{getTypeName(result.certificate_type)}</h2>
                           <div className="py-2">
                             <p className="text-sm text-muted-foreground">Awarded to</p>
@@ -159,7 +159,7 @@ const CertificateVerifyPage = () => {
                             <div className="bg-muted p-1.5 rounded"><QrCode className="h-8 w-8 text-muted-foreground" /></div>
                             <div className="text-center">
                               <div className="h-px w-24 bg-border mb-1" />
-                              <p className="text-xs text-muted-foreground">Director, ShikshaNex</p>
+                              <p className="text-xs text-muted-foreground">Director, Aadhyra Innovations</p>
                             </div>
                           </div>
                           <p className="text-[10px] text-muted-foreground pt-2">Certificate ID: {result.certificate_id}</p>
@@ -194,7 +194,7 @@ const CertificateVerifyPage = () => {
                       <li>• Enter the Certificate ID printed on the certificate</li>
                       <li>• Or scan the QR code on the certificate</li>
                       <li>• Verified certificates show a green badge</li>
-                      <li>• For queries, contact support@shikshanex.com</li>
+                      <li>• For queries, contact support@Aadhyra Innovations.com</li>
                     </ul>
                   </div>
                 </div>

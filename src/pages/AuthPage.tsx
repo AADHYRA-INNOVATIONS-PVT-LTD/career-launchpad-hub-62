@@ -145,7 +145,7 @@ const AuthPage = () => {
     } else {
       toast({
         title: 'Account Created!',
-        description: 'Welcome to ShikshaNex. Your account has been created successfully.',
+        description: 'Welcome to Aadhyra Innovations. Your account has been created successfully.',
       });
       navigate('/dashboard');
     }
@@ -161,7 +161,7 @@ const AuthPage = () => {
               <GraduationCap className="h-7 w-7 text-primary-foreground" />
             </div>
             <div>
-              <span className="text-xl font-heading font-bold text-foreground">ShikshaNex</span>
+              <span className="text-xl font-heading font-bold text-foreground">Aadhyra Innovations</span>
               <span className="block text-xs text-muted-foreground">Student Portal</span>
             </div>
           </Link>

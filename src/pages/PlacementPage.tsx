@@ -8,7 +8,7 @@ import { Search, Code, Heart, Brain, ArrowRight, Users, Building2, Sparkles, Che
 
 const products = [
   {
-    title: "Shiksha Talent Connect",
+    title: "AI Talent Connect",
     tagline: "AI-Powered Recruitment — like Apna",
     description:
       "Smart job matching, verified candidate profiles, and direct in-app chat between candidates and employers.",
@@ -22,7 +22,7 @@ const products = [
     bullets: ["AI Skill Matching", "Verified Profiles", "Smart Job Alerts", "In-App Messaging"],
   },
   {
-    title: "Shiksha Tech Partner",
+    title: "Shiksha AI Tech Partner",
     tagline: "Freelancing Marketplace — like Upwork",
     description:
       "Find freelance projects, build your portfolio, win bids, and get paid securely through escrow.",
@@ -36,7 +36,7 @@ const products = [
     bullets: ["Project Bidding", "Escrow Payments", "Portfolio Showcase", "Client Reviews"],
   },
   {
-    title: "Shiksha Health Connect",
+    title: "Shiksha AI Health Connect",
     tagline: "AI Healthcare & Telemedicine",
     description:
       "AI symptom checker, online doctor consultations, lab bookings, pharmacy, and home nursing services.",
@@ -50,14 +50,14 @@ const products = [
     bullets: ["AI Symptom Checker", "Online Consultations", "Lab + Pharmacy", "Home Nursing"],
   },
   {
-    title: "Shiksha AI Lab",
+    title: "Shiksha AADHYRA LAB",
     tagline: "Prompt → Project Builder (like Lovable)",
     description:
       "Describe your idea — our AI generates the full project plan: features, pages, tech stack and data model.",
     icon: Brain,
     accent: "from-violet-500 to-purple-600",
     pageRoute: "/placement/ai-lab",
-    logins: [{ label: "Open AI Lab", to: "/placement/ai-lab", icon: Sparkles }],
+    logins: [{ label: "Open AADHYRA LAB", to: "/placement/ai-lab", icon: Sparkles }],
     bullets: ["AI Project Builder", "Resume Builder", "Mock Interview AI", "Career Path AI"],
   },
 ];

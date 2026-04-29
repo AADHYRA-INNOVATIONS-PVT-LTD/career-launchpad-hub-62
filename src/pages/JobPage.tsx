@@ -13,7 +13,7 @@ import thumbHiring from "@/assets/demo-thumb-hiring-process.jpg";
 import thumbInternship from "@/assets/demo-thumb-internship.jpg";
 
 const careerDemoVideos = [
-  { title: "Life at Shiksha Nex Technologies", description: "Explore our work culture, team, and growth opportunities", duration: "4:15", category: "Company Culture", thumbnail: thumbCulture, gradient: "bg-gradient-to-br from-blue-600 to-primary" },
+  { title: "Life at AADHYRA INNOVATIONS PVT LTD", description: "Explore our work culture, team, and growth opportunities", duration: "4:15", category: "Company Culture", thumbnail: thumbCulture, gradient: "bg-gradient-to-br from-blue-600 to-primary" },
   { title: "Our Hiring Process Explained", description: "Step-by-step guide to MCQ, Technical, and AI HR interview rounds", duration: "5:30", category: "Hiring Process", thumbnail: thumbHiring, gradient: "bg-gradient-to-br from-emerald-500 to-teal-700" },
   { title: "Partner Company Placements", description: "How students get placed at TCS, Infosys, and other partner companies", duration: "4:00", category: "Placements", thumbnail: thumbInternship, gradient: "bg-gradient-to-br from-orange-500 to-red-600" },
 ];
@@ -22,16 +22,16 @@ const categories = ["All", "IT", "HR", "Digital Marketing", "Graphic Design", "N
 const jobTypes = ["All Types", "Full-time", "Part-time", "Contract", "Freelance"];
 
 const jobs = [
-  { title: "Java Full Stack Trainer", company: "Shiksha Nex Technologies", location: "Bangalore", salary: "₹4-8 LPA", experience: "1-3 Years", category: "IT", skills: ["Java", "Spring Boot", "React", "Teaching"], applicants: 85, isHot: true, type: "Full-time", posted: "1 day ago", description: "Train students on Java Full Stack Development. Create course content, conduct live sessions, and mentor students through projects and internships." },
-  { title: "Python & AI Trainer", company: "Shiksha Nex Technologies", location: "Bangalore", salary: "₹5-10 LPA", experience: "1-3 Years", category: "IT", skills: ["Python", "TensorFlow", "ML", "Teaching"], applicants: 62, isHot: true, type: "Full-time", posted: "2 days ago", description: "Teach Python, AI/ML concepts to students. Design curriculum, build projects, and guide students through real-world applications." },
-  { title: "HR Training Coordinator", company: "Shiksha Nex Technologies", location: "Bangalore", salary: "₹3-5 LPA", experience: "0-2 Years", category: "HR", skills: ["Recruitment", "Training", "HRMS", "Communication"], applicants: 120, isHot: false, type: "Full-time", posted: "3 days ago", description: "Coordinate HR training programs, manage student batches, handle placement coordination and employer relations." },
-  { title: "Digital Marketing Executive", company: "Shiksha Nex Technologies", location: "Bangalore", salary: "₹3.5-6 LPA", experience: "0-2 Years", category: "Digital Marketing", skills: ["SEO", "Google Ads", "Social Media", "Content"], applicants: 145, isHot: true, type: "Full-time", posted: "1 day ago", description: "Manage Shiksha Nex's digital presence. Run campaigns, manage social media, create content, and drive student enrollments." },
-  { title: "Graphic Designer", company: "Shiksha Nex Technologies", location: "Bangalore", salary: "₹3-5 LPA", experience: "0-2 Years", category: "Graphic Design", skills: ["Photoshop", "Illustrator", "Figma", "Canva"], applicants: 95, isHot: false, type: "Full-time", posted: "4 days ago", description: "Create marketing creatives, course thumbnails, social media posts, and branding materials for Shiksha Nex." },
-  { title: "Nursing Faculty", company: "Shiksha Health Connect", location: "Bangalore", salary: "₹4-7 LPA", experience: "2-5 Years", category: "Nursing", skills: ["Clinical Training", "ICU", "Patient Care", "Teaching"], applicants: 45, isHot: false, type: "Full-time", posted: "5 days ago", description: "Teach nursing students clinical procedures, hospital management, and patient care. Conduct practical sessions." },
-  { title: "Data Analyst - Partner (TCS)", company: "TCS (via Shiksha Nex)", location: "Hyderabad", salary: "₹5-9 LPA", experience: "0-2 Years", category: "Data Science", skills: ["SQL", "Python", "Tableau", "Excel"], applicants: 340, isHot: true, type: "Full-time", posted: "2 days ago", description: "Analyze business data using SQL and Python. Create dashboards and reports. Placed through Shiksha Nex hiring network." },
-  { title: "Java Developer - Partner (Infosys)", company: "Infosys (via Shiksha Nex)", location: "Bangalore", salary: "₹6-12 LPA", experience: "0-2 Years", category: "IT", skills: ["Java", "Spring Boot", "Microservices", "AWS"], applicants: 420, isHot: true, type: "Full-time", posted: "1 day ago", description: "Build enterprise Java applications. Opportunity through Shiksha Nex partner hiring program with Infosys." },
-  { title: "Content Creator & Curriculum Designer", company: "Shiksha Nex Technologies", location: "Work From Home", salary: "₹2.5-4 LPA", experience: "0-1 Years", category: "Digital Marketing", skills: ["Content Writing", "Curriculum Design", "Video Script", "Research"], applicants: 210, isHot: false, type: "Full-time", posted: "3 days ago", description: "Create course content, write scripts for training videos, design curriculum for new programs." },
-  { title: "Student Success Manager", company: "Shiksha Nex Technologies", location: "Bangalore", salary: "₹3-5 LPA", experience: "0-2 Years", category: "HR", skills: ["Communication", "CRM", "Counseling", "Follow-up"], applicants: 175, isHot: false, type: "Full-time", posted: "2 days ago", description: "Guide enrolled students through their learning journey. Handle queries, track progress, and ensure completion." },
+  { title: "Java Full Stack Trainer", company: "AADHYRA INNOVATIONS PVT LTD", location: "Bangalore", salary: "₹4-8 LPA", experience: "1-3 Years", category: "IT", skills: ["Java", "Spring Boot", "React", "Teaching"], applicants: 85, isHot: true, type: "Full-time", posted: "1 day ago", description: "Train students on Java Full Stack Development. Create course content, conduct live sessions, and mentor students through projects and internships." },
+  { title: "Python & AI Trainer", company: "AADHYRA INNOVATIONS PVT LTD", location: "Bangalore", salary: "₹5-10 LPA", experience: "1-3 Years", category: "IT", skills: ["Python", "TensorFlow", "ML", "Teaching"], applicants: 62, isHot: true, type: "Full-time", posted: "2 days ago", description: "Teach Python, AI/ML concepts to students. Design curriculum, build projects, and guide students through real-world applications." },
+  { title: "HR Training Coordinator", company: "AADHYRA INNOVATIONS PVT LTD", location: "Bangalore", salary: "₹3-5 LPA", experience: "0-2 Years", category: "HR", skills: ["Recruitment", "Training", "HRMS", "Communication"], applicants: 120, isHot: false, type: "Full-time", posted: "3 days ago", description: "Coordinate HR training programs, manage student batches, handle placement coordination and employer relations." },
+  { title: "Digital Marketing Executive", company: "AADHYRA INNOVATIONS PVT LTD", location: "Bangalore", salary: "₹3.5-6 LPA", experience: "0-2 Years", category: "Digital Marketing", skills: ["SEO", "Google Ads", "Social Media", "Content"], applicants: 145, isHot: true, type: "Full-time", posted: "1 day ago", description: "Manage Aadhyra Innovations's digital presence. Run campaigns, manage social media, create content, and drive student enrollments." },
+  { title: "Graphic Designer", company: "AADHYRA INNOVATIONS PVT LTD", location: "Bangalore", salary: "₹3-5 LPA", experience: "0-2 Years", category: "Graphic Design", skills: ["Photoshop", "Illustrator", "Figma", "Canva"], applicants: 95, isHot: false, type: "Full-time", posted: "4 days ago", description: "Create marketing creatives, course thumbnails, social media posts, and branding materials for Aadhyra Innovations." },
+  { title: "Nursing Faculty", company: "Shiksha AI Health Connect", location: "Bangalore", salary: "₹4-7 LPA", experience: "2-5 Years", category: "Nursing", skills: ["Clinical Training", "ICU", "Patient Care", "Teaching"], applicants: 45, isHot: false, type: "Full-time", posted: "5 days ago", description: "Teach nursing students clinical procedures, hospital management, and patient care. Conduct practical sessions." },
+  { title: "Data Analyst - Partner (TCS)", company: "TCS (via Aadhyra Innovations)", location: "Hyderabad", salary: "₹5-9 LPA", experience: "0-2 Years", category: "Data Science", skills: ["SQL", "Python", "Tableau", "Excel"], applicants: 340, isHot: true, type: "Full-time", posted: "2 days ago", description: "Analyze business data using SQL and Python. Create dashboards and reports. Placed through Aadhyra Innovations hiring network." },
+  { title: "Java Developer - Partner (Infosys)", company: "Infosys (via Aadhyra Innovations)", location: "Bangalore", salary: "₹6-12 LPA", experience: "0-2 Years", category: "IT", skills: ["Java", "Spring Boot", "Microservices", "AWS"], applicants: 420, isHot: true, type: "Full-time", posted: "1 day ago", description: "Build enterprise Java applications. Opportunity through Aadhyra Innovations partner hiring program with Infosys." },
+  { title: "Content Creator & Curriculum Designer", company: "AADHYRA INNOVATIONS PVT LTD", location: "Work From Home", salary: "₹2.5-4 LPA", experience: "0-1 Years", category: "Digital Marketing", skills: ["Content Writing", "Curriculum Design", "Video Script", "Research"], applicants: 210, isHot: false, type: "Full-time", posted: "3 days ago", description: "Create course content, write scripts for training videos, design curriculum for new programs." },
+  { title: "Student Success Manager", company: "AADHYRA INNOVATIONS PVT LTD", location: "Bangalore", salary: "₹3-5 LPA", experience: "0-2 Years", category: "HR", skills: ["Communication", "CRM", "Counseling", "Follow-up"], applicants: 175, isHot: false, type: "Full-time", posted: "2 days ago", description: "Guide enrolled students through their learning journey. Handle queries, track progress, and ensure completion." },
 ];
 
 const hiringSteps = [
@@ -63,12 +63,12 @@ const JobPage = () => {
         <section className="gradient-hero text-primary-foreground py-12 lg:py-16">
           <div className="container">
             <div className="max-w-3xl mx-auto text-center">
-              <Badge className="bg-accent/20 text-accent-foreground border-accent/30 mb-4">💼 Shiksha Nex Careers</Badge>
+              <Badge className="bg-accent/20 text-accent-foreground border-accent/30 mb-4">💼 Aadhyra Innovations Careers</Badge>
               <h1 className="font-heading text-3xl md:text-4xl lg:text-5xl font-bold mb-4">
-                Career at Shiksha Nex
+                Career at Aadhyra Innovations
               </h1>
               <p className="text-lg text-primary-foreground/80">
-                Join our team or get placed with our partner companies. Build your career with Shiksha Nex Technologies.
+                Join our team or get placed with our partner companies. Build your career with AADHYRA INNOVATIONS PVT LTD.
               </p>
             </div>
           </div>
@@ -123,7 +123,7 @@ const JobPage = () => {
 
         {/* Demo Videos */}
         <DemoVideoSection
-          title="Career at Shiksha Nex"
+          title="Career at Aadhyra Innovations"
           subtitle="Watch videos about our team, hiring process, and partner placements"
           videos={careerDemoVideos}
         />
@@ -228,7 +228,7 @@ const JobPage = () => {
                           <div>
                             <h4 className="font-semibold text-sm text-foreground mb-2">Why Evaluation Fee?</h4>
                             <p className="text-sm text-muted-foreground">
-                              The evaluation fee covers AI-proctored assessments (MCQ, Technical & HR rounds) to ensure fair, merit-based hiring. This one-time fee validates your skills and creates your verified profile for all employers on Shiksha Nex.
+                              The evaluation fee covers AI-proctored assessments (MCQ, Technical & HR rounds) to ensure fair, merit-based hiring. This one-time fee validates your skills and creates your verified profile for all employers on Aadhyra Innovations.
                             </p>
                           </div>
 

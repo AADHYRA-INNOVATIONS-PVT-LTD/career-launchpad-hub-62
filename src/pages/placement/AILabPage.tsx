@@ -64,7 +64,7 @@ const AILabPage = () => {
           <AnimatedBackground />
           <div className="container relative">
             <div className="max-w-3xl mx-auto text-center mb-10">
-              <Badge className="mb-4 bg-primary/10 text-primary border-primary/20">🔹 Shiksha AI Lab</Badge>
+              <Badge className="mb-4 bg-primary/10 text-primary border-primary/20">🔹 Shiksha AADHYRA LAB</Badge>
               <h1 className="font-heading text-4xl md:text-5xl lg:text-6xl font-bold text-foreground mb-4">
                 Prompt to <span className="text-gradient">Project</span> in seconds
               </h1>
@@ -231,7 +231,7 @@ const AILabPage = () => {
           <div className="container">
             <div className="text-center mb-10">
               <h2 className="font-heading text-3xl font-bold text-foreground mb-2">More AI Tools</h2>
-              <p className="text-muted-foreground">Everything else our AI Lab can do for your career</p>
+              <p className="text-muted-foreground">Everything else our AADHYRA LAB can do for your career</p>
             </div>
             <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
               {[

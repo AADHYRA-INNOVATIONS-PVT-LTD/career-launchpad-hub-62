@@ -19,10 +19,10 @@ const RefundPage = () => (
     <h2>3. Placement Evaluation Fees</h2>
     <p>Evaluation/assessment fees (Fresher ₹300 / Experienced ₹700) are <strong>non-refundable</strong> once the MCQ test has been started.</p>
 
-    <h2>4. Tech Partner (Freelancing)</h2>
+    <h2>4. AI Tech Partner (Freelancing)</h2>
     <p>Project escrow funds are released per the agreed milestones. Refunds during disputes are governed by our Dispute Resolution policy. Platform service fees are non-refundable.</p>
 
-    <h2>5. Health Connect</h2>
+    <h2>5. AI Health Connect</h2>
     <ul>
       <li>Consultations cancelled at least 30 minutes before the slot are fully refundable.</li>
       <li>Lab tests cancelled before sample collection are fully refundable.</li>
@@ -36,7 +36,7 @@ const RefundPage = () => (
     <p>Approved refunds are processed within 7-10 business days to the original payment method.</p>
 
     <h2>8. How to Request</h2>
-    <p>Email <a href="mailto:refunds@shikshanex.com" className="text-primary underline">refunds@shikshanex.com</a> with your order/transaction ID and reason. Our team will respond within 3 business days.</p>
+    <p>Email <a href="mailto:refunds@Aadhyra Innovations.com" className="text-primary underline">refunds@Aadhyra Innovations.com</a> with your order/transaction ID and reason. Our team will respond within 3 business days.</p>
   </LegalPageLayout>
 );
 

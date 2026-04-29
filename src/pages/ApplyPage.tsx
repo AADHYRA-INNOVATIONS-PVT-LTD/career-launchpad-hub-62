@@ -292,7 +292,7 @@ const ApplyPage = () => {
                           </p>
                           
                           <p>
-                            Shiksha Nex Technologies OPC Pvt Ltd does not sell jobs or guarantee employment.
+                            AADHYRA INNOVATIONS PVT LTD does not sell jobs or guarantee employment.
                           </p>
                           
                           <p className="font-medium text-foreground">All fees collected are strictly for:</p>
@@ -340,7 +340,7 @@ const ApplyPage = () => {
                           
                           <p>I agree that all information related to:</p>
                           <ul className="list-disc pl-5 space-y-1">
-                            <li>Shiksha Nex internal processes</li>
+                            <li>Aadhyra Innovations internal processes</li>
                             <li>Training methods</li>
                             <li>Placement partners</li>
                             <li>HR practices</li>
@@ -351,7 +351,7 @@ const ApplyPage = () => {
                           <p className="font-medium text-foreground">I agree:</p>
                           <ul className="list-disc pl-5 space-y-1">
                             <li>Not to share any company-related information with third parties</li>
-                            <li>Not to post, publish, or discuss Shiksha Nex information on social media, forums, or public platforms</li>
+                            <li>Not to post, publish, or discuss Aadhyra Innovations information on social media, forums, or public platforms</li>
                             <li>Not to misuse company name, logo, or internal communication</li>
                           </ul>
                         </div>
@@ -384,13 +384,13 @@ const ApplyPage = () => {
                           
                           <p>I understand that:</p>
                           <ul className="list-disc pl-5 space-y-1">
-                            <li>I do not have the right to post misleading, false, or defamatory content about Shiksha Nex</li>
-                            <li>Any concerns must be raised directly with the Shiksha Nex support team</li>
+                            <li>I do not have the right to post misleading, false, or defamatory content about Aadhyra Innovations</li>
+                            <li>Any concerns must be raised directly with the Aadhyra Innovations support team</li>
                             <li>Posting negative or false reviews without completing the process is considered unethical</li>
                           </ul>
                           
                           <p className="font-medium text-foreground">
-                            Shiksha Nex reserves the right to take appropriate action in case of policy violation.
+                            Aadhyra Innovations reserves the right to take appropriate action in case of policy violation.
                           </p>
                         </div>
                         
@@ -418,7 +418,7 @@ const ApplyPage = () => {
                         <div className="prose prose-sm text-muted-foreground space-y-4">
                           <p className="font-medium text-foreground">I confirm that:</p>
                           <ul className="list-disc pl-5 space-y-1">
-                            <li>I am joining Shiksha Nex voluntarily</li>
+                            <li>I am joining Aadhyra Innovations voluntarily</li>
                             <li>I have understood all policies clearly</li>
                             <li>I agree to proceed without coercion</li>
                             <li>I accept all terms digitally as a legally valid agreement</li>
@@ -574,7 +574,7 @@ const ApplyPage = () => {
                     <div className="mt-4 pt-4 border-t text-xs text-muted-foreground">
                       <p><strong>Note:</strong> This payment is for evaluation/training/placement support services. 
                       Fees are non-refundable under any circumstances. Payment does not guarantee job placement.
-                      Subject to Shiksha Nex Technologies OPC Pvt Ltd policies agreed digitally.</p>
+                      Subject to AADHYRA INNOVATIONS PVT LTD policies agreed digitally.</p>
                     </div>
                   </div>
                   

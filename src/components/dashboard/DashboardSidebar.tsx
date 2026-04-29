@@ -69,7 +69,7 @@ const DashboardSidebar = ({ isAdmin = false }: DashboardSidebarProps) => {
             <GraduationCap className="h-6 w-6 text-primary-foreground" />
           </div>
           <div>
-            <span className="text-lg font-heading font-bold text-foreground">ShikshaNex</span>
+            <span className="text-lg font-heading font-bold text-foreground">Aadhyra Innovations</span>
             <span className="block text-xs text-muted-foreground">
               {isAdmin ? 'Admin Panel' : 'Student Portal'}
             </span>

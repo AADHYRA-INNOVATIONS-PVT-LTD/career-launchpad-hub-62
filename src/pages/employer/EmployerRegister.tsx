@@ -34,7 +34,7 @@ const hiringNeeds = [
 
 const benefits = [
   { icon: Users, title: 'Pan-India Talent Pool', desc: 'Access 50,000+ pre-screened candidates across IT, HR, Marketing, Design & Nursing.' },
-  { icon: ShieldCheck, title: 'Verified Profiles', desc: 'Every candidate is skill-tested, AI-interviewed and certified by Shiksha Nex.' },
+  { icon: ShieldCheck, title: 'Verified Profiles', desc: 'Every candidate is skill-tested, AI-interviewed and certified by Aadhyra Innovations.' },
   { icon: Rocket, title: 'Campus & Placement Drives', desc: 'Host virtual or on-campus drives across our partner network in 50+ cities.' },
   { icon: Target, title: 'Smart Skill Matching', desc: 'AI-powered matching shortlists top candidates based on your job requirements.' },
   { icon: TrendingUp, title: 'Hiring Analytics', desc: 'Track applications, interview funnels and time-to-hire from your dashboard.' },
@@ -133,7 +133,7 @@ const EmployerRegister = () => {
           <Link to="/" className="inline-flex items-center gap-2 text-muted-foreground hover:text-foreground transition-colors">
             <ArrowLeft className="h-4 w-4" /> Back to Home
           </Link>
-          <Link to="/"><img src={logo} alt="Shiksha Nex" className="h-10 w-auto" /></Link>
+          <Link to="/"><img src={logo} alt="Aadhyra Innovations" className="h-10 w-auto" /></Link>
           <Link to="/employer/auth">
             <Button variant="outline" size="sm">Already registered? Login</Button>
           </Link>
@@ -152,7 +152,7 @@ const EmployerRegister = () => {
             <h1 className="text-4xl md:text-6xl font-bold tracking-tight mb-6">
               Hire Smarter with{' '}
               <span className="bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
-                Shiksha Talent Connect
+                AI Talent Connect
               </span>
             </h1>
             <p className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto mb-8">
@@ -254,7 +254,7 @@ const EmployerRegister = () => {
         <button onClick={() => setShowForm(false)} className="inline-flex items-center gap-2 text-muted-foreground hover:text-foreground">
           <ArrowLeft className="h-4 w-4" /> Back
         </button>
-        <Link to="/"><img src={logo} alt="Shiksha Nex" className="h-10 w-auto" /></Link>
+        <Link to="/"><img src={logo} alt="Aadhyra Innovations" className="h-10 w-auto" /></Link>
       </header>
 
       <div className="max-w-3xl mx-auto p-4 pb-12">

@@ -39,9 +39,9 @@ const AboutPage = () => {
         <section className="gradient-hero text-primary-foreground py-16 lg:py-24">
           <div className="container">
             <div className="max-w-3xl mx-auto text-center">
-              <img src={shikshaLogo} alt="Shiksha Nex Technologies" className="h-24 w-auto mx-auto mb-6" />
+              <img src={shikshaLogo} alt="AADHYRA INNOVATIONS PVT LTD" className="h-24 w-auto mx-auto mb-6" />
               <h1 className="font-heading text-3xl md:text-4xl lg:text-5xl font-bold mb-6">
-                About Shiksha Nex Technologies
+                About AADHYRA INNOVATIONS PVT LTD
               </h1>
               <p className="text-lg text-primary-foreground/80">
                 Empowering careers through industry-oriented training in IT, HR, Digital Marketing, Graphic Design & Nursing.
@@ -79,7 +79,7 @@ const AboutPage = () => {
               <div className="text-center mb-12">
                 <span className="text-primary font-semibold text-sm uppercase tracking-wider">Our Purpose</span>
                 <h2 className="font-heading text-3xl md:text-4xl font-bold text-foreground mt-3">
-                  SHIKSHA NEX TECHNOLOGIES OPC PVT LTD
+                  AADHYRA INNOVATIONS PVT LTD
                 </h2>
               </div>
               
@@ -88,7 +88,7 @@ const AboutPage = () => {
                 
                 <div className="space-y-6 text-muted-foreground leading-relaxed relative z-10">
                   <p className="text-lg font-medium text-foreground">
-                    Shiksha Nex Technologies was founded with one clear purpose — to transform education into real employment and dignity into every individual's life.
+                    AADHYRA INNOVATIONS PVT LTD was founded with one clear purpose — to transform education into real employment and dignity into every individual's life.
                   </p>
                   
                   <p>
@@ -96,11 +96,11 @@ const AboutPage = () => {
                   </p>
                   
                   <p className="font-semibold text-foreground text-lg">
-                    Shiksha Nex was created to bridge the gap between education and employability.
+                    Aadhyra Innovations was created to bridge the gap between education and employability.
                   </p>
                   
                   <p>
-                    We believe that unemployment is not caused by a lack of talent, but by a lack of the right guidance, practical training, and opportunity. That is why Shiksha Nex is built as a complete ecosystem — combining education, skill development, internships, interview preparation, and job placement under one roof.
+                    We believe that unemployment is not caused by a lack of talent, but by a lack of the right guidance, practical training, and opportunity. That is why Aadhyra Innovations is built as a complete ecosystem — combining education, skill development, internships, interview preparation, and job placement under one roof.
                   </p>
                   
                   <div className="bg-primary/5 rounded-xl p-6 border border-primary/10">
@@ -151,7 +151,7 @@ const AboutPage = () => {
                 </h2>
                 <div className="space-y-4 text-muted-foreground">
                   <p>
-                    Shiksha Nex Technologies was founded with a simple yet powerful vision: to make quality professional training accessible to everyone and ensure every graduate finds their dream career.
+                    AADHYRA INNOVATIONS PVT LTD was founded with a simple yet powerful vision: to make quality professional training accessible to everyone and ensure every graduate finds their dream career.
                   </p>
                   <p>
                     Starting with IT training, we quickly expanded to address the growing demands across multiple industries. Today, we offer comprehensive training programs in IT, HR, Digital Marketing, Graphic Design, and Nursing - making us a one-stop platform for career development.

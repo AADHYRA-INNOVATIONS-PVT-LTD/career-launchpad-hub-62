@@ -17,7 +17,7 @@ const CTASection = () => {
             Ready to Transform Your Career?
           </h2>
           <p className="text-lg text-white/80 mb-10 max-w-xl mx-auto">
-            Join thousands of successful professionals who kickstarted their careers with Shiksha Nex Technologies.
+            Join thousands of successful professionals who kickstarted their careers with AADHYRA INNOVATIONS PVT LTD.
           </p>
           
           <div className="flex flex-col sm:flex-row gap-4 justify-center">

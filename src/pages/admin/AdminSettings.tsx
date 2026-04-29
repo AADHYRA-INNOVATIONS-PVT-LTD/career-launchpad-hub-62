@@ -27,11 +27,11 @@ const AdminSettings = () => {
           <CardContent className="space-y-4">
             <div className="space-y-2">
               <Label htmlFor="platform_name">Platform Name</Label>
-              <Input id="platform_name" defaultValue="ShikshaNex" />
+              <Input id="platform_name" defaultValue="Aadhyra Innovations" />
             </div>
             <div className="space-y-2">
               <Label htmlFor="support_email">Support Email</Label>
-              <Input id="support_email" type="email" defaultValue="support@shikshanex.com" />
+              <Input id="support_email" type="email" defaultValue="support@Aadhyra Innovations.com" />
             </div>
             <div className="space-y-2">
               <Label htmlFor="contact_phone">Contact Phone</Label>

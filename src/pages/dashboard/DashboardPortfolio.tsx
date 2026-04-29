@@ -256,7 +256,7 @@ const DashboardPortfolio = () => {
             <div className="flex-1">
               <p className="text-sm text-muted-foreground">Your Portfolio URL</p>
               <p className="font-medium text-lg">
-                shikshanex.com/portfolio/{currentPortfolio.slug}
+                Aadhyra Innovations.com/portfolio/{currentPortfolio.slug}
               </p>
             </div>
             <Button variant="outline" size="sm">

@@ -2,7 +2,7 @@ import LegalPageLayout from "@/components/legal/LegalPageLayout";
 
 const CookiesPage = () => (
   <LegalPageLayout badge="Legal" title="Cookie Policy" lastUpdated="April 2026">
-    <p>This policy explains how Shiksha Nex Technologies uses cookies and similar tracking technologies.</p>
+    <p>This policy explains how AADHYRA INNOVATIONS PVT LTD uses cookies and similar tracking technologies.</p>
 
     <h2>1. What Are Cookies?</h2>
     <p>Cookies are small text files stored on your device that help websites remember information about your visit.</p>
@@ -28,7 +28,7 @@ const CookiesPage = () => (
     <p>You can control cookies through your browser settings. Disabling some cookies may affect site functionality.</p>
 
     <h2>5. Contact</h2>
-    <p>Questions? Email <a href="mailto:privacy@shikshanex.com" className="text-primary underline">privacy@shikshanex.com</a>.</p>
+    <p>Questions? Email <a href="mailto:privacy@Aadhyra Innovations.com" className="text-primary underline">privacy@Aadhyra Innovations.com</a>.</p>
   </LegalPageLayout>
 );
 
