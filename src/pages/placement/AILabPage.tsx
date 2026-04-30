@@ -6,7 +6,7 @@ import AnimatedBackground from "@/components/shared/AnimatedBackground";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Textarea } from "@/components/ui/textarea";
-import { Sparkles, Send, Loader2, Code, FileText, Database, Layers, ListChecks, Wand2 } from "lucide-react";
+import { Sparkles, Send, Loader2, Code, FileText, Database, Layers, ListChecks, Wand2, Eye, Download } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { toast } from "sonner";
 
@@ -19,6 +19,7 @@ interface ProjectPlan {
   pages: string[];
   dataModel: { table: string; fields: string[] }[];
   nextSteps: string[];
+  previewHtml?: string;
 }
 
 const examples = [
@@ -32,6 +33,7 @@ const AILabPage = () => {
   const [prompt, setPrompt] = useState("");
   const [loading, setLoading] = useState(false);
   const [plan, setPlan] = useState<ProjectPlan | null>(null);
+  const [showCode, setShowCode] = useState(false);
 
   const handleGenerate = async () => {
     if (!prompt.trim()) {
@@ -210,6 +212,51 @@ const AILabPage = () => {
                     </ol>
                   </div>
                 </div>
+
+                {plan.previewHtml && (
+                  <div className="border-t">
+                    <div className="p-6 bg-muted/20 flex items-center justify-between">
+                      <div className="flex items-center gap-2">
+                        <Eye className="h-5 w-5 text-primary" />
+                        <h3 className="font-heading font-semibold">Live Preview</h3>
+                      </div>
+                      <div className="flex gap-2">
+                        <Button size="sm" variant="outline" onClick={() => setShowCode((v) => !v)} className="gap-1">
+                          <Code className="h-3.5 w-3.5" /> {showCode ? "Hide Code" : "View Code"}
+                        </Button>
+                        <Button
+                          size="sm"
+                          variant="outline"
+                          onClick={() => {
+                            const blob = new Blob([plan.previewHtml!], { type: "text/html" });
+                            const url = URL.createObjectURL(blob);
+                            const a = document.createElement("a");
+                            a.href = url;
+                            a.download = `${plan.name.toLowerCase().replace(/\s+/g, "-")}.html`;
+                            a.click();
+                            URL.revokeObjectURL(url);
+                          }}
+                          className="gap-1"
+                        >
+                          <Download className="h-3.5 w-3.5" /> Download HTML
+                        </Button>
+                      </div>
+                    </div>
+                    <div className="border-t bg-background">
+                      <iframe
+                        title="AI Generated Preview"
+                        srcDoc={plan.previewHtml}
+                        sandbox="allow-scripts"
+                        className="w-full h-[600px] border-0"
+                      />
+                    </div>
+                    {showCode && (
+                      <pre className="border-t p-4 bg-slate-900 text-slate-100 text-xs overflow-auto max-h-96">
+                        <code>{plan.previewHtml}</code>
+                      </pre>
+                    )}
+                  </div>
+                )}
 
                 <div className="border-t bg-muted/30 p-6 flex flex-wrap gap-3 justify-center">
                   <Link to="/auth">
