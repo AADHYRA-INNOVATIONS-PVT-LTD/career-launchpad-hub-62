@@ -14,6 +14,7 @@ import {
   Palette, Layout, Zap, Star, Crown, Gem
 } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
+import AIAssistButton from '@/components/shared/AIAssistButton';
 
 interface ResumeData {
   id: string;
@@ -315,7 +316,18 @@ const DashboardResume = () => {
                 <div className="space-y-2"><Label>LinkedIn</Label><Input value={personalInfo.linkedin} onChange={(e) => updatePersonalInfo('linkedin', e.target.value)} placeholder="linkedin.com/in/username" /></div>
               </div>
               <div className="space-y-2"><Label>Address</Label><Input value={personalInfo.address} onChange={(e) => updatePersonalInfo('address', e.target.value)} placeholder="City, State" /></div>
-              <div className="space-y-2"><Label>Professional Summary</Label><Textarea value={personalInfo.summary} onChange={(e) => updatePersonalInfo('summary', e.target.value)} placeholder="Brief summary..." rows={4} /></div>
+              <div className="space-y-2">
+                <div className="flex items-center justify-between">
+                  <Label>Professional Summary</Label>
+                  <AIAssistButton
+                    type="resume_summary"
+                    context={`${personalInfo.name || ''} - ${experience[0]?.title || personalInfo.summary || 'professional'} with skills in ${skills.slice(0, 5).join(', ') || 'various areas'}`}
+                    onResult={(t) => updatePersonalInfo('summary', t)}
+                    label="AI Write Summary"
+                  />
+                </div>
+                <Textarea value={personalInfo.summary} onChange={(e) => updatePersonalInfo('summary', e.target.value)} placeholder="Brief summary..." rows={4} />
+              </div>
             </CardContent>
           </Card>
         </TabsContent>
@@ -368,7 +380,13 @@ const DashboardResume = () => {
                     <div className="space-y-2"><Label>Job Title</Label><Input value={exp.title} onChange={(e) => updateExperience(i, 'title', e.target.value)} placeholder="Software Developer" /></div>
                     <div className="space-y-2"><Label>Company</Label><Input value={exp.company} onChange={(e) => updateExperience(i, 'company', e.target.value)} placeholder="Company" /></div>
                     <div className="space-y-2 md:col-span-2"><Label>Duration</Label><Input value={exp.duration} onChange={(e) => updateExperience(i, 'duration', e.target.value)} placeholder="Jan 2022 - Present" /></div>
-                    <div className="space-y-2 md:col-span-2"><Label>Description</Label><Textarea value={exp.description} onChange={(e) => updateExperience(i, 'description', e.target.value)} placeholder="Responsibilities..." rows={3} /></div>
+                    <div className="space-y-2 md:col-span-2">
+                      <div className="flex items-center justify-between">
+                        <Label>Description</Label>
+                        <AIAssistButton type="experience_bullet" context={`${exp.title} at ${exp.company}: ${exp.description || 'general duties'}`} onResult={(t) => updateExperience(i, 'description', t)} label="AI Bullets" />
+                      </div>
+                      <Textarea value={exp.description} onChange={(e) => updateExperience(i, 'description', e.target.value)} placeholder="Responsibilities..." rows={3} />
+                    </div>
                   </div>
                 </div>
               ))}
@@ -398,7 +416,13 @@ const DashboardResume = () => {
                   <div className="grid gap-4 md:grid-cols-2">
                     <div className="space-y-2"><Label>Name</Label><Input value={proj.name} onChange={(e) => updateProject(i, 'name', e.target.value)} placeholder="Project Name" /></div>
                     <div className="space-y-2"><Label>Technologies</Label><Input value={proj.technologies} onChange={(e) => updateProject(i, 'technologies', e.target.value)} placeholder="React, Node.js" /></div>
-                    <div className="space-y-2 md:col-span-2"><Label>Description</Label><Textarea value={proj.description} onChange={(e) => updateProject(i, 'description', e.target.value)} placeholder="What you built..." rows={2} /></div>
+                    <div className="space-y-2 md:col-span-2">
+                      <div className="flex items-center justify-between">
+                        <Label>Description</Label>
+                        <AIAssistButton type="project_description" context={`${proj.name} built with ${proj.technologies}`} onResult={(t) => updateProject(i, 'description', t)} label="AI Describe" />
+                      </div>
+                      <Textarea value={proj.description} onChange={(e) => updateProject(i, 'description', e.target.value)} placeholder="What you built..." rows={2} />
+                    </div>
                   </div>
                 </div>
               ))}
@@ -413,6 +437,15 @@ const DashboardResume = () => {
               <div className="flex gap-2">
                 <Input value={skillInput} onChange={(e) => setSkillInput(e.target.value)} placeholder="Add a skill..." onKeyDown={(e) => e.key === 'Enter' && addSkill()} />
                 <Button onClick={addSkill}><Plus className="h-4 w-4" /></Button>
+                <AIAssistButton
+                  type="skill_suggest"
+                  context={experience[0]?.title || personalInfo.summary || education[0]?.degree || 'software developer'}
+                  onResult={(t) => {
+                    const list = t.split(/[,\n]/).map((s) => s.trim()).filter(Boolean);
+                    setResumeData((prev) => ({ ...prev!, skills: [...new Set([...(prev?.skills || []), ...list])] }));
+                  }}
+                  label="Suggest Skills"
+                />
               </div>
               <div className="flex flex-wrap gap-2">
                 {skills.map((skill, i) => (

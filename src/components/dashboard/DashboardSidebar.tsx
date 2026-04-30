@@ -30,6 +30,7 @@ const studentMenuItems = [
   { icon: CreditCard, label: 'Payments', href: '/dashboard/payments' },
   { icon: Award, label: 'Certificates', href: '/dashboard/certificates' },
   { icon: Briefcase, label: 'Internship', href: '/dashboard/internship' },
+  { icon: ClipboardCheck, label: 'HR Live Tasks', href: '/dashboard/hr-tasks' },
   { icon: FileText, label: 'Resume Builder', href: '/dashboard/resume' },
   { icon: FolderOpen, label: 'Portfolio', href: '/dashboard/portfolio' },
   { icon: Code, label: 'Live Projects', href: '/dashboard/projects' },
