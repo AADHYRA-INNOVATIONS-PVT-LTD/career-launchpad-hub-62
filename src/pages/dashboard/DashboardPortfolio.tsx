@@ -24,6 +24,7 @@ import {
   Code
 } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
+import AIAssistButton from '@/components/shared/AIAssistButton';
 
 interface Portfolio {
   id: string;
@@ -283,7 +284,15 @@ const DashboardPortfolio = () => {
               />
             </div>
             <div className="space-y-2">
-              <Label>Bio</Label>
+              <div className="flex items-center justify-between">
+                <Label>Bio</Label>
+                <AIAssistButton
+                  type="portfolio_bio"
+                  context={`${profile?.full_name || 'developer'} - skills: ${(currentPortfolio.skills || []).slice(0, 5).join(', ') || 'web development'}`}
+                  onResult={(t) => updateField('bio', t)}
+                  label="AI Write Bio"
+                />
+              </div>
               <Textarea
                 value={currentPortfolio.bio || ''}
                 onChange={(e) => updateField('bio', e.target.value)}
@@ -475,7 +484,15 @@ const DashboardPortfolio = () => {
                     />
                   </div>
                   <div className="space-y-2 md:col-span-2">
-                    <Label>Description</Label>
+                    <div className="flex items-center justify-between">
+                      <Label>Description</Label>
+                      <AIAssistButton
+                        type="project_description"
+                        context={`${project.title}: ${(project.technologies || []).join(', ')}`}
+                        onResult={(t) => updateProject(index, 'description', t)}
+                        label="AI Describe"
+                      />
+                    </div>
                     <Textarea
                       value={project.description}
                       onChange={(e) => updateProject(index, 'description', e.target.value)}
