@@ -63,6 +63,7 @@ import DashboardPlacement from "./pages/dashboard/DashboardPlacement";
 import CourseLearning from "./pages/dashboard/CourseLearning";
 import ComingSoon from "./components/dashboard/ComingSoon";
 import DashboardProgress from "./pages/dashboard/DashboardProgress";
+import DashboardHRTasks from "./pages/dashboard/DashboardHRTasks";
 
 // Admin Pages
 import AdminDashboard from "./pages/admin/AdminDashboard";
@@ -160,6 +161,7 @@ const App = () => (
               <Route path="payments" element={<DashboardPayments />} />
               <Route path="certificates" element={<DashboardCertificates />} />
               <Route path="internship" element={<DashboardInternship />} />
+              <Route path="hr-tasks" element={<DashboardHRTasks />} />
               <Route path="resume" element={<DashboardResume />} />
               <Route path="portfolio" element={<DashboardPortfolio />} />
               <Route path="projects" element={<DashboardProjects />} />
