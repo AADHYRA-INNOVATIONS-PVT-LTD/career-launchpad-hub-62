@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import SymptomChecker from "@/components/health/SymptomChecker";
+import HealthAITool from "@/components/health/HealthAITool";
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
 import { Button } from "@/components/ui/button";
@@ -166,7 +167,7 @@ const HealthConnectPage = () => {
                 <TabsTrigger value="ai-features" className="gap-1.5"><Bot className="h-4 w-4" /> AI Features</TabsTrigger>
               </TabsList>
 
-              {/* ── AI Checkups ── */}
+                {/* ── AI Checkups ── */}
               <TabsContent value="ai-checkups">
                 <div className="text-center mb-8">
                   <Badge className="bg-primary/10 text-primary mb-2">AI-Powered</Badge>
@@ -176,6 +177,16 @@ const HealthConnectPage = () => {
                 <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
                   {aiCheckups.map((c) => {
                     const Icon = c.icon;
+                    const toolMap: Record<string, { tool: any; placeholder: string }> = {
+                      "Stress Level Detection": { tool: "stress", placeholder: "Describe how you've been feeling, sleep quality, work pressure, recent stressors..." },
+                      "Sleep Analysis": { tool: "sleep", placeholder: "Hours of sleep, quality, time to fall asleep, wake-ups, lifestyle..." },
+                      "BMI & Obesity Risk": { tool: "bmi", placeholder: "Height (cm), weight (kg), age, gender, activity level..." },
+                      "Diabetes Risk Assessment": { tool: "diabetes", placeholder: "Age, weight, family history, diet, exercise, symptoms (thirst, fatigue, frequent urination)..." },
+                      "Heart Disease Risk Score": { tool: "diabetes", placeholder: "Age, BP, cholesterol, smoking, family history, exercise, chest pain or breathlessness..." },
+                      "Thyroid Risk Screening": { tool: "diabetes", placeholder: "Symptoms (weight changes, fatigue, mood, hair fall), family history, age, gender..." },
+                      "Heart Rate Check": { tool: "bmi", placeholder: "Resting heart rate (bpm), age, fitness level, symptoms..." },
+                              };
+                    const aiTool = toolMap[c.title];
                     return (
                       <div key={c.title} className="bg-card rounded-xl border shadow-card p-6 hover:shadow-card-hover transition-all group">
                         <div className="flex items-start justify-between mb-3">
@@ -190,6 +201,8 @@ const HealthConnectPage = () => {
                           <span className="font-bold text-primary text-sm">{c.price}</span>
                           {c.title === "AI Symptom Checker" ? (
                             <SymptomChecker />
+                          ) : aiTool ? (
+                            <HealthAITool tool={aiTool.tool} title={c.title} placeholder={aiTool.placeholder} triggerLabel="Try AI" />
                           ) : (
                             <Button size="sm" variant="outline" className="gap-1 text-xs">Book Now <ArrowRight className="h-3 w-3" /></Button>
                           )}
@@ -369,13 +382,22 @@ const HealthConnectPage = () => {
                 <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
                   {aiFeatures.map((f) => {
                     const Icon = f.icon;
+                    const featureToolMap: Record<string, { tool: any; placeholder: string }> = {
+                      "AI Health Chatbot": { tool: "chat", placeholder: "Ask any health question, e.g. 'Why do I feel dizzy in the morning?'" },
+                      "AI Symptom Checker": { tool: "chat", placeholder: "Describe what you're feeling..." },
+                      "AI Diet Planner": { tool: "diet", placeholder: "Goal (weight loss/gain), veg/non-veg, allergies, current weight & height..." },
+                      "AI Skin Scanner": { tool: "skin", placeholder: "Describe your skin concerns: type, problem area, duration, products used..." },
+                      "AI Hair Scanner": { tool: "hair", placeholder: "Describe hair/scalp problems: hair fall, dandruff, thinning, when it started..." },
+                    };
+                    const t = featureToolMap[f.title];
                     return (
                       <div key={f.title} className="bg-card rounded-xl border shadow-card p-6 hover:shadow-card-hover transition-all text-center">
                         <div className="h-14 w-14 rounded-2xl bg-primary/10 flex items-center justify-center mx-auto mb-4">
                           <Icon className="h-7 w-7 text-primary" />
                         </div>
                         <h3 className="font-heading font-bold text-foreground mb-1">{f.title}</h3>
-                        <p className="text-sm text-muted-foreground">{f.desc}</p>
+                        <p className="text-sm text-muted-foreground mb-3">{f.desc}</p>
+                        {t && <HealthAITool tool={t.tool} title={f.title} placeholder={t.placeholder} triggerLabel="Try AI" fullButton />}
                       </div>
                     );
                   })}
