@@ -3,9 +3,10 @@ import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import { Badge } from "@/components/ui/badge";
-import { Loader2, Sparkles, ArrowRight, Bot } from "lucide-react";
+import { Loader2, Sparkles, ArrowRight, Bot, Download, Share2 } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { toast } from "sonner";
+import jsPDF from "jspdf";
 
 type ToolKey = "skin" | "hair" | "bmi" | "diabetes" | "stress" | "sleep" | "diet" | "chat";
 
@@ -46,6 +47,101 @@ const HealthAITool = ({ tool, title, triggerLabel = "Try Now", triggerSize = "sm
 
   const reset = () => { setInput(""); setResult(null); };
 
+  const downloadPDF = () => {
+    if (!result) return;
+    const doc = new jsPDF({ unit: "pt", format: "a4" });
+    const pageW = doc.internal.pageSize.getWidth();
+    const pageH = doc.internal.pageSize.getHeight();
+    const margin = 40;
+    let y = margin;
+
+    // Header
+    doc.setFillColor(37, 99, 235);
+    doc.rect(0, 0, pageW, 70, "F");
+    doc.setTextColor(255, 255, 255);
+    doc.setFont("helvetica", "bold");
+    doc.setFontSize(18);
+    doc.text("AADHYRA HEALTH CONNECT", margin, 30);
+    doc.setFontSize(10);
+    doc.setFont("helvetica", "normal");
+    doc.text("AI Health Report", margin, 50);
+    y = 100;
+
+    // Title
+    doc.setTextColor(20, 20, 20);
+    doc.setFont("helvetica", "bold");
+    doc.setFontSize(14);
+    doc.text(title, margin, y);
+    y += 20;
+    doc.setFont("helvetica", "normal");
+    doc.setFontSize(9);
+    doc.setTextColor(100, 100, 100);
+    doc.text(`Generated: ${new Date().toLocaleString()}`, margin, y);
+    y += 20;
+
+    // Input section
+    doc.setTextColor(20, 20, 20);
+    doc.setFont("helvetica", "bold");
+    doc.setFontSize(11);
+    doc.text("Your Input:", margin, y);
+    y += 14;
+    doc.setFont("helvetica", "normal");
+    doc.setFontSize(10);
+    const inputLines = doc.splitTextToSize(input, pageW - margin * 2);
+    doc.text(inputLines, margin, y);
+    y += inputLines.length * 12 + 14;
+
+    // Result section
+    doc.setFont("helvetica", "bold");
+    doc.setFontSize(11);
+    doc.text("AI Analysis:", margin, y);
+    y += 14;
+    doc.setFont("helvetica", "normal");
+    doc.setFontSize(10);
+    const resultLines = doc.splitTextToSize(result, pageW - margin * 2);
+    for (const line of resultLines) {
+      if (y > pageH - 60) {
+        doc.addPage();
+        y = margin;
+      }
+      doc.text(line, margin, y);
+      y += 12;
+    }
+
+    // Footer disclaimer on each page
+    const pageCount = doc.getNumberOfPages();
+    for (let i = 1; i <= pageCount; i++) {
+      doc.setPage(i);
+      doc.setFontSize(8);
+      doc.setTextColor(120, 120, 120);
+      doc.text(
+        "Disclaimer: For informational purposes only. Consult a qualified doctor for medical advice.",
+        margin,
+        pageH - 30
+      );
+      doc.text(`Page ${i} of ${pageCount}  |  AADHYRA INNOVATIONS PVT LTD`, margin, pageH - 18);
+    }
+
+    const fileName = `aadhyra-health-${tool}-${Date.now()}.pdf`;
+    doc.save(fileName);
+    toast.success("Report downloaded");
+  };
+
+  const shareReport = async () => {
+    if (!result) return;
+    const text = `AADHYRA HEALTH CONNECT — ${title}\n\nInput:\n${input}\n\nAI Analysis:\n${result}\n\n— Powered by AADHYRA AI`;
+    try {
+      if (navigator.share) {
+        await navigator.share({ title: `AADHYRA Health Report — ${title}`, text });
+      } else {
+        await navigator.clipboard.writeText(text);
+        toast.success("Report copied to clipboard");
+      }
+    } catch (e: any) {
+      if (e?.name !== "AbortError") toast.error("Could not share report");
+    }
+  };
+
   return (
     <Dialog open={open} onOpenChange={(v) => { setOpen(v); if (!v) reset(); }}>
       <DialogTrigger asChild>
@@ -82,10 +178,19 @@ const HealthAITool = ({ tool, title, triggerLabel = "Try Now", triggerSize = "sm
             <div className="prose prose-sm max-w-none bg-muted/30 rounded-lg p-4 whitespace-pre-wrap text-sm text-foreground">
               {result}
             </div>
-            <div className="flex gap-2">
-              <Button onClick={reset} variant="outline" className="flex-1">Try Again</Button>
-              <Button onClick={() => setOpen(false)} className="flex-1">Done</Button>
+            <div className="grid grid-cols-2 gap-2">
+              <Button onClick={downloadPDF} variant="default" className="gap-2">
+                <Download className="h-4 w-4" /> Download PDF
+              </Button>
+              <Button onClick={shareReport} variant="secondary" className="gap-2">
+                <Share2 className="h-4 w-4" /> Share Report
+              </Button>
+              <Button onClick={reset} variant="outline">Try Again</Button>
+              <Button onClick={() => setOpen(false)}>Done</Button>
             </div>
+            <p className="text-xs text-muted-foreground text-center">
+              ⚕️ For informational purposes. Always consult a qualified doctor.
+            </p>
           </div>
         )}
       </DialogContent>
