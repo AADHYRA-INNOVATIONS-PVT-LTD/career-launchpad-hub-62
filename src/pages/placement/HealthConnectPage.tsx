@@ -10,8 +10,10 @@ import {
   Stethoscope, Users, Calendar, CheckCircle2, ArrowRight, Shield, Clock,
   Video, MapPin, Star, Heart, FileText, Phone, Brain, Activity, Eye,
   Pill, FlaskConical, Home, Globe, Bot, Apple, Scissors, Dumbbell,
-  Smile, Moon, Scale, Droplets, Thermometer, Truck, CreditCard
+  Smile, Moon, Scale, Droplets, Thermometer, Truck, CreditCard,
+  Flame, Footprints, GlassWater, Crown, Zap, Trophy, Sparkles
 } from "lucide-react";
+import { Progress } from "@/components/ui/progress";
 
 /* ───────── AI Health Checkups ───────── */
 const aiCheckups = [
@@ -149,6 +151,70 @@ const HealthConnectPage = () => {
                   <p className="text-[10px] text-muted-foreground mt-0.5">{s.doctors} doctors</p>
                 </div>
               ))}
+            </div>
+          </div>
+        </section>
+
+        {/* ── HealthifyMe-style Daily Trackers ── */}
+        <section className="py-12 bg-gradient-to-br from-emerald-50 via-background to-blue-50 dark:from-emerald-950/20 dark:to-blue-950/20">
+          <div className="container">
+            <div className="text-center mb-8">
+              <Badge className="bg-emerald-100 text-emerald-700 border-emerald-200 mb-2">📊 Your Daily Health Dashboard</Badge>
+              <h2 className="font-heading text-3xl font-bold text-foreground mb-2">Track everything that matters</h2>
+              <p className="text-muted-foreground">Calories · Water · Steps · Sleep · Workouts — all in one app</p>
+            </div>
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-5xl mx-auto">
+              {/* Calories */}
+              <div className="bg-card rounded-2xl border p-5 shadow-card hover:shadow-card-hover transition">
+                <div className="flex items-center justify-between mb-3">
+                  <div className="h-10 w-10 rounded-xl bg-orange-100 dark:bg-orange-950/40 flex items-center justify-center">
+                    <Flame className="h-5 w-5 text-orange-600" />
+                  </div>
+                  <span className="text-xs font-semibold text-orange-600">68%</span>
+                </div>
+                <p className="text-xs text-muted-foreground mb-1">Calories</p>
+                <p className="text-2xl font-bold text-foreground">1,360 <span className="text-sm font-normal text-muted-foreground">/ 2000 kcal</span></p>
+                <Progress value={68} className="mt-3 h-2" />
+              </div>
+              {/* Water */}
+              <div className="bg-card rounded-2xl border p-5 shadow-card hover:shadow-card-hover transition">
+                <div className="flex items-center justify-between mb-3">
+                  <div className="h-10 w-10 rounded-xl bg-blue-100 dark:bg-blue-950/40 flex items-center justify-center">
+                    <GlassWater className="h-5 w-5 text-blue-600" />
+                  </div>
+                  <span className="text-xs font-semibold text-blue-600">75%</span>
+                </div>
+                <p className="text-xs text-muted-foreground mb-1">Water</p>
+                <p className="text-2xl font-bold text-foreground">6 <span className="text-sm font-normal text-muted-foreground">/ 8 glasses</span></p>
+                <Progress value={75} className="mt-3 h-2" />
+              </div>
+              {/* Steps */}
+              <div className="bg-card rounded-2xl border p-5 shadow-card hover:shadow-card-hover transition">
+                <div className="flex items-center justify-between mb-3">
+                  <div className="h-10 w-10 rounded-xl bg-green-100 dark:bg-green-950/40 flex items-center justify-center">
+                    <Footprints className="h-5 w-5 text-green-600" />
+                  </div>
+                  <span className="text-xs font-semibold text-green-600">82%</span>
+                </div>
+                <p className="text-xs text-muted-foreground mb-1">Steps</p>
+                <p className="text-2xl font-bold text-foreground">8,234 <span className="text-sm font-normal text-muted-foreground">/ 10k</span></p>
+                <Progress value={82} className="mt-3 h-2" />
+              </div>
+              {/* Sleep */}
+              <div className="bg-card rounded-2xl border p-5 shadow-card hover:shadow-card-hover transition">
+                <div className="flex items-center justify-between mb-3">
+                  <div className="h-10 w-10 rounded-xl bg-purple-100 dark:bg-purple-950/40 flex items-center justify-center">
+                    <Moon className="h-5 w-5 text-purple-600" />
+                  </div>
+                  <span className="text-xs font-semibold text-purple-600">88%</span>
+                </div>
+                <p className="text-xs text-muted-foreground mb-1">Sleep</p>
+                <p className="text-2xl font-bold text-foreground">7h 5m <span className="text-sm font-normal text-muted-foreground">/ 8h</span></p>
+                <Progress value={88} className="mt-3 h-2" />
+              </div>
+            </div>
+            <div className="text-center mt-6">
+              <Link to="/auth"><Button size="lg" variant="accent" className="gap-2"><Zap className="h-5 w-5" /> Start tracking free</Button></Link>
             </div>
           </div>
         </section>
@@ -460,6 +526,60 @@ const HealthConnectPage = () => {
                 );
               })}
             </div>
+          </div>
+        </section>
+
+        {/* ── Premium Plans (HealthifyMe-style) ── */}
+        <section className="py-16 bg-gradient-to-br from-primary/5 to-violet-500/5">
+          <div className="container">
+            <div className="text-center mb-10">
+              <Badge className="bg-amber-100 text-amber-700 border-amber-200 mb-2"><Crown className="h-3 w-3 inline mr-1" /> Membership Plans</Badge>
+              <h2 className="font-heading text-3xl font-bold text-foreground mb-2">Become a healthier you</h2>
+              <p className="text-muted-foreground">Unlimited AI coach, dietitian, doctor consults & lab discounts</p>
+            </div>
+            <div className="grid md:grid-cols-3 gap-6 max-w-5xl mx-auto">
+              {[
+                {
+                  name: "Smart", price: "₹399", period: "/month", color: "border-border", badge: "",
+                  features: ["Unlimited AI Health Chatbot", "AI Diet & Workout Planner", "Daily trackers (Calories/Water/Steps)", "1 Doctor video consult/month", "10% off lab tests"],
+                },
+                {
+                  name: "Pro", price: "₹999", period: "/month", color: "border-primary ring-2 ring-primary", badge: "Most Popular",
+                  features: ["Everything in Smart", "Personal AI Dietitian + Coach", "4 Doctor consults/month", "AI Skin & Hair scan unlimited", "20% off lab tests + free home collection", "Premium yoga & meditation library"],
+                },
+                {
+                  name: "Elite", price: "₹2,499", period: "/month", color: "border-amber-500", badge: "Premium",
+                  features: ["Everything in Pro", "Dedicated human dietitian", "Unlimited doctor consults", "Quarterly full-body checkup", "Priority specialist appointments", "International second opinion included"],
+                },
+              ].map((plan) => (
+                <div key={plan.name} className={`relative bg-card rounded-2xl border-2 ${plan.color} p-6 shadow-card hover:shadow-card-hover transition`}>
+                  {plan.badge && (
+                    <Badge className="absolute -top-3 left-1/2 -translate-x-1/2 bg-gradient-to-r from-primary to-violet-600 text-white border-0">
+                      <Trophy className="h-3 w-3 mr-1" /> {plan.badge}
+                    </Badge>
+                  )}
+                  <h3 className="font-heading text-xl font-bold text-foreground mb-1">{plan.name}</h3>
+                  <div className="mb-4">
+                    <span className="text-4xl font-bold text-foreground">{plan.price}</span>
+                    <span className="text-muted-foreground">{plan.period}</span>
+                  </div>
+                  <ul className="space-y-2.5 mb-6 min-h-[200px]">
+                    {plan.features.map((f) => (
+                      <li key={f} className="flex items-start gap-2 text-sm text-foreground">
+                        <CheckCircle2 className="h-4 w-4 text-primary mt-0.5 flex-shrink-0" />
+                        <span>{f}</span>
+                      </li>
+                    ))}
+                  </ul>
+                  <Link to="/auth" className="block">
+                    <Button className="w-full gap-2" variant={plan.badge === "Most Popular" ? "default" : "outline"}>
+                      <Sparkles className="h-4 w-4" /> Get {plan.name}
+                    </Button>
+                  </Link>
+                </div>
+              ))}
+            </div>
+            <p className="text-center text-xs text-muted-foreground mt-6">All plans include 7-day free trial · Cancel anytime · GST included</p>
           </div>
         </section>
       </main>
