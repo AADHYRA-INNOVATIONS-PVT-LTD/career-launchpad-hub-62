@@ -6,7 +6,8 @@ import AnimatedBackground from "@/components/shared/AnimatedBackground";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Textarea } from "@/components/ui/textarea";
-import { Sparkles, Send, Loader2, Code, FileText, Database, Layers, ListChecks, Wand2, Eye, Download } from "lucide-react";
+import { Sparkles, Send, Loader2, Code, FileText, Database, Layers, ListChecks, Wand2, Eye, Download, Wand, Smartphone, Tablet, Monitor, Copy, RefreshCw, MessageSquare, Zap, Github } from "lucide-react";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { supabase } from "@/integrations/supabase/client";
 import { toast } from "sonner";
 
@@ -33,7 +34,9 @@ const AILabPage = () => {
   const [prompt, setPrompt] = useState("");
   const [loading, setLoading] = useState(false);
   const [plan, setPlan] = useState<ProjectPlan | null>(null);
-  const [showCode, setShowCode] = useState(false);
+  const [refinePrompt, setRefinePrompt] = useState("");
+  const [device, setDevice] = useState<"mobile" | "tablet" | "desktop">("desktop");
+  const [history, setHistory] = useState<{ role: "user" | "ai"; text: string }[]>([]);
 
   const handleGenerate = async () => {
     if (!prompt.trim()) {
@@ -42,6 +45,7 @@ const AILabPage = () => {
     }
     setLoading(true);
     setPlan(null);
+    setHistory([{ role: "user", text: prompt }]);
     try {
       const { data, error } = await supabase.functions.invoke("ai-lab-builder", {
         body: { prompt },
@@ -49,6 +53,7 @@ const AILabPage = () => {
       if (error) throw error;
       if (data?.error) throw new Error(data.error);
       setPlan(data.plan);
+      setHistory((h) => [...h, { role: "ai", text: `✨ Built **${data.plan.name}** — ${data.plan.features.length} features, ${data.plan.pages.length} pages.` }]);
       toast.success("Your project plan is ready!");
     } catch (err: any) {
       toast.error(err?.message || "Failed to generate. Please try again.");
@@ -56,6 +61,37 @@ const AILabPage = () => {
       setLoading(false);
     }
   };
+
+  const handleRefine = async () => {
+    if (!refinePrompt.trim() || !plan) return;
+    setLoading(true);
+    const newPrompt = `${prompt}\n\nRefinement: ${refinePrompt}`;
+    setHistory((h) => [...h, { role: "user", text: refinePrompt }]);
+    try {
+      const { data, error } = await supabase.functions.invoke("ai-lab-builder", {
+        body: { prompt: newPrompt },
+      });
+      if (error) throw error;
+      if (data?.error) throw new Error(data.error);
+      setPlan(data.plan);
+      setPrompt(newPrompt);
+      setRefinePrompt("");
+      setHistory((h) => [...h, { role: "ai", text: `🔄 Updated **${data.plan.name}** with your changes.` }]);
+      toast.success("Project refined!");
+    } catch (err: any) {
+      toast.error(err?.message || "Refine failed");
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const copyCode = () => {
+    if (!plan?.previewHtml) return;
+    navigator.clipboard.writeText(plan.previewHtml);
+    toast.success("HTML copied to clipboard");
+  };
+
+  const deviceWidth = { mobile: "375px", tablet: "768px", desktop: "100%" }[device];
 
   return (
     <div className="min-h-screen bg-background">
@@ -81,6 +117,9 @@ const AILabPage = () => {
               <div className="flex items-center gap-2 mb-4">
                 <Sparkles className="h-5 w-5 text-primary" />
                 <h3 className="font-heading font-semibold text-foreground">AI Project Builder</h3>
+                <Badge className="ml-auto bg-emerald-100 text-emerald-700 border-emerald-200 text-xs">
+                  <Zap className="h-3 w-3 mr-1" /> Powered by Gemini
+                </Badge>
               </div>
               <Textarea
                 value={prompt}
@@ -123,150 +162,194 @@ const AILabPage = () => {
         {/* Result */}
         {plan && (
           <section className="py-16">
-            <div className="container max-w-5xl">
-              <div className="bg-card rounded-3xl border shadow-card-hover overflow-hidden">
-                <div className="bg-gradient-to-br from-primary to-violet-600 text-primary-foreground p-8">
-                  <Badge className="bg-white/20 text-white border-0 mb-3">Generated Project</Badge>
-                  <h2 className="font-heading text-3xl md:text-4xl font-bold mb-2">{plan.name}</h2>
-                  <p className="text-lg text-primary-foreground/90 mb-3">{plan.tagline}</p>
-                  <p className="text-primary-foreground/80">{plan.description}</p>
-                </div>
-
-                <div className="p-8 grid md:grid-cols-2 gap-8">
-                  <div>
-                    <div className="flex items-center gap-2 mb-3">
-                      <Layers className="h-5 w-5 text-primary" />
-                      <h3 className="font-heading font-semibold">Tech Stack</h3>
-                    </div>
-                    <div className="flex flex-wrap gap-2">
-                      {plan.techStack.map((t) => (
-                        <Badge key={t} variant="outline">
-                          {t}
-                        </Badge>
-                      ))}
-                    </div>
-                  </div>
-
-                  <div>
-                    <div className="flex items-center gap-2 mb-3">
-                      <FileText className="h-5 w-5 text-primary" />
-                      <h3 className="font-heading font-semibold">Pages</h3>
-                    </div>
-                    <ul className="space-y-1.5">
-                      {plan.pages.map((p) => (
-                        <li key={p} className="text-sm text-foreground flex items-center gap-2">
-                          <Code className="h-3.5 w-3.5 text-primary" /> {p}
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-
-                  <div className="md:col-span-2">
-                    <div className="flex items-center gap-2 mb-3">
-                      <Wand2 className="h-5 w-5 text-primary" />
-                      <h3 className="font-heading font-semibold">Features</h3>
-                    </div>
-                    <div className="grid sm:grid-cols-2 gap-2">
-                      {plan.features.map((f) => (
-                        <div key={f} className="flex items-start gap-2 text-sm bg-muted/40 rounded-lg p-3">
-                          <Sparkles className="h-4 w-4 text-primary mt-0.5 flex-shrink-0" />
-                          <span>{f}</span>
-                        </div>
-                      ))}
-                    </div>
-                  </div>
-
-                  <div className="md:col-span-2">
-                    <div className="flex items-center gap-2 mb-3">
-                      <Database className="h-5 w-5 text-primary" />
-                      <h3 className="font-heading font-semibold">Data Model</h3>
-                    </div>
-                    <div className="grid sm:grid-cols-2 gap-3">
-                      {plan.dataModel.map((d) => (
-                        <div key={d.table} className="rounded-lg border bg-background p-4">
-                          <div className="font-mono text-sm font-bold text-primary mb-2">{d.table}</div>
-                          <ul className="text-xs text-muted-foreground space-y-1">
-                            {d.fields.map((f) => (
-                              <li key={f} className="font-mono">• {f}</li>
-                            ))}
-                          </ul>
-                        </div>
-                      ))}
-                    </div>
-                  </div>
-
-                  <div className="md:col-span-2">
-                    <div className="flex items-center gap-2 mb-3">
-                      <ListChecks className="h-5 w-5 text-primary" />
-                      <h3 className="font-heading font-semibold">Next Steps</h3>
-                    </div>
-                    <ol className="space-y-2">
-                      {plan.nextSteps.map((s, i) => (
-                        <li key={s} className="flex gap-3 text-sm">
-                          <span className="h-6 w-6 rounded-full bg-primary text-primary-foreground flex items-center justify-center font-bold text-xs flex-shrink-0">
-                            {i + 1}
-                          </span>
-                          <span className="text-foreground">{s}</span>
-                        </li>
-                      ))}
-                    </ol>
-                  </div>
-                </div>
-
-                {plan.previewHtml && (
-                  <div className="border-t">
-                    <div className="p-6 bg-muted/20 flex items-center justify-between">
-                      <div className="flex items-center gap-2">
-                        <Eye className="h-5 w-5 text-primary" />
-                        <h3 className="font-heading font-semibold">Live Preview</h3>
+            <div className="container max-w-7xl">
+              <div className="grid lg:grid-cols-[320px_1fr] gap-6">
+                {/* LEFT — Lovable-style chat sidebar */}
+                <div className="bg-card rounded-2xl border shadow-card flex flex-col h-[700px] overflow-hidden">
+                  <div className="p-4 border-b bg-gradient-to-br from-primary/5 to-violet-500/5">
+                    <div className="flex items-center gap-2">
+                      <div className="h-8 w-8 rounded-lg bg-gradient-to-br from-primary to-violet-600 flex items-center justify-center">
+                        <Sparkles className="h-4 w-4 text-white" />
                       </div>
-                      <div className="flex gap-2">
-                        <Button size="sm" variant="outline" onClick={() => setShowCode((v) => !v)} className="gap-1">
-                          <Code className="h-3.5 w-3.5" /> {showCode ? "Hide Code" : "View Code"}
-                        </Button>
-                        <Button
-                          size="sm"
-                          variant="outline"
-                          onClick={() => {
-                            const blob = new Blob([plan.previewHtml!], { type: "text/html" });
-                            const url = URL.createObjectURL(blob);
-                            const a = document.createElement("a");
-                            a.href = url;
-                            a.download = `${plan.name.toLowerCase().replace(/\s+/g, "-")}.html`;
-                            a.click();
-                            URL.revokeObjectURL(url);
-                          }}
-                          className="gap-1"
-                        >
-                          <Download className="h-3.5 w-3.5" /> Download HTML
-                        </Button>
+                      <div>
+                        <h3 className="font-heading font-semibold text-sm">{plan.name}</h3>
+                        <p className="text-xs text-muted-foreground">AADHYRA LAB chat</p>
                       </div>
                     </div>
-                    <div className="border-t bg-background">
-                      <iframe
-                        title="AI Generated Preview"
-                        srcDoc={plan.previewHtml}
-                        sandbox="allow-scripts"
-                        className="w-full h-[600px] border-0"
-                      />
-                    </div>
-                    {showCode && (
-                      <pre className="border-t p-4 bg-slate-900 text-slate-100 text-xs overflow-auto max-h-96">
-                        <code>{plan.previewHtml}</code>
-                      </pre>
+                  </div>
+                  <div className="flex-1 overflow-y-auto p-4 space-y-3">
+                    {history.map((m, i) => (
+                      <div key={i} className={`flex ${m.role === "user" ? "justify-end" : "justify-start"}`}>
+                        <div className={`max-w-[85%] rounded-2xl px-3 py-2 text-sm ${
+                          m.role === "user" ? "bg-primary text-primary-foreground" : "bg-muted text-foreground"
+                        }`}>
+                          {m.text}
+                        </div>
+                      </div>
+                    ))}
+                    {loading && (
+                      <div className="flex items-center gap-2 text-xs text-muted-foreground">
+                        <Loader2 className="h-3 w-3 animate-spin" /> Thinking...
+                      </div>
                     )}
                   </div>
-                )}
-
-                <div className="border-t bg-muted/30 p-6 flex flex-wrap gap-3 justify-center">
-                  <Link to="/auth">
-                    <Button size="lg" className="gap-2">
-                      <Sparkles className="h-4 w-4" /> Sign in to save & build
+                  <div className="p-3 border-t">
+                    <Textarea
+                      value={refinePrompt}
+                      onChange={(e) => setRefinePrompt(e.target.value)}
+                      placeholder="Ask AI to add a feature, change colors, add a page..."
+                      rows={2}
+                      className="text-sm resize-none mb-2"
+                      disabled={loading}
+                    />
+                    <Button onClick={handleRefine} disabled={loading || !refinePrompt.trim()} size="sm" className="w-full gap-1">
+                      {loading ? <Loader2 className="h-3 w-3 animate-spin" /> : <Wand className="h-3 w-3" />} Refine
                     </Button>
-                  </Link>
-                  <Button variant="outline" size="lg" onClick={() => { setPlan(null); setPrompt(""); }}>
-                    Generate another
-                  </Button>
+                  </div>
+                </div>
+
+                {/* RIGHT — Lovable-style workspace */}
+                <div className="bg-card rounded-2xl border shadow-card overflow-hidden">
+                  <div className="bg-gradient-to-br from-primary to-violet-600 text-primary-foreground p-5 flex items-start justify-between gap-4">
+                    <div>
+                      <Badge className="bg-white/20 text-white border-0 mb-2">Generated · Live</Badge>
+                      <h2 className="font-heading text-2xl font-bold">{plan.name}</h2>
+                      <p className="text-sm text-primary-foreground/90">{plan.tagline}</p>
+                    </div>
+                    <Button size="sm" variant="outline" className="border-white/40 text-white hover:bg-white/10 gap-1" onClick={() => { setPlan(null); setPrompt(""); setHistory([]); }}>
+                      <RefreshCw className="h-3 w-3" /> New
+                    </Button>
+                  </div>
+
+                  <Tabs defaultValue="preview" className="w-full">
+                    <div className="border-b px-4 flex items-center justify-between flex-wrap gap-2 py-2">
+                      <TabsList>
+                        <TabsTrigger value="preview" className="gap-1"><Eye className="h-3.5 w-3.5" /> Preview</TabsTrigger>
+                        <TabsTrigger value="code" className="gap-1"><Code className="h-3.5 w-3.5" /> Code</TabsTrigger>
+                        <TabsTrigger value="files" className="gap-1"><FileText className="h-3.5 w-3.5" /> Files</TabsTrigger>
+                        <TabsTrigger value="plan" className="gap-1"><ListChecks className="h-3.5 w-3.5" /> Plan</TabsTrigger>
+                      </TabsList>
+                      <div className="flex items-center gap-1">
+                        <Button size="icon" variant={device === "mobile" ? "default" : "ghost"} className="h-8 w-8" onClick={() => setDevice("mobile")}><Smartphone className="h-4 w-4" /></Button>
+                        <Button size="icon" variant={device === "tablet" ? "default" : "ghost"} className="h-8 w-8" onClick={() => setDevice("tablet")}><Tablet className="h-4 w-4" /></Button>
+                        <Button size="icon" variant={device === "desktop" ? "default" : "ghost"} className="h-8 w-8" onClick={() => setDevice("desktop")}><Monitor className="h-4 w-4" /></Button>
+                      </div>
+                    </div>
+
+                    <TabsContent value="preview" className="m-0">
+                      <div className="bg-slate-100 dark:bg-slate-900 p-4 flex justify-center min-h-[600px]">
+                        {plan.previewHtml ? (
+                          <iframe
+                            title="AI Generated Preview"
+                            srcDoc={plan.previewHtml}
+                            sandbox="allow-scripts"
+                            style={{ width: deviceWidth, maxWidth: "100%" }}
+                            className="h-[600px] bg-white rounded-lg shadow-2xl border-0 transition-all"
+                          />
+                        ) : (
+                          <div className="flex items-center justify-center text-muted-foreground">No preview available</div>
+                        )}
+                      </div>
+                    </TabsContent>
+
+                    <TabsContent value="code" className="m-0">
+                      <div className="bg-slate-950 text-slate-100 max-h-[600px] overflow-auto">
+                        <div className="sticky top-0 bg-slate-900 border-b border-slate-800 px-4 py-2 flex items-center justify-between">
+                          <span className="text-xs font-mono text-slate-400">index.html</span>
+                          <div className="flex gap-1">
+                            <Button size="sm" variant="ghost" className="h-7 text-slate-300 hover:text-white gap-1" onClick={copyCode}>
+                              <Copy className="h-3 w-3" /> Copy
+                            </Button>
+                            <Button
+                              size="sm" variant="ghost" className="h-7 text-slate-300 hover:text-white gap-1"
+                              onClick={() => {
+                                const blob = new Blob([plan.previewHtml!], { type: "text/html" });
+                                const url = URL.createObjectURL(blob);
+                                const a = document.createElement("a");
+                                a.href = url;
+                                a.download = `${plan.name.toLowerCase().replace(/\s+/g, "-")}.html`;
+                                a.click();
+                                URL.revokeObjectURL(url);
+                              }}
+                            >
+                              <Download className="h-3 w-3" /> Download
+                            </Button>
+                          </div>
+                        </div>
+                        <pre className="p-4 text-xs leading-relaxed"><code>{plan.previewHtml}</code></pre>
+                      </div>
+                    </TabsContent>
+
+                    <TabsContent value="files" className="m-0 p-6">
+                      <div className="grid md:grid-cols-2 gap-4">
+                        <div>
+                          <h4 className="text-xs uppercase tracking-wider text-muted-foreground mb-3">Project structure</h4>
+                          <div className="font-mono text-sm space-y-1 bg-muted/30 rounded-lg p-4">
+                            <div className="text-foreground">📁 {plan.name.toLowerCase().replace(/\s+/g, "-")}/</div>
+                            <div className="pl-4 text-muted-foreground">├── 📄 index.html</div>
+                            <div className="pl-4 text-muted-foreground">├── 📁 src/</div>
+                            {plan.pages.map((p, i) => (
+                              <div key={p} className="pl-8 text-muted-foreground">{i === plan.pages.length - 1 ? "└──" : "├──"} 📄 {p.toLowerCase().replace(/\s+/g, "-")}.tsx</div>
+                            ))}
+                            <div className="pl-4 text-muted-foreground">├── 📁 components/</div>
+                            <div className="pl-4 text-muted-foreground">├── 📄 package.json</div>
+                            <div className="pl-4 text-muted-foreground">└── 📄 tailwind.config.ts</div>
+                          </div>
+                        </div>
+                        <div>
+                          <h4 className="text-xs uppercase tracking-wider text-muted-foreground mb-3">Database tables</h4>
+                          <div className="space-y-2">
+                            {plan.dataModel.map((d) => (
+                              <div key={d.table} className="rounded-lg border bg-background p-3">
+                                <div className="font-mono text-sm font-bold text-primary mb-1.5 flex items-center gap-1.5">
+                                  <Database className="h-3.5 w-3.5" /> {d.table}
+                                </div>
+                                <div className="flex flex-wrap gap-1">
+                                  {d.fields.map((f) => (
+                                    <Badge key={f} variant="secondary" className="text-[10px] font-mono">{f}</Badge>
+                                  ))}
+                                </div>
+                              </div>
+                            ))}
+                          </div>
+                        </div>
+                      </div>
+                    </TabsContent>
+
+                    <TabsContent value="plan" className="m-0 p-6 space-y-6">
+                      <p className="text-muted-foreground">{plan.description}</p>
+                      <div>
+                        <div className="flex items-center gap-2 mb-3"><Layers className="h-5 w-5 text-primary" /><h3 className="font-heading font-semibold">Tech Stack</h3></div>
+                        <div className="flex flex-wrap gap-2">{plan.techStack.map((t) => (<Badge key={t} variant="outline">{t}</Badge>))}</div>
+                      </div>
+                      <div>
+                        <div className="flex items-center gap-2 mb-3"><Wand2 className="h-5 w-5 text-primary" /><h3 className="font-heading font-semibold">Features</h3></div>
+                        <div className="grid sm:grid-cols-2 gap-2">
+                          {plan.features.map((f) => (
+                            <div key={f} className="flex items-start gap-2 text-sm bg-muted/40 rounded-lg p-3">
+                              <Sparkles className="h-4 w-4 text-primary mt-0.5 flex-shrink-0" /><span>{f}</span>
+                            </div>
+                          ))}
+                        </div>
+                      </div>
+                      <div>
+                        <div className="flex items-center gap-2 mb-3"><ListChecks className="h-5 w-5 text-primary" /><h3 className="font-heading font-semibold">Next Steps</h3></div>
+                        <ol className="space-y-2">
+                          {plan.nextSteps.map((s, i) => (
+                            <li key={s} className="flex gap-3 text-sm">
+                              <span className="h-6 w-6 rounded-full bg-primary text-primary-foreground flex items-center justify-center font-bold text-xs flex-shrink-0">{i + 1}</span>
+                              <span className="text-foreground">{s}</span>
+                            </li>
+                          ))}
+                        </ol>
+                      </div>
+                    </TabsContent>
+                  </Tabs>
+
+                  <div className="border-t bg-muted/30 p-4 flex flex-wrap gap-2 justify-end">
+                    <Button variant="outline" size="sm" className="gap-1" onClick={copyCode}><Github className="h-3.5 w-3.5" /> Export</Button>
+                    <Link to="/auth"><Button size="sm" className="gap-1"><Sparkles className="h-3.5 w-3.5" /> Save & Deploy</Button></Link>
+                  </div>
                 </div>
               </div>
             </div>
