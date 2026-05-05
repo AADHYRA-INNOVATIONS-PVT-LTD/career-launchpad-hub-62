@@ -1,33 +1,42 @@
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
 import { Button } from "@/components/ui/button";
+import { Badge } from "@/components/ui/badge";
 import { Link } from "react-router-dom";
-import { Target, Eye, Heart, Award, Users, Building2, GraduationCap, Briefcase, Quote } from "lucide-react";
+import {
+  Target, Eye, Heart, Award, Users, Building2, GraduationCap, Briefcase,
+  Quote, Sparkles, ArrowRight, CheckCircle2, Star, Trophy, HandHeart, Rocket,
+} from "lucide-react";
 import shikshaLogo from "@/assets/aadhyra-logo.png";
+import teamImage from "@/assets/about-team.jpg";
+import nurseImage from "@/assets/about-nurse.jpg";
+import successImage from "@/assets/about-success.jpg";
+import graduationImage from "@/assets/about-graduation.jpg";
 
 const stats = [
-  { icon: GraduationCap, value: "5000+", label: "Students Trained" },
+  { icon: GraduationCap, value: "5,000+", label: "Students Trained" },
   { icon: Building2, value: "500+", label: "Partner Companies" },
   { icon: Award, value: "95%", label: "Placement Rate" },
   { icon: Briefcase, value: "50+", label: "Hospital Partners" },
 ];
 
 const values = [
-  {
-    icon: Target,
-    title: "Mission",
-    description: "To bridge the gap between education and industry by providing practical, job-ready training programs that transform careers and empower individuals.",
-  },
-  {
-    icon: Eye,
-    title: "Vision",
-    description: "To become India's leading multi-domain training and placement platform, creating skilled professionals across IT, Healthcare, HR, and Creative industries.",
-  },
-  {
-    icon: Heart,
-    title: "Values",
-    description: "Excellence in training, integrity in placement support, and commitment to every student's success. We believe in nurturing talent and building futures.",
-  },
+  { icon: Target, title: "Our Mission", description: "To bridge the gap between education and industry through practical, job-ready training that transforms careers and uplifts families." },
+  { icon: Eye, title: "Our Vision", description: "To become India's most trusted multi-domain training and placement platform — building skilled professionals across IT, Healthcare, HR & Creative industries." },
+  { icon: Heart, title: "Our Values", description: "Excellence in training, integrity in placement, empathy in mentorship — every student's success is a promise we keep." },
+];
+
+const milestones = [
+  { year: "2019", title: "The Beginning", desc: "Founded with a single classroom and a big dream — to make every learner employable." },
+  { year: "2021", title: "Healthcare Vertical", desc: "Launched nursing & paramedical training, partnering with 20+ hospitals." },
+  { year: "2023", title: "Going Digital", desc: "Built our LMS, AI Interview System and online placement portal." },
+  { year: "2025", title: "5,000+ Lives Changed", desc: "Crossed 5,000 trained students and 500+ corporate partners across India." },
+];
+
+const testimonials = [
+  { name: "Priya Sharma", role: "Software Engineer @ TCS", text: "AADHYRA changed my life. From a small town to a TCS offer letter — the trainers and mentors believed in me when no one else did." },
+  { name: "Rahul Verma", role: "Staff Nurse @ Apollo", text: "Their nursing program gave me real hospital exposure. Today I serve patients with confidence — and earn a respectable income for my family." },
+  { name: "Anjali Reddy", role: "HR Executive @ Infosys", text: "The HR live tasks and AI interview practice made all the difference. I cleared 4 interviews in my first month after completing the program." },
 ];
 
 const AboutPage = () => {
@@ -35,17 +44,54 @@ const AboutPage = () => {
     <div className="min-h-screen bg-background">
       <Navbar />
       <main>
-        {/* Hero */}
-        <section className="gradient-hero text-primary-foreground py-16 lg:py-24">
-          <div className="container">
-            <div className="max-w-3xl mx-auto text-center">
-              <img src={shikshaLogo} alt="AADHYRA INNOVATIONS PVT LTD" className="h-24 w-auto mx-auto mb-6" />
-              <h1 className="font-heading text-3xl md:text-4xl lg:text-5xl font-bold mb-6">
-                About AADHYRA INNOVATIONS PVT LTD
-              </h1>
-              <p className="text-lg text-primary-foreground/80">
-                Empowering careers through industry-oriented training in IT, HR, Digital Marketing, Graphic Design & Nursing.
-              </p>
+        {/* Hero with image */}
+        <section className="relative gradient-hero text-primary-foreground py-20 lg:py-28 overflow-hidden">
+          <div className="absolute inset-0 opacity-20">
+            <img src={teamImage} alt="" className="w-full h-full object-cover" />
+            <div className="absolute inset-0 bg-gradient-to-r from-primary/80 to-violet-700/80" />
+          </div>
+          <div className="container relative">
+            <div className="grid lg:grid-cols-2 gap-12 items-center">
+              <div>
+                <Badge className="mb-4 bg-white/20 text-white border-white/30 backdrop-blur">About Us</Badge>
+                <h1 className="font-heading text-4xl md:text-5xl lg:text-6xl font-bold mb-6 leading-tight">
+                  Where Dreams Meet <span className="text-yellow-300">Opportunity</span>
+                </h1>
+                <p className="text-lg text-primary-foreground/90 mb-8 leading-relaxed">
+                  AADHYRA INNOVATIONS PVT LTD is more than a training institute — we are a movement that turns
+                  raw talent from every corner of India into skilled, confident professionals ready for the world.
+                </p>
+                <div className="flex flex-wrap gap-3">
+                  <Link to="/apply">
+                    <Button size="lg" variant="accent" className="gap-2">
+                      Start Your Journey <ArrowRight className="h-4 w-4" />
+                    </Button>
+                  </Link>
+                  <Link to="/contact">
+                    <Button size="lg" variant="outline" className="gap-2 border-white/40 text-white hover:bg-white/10">
+                      Talk to Counsellor
+                    </Button>
+                  </Link>
+                </div>
+              </div>
+              <div className="relative hidden lg:block">
+                <img
+                  src={teamImage}
+                  alt="AADHYRA team collaborating"
+                  className="rounded-3xl shadow-2xl w-full"
+                  width={1280}
+                  height={768}
+                />
+                <div className="absolute -bottom-6 -left-6 bg-card text-foreground rounded-2xl p-4 shadow-xl border">
+                  <div className="flex items-center gap-3">
+                    <Trophy className="h-8 w-8 text-yellow-500" />
+                    <div>
+                      <div className="font-bold text-sm">95% Placement Rate</div>
+                      <div className="text-xs text-muted-foreground">Industry-leading outcomes</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </section>
@@ -72,66 +118,105 @@ const AboutPage = () => {
           </div>
         </section>
 
-        {/* Company Message (No personal names) */}
+        {/* Emotional story with image */}
+        <section className="py-16 lg:py-20">
+          <div className="container">
+            <div className="grid lg:grid-cols-2 gap-12 items-center">
+              <div className="relative">
+                <img
+                  src={successImage}
+                  alt="A young graduate sharing his offer letter with his mother"
+                  className="rounded-3xl shadow-card-hover w-full"
+                  loading="lazy"
+                  width={1024}
+                  height={1024}
+                />
+                <div className="absolute -bottom-6 -right-6 bg-card text-foreground rounded-2xl p-5 shadow-xl border max-w-xs">
+                  <Quote className="h-6 w-6 text-primary mb-2" />
+                  <p className="text-sm italic">"For the first time, my mother smiled without worry."</p>
+                  <p className="text-xs text-muted-foreground mt-2">— Student, Batch 2024</p>
+                </div>
+              </div>
+              <div>
+                <Badge className="mb-3 bg-primary/10 text-primary border-primary/20">Our Why</Badge>
+                <h2 className="font-heading text-3xl md:text-4xl font-bold text-foreground mb-6 leading-tight">
+                  Every offer letter is a <span className="text-gradient">family lifted</span>
+                </h2>
+                <div className="space-y-4 text-muted-foreground leading-relaxed">
+                  <p>
+                    Across our country — especially in rural towns and middle-class homes — talented young people carry
+                    massive dreams but lack guidance, exposure and a fair shot. We exist to change that, one career at a time.
+                  </p>
+                  <p>
+                    Behind every placement is a parent who can finally rest, a sibling who can now study, and a young
+                    person who walks taller. That is the real product we deliver — <span className="text-foreground font-semibold">dignity</span>.
+                  </p>
+                  <p>
+                    We don't just train. We mentor, place, follow-up, and stay in touch. Because at AADHYRA, your
+                    success is not a number on a brochure — it is the reason we exist.
+                  </p>
+                </div>
+                <div className="mt-8 grid grid-cols-3 gap-4">
+                  {[
+                    { icon: HandHeart, label: "Mentorship" },
+                    { icon: Rocket, label: "Real Skills" },
+                    { icon: Trophy, label: "Real Jobs" },
+                  ].map((b) => {
+                    const I = b.icon;
+                    return (
+                      <div key={b.label} className="text-center bg-muted/40 rounded-xl p-4">
+                        <I className="h-6 w-6 text-primary mx-auto mb-2" />
+                        <div className="text-sm font-semibold text-foreground">{b.label}</div>
+                      </div>
+                    );
+                  })}
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* Company message */}
         <section className="py-16 lg:py-20 bg-gradient-to-b from-primary/5 to-transparent">
           <div className="container">
             <div className="max-w-4xl mx-auto">
               <div className="text-center mb-12">
-                <span className="text-primary font-semibold text-sm uppercase tracking-wider">Our Purpose</span>
-                <h2 className="font-heading text-3xl md:text-4xl font-bold text-foreground mt-3">
+                <img src={shikshaLogo} alt="AADHYRA logo" className="h-16 w-auto mx-auto mb-4" />
+                <Badge className="mb-3 bg-primary/10 text-primary border-primary/20">Our Purpose</Badge>
+                <h2 className="font-heading text-3xl md:text-4xl font-bold text-foreground">
                   AADHYRA INNOVATIONS PVT LTD
                 </h2>
               </div>
-              
+
               <div className="bg-card rounded-3xl border shadow-xl p-8 md:p-12 relative">
                 <Quote className="absolute top-6 left-6 h-12 w-12 text-primary/20" />
-                
                 <div className="space-y-6 text-muted-foreground leading-relaxed relative z-10">
                   <p className="text-lg font-medium text-foreground">
-                    AADHYRA INNOVATIONS PVT LTD was founded with one clear purpose — to transform education into real employment and dignity into every individual's life.
+                    AADHYRA INNOVATIONS PVT LTD was founded with one clear purpose — to transform education into real
+                    employment, and dignity into every individual's life.
                   </p>
-                  
                   <p>
-                    Across our country, especially in rural and middle-class families, talented students with big dreams often lack proper guidance, industry exposure, and a clear path to a stable career. We exist to change that.
-                  </p>
-                  
-                  <p className="font-semibold text-foreground text-lg">
-                    Aadhyra Innovations was created to bridge the gap between education and employability.
-                  </p>
-                  
-                  <p>
-                    We believe that unemployment is not caused by a lack of talent, but by a lack of the right guidance, practical training, and opportunity. That is why Aadhyra Innovations is built as a complete ecosystem — combining education, skill development, internships, interview preparation, and job placement under one roof.
-                  </p>
-                  
-                  <div className="bg-primary/5 rounded-xl p-6 border border-primary/10">
-                    <p className="text-foreground font-medium mb-2">To us:</p>
-                    <ul className="space-y-2">
-                      <li className="flex items-center gap-2">
-                        <span className="w-2 h-2 rounded-full bg-primary"></span>
-                        <span><strong>Nursing</strong> is not just a job — it is a service.</span>
-                      </li>
-                      <li className="flex items-center gap-2">
-                        <span className="w-2 h-2 rounded-full bg-primary"></span>
-                        <span><strong>Technology</strong> is not just learning — it is empowerment.</span>
-                      </li>
-                      <li className="flex items-center gap-2">
-                        <span className="w-2 h-2 rounded-full bg-primary"></span>
-                        <span><strong>Training</strong> is not just theory — it is career readiness.</span>
-                      </li>
-                    </ul>
-                  </div>
-                  
-                  <p>
-                    We also understand the challenges faced by companies in hiring the right talent. Through AI-driven HR solutions and skill-based training models, we connect the right people to the right opportunities — ethically, efficiently, and transparently.
+                    We believe unemployment is not caused by a lack of talent, but by a lack of the right guidance,
+                    practical training and opportunity. AADHYRA is built as a complete ecosystem — combining education,
+                    skill development, internships, interview preparation and job placement under one roof.
                   </p>
 
+                  <div className="bg-primary/5 rounded-xl p-6 border border-primary/10">
+                    <p className="text-foreground font-semibold mb-3">To us:</p>
+                    <ul className="space-y-2">
+                      <li className="flex items-center gap-2"><CheckCircle2 className="h-5 w-5 text-primary" /><span><strong>Nursing</strong> is not a job — it is a service.</span></li>
+                      <li className="flex items-center gap-2"><CheckCircle2 className="h-5 w-5 text-primary" /><span><strong>Technology</strong> is not learning — it is empowerment.</span></li>
+                      <li className="flex items-center gap-2"><CheckCircle2 className="h-5 w-5 text-primary" /><span><strong>Training</strong> is not theory — it is career readiness.</span></li>
+                    </ul>
+                  </div>
+
                   <div className="bg-accent/10 rounded-xl p-6 border border-accent/20 text-center">
+                    <Sparkles className="h-6 w-6 text-accent mx-auto mb-2" />
                     <p className="text-lg font-semibold text-accent">
-                      To every learner who walks with us — If you are committed to learning, we are committed to your success.
+                      If you are committed to learning, we are committed to your success.
                     </p>
                   </div>
-                  
-                  <p className="text-lg font-semibold text-primary text-center">
+                  <p className="text-lg font-bold text-primary text-center">
                     Together, we don't just create jobs — we create lives with purpose.
                   </p>
                 </div>
@@ -140,72 +225,91 @@ const AboutPage = () => {
           </div>
         </section>
 
-        {/* Story */}
+        {/* Healthcare vertical with nurse image */}
         <section className="py-16 lg:py-20">
           <div className="container">
             <div className="grid lg:grid-cols-2 gap-12 items-center">
-              <div>
-                <span className="text-primary font-semibold text-sm uppercase tracking-wider">Our Story</span>
-                <h2 className="font-heading text-3xl md:text-4xl font-bold text-foreground mt-3 mb-6">
-                  Building Careers, Transforming Lives
+              <div className="order-2 lg:order-1">
+                <Badge className="mb-3 bg-healthcare/10 text-healthcare border-healthcare/20">Healthcare Vertical</Badge>
+                <h2 className="font-heading text-3xl md:text-4xl font-bold text-foreground mb-6">
+                  Healing hands. <span className="text-healthcare">Lifelong careers.</span>
                 </h2>
-                <div className="space-y-4 text-muted-foreground">
-                  <p>
-                    AADHYRA INNOVATIONS PVT LTD was founded with a simple yet powerful vision: to make quality professional training accessible to everyone and ensure every graduate finds their dream career.
-                  </p>
-                  <p>
-                    Starting with IT training, we quickly expanded to address the growing demands across multiple industries. Today, we offer comprehensive training programs in IT, HR, Digital Marketing, Graphic Design, and Nursing - making us a one-stop platform for career development.
-                  </p>
-                  <p>
-                    Our success lies in our industry-aligned curriculum, experienced trainers, hands-on internships, and dedicated placement support. We've partnered with over 500 companies and 50+ healthcare institutions to ensure our students get the best career opportunities.
-                  </p>
-                </div>
-                <Link to="/apply" className="inline-block mt-8">
-                  <Button variant="hero" size="lg">Join Our Success Story</Button>
+                <p className="text-muted-foreground mb-6 leading-relaxed">
+                  Our nursing and paramedical training programs are built with frontline hospital partners.
+                  Students get real ward exposure, certified mentorship and direct placement with leading
+                  hospitals across India and abroad.
+                </p>
+                <ul className="space-y-3 mb-8">
+                  {[
+                    "Live hospital training with 50+ partners",
+                    "Internationally recognised certifications",
+                    "International placement support (Gulf, UK, EU)",
+                    "Stipend during internship period",
+                  ].map((p) => (
+                    <li key={p} className="flex items-center gap-3 text-foreground">
+                      <CheckCircle2 className="h-5 w-5 text-healthcare flex-shrink-0" />
+                      <span>{p}</span>
+                    </li>
+                  ))}
+                </ul>
+                <Link to="/courses">
+                  <Button variant="healthcare" size="lg" className="gap-2">
+                    Explore Healthcare Courses <ArrowRight className="h-4 w-4" />
+                  </Button>
                 </Link>
               </div>
-              <div className="grid grid-cols-2 gap-4">
-                <div className="space-y-4">
-                  <div className="rounded-2xl bg-tech/10 p-6 border border-tech/20">
-                    <div className="text-tech font-heading text-4xl font-bold">6+</div>
-                    <div className="text-sm text-foreground mt-1">Years of Excellence</div>
-                  </div>
-                  <div className="rounded-2xl bg-healthcare/10 p-6 border border-healthcare/20">
-                    <div className="text-healthcare font-heading text-4xl font-bold">50+</div>
-                    <div className="text-sm text-foreground mt-1">Hospital Partners</div>
-                  </div>
-                </div>
-                <div className="space-y-4 mt-8">
-                  <div className="rounded-2xl bg-marketing/10 p-6 border border-marketing/20">
-                    <div className="text-marketing font-heading text-4xl font-bold">30+</div>
-                    <div className="text-sm text-foreground mt-1">Training Programs</div>
-                  </div>
-                  <div className="rounded-2xl bg-hr/10 p-6 border border-hr/20">
-                    <div className="text-hr font-heading text-4xl font-bold">100+</div>
-                    <div className="text-sm text-foreground mt-1">Expert Trainers</div>
-                  </div>
-                </div>
+              <div className="order-1 lg:order-2">
+                <img
+                  src={nurseImage}
+                  alt="Smiling nurse in scrubs at her hospital posting"
+                  className="rounded-3xl shadow-card-hover w-full"
+                  loading="lazy"
+                  width={1024}
+                  height={1024}
+                />
               </div>
             </div>
           </div>
         </section>
 
-        {/* Mission, Vision, Values */}
+        {/* Journey timeline */}
         <section className="py-16 lg:py-20 bg-muted/30">
           <div className="container">
+            <div className="text-center mb-12">
+              <Badge className="mb-3 bg-primary/10 text-primary border-primary/20">Our Journey</Badge>
+              <h2 className="font-heading text-3xl md:text-4xl font-bold text-foreground">
+                From a single classroom to a national movement
+              </h2>
+            </div>
+            <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+              {milestones.map((m) => (
+                <div key={m.year} className="bg-card border rounded-2xl p-6 hover:shadow-card-hover transition relative">
+                  <div className="font-heading text-3xl font-bold text-gradient mb-2">{m.year}</div>
+                  <div className="font-bold text-foreground mb-2">{m.title}</div>
+                  <div className="text-sm text-muted-foreground">{m.desc}</div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* Mission, Vision, Values */}
+        <section className="py-16 lg:py-20">
+          <div className="container">
             <div className="text-center max-w-2xl mx-auto mb-12">
-              <h2 className="font-heading text-3xl md:text-4xl font-bold text-foreground mb-4">
-                What Drives Us
+              <Badge className="mb-3 bg-primary/10 text-primary border-primary/20">What Drives Us</Badge>
+              <h2 className="font-heading text-3xl md:text-4xl font-bold text-foreground mb-3">
+                Mission. Vision. Values.
               </h2>
               <p className="text-muted-foreground">
-                Our commitment to excellence and student success guides everything we do.
+                The principles that guide every decision we make.
               </p>
             </div>
             <div className="grid md:grid-cols-3 gap-8">
               {values.map((item) => {
                 const Icon = item.icon;
                 return (
-                  <div key={item.title} className="bg-card rounded-2xl border shadow-card p-8 text-center">
+                  <div key={item.title} className="bg-card rounded-2xl border shadow-card p-8 text-center hover:shadow-card-hover transition">
                     <div className="w-16 h-16 mx-auto rounded-2xl gradient-primary flex items-center justify-center mb-6">
                       <Icon className="h-8 w-8 text-primary-foreground" />
                     </div>
@@ -214,6 +318,66 @@ const AboutPage = () => {
                   </div>
                 );
               })}
+            </div>
+          </div>
+        </section>
+
+        {/* Testimonials */}
+        <section className="py-16 lg:py-20 bg-gradient-to-br from-primary/5 to-transparent">
+          <div className="container">
+            <div className="text-center mb-12">
+              <Badge className="mb-3 bg-primary/10 text-primary border-primary/20">Student Voices</Badge>
+              <h2 className="font-heading text-3xl md:text-4xl font-bold text-foreground">
+                Stories that keep us going
+              </h2>
+            </div>
+            <div className="grid md:grid-cols-3 gap-6">
+              {testimonials.map((t) => (
+                <div key={t.name} className="bg-card border rounded-2xl p-6 hover:shadow-card-hover transition">
+                  <div className="flex gap-1 mb-3">
+                    {[...Array(5)].map((_, i) => <Star key={i} className="h-4 w-4 fill-yellow-400 text-yellow-400" />)}
+                  </div>
+                  <p className="text-foreground italic mb-4">"{t.text}"</p>
+                  <div className="flex items-center gap-3 pt-4 border-t">
+                    <div className="h-10 w-10 rounded-full bg-gradient-to-br from-primary to-violet-600 flex items-center justify-center text-white font-bold text-sm">
+                      {t.name.charAt(0)}
+                    </div>
+                    <div>
+                      <div className="font-semibold text-foreground text-sm">{t.name}</div>
+                      <div className="text-xs text-muted-foreground">{t.role}</div>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* Final CTA with graduation image */}
+        <section className="relative py-20 overflow-hidden">
+          <div className="absolute inset-0">
+            <img src={graduationImage} alt="" className="w-full h-full object-cover" loading="lazy" />
+            <div className="absolute inset-0 bg-gradient-to-r from-primary/90 to-violet-700/90" />
+          </div>
+          <div className="container relative text-center text-primary-foreground max-w-3xl">
+            <h2 className="font-heading text-3xl md:text-5xl font-bold mb-4">
+              Your career-defining moment starts here
+            </h2>
+            <p className="text-lg opacity-90 mb-8">
+              Join 5,000+ learners who chose to build their future with AADHYRA.
+              Free counselling. Industry mentorship. Guaranteed placement support.
+            </p>
+            <div className="flex flex-wrap gap-3 justify-center">
+              <Link to="/apply">
+                <Button size="lg" variant="accent" className="gap-2">
+                  Apply Now <ArrowRight className="h-4 w-4" />
+                </Button>
+              </Link>
+              <Link to="/contact">
+                <Button size="lg" variant="outline" className="gap-2 border-white/40 text-white hover:bg-white/10">
+                  Talk to Counsellor
+                </Button>
+              </Link>
             </div>
           </div>
         </section>
