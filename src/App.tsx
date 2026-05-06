@@ -22,6 +22,7 @@ import AdminAuth from "./pages/admin/AdminAuth";
 import CertificateVerifyPage from "./pages/CertificateVerifyPage";
 import InternshipEnrollPage from "./pages/InternshipEnrollPage";
 import CampusDrivePage from "./pages/CampusDrivePage";
+import PricingPage from "./pages/PricingPage";
 
 // Services Pages
 import ServicesPage from "./pages/ServicesPage";
@@ -111,6 +112,7 @@ const App = () => (
             <Route path="/internships/enroll" element={<InternshipEnrollPage />} />
             <Route path="/career" element={<JobPage />} />
             <Route path="/campus-drive" element={<CampusDrivePage />} />
+            <Route path="/pricing" element={<PricingPage />} />
             <Route path="/placement/talent-connect" element={<TalentConnectPage />} />
             <Route path="/placement/tech-partner" element={<TechPartnerPage />} />
             <Route path="/placement/health-connect" element={<HealthConnectPage />} />
