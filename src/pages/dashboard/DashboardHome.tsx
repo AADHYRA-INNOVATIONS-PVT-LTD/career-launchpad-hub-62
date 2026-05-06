@@ -229,7 +229,7 @@ const StatCard = ({ label, value, note, Icon, gradient }: any) => (
       <div className="flex items-center justify-between mb-2">
         <span className="text-xs font-medium text-muted-foreground uppercase tracking-wider">{label}</span>
         <div className={`h-9 w-9 rounded-lg bg-gradient-to-br ${gradient} text-white flex items-center justify-center`}>
-          <Icon className="h-4.5 w-4.5" />
+          <Icon className="h-5 w-5" />
         </div>
       </div>
       <div className="text-2xl md:text-3xl font-bold">{value}</div>
