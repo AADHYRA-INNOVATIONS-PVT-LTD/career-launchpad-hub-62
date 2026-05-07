@@ -165,7 +165,6 @@ const Navbar = () => {
           <Link to="/internships" className={navLinkClass("/internships")}>Internships</Link>
           <Link to="/placement" className={navLinkClass("/placement")}>Placements</Link>
           <Link to="/career" className={navLinkClass("/career")}>Careers</Link>
-          <Link to="/pricing" className={navLinkClass("/pricing")}>Pricing</Link>
 
           {/* Courses Dropdown */}
           <NavigationMenu>
@@ -265,7 +264,6 @@ const Navbar = () => {
             <Link to="/internships" className="px-4 py-3 rounded-lg hover:bg-muted transition-colors font-medium" onClick={() => setIsMobileMenuOpen(false)}>Internships</Link>
             <Link to="/placement" className="px-4 py-3 rounded-lg hover:bg-muted transition-colors font-medium" onClick={() => setIsMobileMenuOpen(false)}>Placements</Link>
             <Link to="/career" className="px-4 py-3 rounded-lg hover:bg-muted transition-colors font-medium" onClick={() => setIsMobileMenuOpen(false)}>Careers</Link>
-            <Link to="/pricing" className="px-4 py-3 rounded-lg hover:bg-muted transition-colors font-medium" onClick={() => setIsMobileMenuOpen(false)}>Pricing</Link>
 
             {/* Mobile Courses */}
             <button
