@@ -12,6 +12,8 @@ import { CheckCircle2, ChevronRight, FileText, CreditCard, LayoutDashboard, Shie
 import { useToast } from "@/hooks/use-toast";
 import { useAuth } from "@/contexts/AuthContext";
 import { useNavigate } from "react-router-dom";
+import { supabase } from "@/integrations/supabase/client";
+import { z } from "zod";
 
 const courses = [
   { value: "java-fullstack", label: "Java Full Stack", category: "IT", price: 19999 },
@@ -56,6 +58,7 @@ const ApplyPage = () => {
     mobile: "",
     email: "",
     course: "",
+    vertical: "",
   });
   
   // Policy agreements
@@ -75,18 +78,49 @@ const ApplyPage = () => {
   
   const progress = (currentStep / steps.length) * 100;
 
-  const handleStep1Submit = (e: React.FormEvent) => {
+  const applicationSchema = z.object({
+    name: z.string().trim().min(2, "Name must be at least 2 characters").max(100),
+    mobile: z.string().trim().regex(/^[+\d\s-]{7,15}$/, "Enter a valid phone number"),
+    email: z.string().trim().email("Enter a valid email").max(255),
+    course: z.string().min(1, "Please select a course"),
+    vertical: z.string().min(1, "Please select a preferred vertical"),
+  });
+
+  const handleStep1Submit = async (e: React.FormEvent) => {
     e.preventDefault();
-    
-    if (!formData.name || !formData.mobile || !formData.email || !formData.course) {
+
+    const parsed = applicationSchema.safeParse(formData);
+    if (!parsed.success) {
       toast({
-        title: "Required Fields",
-        description: "Please fill all required fields.",
+        title: "Please check your details",
+        description: parsed.error.issues[0].message,
         variant: "destructive",
       });
       return;
     }
-    
+
+    const { error } = await supabase.from("applications").insert({
+      user_id: user?.id ?? null,
+      full_name: parsed.data.name,
+      phone: parsed.data.mobile,
+      email: parsed.data.email,
+      course: selectedCourse?.label ?? parsed.data.course,
+      vertical: parsed.data.vertical,
+    });
+
+    if (error) {
+      toast({
+        title: "Submission failed",
+        description: error.message,
+        variant: "destructive",
+      });
+      return;
+    }
+
+    toast({
+      title: "Application received",
+      description: "Our team will reach out shortly. Continue to complete enrollment.",
+    });
     setCurrentStep(2);
   };
 
