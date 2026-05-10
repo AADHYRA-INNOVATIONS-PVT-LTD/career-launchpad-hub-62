@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { supabase } from '@/integrations/supabase/client';
 import { Users, BookOpen, CreditCard, Award, ClipboardCheck, TrendingUp } from 'lucide-react';
+import { Badge } from '@/components/ui/badge';
 
 interface DashboardStats {
   totalStudents: number;
@@ -10,6 +11,17 @@ interface DashboardStats {
   totalCertificates: number;
   totalInterviews: number;
   passedInterviews: number;
+}
+
+interface ApplicationRow {
+  id: string;
+  full_name: string;
+  phone: string;
+  email: string;
+  course: string;
+  vertical: string;
+  status: string;
+  created_at: string;
 }
 
 const AdminDashboard = () => {
@@ -21,10 +33,12 @@ const AdminDashboard = () => {
     totalInterviews: 0,
     passedInterviews: 0,
   });
+  const [applications, setApplications] = useState<ApplicationRow[]>([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     fetchStats();
+    fetchApplications();
   }, []);
 
   const fetchStats = async () => {
@@ -60,6 +74,15 @@ const AdminDashboard = () => {
     } finally {
       setLoading(false);
     }
+  };
+
+  const fetchApplications = async () => {
+    const { data, error } = await supabase
+      .from('applications')
+      .select('id, full_name, phone, email, course, vertical, status, created_at')
+      .order('created_at', { ascending: false })
+      .limit(20);
+    if (!error && data) setApplications(data as ApplicationRow[]);
   };
 
   const statCards = [
