@@ -112,7 +112,6 @@ const App = () => (
             <Route path="/internships/enroll" element={<InternshipEnrollPage />} />
             <Route path="/career" element={<JobPage />} />
             <Route path="/campus-drive" element={<CampusDrivePage />} />
-            <Route path="/pricing" element={<PricingPage />} />
             <Route path="/placement/talent-connect" element={<TalentConnectPage />} />
             <Route path="/placement/tech-partner" element={<TechPartnerPage />} />
             <Route path="/placement/health-connect" element={<HealthConnectPage />} />
