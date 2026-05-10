@@ -14,6 +14,48 @@ export type Database = {
   }
   public: {
     Tables: {
+      applications: {
+        Row: {
+          course: string
+          created_at: string
+          email: string
+          full_name: string
+          id: string
+          notes: string | null
+          phone: string
+          status: string
+          updated_at: string
+          user_id: string | null
+          vertical: string
+        }
+        Insert: {
+          course: string
+          created_at?: string
+          email: string
+          full_name: string
+          id?: string
+          notes?: string | null
+          phone: string
+          status?: string
+          updated_at?: string
+          user_id?: string | null
+          vertical: string
+        }
+        Update: {
+          course?: string
+          created_at?: string
+          email?: string
+          full_name?: string
+          id?: string
+          notes?: string | null
+          phone?: string
+          status?: string
+          updated_at?: string
+          user_id?: string | null
+          vertical?: string
+        }
+        Relationships: []
+      }
       bank_accounts: {
         Row: {
           account_holder_name: string
