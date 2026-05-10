@@ -22,7 +22,7 @@ import AdminAuth from "./pages/admin/AdminAuth";
 import CertificateVerifyPage from "./pages/CertificateVerifyPage";
 import InternshipEnrollPage from "./pages/InternshipEnrollPage";
 import CampusDrivePage from "./pages/CampusDrivePage";
-import PricingPage from "./pages/PricingPage";
+
 
 // Services Pages
 import ServicesPage from "./pages/ServicesPage";
