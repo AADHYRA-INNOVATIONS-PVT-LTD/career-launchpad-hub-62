@@ -286,7 +286,24 @@ const ApplyPage = () => {
                         </SelectContent>
                       </Select>
                     </div>
-                    
+
+                    <div className="space-y-2">
+                      <Label>Preferred Vertical *</Label>
+                      <Select value={formData.vertical} onValueChange={(value) => setFormData({ ...formData, vertical: value })} required>
+                        <SelectTrigger>
+                          <SelectValue placeholder="Choose your career interest" />
+                        </SelectTrigger>
+                        <SelectContent>
+                          <SelectItem value="IT">IT & Software</SelectItem>
+                          <SelectItem value="HR">HR & Recruitment</SelectItem>
+                          <SelectItem value="Marketing">Digital Marketing</SelectItem>
+                          <SelectItem value="Design">Graphic & UI/UX Design</SelectItem>
+                          <SelectItem value="Nursing">Nursing & Healthcare</SelectItem>
+                          <SelectItem value="Other">Not sure yet</SelectItem>
+                        </SelectContent>
+                      </Select>
+                    </div>
+
                     <Button type="submit" variant="hero" size="lg" className="w-full">
                       Next: Policy Agreement <ChevronRight className="h-5 w-5 ml-2" />
                     </Button>
