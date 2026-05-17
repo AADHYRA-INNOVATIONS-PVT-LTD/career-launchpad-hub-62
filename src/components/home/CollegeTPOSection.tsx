@@ -60,7 +60,7 @@ const CollegeTPOSection = () => {
     setLoading(true);
     const { error } = await supabase
       .from("college_registrations")
-      .insert(parsed.data);
+      .insert(parsed.data as any);
     setLoading(false);
     if (error) {
       toast({
