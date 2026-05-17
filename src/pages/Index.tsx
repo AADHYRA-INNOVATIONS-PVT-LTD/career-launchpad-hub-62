@@ -6,6 +6,7 @@ import CourseCards from "@/components/home/CourseCards";
 import PlacementSection from "@/components/home/PlacementSection";
 import SuccessStorySection from "@/components/home/SuccessStorySection";
 import CertificateShowcase from "@/components/home/CertificateShowcase";
+import CollegeTPOSection from "@/components/home/CollegeTPOSection";
 import CTASection from "@/components/home/CTASection";
 
 const Index = () => {
@@ -19,6 +20,7 @@ const Index = () => {
         <SuccessStorySection />
         <PlacementSection />
         <CertificateShowcase />
+        <CollegeTPOSection />
         <CTASection />
       </main>
       <Footer />

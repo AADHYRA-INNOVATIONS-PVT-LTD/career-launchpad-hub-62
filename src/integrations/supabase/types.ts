@@ -211,6 +211,54 @@ export type Database = {
           },
         ]
       }
+      college_registrations: {
+        Row: {
+          city: string
+          college_name: string
+          created_at: string
+          department: string
+          designation: string
+          first_name: string
+          id: string
+          last_name: string
+          mobile: string
+          notes: string | null
+          official_email: string
+          status: string
+          updated_at: string
+        }
+        Insert: {
+          city: string
+          college_name: string
+          created_at?: string
+          department: string
+          designation: string
+          first_name: string
+          id?: string
+          last_name: string
+          mobile: string
+          notes?: string | null
+          official_email: string
+          status?: string
+          updated_at?: string
+        }
+        Update: {
+          city?: string
+          college_name?: string
+          created_at?: string
+          department?: string
+          designation?: string
+          first_name?: string
+          id?: string
+          last_name?: string
+          mobile?: string
+          notes?: string | null
+          official_email?: string
+          status?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
       contact_messages: {
         Row: {
           created_at: string
