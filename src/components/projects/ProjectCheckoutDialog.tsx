@@ -66,7 +66,7 @@ const ProjectCheckoutDialog = ({ project, open, onClose, onConfirm, defaultEmail
     }
     setSubmitting(true);
     try {
-      await onConfirm(parsed.data);
+      await onConfirm(parsed.data as BuyerDetails);
     } finally {
       setSubmitting(false);
     }
