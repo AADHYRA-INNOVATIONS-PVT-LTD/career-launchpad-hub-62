@@ -237,7 +237,8 @@ const CoursesPage = () => {
           </div>
         </section>
 
-        {/* Partner Universities */}
+        {/* Partner Universities - only on Degree & PG tab */}
+        {activeTab === "degree-diploma" && (
         <section className="border-b bg-card py-8">
           <div className="container">
             <div className="text-center mb-6">
@@ -260,8 +261,10 @@ const CoursesPage = () => {
             </div>
           </div>
         </section>
+        )}
 
-        {/* Eligibility & Fee Banner */}
+        {/* Eligibility & Fee Banner - only on Degree & PG tab */}
+        {activeTab === "degree-diploma" && (
         <section className="bg-primary/5 border-b py-6">
           <div className="container">
             <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
@@ -304,6 +307,7 @@ const CoursesPage = () => {
             </div>
           </div>
         </section>
+        )}
 
         {/* Demo Videos */}
         <DemoVideoSection
