@@ -21,6 +21,7 @@ import {
 } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 import ProjectDetailDialog from '@/components/projects/ProjectDetailDialog';
+import ProjectCheckoutDialog, { BuyerDetails } from '@/components/projects/ProjectCheckoutDialog';
 
 interface Project {
   id: string;
@@ -68,6 +69,8 @@ const DashboardProjects = () => {
   const [categories, setCategories] = useState<{id: string; name: string; slug: string}[]>([]);
   const [selectedCategoryId, setSelectedCategoryId] = useState<string | null>(null);
   const [detailProject, setDetailProject] = useState<Project | null>(null);
+  const [checkoutProject, setCheckoutProject] = useState<Project | null>(null);
+  const [activeTab, setActiveTab] = useState<'browse' | 'purchased'>('browse');
   const [page, setPage] = useState(1);
   const PAGE_SIZE = 24;
 
@@ -120,7 +123,7 @@ const DashboardProjects = () => {
     }
   };
 
-  const handlePurchase = async (project: Project) => {
+  const startCheckout = (project: Project) => {
     if (!user) {
       toast({
         title: 'Login Required',
@@ -129,30 +132,38 @@ const DashboardProjects = () => {
       });
       return;
     }
+    setDetailProject(null);
+    setCheckoutProject(project);
+  };
 
+  const handleConfirmPurchase = async (project: Project, details: BuyerDetails) => {
+    if (!user) return;
     setPurchasing(project.id);
     try {
-      // Simulate payment (in production, integrate Razorpay)
       const { error } = await supabase
         .from('project_purchases')
         .insert({
           project_id: project.id,
           user_id: user.id,
           amount: project.price,
-          status: 'completed'
+          status: 'completed',
+          razorpay_order_id: `order_${details.paymentMethod}_${Date.now()}`,
+          razorpay_payment_id: `pay_sim_${Date.now()}`,
         });
 
       if (error) throw error;
 
       toast({
-        title: 'Purchase Successful',
-        description: 'You can now download the project files.'
+        title: 'Payment Successful',
+        description: `Thanks ${details.fullName.split(' ')[0]}! Full project access is now unlocked.`,
       });
-      fetchData();
+      setCheckoutProject(null);
+      setActiveTab('purchased');
+      await fetchData();
     } catch (error) {
       console.error('Error purchasing:', error);
       toast({
-        title: 'Purchase Failed',
+        title: 'Payment Failed',
         description: 'Please try again later.',
         variant: 'destructive'
       });
@@ -250,7 +261,7 @@ const DashboardProjects = () => {
       </Card>
 
       {/* Tabs */}
-      <Tabs defaultValue="browse">
+      <Tabs value={activeTab} onValueChange={(v) => setActiveTab(v as 'browse' | 'purchased')}>
         <TabsList>
           <TabsTrigger value="browse">Browse Projects</TabsTrigger>
           <TabsTrigger value="purchased">My Purchases ({purchases.length})</TabsTrigger>
@@ -295,7 +306,7 @@ const DashboardProjects = () => {
                         <Download className="h-3 w-3 mr-1" /> Download
                       </Button>
                     ) : (
-                      <Button size="sm" className="flex-1" onClick={() => handlePurchase(project)} disabled={purchasing === project.id}>
+                      <Button size="sm" className="flex-1" onClick={() => startCheckout(project)} disabled={purchasing === project.id}>
                         {purchasing === project.id ? (
                           <Loader2 className="h-3 w-3 animate-spin mr-1" />
                         ) : (
@@ -432,7 +443,15 @@ const DashboardProjects = () => {
         onClose={() => setDetailProject(null)}
         isPurchased={detailProject ? isPurchased(detailProject.id) : false}
         purchasing={purchasing === detailProject?.id}
-        onPurchase={() => detailProject && handlePurchase(detailProject)}
+        onPurchase={() => detailProject && startCheckout(detailProject)}
+      />
+
+      <ProjectCheckoutDialog
+        project={checkoutProject}
+        open={!!checkoutProject}
+        onClose={() => setCheckoutProject(null)}
+        defaultEmail={user?.email ?? ''}
+        onConfirm={(details) => checkoutProject ? handleConfirmPurchase(checkoutProject, details) : Promise.resolve()}
       />
     </div>
   );
