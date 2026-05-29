@@ -10,6 +10,13 @@ import {
   NavigationMenuList,
   NavigationMenuTrigger,
 } from "@/components/ui/navigation-menu";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 import { cn } from "@/lib/utils";
 import shikshaLogo from "@/assets/aadhyra-logo.png";
 
@@ -88,8 +95,8 @@ const Navbar = () => {
         {/* Logo */}
         <Link to="/" className="flex items-center gap-2">
           <img src={shikshaLogo} alt="AADHYRA INNOVATIONS PVT LTD" className="h-12 w-auto" />
-          <div className="block overflow-hidden">
-            <span className="block text-sm sm:text-lg font-heading font-bold text-foreground whitespace-nowrap animate-marquee">
+          <div className="flex flex-col">
+            <span className="text-[10px] leading-tight sm:text-lg font-heading font-bold text-foreground max-w-[140px] sm:max-w-none whitespace-normal sm:whitespace-nowrap">
               AADHYRA INNOVATIONS PVT LTD
             </span>
             <span className="hidden sm:block text-xs text-muted-foreground">Innovating Tomorrow, Today</span>
@@ -208,15 +215,28 @@ const Navbar = () => {
 
         {/* CTA Buttons */}
         <div className="flex items-center gap-3">
-          <Link to="/auth" className="hidden sm:block">
-            <Button variant="outline" size="sm">Student Login</Button>
-          </Link>
-          <Link to="/employer/auth" className="hidden md:block">
-            <Button variant="outline" size="sm">Employer Login</Button>
-          </Link>
           <Link to="/apply" className="hidden sm:block">
             <Button variant="accent" size="sm">Apply Now</Button>
           </Link>
+          <div className="hidden sm:block">
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <Button variant="outline" size="sm">Login</Button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent align="end" className="w-48">
+                <DropdownMenuItem asChild>
+                  <Link to="/auth" className="cursor-pointer">Student Login</Link>
+                </DropdownMenuItem>
+                <DropdownMenuItem asChild>
+                  <Link to="/employer/auth" className="cursor-pointer">Employer Login</Link>
+                </DropdownMenuItem>
+                <DropdownMenuSeparator />
+                <DropdownMenuItem asChild>
+                  <Link to="/admin/login" className="cursor-pointer text-accent focus:text-accent font-medium">Admin Login</Link>
+                </DropdownMenuItem>
+              </DropdownMenuContent>
+            </DropdownMenu>
+          </div>
           <button
             className="lg:hidden p-2 rounded-md hover:bg-muted"
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}

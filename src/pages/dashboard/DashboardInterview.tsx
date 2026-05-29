@@ -21,6 +21,7 @@ import {
   Heart,
   AlertCircle,
 } from 'lucide-react';
+import PaymentModal from '@/components/shared/PaymentModal';
 
 interface Category {
   id: string;
@@ -59,6 +60,7 @@ const DashboardInterview = () => {
   const [interviewStatus, setInterviewStatus] = useState<InterviewStatus | null>(null);
   const [loading, setLoading] = useState(true);
   const [paymentLoading, setPaymentLoading] = useState(false);
+  const [showPaymentModal, setShowPaymentModal] = useState(false);
 
   useEffect(() => {
     const fetchCategories = async () => {
@@ -134,7 +136,12 @@ const DashboardInterview = () => {
     checkInterviewStatus(category.id);
   };
 
-  const handlePayment = async () => {
+  const handlePaymentClick = () => {
+    if (!selectedCategory || !user) return;
+    setShowPaymentModal(true);
+  };
+
+  const handlePaymentSuccess = async () => {
     if (!selectedCategory || !user) return;
     
     setPaymentLoading(true);
@@ -277,7 +284,7 @@ const DashboardInterview = () => {
                   {interviewStatus?.paid ? (
                     <Badge className="bg-healthcare text-healthcare-foreground">Paid</Badge>
                   ) : (
-                    <Button onClick={handlePayment} disabled={paymentLoading}>
+                    <Button onClick={handlePaymentClick} disabled={paymentLoading}>
                       {paymentLoading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
                       Pay Now
                     </Button>
@@ -449,6 +456,15 @@ const DashboardInterview = () => {
               )}
             </CardContent>
           </Card>
+          
+          <PaymentModal
+            isOpen={showPaymentModal}
+            onClose={() => setShowPaymentModal(false)}
+            amount={499}
+            onSuccess={handlePaymentSuccess}
+            title={`${selectedCategory.name} Evaluation Fee`}
+            description="Complete this payment to unlock your interview rounds."
+          />
         </>
       )}
     </div>

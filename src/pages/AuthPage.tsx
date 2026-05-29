@@ -43,7 +43,7 @@ const AuthPage = () => {
   const [signupPassword, setSignupPassword] = useState('');
   const [signupConfirmPassword, setSignupConfirmPassword] = useState('');
 
-  const { signIn, signUp, user, isAdmin, loading: authLoading } = useAuth();
+  const { signIn, signUp, resetPassword, user, isAdmin, loading: authLoading } = useAuth();
   const navigate = useNavigate();
   const { toast } = useToast();
 
@@ -151,6 +151,32 @@ const AuthPage = () => {
     }
   };
 
+  const handleReset = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setErrors({});
+    if (!loginEmail) {
+      setErrors({ email: 'Email is required to reset password' });
+      return;
+    }
+    setLoading(true);
+    const { error } = await resetPassword(loginEmail);
+    setLoading(false);
+    
+    if (error) {
+      toast({
+        title: 'Error',
+        description: error.message,
+        variant: 'destructive',
+      });
+    } else {
+      toast({
+        title: 'Reset Email Sent',
+        description: 'Check your inbox for a password reset link.',
+      });
+      setActiveTab('login');
+    }
+  };
+
   return (
     <div className="min-h-screen bg-background flex items-center justify-center p-4">
       <div className="w-full max-w-md">
@@ -215,6 +241,16 @@ const AuthPage = () => {
                       />
                     </div>
                     {errors.password && <p className="text-sm text-destructive">{errors.password}</p>}
+                  </div>
+
+                  <div className="flex justify-end">
+                    <button
+                      type="button"
+                      onClick={() => setActiveTab('reset')}
+                      className="text-sm text-primary hover:underline"
+                    >
+                      Forgot Password?
+                    </button>
                   </div>
 
                   <Button type="submit" className="w-full" disabled={loading}>
@@ -313,6 +349,46 @@ const AuthPage = () => {
                     {loading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
                     Create Account
                   </Button>
+                </form>
+              </TabsContent>
+
+              <TabsContent value="reset">
+                <div className="text-center mb-4">
+                  <h3 className="text-lg font-semibold">Reset Password</h3>
+                  <p className="text-sm text-muted-foreground">Enter your email and we'll send you a link to reset your password.</p>
+                </div>
+                <form onSubmit={handleReset} className="space-y-4">
+                  <div className="space-y-2">
+                    <Label htmlFor="reset-email">Email</Label>
+                    <div className="relative">
+                      <Mail className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+                      <Input
+                        id="reset-email"
+                        type="email"
+                        placeholder="student@example.com"
+                        value={loginEmail}
+                        onChange={(e) => setLoginEmail(e.target.value)}
+                        className="pl-10"
+                        required
+                      />
+                    </div>
+                    {errors.email && <p className="text-sm text-destructive">{errors.email}</p>}
+                  </div>
+
+                  <Button type="submit" className="w-full" disabled={loading}>
+                    {loading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
+                    Send Reset Link
+                  </Button>
+                  
+                  <div className="text-center mt-4">
+                    <button
+                      type="button"
+                      onClick={() => setActiveTab('login')}
+                      className="text-sm text-primary hover:underline"
+                    >
+                      Back to Login
+                    </button>
+                  </div>
                 </form>
               </TabsContent>
             </Tabs>

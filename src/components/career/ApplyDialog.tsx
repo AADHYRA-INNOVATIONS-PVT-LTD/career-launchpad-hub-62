@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { ArrowRight, CreditCard, CheckCircle2, Briefcase, FileText, Camera, Video, IndianRupee } from "lucide-react";
+import PaymentModal from "@/components/shared/PaymentModal";
 
 interface ApplyDialogProps {
   job: { title: string; company: string; experience: string; salary: string };
@@ -21,6 +22,7 @@ const hiringSteps = [
 const ApplyDialog = ({ job, open, onClose }: ApplyDialogProps) => {
   const [experienceLevel, setExperienceLevel] = useState<"fresher" | "experienced" | null>(null);
   const [step, setStep] = useState<"select" | "confirm">("select");
+  const [showPaymentModal, setShowPaymentModal] = useState(false);
 
   if (!open) return null;
 
@@ -30,9 +32,12 @@ const ApplyDialog = ({ job, open, onClose }: ApplyDialogProps) => {
     if (step === "select" && experienceLevel) {
       setStep("confirm");
     } else if (step === "confirm") {
-      // TODO: Integrate with Razorpay payment
-      window.location.href = "/auth";
+      setShowPaymentModal(true);
     }
+  };
+
+  const handlePaymentSuccess = () => {
+    window.location.href = "/auth?message=payment_success";
   };
 
   const handleClose = () => {
@@ -148,6 +153,15 @@ const ApplyDialog = ({ job, open, onClose }: ApplyDialogProps) => {
           </div>
         )}
       </div>
+
+      <PaymentModal
+        isOpen={showPaymentModal}
+        onClose={() => setShowPaymentModal(false)}
+        amount={fee}
+        onSuccess={handlePaymentSuccess}
+        title="Application Evaluation Fee"
+        description={`Pay ₹${fee} to start the hiring process for ${job.title}`}
+      />
     </div>
   );
 };

@@ -76,6 +76,7 @@ import AdminInterviews from "./pages/admin/AdminInterviews";
 import AdminEmployers from "./pages/admin/AdminEmployers";
 import AdminCertificates from "./pages/admin/AdminCertificates";
 import AdminPayments from "./pages/admin/AdminPayments";
+import UpdatePassword from "./pages/UpdatePassword";
 import AdminSettings from "./pages/admin/AdminSettings";
 
 // Employer Pages
@@ -96,7 +97,7 @@ const App = () => (
     <TooltipProvider>
       <Toaster />
       <Sonner />
-      <BrowserRouter>
+      <BrowserRouter future={{ v7_startTransition: true, v7_relativeSplatPath: true }}>
         <AuthProvider>
           <Routes>
             {/* Public Routes */}
@@ -120,6 +121,7 @@ const App = () => (
             <Route path="/verify" element={<CertificateVerifyPage />} />
             <Route path="/auth" element={<AuthPage />} />
             <Route path="/admin/login" element={<AdminAuth />} />
+            <Route path="/update-password" element={<UpdatePassword />} />
 
             {/* Services */}
             <Route path="/services" element={<ServicesPage />} />
