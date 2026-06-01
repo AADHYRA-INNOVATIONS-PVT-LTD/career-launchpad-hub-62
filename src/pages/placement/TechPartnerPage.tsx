@@ -42,17 +42,22 @@ const TechPartnerPage = () => {
                 Like Upwork — find freelance projects, build your portfolio, and earn. Connect freelancers with project owners.
               </p>
               <div className="flex flex-wrap gap-3 justify-center">
-                <Link to="/auth">
+                {/* Pass freelancer role to render the Freelancer configuration */}
+                <Link to="/auth?role=freelancer">
                   <Button size="xl" className="gap-2">
                     <Users className="h-5 w-5" /> Freelancer Login
                   </Button>
                 </Link>
-                <Link to="/employer/auth">
+                {/* Pass employer role to switch over to the Project Owner setup */}
+                <Link to="/auth?role=employer">
                   <Button size="xl" variant="outline" className="gap-2">
                     <Building2 className="h-5 w-5" /> Project Owner Login
                   </Button>
                 </Link>
               </div>
+              <p className="text-xs text-muted-foreground mt-3">
+                New here? <Link to="/auth?role=candidate" className="text-primary hover:underline">Sign up as Freelancer</Link> · <Link to="/auth?role=employer" className="text-primary hover:underline">Register as Project Owner</Link>
+              </p>
               <p className="text-xs text-muted-foreground mt-3">
                 New here? <Link to="/auth" className="text-primary hover:underline">Sign up as Freelancer</Link> · <Link to="/employer/register" className="text-primary hover:underline">Register as Project Owner</Link>
               </p>
@@ -113,7 +118,8 @@ const TechPartnerPage = () => {
                     </li>
                   ))}
                 </ul>
-                <Link to="/auth"><Button className="w-full gap-2">Freelancer Login <ArrowRight className="h-4 w-4" /></Button></Link>
+                {/* For Freelancers Card Button */}
+                <Link to="/auth?role=candidate"><Button className="w-full gap-2">Freelancer Login <ArrowRight className="h-4 w-4" /></Button></Link>
               </div>
               <div className="bg-card rounded-2xl border-2 border-accent/20 shadow-card p-8">
                 <div className="text-4xl mb-4">🏗️</div>
@@ -125,7 +131,8 @@ const TechPartnerPage = () => {
                     </li>
                   ))}
                 </ul>
-                <Link to="/employer/auth"><Button variant="outline" className="w-full gap-2">Project Owner Login <ArrowRight className="h-4 w-4" /></Button></Link>
+                {/* For Project Owners Card Button */}
+                <Link to="/auth?role=employer"><Button variant="outline" className="w-full gap-2">Project Owner Login <ArrowRight className="h-4 w-4" /></Button></Link>
               </div>
             </div>
           </div>

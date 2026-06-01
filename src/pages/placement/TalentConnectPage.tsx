@@ -31,17 +31,17 @@ const TalentConnectPage = () => {
                 Like Apna — connecting trained professionals with top companies through smart job matching and verified candidate profiles.
               </p>
               <div className="flex flex-wrap gap-4 justify-center">
-                <Link to="/auth">
-                  <Button variant="accent" size="xl" className="gap-2">
-                    <Users className="h-5 w-5" /> Candidate Login
-                  </Button>
-                </Link>
-                <Link to="/employer/auth">
-                  <Button variant="outline" size="xl" className="gap-2 border-white/30 text-white hover:bg-white/10">
-                    <Building2 className="h-5 w-5" /> Employer Login
-                  </Button>
-                </Link>
-              </div>
+              {/* Passes candidate role context to the central auth router */}
+              <Link to="/auth?role=candidate">
+                <Button variant="accent" size="xl" className="gap-2">
+                  <Users className="h-5 w-5" /> Candidate Login
+                </Button>
+              </Link>
+              {/* Passes employer role context to trigger the specialized business layout */}
+              <Link to="/auth?role=employer">
+                  <Button variant="outline" className="w-full gap-2">Employer Login <ArrowRight className="h-4 w-4" /></Button>
+              </Link>
+            </div>
             </div>
           </div>
         </section>
@@ -95,9 +95,10 @@ const TalentConnectPage = () => {
                     </li>
                   ))}
                 </ul>
-                <Link to="/auth">
-                  <Button className="w-full gap-2">Candidate Login <ArrowRight className="h-4 w-4" /></Button>
-                </Link>
+                {/* For Candidates Card Button */}
+              <Link to="/auth?role=candidate">
+                <Button className="w-full gap-2">Candidate Login <ArrowRight className="h-4 w-4" /></Button>
+              </Link>
               </div>
               <div className="bg-card rounded-2xl border shadow-card p-8">
                 <div className="text-4xl mb-4">🏢</div>

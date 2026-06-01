@@ -128,13 +128,15 @@ const HealthConnectPage = () => {
                 AI health checkups · Doctor consultations · Medicine delivery · Lab tests · Home services · Global consultations
               </p>
               <div className="flex flex-wrap gap-4 justify-center">
-                <Link to="/auth">
-                  <Button variant="accent" size="xl" className="gap-2"><Users className="h-5 w-5" /> Patient Login</Button>
-                </Link>
-                <Link to="/employer/auth">
-                  <Button variant="outline" size="xl" className="gap-2 border-white/30 text-white hover:bg-white/10"><Stethoscope className="h-5 w-5" /> Doctor Login</Button>
-                </Link>
-              </div>
+                  {/* Appended ?role=candidate to show Patient/Candidate tracking text */}
+                  <Link to="/auth?role=patient">
+                    <Button variant="accent" size="xl" className="gap-2"><Users className="h-5 w-5" /> Patient Login</Button>
+                  </Link>
+                  {/* Appended ?role=employer so it hits your custom employer/doctor layout view */}
+                  <Link to="/auth?role=employer">
+                    <Button variant="outline" size="xl" className="gap-2 border-white/30 text-white hover:bg-white/10"><Stethoscope className="h-5 w-5" /> Doctor Login</Button>
+                  </Link>
+            </div>
             </div>
           </div>
         </section>
@@ -485,7 +487,7 @@ const HealthConnectPage = () => {
                     <li key={item} className="flex items-center gap-2 text-sm text-foreground"><CheckCircle2 className="h-4 w-4 text-primary flex-shrink-0" />{item}</li>
                   ))}
                 </ul>
-                <Link to="/employer/auth"><Button className="w-full gap-2">Doctor Login <ArrowRight className="h-4 w-4" /></Button></Link>
+                <Link to="/auth?role=employer"><Button className="w-full gap-2">Doctor Login <ArrowRight className="h-4 w-4" /></Button></Link>
               </div>
               <div className="bg-card rounded-2xl border shadow-card p-8">
                 <div className="text-4xl mb-4">🏥</div>

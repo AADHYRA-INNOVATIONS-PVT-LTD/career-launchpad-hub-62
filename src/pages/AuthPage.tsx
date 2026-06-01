@@ -1,405 +1,342 @@
-import { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { useAuth } from '@/contexts/AuthContext';
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { useToast } from '@/hooks/use-toast';
-import { z } from 'zod';
-import { GraduationCap, Mail, Lock, User, Phone, Loader2 } from 'lucide-react';
-import { Link } from 'react-router-dom';
-
-const loginSchema = z.object({
-  email: z.string().email('Please enter a valid email address'),
-  password: z.string().min(6, 'Password must be at least 6 characters'),
-});
-
-const signupSchema = z.object({
-  fullName: z.string().min(2, 'Name must be at least 2 characters').max(100),
-  email: z.string().email('Please enter a valid email address'),
-  mobile: z.string().optional(),
-  password: z.string().min(6, 'Password must be at least 6 characters'),
-  confirmPassword: z.string(),
-}).refine((data) => data.password === data.confirmPassword, {
-  message: "Passwords don't match",
-  path: ["confirmPassword"],
-});
+import React, { useState } from "react";
+import { useSearchParams, Link, useNavigate } from "react-router-dom";
+import { 
+  GraduationCap, 
+  Users, 
+  Briefcase, 
+  Lock, 
+  Mail, 
+  ArrowLeft,
+  AlertCircle,
+  Phone,
+  Stethoscope
+} from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
+import { useAuth } from "@/contexts/AuthContext"; 
 
 const AuthPage = () => {
-  const [activeTab, setActiveTab] = useState('login');
-  const [loading, setLoading] = useState(false);
-  const [errors, setErrors] = useState<Record<string, string>>({});
-  
-  // Login form
-  const [loginEmail, setLoginEmail] = useState('');
-  const [loginPassword, setLoginPassword] = useState('');
-  
-  // Signup form
-  const [signupName, setSignupName] = useState('');
-  const [signupEmail, setSignupEmail] = useState('');
-  const [signupMobile, setSignupMobile] = useState('');
-  const [signupPassword, setSignupPassword] = useState('');
-  const [signupConfirmPassword, setSignupConfirmPassword] = useState('');
-
-  const { signIn, signUp, resetPassword, user, isAdmin, loading: authLoading } = useAuth();
+  const [searchParams] = useSearchParams();
   const navigate = useNavigate();
-  const { toast } = useToast();
+  const { signIn } = useAuth(); 
 
-  useEffect(() => {
-    if (user && !authLoading) {
-      // Redirect admins to admin dashboard, students to student dashboard
-      if (isAdmin) {
-        navigate('/admin');
-      } else {
-        navigate('/dashboard');
-      }
-    }
-  }, [user, isAdmin, authLoading, navigate]);
+  const [isSignUp, setIsSignUp] = useState(false);
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState(""); // Restored state
+  const [name, setName] = useState("");
+  const [mobile, setMobile] = useState(""); // Restored state
+  
+  const [error, setError] = useState<string | null>(null);
+  const [isLoading, setIsLoading] = useState(false);
+  
+  const role = searchParams.get("role") || "student";
 
-  const handleLogin = async (e: React.FormEvent) => {
+  const portalConfig: Record<string, { title: string; subtitle: string; desc: string; icon: React.ComponentType<any>; errorMsg: string }> = {
+    student: {
+      title: "Student Portal",
+      subtitle: "Student Portal",
+      desc: "Sign in to access your student portal or create a new account",
+      icon: GraduationCap,
+      errorMsg: "This email is not registered as a student. Please check your credentials or sign up."
+    },
+    candidate: {
+      title: "Candidate Portal",
+      subtitle: "Talent Connect",
+      desc: "Sign in to monitor your applications, interviews, and verified skill profiles.",
+      icon: Users,
+      errorMsg: "No candidate account found with this email on Talent Connect."
+    },
+    freelancer: {
+      title: "Freelancer Portal",
+      subtitle: "Tech Partner",
+      desc: "Sign in to view active milestones, place bids, and manage project escrow.",
+      icon: Briefcase,
+      errorMsg: "This email is not registered as a freelancer on Tech Partner."
+    },
+    patient: {
+      title: "Patient Portal",
+      subtitle: "Health Connect",
+      desc: "Sign in to manage appointments, access medical records, and track health vitals.",
+      icon: Users,
+      errorMsg: "No patient record found matching this email on Health Connect."
+    },
+    employer: {
+      title: "Employer Portal",
+      subtitle: "Recruitment Dashboard",
+      desc: "Sign in to post jobs, evaluate candidate profiles, and schedule corporate interviews.",
+      icon: Briefcase,
+      errorMsg: "Corporate account not found. Please verify your employer registration."
+    },
+    project_owner: {
+      title: "Project Owner Portal",
+      subtitle: "Project Management",
+      desc: "Sign in to fund escrow contracts, review deliverables, and collaborate with freelancers.",
+      icon: Briefcase,
+      errorMsg: "No Project Owner profile associated with this email address."
+    },
+    doctor: {
+    title: "Medical Practitioner Portal",
+    subtitle: "Health Connect",
+    desc: "Sign in to manage patient queues, e-prescriptions, and clinical records.",
+    icon: Stethoscope, // Make sure to import Stethoscope from 'lucide-react'
+    errorMsg: "No medical practitioner account found with this email."
+  },
+  };
+
+  const currentPortal = portalConfig[role] || portalConfig.student;
+  const IconComponent = currentPortal.icon;
+
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setErrors({});
-    
-    try {
-      loginSchema.parse({ email: loginEmail, password: loginPassword });
-    } catch (error) {
-      if (error instanceof z.ZodError) {
-        const newErrors: Record<string, string> = {};
-        error.errors.forEach((err) => {
-          if (err.path[0]) {
-            newErrors[err.path[0] as string] = err.message;
-          }
-        });
-        setErrors(newErrors);
+    setError(null);
+    setIsLoading(true);
+
+    setTimeout(async () => {
+      const localUsersExist = localStorage.getItem("mock_registered_users");
+      let usersList = localUsersExist ? JSON.parse(localUsersExist) : [];
+
+      if (isSignUp) {
+        // --- RESTORED PASSWORDS MATCH CHECK ---
+        if (password !== confirmPassword) {
+          setError("Passwords do not match.");
+          setIsLoading(false);
+          return;
+        }
+
+        // --- UPDATED SIGNUP LOGIC: Check email AND role combination ---
+        const userExistsInThisPortal = usersList.some(
+          (u: any) => u.email.toLowerCase() === email.toLowerCase() && u.role === role
+        );
+
+        if (userExistsInThisPortal) {
+          setError(`An account with this email already exists inside the ${currentPortal.title}.`);
+          setIsLoading(false);
+          return;
+        }
+
+        // Save new user tracking data locally with the specific role isolated
+        const newUser = { name, email, mobile, password, role };
+        usersList.push(newUser);
+        localStorage.setItem("mock_registered_users", JSON.stringify(usersList));
+        
+        alert(`Account registered successfully for the ${currentPortal.title}! Switching to login tab...`);
+        setIsSignUp(false); 
+        setIsLoading(false);
         return;
-      }
-    }
 
-    setLoading(true);
-    const { error } = await signIn(loginEmail, loginPassword);
-    setLoading(false);
-
-    if (error) {
-      toast({
-        title: 'Login Failed',
-        description: error.message === 'Invalid login credentials' 
-          ? 'Invalid email or password. Please try again.'
-          : error.message,
-        variant: 'destructive',
-      });
-    } else {
-      toast({
-        title: 'Welcome back!',
-        description: 'You have successfully logged in.',
-      });
-      // The useEffect will handle the redirect based on role
-    }
-  };
-
-  const handleSignup = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setErrors({});
-
-    try {
-      signupSchema.parse({
-        fullName: signupName,
-        email: signupEmail,
-        mobile: signupMobile,
-        password: signupPassword,
-        confirmPassword: signupConfirmPassword,
-      });
-    } catch (error) {
-      if (error instanceof z.ZodError) {
-        const newErrors: Record<string, string> = {};
-        error.errors.forEach((err) => {
-          if (err.path[0]) {
-            newErrors[err.path[0] as string] = err.message;
-          }
-        });
-        setErrors(newErrors);
-        return;
-      }
-    }
-
-    setLoading(true);
-    const { error } = await signUp(signupEmail, signupPassword, signupName, signupMobile);
-    setLoading(false);
-
-    if (error) {
-      if (error.message.includes('already registered')) {
-        toast({
-          title: 'Account Exists',
-          description: 'This email is already registered. Please log in instead.',
-          variant: 'destructive',
-        });
-        setActiveTab('login');
       } else {
-        toast({
-          title: 'Sign Up Failed',
-          description: error.message,
-          variant: 'destructive',
-        });
+        // --- UPDATED LOGIN CHECK: Find user matching BOTH email and current portal role ---
+        const foundUser = usersList.find(
+          (u: any) => u.email.toLowerCase() === email.toLowerCase() && u.role === role
+        );
+
+        // If no record matches this email FOR THIS SPECIFIC PORTAL ROLE
+        if (!foundUser) {
+          setError(currentPortal.errorMsg); // Dynamically shows "No record found matching this email on Health Connect", etc.
+          setIsLoading(false);
+          return;
+        }
+
+        if (foundUser.password !== password) {
+          setError("Incorrect password. Please try again.");
+          setIsLoading(false);
+          return;
+        }
+
+        try {
+          if (signIn) {
+            await signIn(email, password);
+          }
+
+          localStorage.setItem("isAuthenticated", "true");
+          localStorage.setItem("userRole", role);
+          localStorage.setItem("currentUser", JSON.stringify(foundUser));
+
+          // Clear route locks and navigate cleanly to the correct portal board
+          if (role === "admin") {
+            navigate("/admin", { replace: true });
+          } else if (role === "employer" || role === "project_owner") {
+            navigate("/employer", { replace: true });
+          } else if (role === "freelancer") {
+            navigate("/freelancer-dashboard", { replace: true });
+          } else if (role === "patient") {
+            navigate("/patient-dashboard", { replace: true });
+            } else if (role === "doctor") {
+          navigate("/doctor-dashboard", { replace: true });
+          } else {
+            navigate("/dashboard", { replace: true });
+          }
+
+        } catch (authHookError: any) {
+          // Absolute fallback route if context hook throws internal database constraints
+          navigate("/dashboard", { replace: true });
+        } finally {
+          setIsLoading(false);
+        }
       }
-    } else {
-      toast({
-        title: 'Account Created!',
-        description: 'Welcome to Aadhyra Innovations. Your account has been created successfully.',
-      });
-      navigate('/dashboard');
-    }
+    }, 400);
   };
-
-  const handleReset = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setErrors({});
-    if (!loginEmail) {
-      setErrors({ email: 'Email is required to reset password' });
-      return;
-    }
-    setLoading(true);
-    const { error } = await resetPassword(loginEmail);
-    setLoading(false);
-    
-    if (error) {
-      toast({
-        title: 'Error',
-        description: error.message,
-        variant: 'destructive',
-      });
-    } else {
-      toast({
-        title: 'Reset Email Sent',
-        description: 'Check your inbox for a password reset link.',
-      });
-      setActiveTab('login');
-    }
-  };
-
   return (
-    <div className="min-h-screen bg-background flex items-center justify-center p-4">
-      <div className="w-full max-w-md">
-        {/* Logo */}
-        <div className="text-center mb-8">
-          <Link to="/" className="inline-flex items-center gap-2">
-            <div className="flex h-12 w-12 items-center justify-center rounded-lg gradient-primary">
-              <GraduationCap className="h-7 w-7 text-primary-foreground" />
+    <div className="min-h-screen bg-background flex flex-col items-center justify-center p-4">
+      
+      <div className="flex items-center gap-3 mb-6">
+        <div className="h-10 w-10 rounded-xl bg-primary flex items-center justify-center text-primary-foreground shadow-sm">
+          <IconComponent className="h-5 w-5" />
+        </div>
+        <div>
+          <h2 className="font-heading font-bold text-foreground text-lg leading-tight">Aadhya Innovations</h2>
+          {/* RESTORED: This dynamically changes the subtitle underneath the main brand */}
+          <p className="text-xs text-primary font-medium tracking-wide">{currentPortal.subtitle}</p>
+        </div>
+    </div>
+
+      <div className="bg-card border shadow-card rounded-2xl max-w-md w-full p-8 border-t-4 border-t-primary transition-all duration-300">
+        <div className="text-center mb-6">
+        {/* RESTORED: Changes from "Student Portal", "Candidate Portal", etc. based on URL */}
+        <h1 className="font-heading text-2xl font-bold text-foreground mb-1.5 tracking-tight">
+          {currentPortal.title}
+        </h1>
+        <p className="text-sm text-muted-foreground px-2">
+          {currentPortal.desc}
+        </p>
+      </div>
+
+        {error && (
+          <Alert variant="destructive" className="mb-5 animate-in fade-in zoom-in-95 duration-200">
+            <AlertCircle className="h-4 w-4" />
+            <AlertTitle>Authentication Failed</AlertTitle>
+            <AlertDescription className="text-xs">
+              {error}
+            </AlertDescription>
+          </Alert>
+        )}
+
+        <div className="grid grid-cols-2 bg-muted p-1 rounded-lg mb-6 text-sm font-medium">
+          <button 
+            type="button"
+            onClick={() => { setIsSignUp(false); setError(null); }}
+            className={`py-2 rounded-md transition-all ${!isSignUp ? "bg-background text-foreground shadow-sm" : "text-muted-foreground hover:text-foreground"}`}
+          >
+            Login
+          </button>
+          <button 
+            type="button"
+            onClick={() => { setIsSignUp(true); setError(null); }}
+            className={`py-2 rounded-md transition-all ${isSignUp ? "bg-background text-foreground shadow-sm" : "text-muted-foreground hover:text-foreground"}`}
+          >
+            Sign Up
+          </button>
+        </div>
+
+        <form onSubmit={handleSubmit} className="space-y-4">
+          {isSignUp && (
+            <div className="space-y-1.5">
+              <Label htmlFor="name">Full Name</Label>
+              <div className="relative">
+                <Users className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
+                <Input 
+                  id="name" 
+                  type="text" 
+                  placeholder="John Doe" 
+                  className="pl-9" 
+                  value={name}
+                  onChange={(e) => setName(e.target.value)}
+                  required 
+                />
+              </div>
             </div>
-            <div>
-              <span className="text-xl font-heading font-bold text-foreground">Aadhyra Innovations</span>
-              <span className="block text-xs text-muted-foreground">Student Portal</span>
+          )}
+
+          <div className="space-y-1.5">
+            <Label htmlFor="email">Email Address</Label>
+            <div className="relative">
+              <Mail className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
+              <Input 
+                id="email" 
+                type="email" 
+                placeholder={`${role}@example.com`}
+                className="pl-9" 
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                required 
+              />
             </div>
+          </div>
+
+          {/* RESTORED: Mobile Input Box (Sign Up Only) */}
+          {isSignUp && (
+            <div className="space-y-1.5">
+              <Label htmlFor="mobile">Mobile (Optional)</Label>
+              <div className="relative">
+                <Phone className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
+                <Input 
+                  id="mobile" 
+                  type="tel" 
+                  placeholder="+91 9876543210" 
+                  className="pl-9" 
+                  value={mobile}
+                  onChange={(e) => setMobile(e.target.value)}
+                />
+              </div>
+            </div>
+          )}
+
+          <div className="space-y-1.5">
+            <div className="flex items-center justify-between">
+              <Label htmlFor="password">Password</Label>
+              {!isSignUp && (
+                <Link to="/forgot-password" className="text-xs text-primary hover:underline">
+                  Forgot Password?
+                </Link>
+              )}
+            </div>
+            <div className="relative">
+              <Lock className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
+              <Input 
+                id="password" 
+                type="password" 
+                placeholder="••••••••" 
+                className="pl-9" 
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                required 
+              />
+            </div>
+          </div>
+
+          {/* RESTORED: Confirm Password Input Box (Sign Up Only) */}
+          {isSignUp && (
+            <div className="space-y-1.5">
+              <Label htmlFor="confirmPassword">Confirm Password</Label>
+              <div className="relative">
+                <Lock className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
+                <Input 
+                  id="confirmPassword" 
+                  type="password" 
+                  placeholder="••••••••" 
+                  className="pl-9" 
+                  value={confirmPassword}
+                  onChange={(e) => setConfirmPassword(e.target.value)}
+                  required 
+                />
+              </div>
+            </div>
+          )}
+
+          <Button type="submit" className="w-full mt-2 font-medium" disabled={isLoading}>
+            {isLoading ? "Processing..." : isSignUp ? "Create Account" : "Sign In"}
+          </Button>
+        </form>
+
+        <div className="mt-6 text-center">
+          <Link to="/" className="inline-flex items-center gap-1.5 text-xs text-muted-foreground hover:text-foreground transition-colors">
+            <ArrowLeft className="h-3.5 w-3.5" /> Back to Home
           </Link>
         </div>
 
-        <Card className="shadow-card">
-          <CardHeader className="text-center">
-            <CardTitle className="text-2xl font-heading">Welcome</CardTitle>
-            <CardDescription>
-              Sign in to access your student portal or create a new account
-            </CardDescription>
-          </CardHeader>
-          <CardContent>
-            <Tabs value={activeTab} onValueChange={setActiveTab}>
-              <TabsList className="grid w-full grid-cols-2 mb-6">
-                <TabsTrigger value="login">Login</TabsTrigger>
-                <TabsTrigger value="signup">Sign Up</TabsTrigger>
-              </TabsList>
-
-              <TabsContent value="login">
-                <form onSubmit={handleLogin} className="space-y-4">
-                  <div className="space-y-2">
-                    <Label htmlFor="login-email">Email</Label>
-                    <div className="relative">
-                      <Mail className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
-                      <Input
-                        id="login-email"
-                        type="email"
-                        placeholder="student@example.com"
-                        value={loginEmail}
-                        onChange={(e) => setLoginEmail(e.target.value)}
-                        className="pl-10"
-                        required
-                      />
-                    </div>
-                    {errors.email && <p className="text-sm text-destructive">{errors.email}</p>}
-                  </div>
-
-                  <div className="space-y-2">
-                    <Label htmlFor="login-password">Password</Label>
-                    <div className="relative">
-                      <Lock className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
-                      <Input
-                        id="login-password"
-                        type="password"
-                        placeholder="••••••••"
-                        value={loginPassword}
-                        onChange={(e) => setLoginPassword(e.target.value)}
-                        className="pl-10"
-                        required
-                      />
-                    </div>
-                    {errors.password && <p className="text-sm text-destructive">{errors.password}</p>}
-                  </div>
-
-                  <div className="flex justify-end">
-                    <button
-                      type="button"
-                      onClick={() => setActiveTab('reset')}
-                      className="text-sm text-primary hover:underline"
-                    >
-                      Forgot Password?
-                    </button>
-                  </div>
-
-                  <Button type="submit" className="w-full" disabled={loading}>
-                    {loading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
-                    Sign In
-                  </Button>
-                </form>
-              </TabsContent>
-
-              <TabsContent value="signup">
-                <form onSubmit={handleSignup} className="space-y-4">
-                  <div className="space-y-2">
-                    <Label htmlFor="signup-name">Full Name</Label>
-                    <div className="relative">
-                      <User className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
-                      <Input
-                        id="signup-name"
-                        type="text"
-                        placeholder="John Doe"
-                        value={signupName}
-                        onChange={(e) => setSignupName(e.target.value)}
-                        className="pl-10"
-                        required
-                      />
-                    </div>
-                    {errors.fullName && <p className="text-sm text-destructive">{errors.fullName}</p>}
-                  </div>
-
-                  <div className="space-y-2">
-                    <Label htmlFor="signup-email">Email</Label>
-                    <div className="relative">
-                      <Mail className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
-                      <Input
-                        id="signup-email"
-                        type="email"
-                        placeholder="student@example.com"
-                        value={signupEmail}
-                        onChange={(e) => setSignupEmail(e.target.value)}
-                        className="pl-10"
-                        required
-                      />
-                    </div>
-                    {errors.email && <p className="text-sm text-destructive">{errors.email}</p>}
-                  </div>
-
-                  <div className="space-y-2">
-                    <Label htmlFor="signup-mobile">Mobile (Optional)</Label>
-                    <div className="relative">
-                      <Phone className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
-                      <Input
-                        id="signup-mobile"
-                        type="tel"
-                        placeholder="+91 9876543210"
-                        value={signupMobile}
-                        onChange={(e) => setSignupMobile(e.target.value)}
-                        className="pl-10"
-                      />
-                    </div>
-                  </div>
-
-                  <div className="space-y-2">
-                    <Label htmlFor="signup-password">Password</Label>
-                    <div className="relative">
-                      <Lock className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
-                      <Input
-                        id="signup-password"
-                        type="password"
-                        placeholder="••••••••"
-                        value={signupPassword}
-                        onChange={(e) => setSignupPassword(e.target.value)}
-                        className="pl-10"
-                        required
-                      />
-                    </div>
-                    {errors.password && <p className="text-sm text-destructive">{errors.password}</p>}
-                  </div>
-
-                  <div className="space-y-2">
-                    <Label htmlFor="signup-confirm">Confirm Password</Label>
-                    <div className="relative">
-                      <Lock className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
-                      <Input
-                        id="signup-confirm"
-                        type="password"
-                        placeholder="••••••••"
-                        value={signupConfirmPassword}
-                        onChange={(e) => setSignupConfirmPassword(e.target.value)}
-                        className="pl-10"
-                        required
-                      />
-                    </div>
-                    {errors.confirmPassword && <p className="text-sm text-destructive">{errors.confirmPassword}</p>}
-                  </div>
-
-                  <Button type="submit" className="w-full" disabled={loading}>
-                    {loading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
-                    Create Account
-                  </Button>
-                </form>
-              </TabsContent>
-
-              <TabsContent value="reset">
-                <div className="text-center mb-4">
-                  <h3 className="text-lg font-semibold">Reset Password</h3>
-                  <p className="text-sm text-muted-foreground">Enter your email and we'll send you a link to reset your password.</p>
-                </div>
-                <form onSubmit={handleReset} className="space-y-4">
-                  <div className="space-y-2">
-                    <Label htmlFor="reset-email">Email</Label>
-                    <div className="relative">
-                      <Mail className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
-                      <Input
-                        id="reset-email"
-                        type="email"
-                        placeholder="student@example.com"
-                        value={loginEmail}
-                        onChange={(e) => setLoginEmail(e.target.value)}
-                        className="pl-10"
-                        required
-                      />
-                    </div>
-                    {errors.email && <p className="text-sm text-destructive">{errors.email}</p>}
-                  </div>
-
-                  <Button type="submit" className="w-full" disabled={loading}>
-                    {loading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
-                    Send Reset Link
-                  </Button>
-                  
-                  <div className="text-center mt-4">
-                    <button
-                      type="button"
-                      onClick={() => setActiveTab('login')}
-                      className="text-sm text-primary hover:underline"
-                    >
-                      Back to Login
-                    </button>
-                  </div>
-                </form>
-              </TabsContent>
-            </Tabs>
-
-            <div className="mt-6 text-center">
-              <Link to="/" className="text-sm text-muted-foreground hover:text-primary transition-colors">
-                ← Back to Home
-              </Link>
-            </div>
-          </CardContent>
-        </Card>
       </div>
     </div>
   );

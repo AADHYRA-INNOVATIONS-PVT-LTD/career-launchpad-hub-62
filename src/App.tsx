@@ -65,6 +65,9 @@ import CourseLearning from "./pages/dashboard/CourseLearning";
 import ComingSoon from "./components/dashboard/ComingSoon";
 import DashboardProgress from "./pages/dashboard/DashboardProgress";
 import DashboardHRTasks from "./pages/dashboard/DashboardHRTasks";
+import FreelancerDashboard from "./pages/freelancer/FreelancerDashboard";
+import PatientDashboardHome from "./pages/dashboard/PatientDashboard";
+import DoctorDashboardHome from "./pages/dashboard/DoctorDashboard";
 
 // Admin Pages
 import AdminDashboard from "./pages/admin/AdminDashboard";
@@ -172,6 +175,23 @@ const App = () => (
               <Route path="progress" element={<DashboardProgress />} />
               <Route path="profile" element={<DashboardProfile />} />
             </Route>
+
+            {/* Freelancer Dashboard Routes */} 
+            <Route path="/freelancer-dashboard" element={<DashboardLayout role="freelancer" />}>
+              <Route index element={<FreelancerDashboard />} />
+            </Route>
+
+            {/* Patient Dashboard Routes */}
+          <Route path="/patient-dashboard" element={<DashboardLayout role="patient" />}>
+            <Route index element={<PatientDashboardHome />} /> 
+            {/* Add other patient sub-routes here (e.g., appointments, records) */}
+          </Route>
+
+          {/* Doctor Dashboard Routes */}
+          <Route path="/doctor-dashboard" element={<DashboardLayout role="doctor" />}>
+            <Route index element={<DoctorDashboardHome />} /> 
+            {/* Sub-routes like /appointments, /prescriptions go here */}
+          </Route>
 
             {/* Admin Dashboard Routes */}
             <Route path="/admin" element={<DashboardLayout isAdmin />}>

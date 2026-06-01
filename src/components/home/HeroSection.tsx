@@ -63,8 +63,8 @@ const HeroSection = () => {
               { icon: Users, text: "Campus & placement drives across India" },
               { icon: Sparkles, text: "Upcoming: Employer onboarding open now" },
             ]}
-            primaryCta={{ label: "Candidate Login", to: "/auth" }}
-            secondaryCta={{ label: "Employer Login", to: "/employer/auth" }}
+            primaryCta={{ label: "Candidate Login", to: "/auth?role=candidate" }}
+            secondaryCta={{ label: "Employer Login", to: "/auth?role=employer" }}
             learnMore="/placement/talent-connect"
           />
 
@@ -82,8 +82,8 @@ const HeroSection = () => {
               { icon: Sparkles, text: "Escrow payments + portfolio showcase" },
               { icon: Users, text: "Verified freelancers across India" },
             ]}
-            primaryCta={{ label: "Freelancer Login", to: "/auth" }}
-            secondaryCta={{ label: "Project Owner Login", to: "/employer/auth" }}
+            primaryCta={{ label: "Freelancer Login", to: "/auth?role=freelancer" }}
+            secondaryCta={{ label: "Project Owner Login", to: "/auth?role=project_owner" }}
             learnMore="/placement/tech-partner"
           />
 
@@ -101,8 +101,8 @@ const HeroSection = () => {
               { icon: Heart, text: "Lab tests, pharmacy & home nursing" },
               { icon: Building2, text: "Doctors & nurses join the network" },
             ]}
-            primaryCta={{ label: "Patient Login", to: "/auth" }}
-            secondaryCta={{ label: "Doctor / Nurse Login", to: "/employer/auth" }}
+            primaryCta={{ label: "Patient Login", to: "/auth?role=patient" }}
+            secondaryCta={{ label: "Doctor / Nurse Login", to: "/auth?role=doctor" }}
             learnMore="/placement/health-connect"
           />
 

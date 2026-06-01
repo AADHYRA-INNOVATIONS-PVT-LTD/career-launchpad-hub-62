@@ -7,22 +7,25 @@ import { Loader2 } from 'lucide-react';
 
 interface DashboardLayoutProps {
   isAdmin?: boolean;
+  role?: "student" | "freelancer" | "patient" | "doctor" | "employer"; // 1. Added patient to the TypeScript allowed roles
 }
 
-const DashboardLayout = ({ isAdmin = false }: DashboardLayoutProps) => {
+const DashboardLayout = ({ isAdmin, role = "student" }: DashboardLayoutProps) => {
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const { user, loading, isAdmin: userIsAdmin } = useAuth();
   const navigate = useNavigate();
 
+  // 2. Cleaned up duplicate blocks into a single consolidated route-guard hook
   useEffect(() => {
     if (!loading) {
       if (!user) {
-        navigate('/auth');
+        // Appends the current layout role context directly to the fallback route
+        navigate(`/auth?role=${role}`); 
       } else if (isAdmin && !userIsAdmin) {
         navigate('/dashboard');
       }
     }
-  }, [user, loading, isAdmin, userIsAdmin, navigate]);
+  }, [user, loading, isAdmin, userIsAdmin, navigate, role]);
 
   if (loading) {
     return (
@@ -36,11 +39,29 @@ const DashboardLayout = ({ isAdmin = false }: DashboardLayoutProps) => {
     return null;
   }
 
+  // 3. Determine header title text dynamically including the new patient state
+  const getHeaderTitle = () => {
+    if (isAdmin) return 'Admin Dashboard';
+    switch (role) {
+      case 'doctor':
+        return 'Medical Practitioner Portal';
+      case 'patient':
+        return 'Patient Dashboard';
+      case 'freelancer':
+        return 'Freelancer Dashboard';
+      case 'employer':
+        return 'Employer Workspace';
+      case 'student':
+      default:
+        return 'Student Dashboard';
+    }
+  };
+
   return (
     <div className="min-h-screen bg-background flex">
       {/* Desktop Sidebar */}
       <div className="hidden lg:block">
-        <DashboardSidebar isAdmin={isAdmin} />
+        <DashboardSidebar isAdmin={isAdmin} role={role} />
       </div>
 
       {/* Mobile Sidebar Overlay */}
@@ -57,13 +78,14 @@ const DashboardLayout = ({ isAdmin = false }: DashboardLayoutProps) => {
           sidebarOpen ? 'translate-x-0' : '-translate-x-full'
         }`}
       >
-        <DashboardSidebar isAdmin={isAdmin} />
+        <DashboardSidebar isAdmin={isAdmin} role={role} />
       </div>
 
-      {/* Main Content */}
+      {/* Main Content Area */}
       <div className="flex-1 flex flex-col min-w-0">
         <DashboardHeader
-          title={isAdmin ? 'Admin Dashboard' : 'Student Dashboard'}
+          title={getHeaderTitle()}
+          role={role}
           onMenuToggle={() => setSidebarOpen(!sidebarOpen)}
         />
         <main className="flex-1 p-4 lg:p-6 overflow-auto">
