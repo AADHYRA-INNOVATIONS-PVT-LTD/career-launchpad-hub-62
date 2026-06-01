@@ -1,4 +1,4 @@
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
 import { Button } from "@/components/ui/button";
@@ -8,12 +8,15 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Checkbox } from "@/components/ui/checkbox";
 import { Progress } from "@/components/ui/progress";
 import { ScrollArea } from "@/components/ui/scroll-area";
-import { CheckCircle2, ChevronRight, FileText, CreditCard, LayoutDashboard, Shield, AlertTriangle, Lock, MessageSquare } from "lucide-react";
+import { CheckCircle2, ChevronRight, FileText, CreditCard, LayoutDashboard, Shield, AlertTriangle, Lock, MessageSquare, Download } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { useAuth } from "@/contexts/AuthContext";
 import { useNavigate } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
 import { z } from "zod";
+import { useEnrollment } from "@/hooks/useEnrollment";
+import { jsPDF } from "jspdf";
+import autoTable from "jspdf-autotable";
 
 const courses = [
   { value: "java-fullstack", label: "Java Full Stack", category: "IT", price: 19999 },
@@ -47,6 +50,13 @@ const steps = [
   { id: 4, title: "Dashboard", icon: LayoutDashboard },
 ];
 
+const COURSE_ID_MAP: Record<string, string> = {
+  'java-fullstack': '5e2ce23b-394b-40d8-84f1-85c486a2fd6b',
+  'python-fullstack': '587d1c71-9f38-4c25-8187-2fbbd7e71cc8',
+  'ai-ml': '6801bba2-262b-4b38-b486-6e8bcafb3c8e',
+  // You can find these by running: SELECT id, slug FROM courses; in SQL Editor
+};
+
 const ApplyPage = () => {
   const { toast } = useToast();
   const { user } = useAuth();
@@ -73,10 +83,14 @@ const ApplyPage = () => {
   const [isProcessingPayment, setIsProcessingPayment] = useState(false);
   const scrollRef = useRef<HTMLDivElement>(null);
 
+  const { checkEnrollment, createEnrollment } = useEnrollment();
+  const [isAlreadyRegistered, setIsAlreadyRegistered] = useState(false);
+
   const allPoliciesAgreed = Object.values(agreements).every(Boolean);
   const selectedCourse = courses.find(c => c.value === formData.course);
   
   const progress = (currentStep / steps.length) * 100;
+  const [invoiceNo] = useState(`SNX-${Date.now().toString().slice(-8)}`);
 
   const applicationSchema = z.object({
     name: z.string().trim().min(2, "Name must be at least 2 characters").max(100),
@@ -85,6 +99,16 @@ const ApplyPage = () => {
     course: z.string().min(1, "Please select a course"),
     vertical: z.string().min(1, "Please select a preferred vertical"),
   });
+
+  useEffect(() => {
+  // 1. Only run if we have a valid user ID and course label
+    if (user?.id && selectedCourse?.label) {
+      checkEnrollment(user.id, selectedCourse.value).then(res => {
+        if (res.isEnrolled) setIsAlreadyRegistered(true);
+      });
+    }
+  }, [user?.id, selectedCourse?.label]); // 2. Track the primitive string, not the object
+
 
   const handleStep1Submit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -145,20 +169,186 @@ const ApplyPage = () => {
     setCurrentStep(3);
   };
 
-  const handlePayment = async () => {
-    setIsProcessingPayment(true);
+// const handlePayment = async () => {
+//     setIsProcessingPayment(true);
+//   console.log("DEBUG: Current selectedCourse object:", selectedCourse);
+//     const selectedSlug = selectedCourse?.value; 
+//   const courseId = COURSE_ID_MAP[selectedSlug];
+
+//   if (!courseId) {
+//     console.error("Course mapping not found!");
+//     setIsProcessingPayment(false);
+//     return;
+//   }
     
-    // Simulate payment processing
-    await new Promise(resolve => setTimeout(resolve, 2000));
+//     await new Promise(resolve => setTimeout(resolve, 2000));
     
+//     const courseLabel = selectedCourse?.label || 'Selected Course';
+    
+//     // UPDATED: Destructure the error object to see details
+//     const { data, error } = await createEnrollment(user?.id, courseLabel);
+    
+//     if (error) {
+//       console.error("FULL SUPABASE ERROR:", error); // <-- THIS WILL SHOW THE COLUMN NAME
+//       toast({
+//         title: "Enrollment Error",
+//         description: `Details: ${error.message}`, // Shows exact DB error
+//         variant: "destructive",
+//       });
+//       setIsProcessingPayment(false);
+//       return;
+//     }
+
+//     // 3. Show Success Toast
+//     toast({
+//       title: "Payment Successful!",
+//       description: "Your enrollment is confirmed. Invoice sent to your email.",
+//     });
+    
+//     // 4. Finalize UI and Redirect
+//     setIsProcessingPayment(false);
+//     setCurrentStep(4);
+    
+//     // Optional: Redirect after a small delay so they can see the "Success" screen
+//     setTimeout(() => {
+//         navigate('/dashboard');
+//     }, 2000);
+//   };
+
+const handlePaymentGuard = () => {
+  if (isAlreadyRegistered) {
     toast({
-      title: "Payment Successful!",
-      description: "Your enrollment is confirmed. Invoice sent to your email.",
+      title: "Already Registered",
+      description: "You have already registered for this course. Please try a different course.",
+      variant: "destructive",
     });
-    
+    return;
+  }
+  
+  // If not registered, proceed with the actual payment
+  handlePayment();
+};
+
+const handlePayment = async () => {
+  setIsProcessingPayment(true);
+  console.log("DEBUG: Current selectedCourse object:", selectedCourse);
+
+  // 1. Fetch the course ID from your database
+  const { data: course, error: fetchError } = await supabase
+    .from('courses')
+    .select('id')
+    .eq('slug', selectedCourse?.value)
+    .single();
+
+  if (fetchError || !course) {
+    console.error("Course not found:", fetchError);
+    toast({ title: "Error", description: "Course not found.", variant: "destructive" });
     setIsProcessingPayment(false);
+    return;
+  }
+
+  // 2. Save the enrollment
+  const { error: enrollError } = await createEnrollment(user.id, course.id, selectedCourse.price);
+
+  if (enrollError) {
+    console.error("Enrollment failed:", enrollError);
+    
+    // Check if the error code suggests a duplicate entry/violation
+    // Note: Adjust the condition based on your specific Supabase error code (e.g., '23505')
+    if (enrollError.code === '23505' || enrollError.message.toLowerCase().includes('already')) {
+      toast({ 
+        title: "Already Enrolled", 
+        description: "You have already registered for this course. Please try a different course.", 
+        variant: "destructive" 
+      });
+    } else {
+      toast({ 
+        title: "Enrollment Error", 
+        description: "Something went wrong saving your enrollment.", 
+        variant: "destructive" 
+      });
+    }
+  } else {
+    // 3. SUCCESS! Move to the final step
+    toast({
+        title: "Payment Successful!",
+        description: "Your enrollment is confirmed.",
+    });
     setCurrentStep(4);
+  }
+  
+  setIsProcessingPayment(false);
+};
+
+ const handlePaymentSuccess = async () => {
+    // Make sure to use the correct label or value
+    const courseLabel = selectedCourse?.value || 'Java Full Stack';
+    
+    const { error } = await createEnrollment(user?.id, courseLabel, selectedCourse.price);
+    
+    if (!error) {
+      navigate('/dashboard'); // Use the 'navigate' function you already have
+    } else {
+      toast({
+        title: "Enrollment Error",
+        description: "Something went wrong saving your enrollment.",
+        variant: "destructive"
+      });
+    }
   };
+
+ const generateInvoice = (formData: any, selectedCourse: any, invoiceNo: string) => {
+  console.log("Button clicked!");
+  const doc = new jsPDF();
+  
+  // 1. Company Header
+  doc.setFontSize(20);
+  doc.text("Aadhyra Innovations Private Limited", 14, 20);
+  doc.setFontSize(10);
+  doc.text("123 Tech Street, Electronic City Phase 1, Bangalore", 14, 27);
+  doc.text("Email: support@aadhyra.com", 14, 32);
+  
+  // Draw a horizontal line
+  doc.line(14, 37, 195, 37);
+
+  // 2. Invoice Metadata
+  doc.setFontSize(12);
+  doc.text(`Invoice #: ${invoiceNo}`, 140, 45);
+  doc.text(`Date: ${new Date().toLocaleDateString()}`, 140, 52);
+
+  // 3. Bill To Section
+  doc.setFontSize(12);
+  doc.setFont(undefined, 'bold');
+  doc.text("Bill To:", 14, 45);
+  doc.setFont(undefined, 'normal');
+  doc.text(formData.name, 14, 52);
+  doc.text(formData.email, 14, 59);
+  doc.text(formData.mobile, 14, 66);
+
+  // 4. Items Table
+  autoTable(doc, {
+    startY: 80,
+    head: [['Description', 'Category', 'Amount']],
+    body: [
+      [
+        selectedCourse.value, 
+        selectedCourse.category, 
+        'Rs. ' + selectedCourse.price.toLocaleString('en-IN')
+      ],
+    ],
+    foot: [
+      ['', 'Total', 'Rs. ' + selectedCourse.price.toLocaleString('en-IN')]
+    ],
+    theme: 'grid',
+    headStyles: { fillColor: [41, 128, 185] },
+  });
+
+  // 5. Footer / Disclaimer
+  doc.setFontSize(9);
+  doc.text("Note: Fees are non-refundable. This is a computer-generated invoice.", 14, 280);
+
+  doc.save(`Invoice_${invoiceNo}.pdf`);
+};
 
   const handleGoToDashboard = () => {
     if (user) {
@@ -564,18 +754,27 @@ const ApplyPage = () => {
                     <Button variant="outline" onClick={() => setCurrentStep(2)}>
                       Back
                     </Button>
-                    <Button 
+                    {/* <Button 
                       variant="hero" 
                       size="lg" 
                       className="flex-1"
-                      onClick={handlePayment}
-                      disabled={isProcessingPayment}
+                      onClick={handlePaymentGuard}
+                     disabled={isProcessingPayment || isAlreadyRegistered}
                     >
                       {isProcessingPayment ? (
                         <>Processing...</>
                       ) : (
                         <>Pay ₹{selectedCourse?.price.toLocaleString()} <ChevronRight className="h-5 w-5 ml-2" /></>
                       )}
+                    </Button> */}
+                    <Button 
+                      variant="hero" 
+                      size="lg" 
+                      className="flex-1"
+                      onClick={handlePaymentGuard}
+                      disabled={isProcessingPayment || isAlreadyRegistered} // <--- Disable if already registered
+                    >
+                      {isAlreadyRegistered ? "Already Enrolled" : isProcessingPayment ? "Processing..." : "Pay Now"}
                     </Button>
                   </div>
                   
@@ -606,7 +805,8 @@ const ApplyPage = () => {
                     <div className="space-y-2 text-sm">
                       <div className="flex justify-between">
                         <span className="text-muted-foreground">Invoice No.</span>
-                        <span className="font-mono">SNX-{Date.now().toString().slice(-8)}</span>
+                        {/* <span className="font-mono">SNX-{Date.now().toString().slice(-8)}</span> */}
+                        <span className="font-mono">{invoiceNo}</span>
                       </div>
                       <div className="flex justify-between">
                         <span className="text-muted-foreground">Course</span>
@@ -630,7 +830,15 @@ const ApplyPage = () => {
                   </div>
                   
                   <div className="flex flex-col sm:flex-row gap-4">
-                    <Button variant="outline" className="flex-1">
+                    <Button 
+                      variant="outline" 
+                      className="flex-1"
+                      onClick={() => {
+                        console.log("Debug:", { formData, selectedCourse, invoiceNo });
+                        generateInvoice(formData, selectedCourse, invoiceNo);
+                      }}
+                    >
+                      <Download className="mr-2 h-4 w-4" /> 
                       Download Invoice (PDF)
                     </Button>
                     <Button variant="hero" size="lg" className="flex-1" onClick={handleGoToDashboard}>

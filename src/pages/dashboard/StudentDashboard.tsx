@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { useAuth } from '@/contexts/AuthContext';
 import { supabase } from '@/integrations/supabase/client';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
@@ -29,16 +29,19 @@ interface DashboardStats {
   certificates: number;
   pendingPayments: number;
   overallProgress: number;
+  totalPaid: number;
 }
 
 const DashboardHome = () => {
   const { profile, user } = useAuth();
+  const location = useLocation();
   const [stats, setStats] = useState<DashboardStats>({
     enrolledCourses: 0,
     completedCourses: 0,
     certificates: 0,
     pendingPayments: 0,
     overallProgress: 0,
+    totalPaid: 0,
   });
   const [loading, setLoading] = useState(true);
 
@@ -48,10 +51,14 @@ const DashboardHome = () => {
 
       try {
         // Fetch enrollments
-        const { data: enrollments } = await supabase
+        const { data: enrollments ,error} = await supabase
           .from('enrollments')
           .select('status, progress')
           .eq('user_id', user.id);
+
+          console.log("DEBUG: User ID is", user.id);
+          console.log("DEBUG: Fetched enrollments are", enrollments);
+          console.log("DEBUG: Any errors?", error);
 
         // Fetch certificates
         const { data: certificates } = await supabase
@@ -60,11 +67,20 @@ const DashboardHome = () => {
           .eq('user_id', user.id);
 
         // Fetch pending payments
-        const { data: payments } = await supabase
+        const { data: payments, error: payError } = await supabase
           .from('course_payments')
-          .select('id')
+          // .select('id')
+          .select('amount, status', { count: 'exact' })
           .eq('user_id', user.id)
-          .eq('status', 'pending');
+          // .eq('status', 'pending'); // Added filter here
+        
+        console.log("DEBUG: All payments:", payments);
+        console.log("DEBUG: Pending payments count:", payments?.length);
+
+        const pending = payments?.filter(p => p.status === 'pending') || [];
+        const successful = payments?.filter(p => p.status === 'success') || [];
+
+        const totalPaidAmount = successful.reduce((sum, p) => sum + (p.amount || 0), 0);
 
         const enrolled = enrollments?.filter(e => e.status === 'active').length || 0;
         const completed = enrollments?.filter(e => e.status === 'completed').length || 0;
@@ -76,8 +92,9 @@ const DashboardHome = () => {
           enrolledCourses: enrolled,
           completedCourses: completed,
           certificates: certificates?.length || 0,
-          pendingPayments: payments?.length || 0,
+          pendingPayments: pending.length || 0,
           overallProgress: Math.round(avgProgress),
+          totalPaid: totalPaidAmount,
         });
       } catch (error) {
         console.error('Error fetching stats:', error);
@@ -87,7 +104,7 @@ const DashboardHome = () => {
     };
 
     fetchStats();
-  }, [user]);
+  }, [user,location.pathname]);
 
   if (loading) {
     return (
@@ -131,6 +148,14 @@ const DashboardHome = () => {
         <StatCard label="Completed" value={stats.completedCourses} note="Courses finished" Icon={Trophy} gradient="from-healthcare to-emerald-600" />
         <StatCard label="Certificates" value={stats.certificates} note="Verified by QR" Icon={Award} gradient="from-marketing to-orange-600" />
         <StatCard label="Progress" value={`${stats.overallProgress}%`} note={<Progress value={stats.overallProgress} className="mt-1 h-1.5" />} Icon={TrendingUp} gradient="from-design to-pink-600" />
+        {/* <StatCard 
+          label="Pending Payments" 
+          value={stats.pendingPayments} 
+          note={stats.pendingPayments > 0 ? "Action Required!" : "No pending payments"} 
+          Icon={CreditCard} 
+          gradient="from-red-500 to-orange-600" 
+        /> */}
+        {/* <StatCard label="Total Paid" value={`₹${stats.totalPaid}`} note="Successfully cleared" Icon={CreditCard} gradient="from-marketing to-orange-600" /> */}
       </div>
 
       {/* Career Progress Tracker */}

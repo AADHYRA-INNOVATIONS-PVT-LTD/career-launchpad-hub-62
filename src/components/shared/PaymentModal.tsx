@@ -93,52 +93,60 @@ const PaymentModal = ({ isOpen, onClose, amount, onSuccess, title = "Complete Pa
                   <span className={`text-sm font-medium ${method === "card" ? "text-primary" : "text-muted-foreground"}`}>Card</span>
                 </button>
               </div>
-
-              {/* Dynamic Input Form */}
-              <div className="space-y-4 animate-in fade-in slide-in-from-bottom-2 duration-300">
-                {method === "upi" ? (
-                  <div className="space-y-2">
-                    <Label>UPI ID</Label>
-                    <Input placeholder="username@upi" className="bg-background/50" />
-                  </div>
-                ) : (
-                  <div className="space-y-3">
-                    <div className="space-y-2">
-                      <Label>Card Number</Label>
-                      <Input placeholder="0000 0000 0000 0000" className="bg-background/50" />
-                    </div>
-                    <div className="grid grid-cols-2 gap-3">
+                <form 
+                  onSubmit={(e) => {
+                    e.preventDefault();
+                    handlePay(); 
+                  }} 
+                  className="space-y-6"
+                >
+                  {/* Dynamic Input Form */}
+                  <div className="space-y-4 animate-in fade-in slide-in-from-bottom-2 duration-300">
+                    {method === "upi" ? (
                       <div className="space-y-2">
-                        <Label>Expiry</Label>
-                        <Input placeholder="MM/YY" className="bg-background/50" />
+                        <Label>UPI ID</Label>
+                        <Input placeholder="username@upi" className="bg-background/50" required />
                       </div>
-                      <div className="space-y-2">
-                        <Label>CVV</Label>
-                        <Input placeholder="123" type="password" maxLength={3} className="bg-background/50" />
+                    ) : (
+                      <div className="space-y-3">
+                        <div className="space-y-2">
+                          <Label>Card Number</Label>
+                          <Input placeholder="0000 0000 0000 0000" className="bg-background/50" required/>
+                        </div>
+                        <div className="grid grid-cols-2 gap-3">
+                          <div className="space-y-2">
+                            <Label>Expiry</Label>
+                            <Input placeholder="MM/YY" className="bg-background/50" required/>
+                          </div>
+                          <div className="space-y-2">
+                            <Label>CVV</Label>
+                            <Input placeholder="123" type="password" maxLength={3} className="bg-background/50" required />
+                          </div>
+                        </div>
                       </div>
-                    </div>
+                    )}
                   </div>
-                )}
-              </div>
-
-              <Button 
-                className="w-full h-12 text-lg font-bold bg-gradient-to-r from-primary to-tech hover:opacity-90 transition-opacity" 
-                onClick={handlePay}
-                disabled={processing}
-              >
-                {processing ? (
-                  <>
-                    <Loader2 className="mr-2 h-5 w-5 animate-spin" />
-                    Processing Payment...
-                  </>
-                ) : (
-                  `Pay ₹${amount}`
-                )}
-              </Button>
-              
-              <p className="text-center text-xs text-muted-foreground mt-4 flex items-center justify-center gap-1">
-                <ShieldCheck className="h-3 w-3" /> Secured by MockPay Integration
-              </p>
+                
+                  <Button 
+                    type="submit"
+                    className="w-full h-12 text-lg font-bold bg-gradient-to-r from-primary to-tech hover:opacity-90 transition-opacity" 
+                    // REMOVE THE onClick={handlePay} LINE FROM HERE
+                    disabled={processing}
+                  >
+                    {processing ? (
+                      <>
+                        <Loader2 className="mr-2 h-5 w-5 animate-spin" />
+                        Processing Payment...
+                      </>
+                    ) : (
+                      `Pay ₹${amount}`
+                    )}
+                  </Button>
+                  
+                  <p className="text-center text-xs text-muted-foreground mt-4 flex items-center justify-center gap-1">
+                    <ShieldCheck className="h-3 w-3" /> Secured by MockPay Integration
+                  </p>
+                </form>
             </div>
           )}
         </div>
