@@ -20,7 +20,7 @@ import { useAuth } from "@/contexts/AuthContext";
 const AuthPage = () => {
   const [searchParams] = useSearchParams();
   const navigate = useNavigate();
-  const { signIn } = useAuth(); 
+  const { signIn, signUp } = useAuth(); 
 
   const [isSignUp, setIsSignUp] = useState(false);
   const [email, setEmail] = useState("");
@@ -94,90 +94,62 @@ const AuthPage = () => {
     setError(null);
     setIsLoading(true);
 
-    setTimeout(async () => {
-      const localUsersExist = localStorage.getItem("mock_registered_users");
-      let usersList = localUsersExist ? JSON.parse(localUsersExist) : [];
-
+    try {
       if (isSignUp) {
-        // --- RESTORED PASSWORDS MATCH CHECK ---
         if (password !== confirmPassword) {
           setError("Passwords do not match.");
           setIsLoading(false);
           return;
         }
 
-        // --- UPDATED SIGNUP LOGIC: Check email AND role combination ---
-        const userExistsInThisPortal = usersList.some(
-          (u: any) => u.email.toLowerCase() === email.toLowerCase() && u.role === role
-        );
-
-        if (userExistsInThisPortal) {
-          setError(`An account with this email already exists inside the ${currentPortal.title}.`);
+        const { error } = await signUp(email, password, name, mobile, role);
+        
+        if (error) {
+          setError(error.message);
           setIsLoading(false);
           return;
         }
 
-        // Save new user tracking data locally with the specific role isolated
-        const newUser = { name, email, mobile, password, role };
-        usersList.push(newUser);
-        localStorage.setItem("mock_registered_users", JSON.stringify(usersList));
-        
-        alert(`Account registered successfully for the ${currentPortal.title}! Switching to login tab...`);
+        alert(`Account registered successfully for the ${currentPortal.title}! Please sign in.`);
         setIsSignUp(false); 
+        setPassword("");
+        setConfirmPassword("");
         setIsLoading(false);
         return;
 
       } else {
-        // --- UPDATED LOGIN CHECK: Find user matching BOTH email and current portal role ---
-        const foundUser = usersList.find(
-          (u: any) => u.email.toLowerCase() === email.toLowerCase() && u.role === role
-        );
+        const { error } = await signIn(email, password);
 
-        // If no record matches this email FOR THIS SPECIFIC PORTAL ROLE
-        if (!foundUser) {
-          setError(currentPortal.errorMsg); // Dynamically shows "No record found matching this email on Health Connect", etc.
-          setIsLoading(false);
-          return;
-        }
-
-        if (foundUser.password !== password) {
-          setError("Incorrect password. Please try again.");
-          setIsLoading(false);
-          return;
-        }
-
-        try {
-          if (signIn) {
-            await signIn(email, password);
-          }
-
-          localStorage.setItem("isAuthenticated", "true");
-          localStorage.setItem("userRole", role);
-          localStorage.setItem("currentUser", JSON.stringify(foundUser));
-
-          // Clear route locks and navigate cleanly to the correct portal board
-          if (role === "admin") {
-            navigate("/admin", { replace: true });
-          } else if (role === "employer" || role === "project_owner") {
-            navigate("/employer", { replace: true });
-          } else if (role === "freelancer") {
-            navigate("/freelancer-dashboard", { replace: true });
-          } else if (role === "patient") {
-            navigate("/patient-dashboard", { replace: true });
-            } else if (role === "doctor") {
-          navigate("/doctor-dashboard", { replace: true });
+        if (error) {
+          if (error.message === 'Invalid login credentials') {
+            setError("Incorrect email or password. Please try again.");
           } else {
-            navigate("/dashboard", { replace: true });
+            setError(error.message);
           }
-
-        } catch (authHookError: any) {
-          // Absolute fallback route if context hook throws internal database constraints
-          navigate("/dashboard", { replace: true });
-        } finally {
           setIsLoading(false);
+          return;
+        }
+
+        // Navigate cleanly to the correct portal board
+        if (role === "admin") {
+          navigate("/admin", { replace: true });
+        } else if (role === "employer" || role === "project_owner") {
+          navigate("/employer", { replace: true });
+        } else if (role === "freelancer") {
+          navigate("/freelancer-dashboard", { replace: true });
+        } else if (role === "patient") {
+          navigate("/patient-dashboard", { replace: true });
+        } else if (role === "doctor") {
+          navigate("/doctor-dashboard", { replace: true });
+        } else {
+          navigate("/dashboard", { replace: true });
         }
       }
-    }, 400);
+    } catch (err: any) {
+      setError(err.message || "An unexpected error occurred.");
+    } finally {
+      setIsLoading(false);
+    }
   };
   return (
     <div className="min-h-screen bg-background flex flex-col items-center justify-center p-4">
