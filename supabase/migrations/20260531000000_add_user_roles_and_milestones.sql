@@ -42,7 +42,14 @@ ALTER TABLE interview_attempts ENABLE ROW LEVEL SECURITY;
 ALTER TABLE resume_data ENABLE ROW LEVEL SECURITY;
 
 -- 7. Secure Row-Level Access Policies
+DROP POLICY IF EXISTS "Users can view their own fee status" ON interview_fee_payments;
 CREATE POLICY "Users can view their own fee status" ON interview_fee_payments FOR SELECT USING (auth.uid() = user_id);
+
+DROP POLICY IF EXISTS "Users can view their own interview attempts" ON interview_attempts;
 CREATE POLICY "Users can view their own interview attempts" ON interview_attempts FOR SELECT USING (auth.uid() = user_id);
+
+DROP POLICY IF EXISTS "Users can insert their own interview attempts" ON interview_attempts;
 CREATE POLICY "Users can insert their own interview attempts" ON interview_attempts FOR INSERT WITH CHECK (auth.uid() = user_id);
+
+DROP POLICY IF EXISTS "Users can manage their own resume data" ON resume_data;
 CREATE POLICY "Users can manage their own resume data" ON resume_data FOR ALL USING (auth.uid() = user_id);

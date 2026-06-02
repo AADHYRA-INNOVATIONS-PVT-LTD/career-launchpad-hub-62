@@ -30,6 +30,8 @@ interface DashboardStats {
   pendingPayments: number;
   overallProgress: number;
   totalPaid: number;
+  internshipsCount: number;
+  hasResume: boolean;
 }
 
 const DashboardHome = () => {
@@ -42,6 +44,8 @@ const DashboardHome = () => {
     pendingPayments: 0,
     overallProgress: 0,
     totalPaid: 0,
+    internshipsCount: 0,
+    hasResume: false,
   });
   const [loading, setLoading] = useState(true);
 
@@ -82,6 +86,19 @@ const DashboardHome = () => {
 
         const totalPaidAmount = successful.reduce((sum, p) => sum + (p.amount || 0), 0);
 
+        // Fetch internships
+        const { data: internships } = await supabase
+          .from('internships')
+          .select('id')
+          .eq('user_id', user.id);
+
+        // Fetch resume
+        const { data: resume } = await supabase
+          .from('resume_data')
+          .select('id')
+          .eq('user_id', user.id)
+          .maybeSingle();
+
         const enrolled = enrollments?.filter(e => e.status === 'active').length || 0;
         const completed = enrollments?.filter(e => e.status === 'completed').length || 0;
         const avgProgress = enrollments?.length 
@@ -95,6 +112,8 @@ const DashboardHome = () => {
           pendingPayments: pending.length || 0,
           overallProgress: Math.round(avgProgress),
           totalPaid: totalPaidAmount,
+          internshipsCount: internships?.length || 0,
+          hasResume: !!resume,
         });
       } catch (error) {
         console.error('Error fetching stats:', error);
@@ -177,8 +196,8 @@ const DashboardHome = () => {
           <div className="grid grid-cols-2 md:grid-cols-5 gap-3">
             <Milestone Icon={GraduationCap} label="Course" done={stats.enrolledCourses > 0} color="text-tech bg-tech/10" />
             <Milestone Icon={Target} label="Learning" done={stats.overallProgress > 30} color="text-marketing bg-marketing/10" />
-            <Milestone Icon={Briefcase} label="Internship" done={stats.overallProgress > 60} color="text-design bg-design/10" />
-            <Milestone Icon={FileText} label="Resume" done={stats.overallProgress > 80} color="text-hr bg-hr/10" />
+            <Milestone Icon={Briefcase} label="Internship" done={stats.internshipsCount > 0} color="text-design bg-design/10" />
+            <Milestone Icon={FileText} label="Resume" done={stats.hasResume} color="text-hr bg-hr/10" />
             <Milestone Icon={Trophy} label="Placement" done={stats.completedCourses > 0} color="text-healthcare bg-healthcare/10" />
           </div>
         </CardContent>

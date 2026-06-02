@@ -89,7 +89,7 @@ const DashboardInterview = () => {
         .select('status')
         .eq('user_id', user.id)
         .eq('course_id', categoryId)
-        .single();
+        .maybeSingle();
 
       // Check interview attempts
       const { data: attempts } = await supabase
@@ -150,12 +150,12 @@ const DashboardInterview = () => {
       // Create payment record
       const { error } = await supabase
         .from('interview_fee_payments')
-        .insert({
+        .upsert({
           user_id: user.id,
           course_id: selectedCategory.id,
           amount: 499,
           status: 'success', // For demo - in production, integrate with Razorpay
-        });
+        }, { onConflict: 'user_id,course_id' });
 
       if (error) throw error;
 

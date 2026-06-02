@@ -56,11 +56,10 @@ const DoctorDashboard = () => {
 
       try {
         // Fetch appointments assigned to this provider/doctor
-        // Cast the database instance to 'any' to bypass strict table name checking temporarily
-        const { data: appointmentsData, error } = await (supabase as any)
-        .from('appointments')
-        .select('id, appointment_time, status, patient_profiles(full_name), type')
-        .eq('doctor_id', user.id);
+        const { data: appointmentsData, error } = await supabase
+          .from('appointments')
+          .select('id, appointment_time, status, patient_id')
+          .eq('doctor_id', user.id);
 
         if (error) {
           console.error('Error fetching appointments:', error);
@@ -79,15 +78,29 @@ const DoctorDashboard = () => {
           clinicalEfficiencyScore: 96,
         });
 
+        // Fetch patient profiles for these appointments
+        let profilesData: any[] = [];
+        if (appointmentsData && appointmentsData.length > 0) {
+          const patientIds = [...new Set(appointmentsData.map((a: any) => a.patient_id))];
+          const { data: profiles } = await supabase
+            .from('profiles')
+            .select('user_id, full_name')
+            .in('user_id', patientIds);
+          profilesData = profiles || [];
+        }
+
         // Seed structured patient queue items
         if (appointmentsData && appointmentsData.length > 0) {
-          const mapped: QuickAppointment[] = appointmentsData.slice(0, 3).map((a: any) => ({
-            id: a.id,
-            patientName: a.patient_profiles?.full_name || 'In-Network Patient',
-            time: new Date(a.appointment_time).toLocaleTimeString('en-IN', { hour: '2-digit', minute: '2-digit' }),
-            type: a.type || 'General Consultation',
-            status: a.status === 'pending' ? 'scheduled' : 'waiting'
-          }));
+          const mapped: QuickAppointment[] = appointmentsData.slice(0, 3).map((a: any) => {
+            const patientProfile = profilesData.find(p => p.user_id === a.patient_id);
+            return {
+              id: a.id,
+              patientName: patientProfile?.full_name || 'In-Network Patient',
+              time: new Date(a.appointment_time || new Date()).toLocaleTimeString('en-IN', { hour: '2-digit', minute: '2-digit' }),
+              type: 'General Consultation',
+              status: a.status === 'scheduled' || a.status === 'pending' ? 'scheduled' : 'waiting'
+            };
+          });
           setAppointments(mapped);
         } else {
           // Fallback static production mock if schema linking setup is mid-migration

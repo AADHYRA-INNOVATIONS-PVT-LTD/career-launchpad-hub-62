@@ -22,6 +22,8 @@ interface DashboardStats {
   activeJobs: number;
   totalApplications: number;
   pendingApplications: number;
+  shortlistedCandidates: number;
+  hiredCandidates: number;
 }
 
 interface RecentApplication {
@@ -64,6 +66,8 @@ const EmployerDashboard = () => {
         
         let totalApplications = 0;
         let pendingApplications = 0;
+        let shortlistedCandidates = 0;
+        let hiredCandidates = 0;
         let applications: any[] = [];
 
         if (jobIds.length > 0) {
@@ -85,6 +89,8 @@ const EmployerDashboard = () => {
           applications = appData || [];
           totalApplications = applications.length;
           pendingApplications = applications.filter(a => a.status === 'applied').length;
+          shortlistedCandidates = applications.filter(a => a.status === 'shortlisted').length;
+          hiredCandidates = applications.filter(a => a.status === 'hired').length;
 
           // Fetch profile names for applications
           const userIds = applications.map(a => a.user_id);
@@ -106,6 +112,8 @@ const EmployerDashboard = () => {
           activeJobs,
           totalApplications,
           pendingApplications,
+          shortlistedCandidates,
+          hiredCandidates,
         });
         setRecentApplications(applications);
       } catch (error) {
@@ -171,7 +179,7 @@ const EmployerDashboard = () => {
       )}
 
       {/* Stats Grid */}
-      <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
+      <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6">
         <Card>
           <CardHeader className="flex flex-row items-center justify-between pb-2">
             <CardTitle className="text-sm font-medium">Total Jobs</CardTitle>
@@ -220,6 +228,32 @@ const EmployerDashboard = () => {
             <div className="text-2xl font-bold">{stats?.pendingApplications || 0}</div>
             <p className="text-xs text-muted-foreground">
               Awaiting your action
+            </p>
+          </CardContent>
+        </Card>
+
+        <Card>
+          <CardHeader className="flex flex-row items-center justify-between pb-2">
+            <CardTitle className="text-sm font-medium">Shortlisted</CardTitle>
+            <CheckCircle2 className="h-4 w-4 text-muted-foreground" />
+          </CardHeader>
+          <CardContent>
+            <div className="text-2xl font-bold">{stats?.shortlistedCandidates || 0}</div>
+            <p className="text-xs text-muted-foreground">
+              Moved to next round
+            </p>
+          </CardContent>
+        </Card>
+
+        <Card>
+          <CardHeader className="flex flex-row items-center justify-between pb-2">
+            <CardTitle className="text-sm font-medium">Hired</CardTitle>
+            <TrendingUp className="h-4 w-4 text-muted-foreground" />
+          </CardHeader>
+          <CardContent>
+            <div className="text-2xl font-bold">{stats?.hiredCandidates || 0}</div>
+            <p className="text-xs text-muted-foreground">
+              Successfully hired
             </p>
           </CardContent>
         </Card>

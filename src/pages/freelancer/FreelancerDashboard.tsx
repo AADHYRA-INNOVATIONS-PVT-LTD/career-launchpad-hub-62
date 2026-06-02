@@ -22,21 +22,21 @@ import {
 } from 'lucide-react';
 
 interface DashboardStats {
-  enrolledCourses: number;
-  completedCourses: number;
-  certificates: number;
-  pendingPayments: number;
-  overallProgress: number;
+  totalBids: number;
+  activeProjects: number;
+  completedProjects: number;
+  earnings: number;
+  milestonesCompleted: number;
 }
 
 const DashboardHome = () => {
   const { profile, user } = useAuth();
   const [stats, setStats] = useState<DashboardStats>({
-    enrolledCourses: 0,
-    completedCourses: 0,
-    certificates: 0,
-    pendingPayments: 0,
-    overallProgress: 0,
+    totalBids: 0,
+    activeProjects: 0,
+    completedProjects: 0,
+    earnings: 0,
+    milestonesCompleted: 0,
   });
   const [loading, setLoading] = useState(true);
 
@@ -45,37 +45,38 @@ const DashboardHome = () => {
       if (!user) return;
 
       try {
-        // Fetch enrollments
-        const { data: enrollments } = await supabase
-          .from('enrollments')
-          .select('status, progress')
-          .eq('user_id', user.id);
+        // Fetch bids
+        const { data: bids } = await supabase
+          .from('project_bids')
+          .select('id, status')
+          .eq('freelancer_id', user.id);
 
-        // Fetch certificates
-        const { data: certificates } = await supabase
-          .from('certificates')
-          .select('id')
-          .eq('user_id', user.id);
+        // Fetch earnings
+        const { data: earnings } = await supabase
+          .from('freelancer_earnings')
+          .select('amount, status')
+          .eq('freelancer_id', user.id);
 
-        // Fetch pending payments
-        const { data: payments } = await supabase
-          .from('course_payments')
-          .select('id')
-          .eq('user_id', user.id)
-          .eq('status', 'pending');
+        // Fetch milestones
+        const { data: milestones } = await supabase
+          .from('project_milestones')
+          .select('id, status')
+          .eq('freelancer_id', user.id);
 
-        const enrolled = enrollments?.filter(e => e.status === 'active').length || 0;
-        const completed = enrollments?.filter(e => e.status === 'completed').length || 0;
-        const avgProgress = enrollments?.length 
-          ? enrollments.reduce((acc, e) => acc + (e.progress || 0), 0) / enrollments.length 
-          : 0;
+        const totalBids = bids?.length || 0;
+        const activeProjects = bids?.filter(b => b.status === 'accepted').length || 0;
+        const completedMilestones = milestones?.filter(m => m.status === 'completed' || m.status === 'approved').length || 0;
+        const totalEarnings = earnings?.reduce((acc, curr) => acc + (curr.amount || 0), 0) || 0;
+        
+        // Mocking completed projects for now as it would normally derive from all milestones being completed
+        const completedProjects = Math.floor(completedMilestones / 3);
 
         setStats({
-          enrolledCourses: enrolled,
-          completedCourses: completed,
-          certificates: certificates?.length || 0,
-          pendingPayments: payments?.length || 0,
-          overallProgress: Math.round(avgProgress),
+          totalBids,
+          activeProjects,
+          completedProjects,
+          earnings: totalEarnings,
+          milestonesCompleted: completedMilestones,
         });
       } catch (error) {
         console.error('Error fetching stats:', error);
@@ -107,17 +108,17 @@ const DashboardHome = () => {
               <Sparkles className="h-3.5 w-3.5" /> {new Date().toLocaleDateString('en-IN', { weekday: 'long', day: 'numeric', month: 'short' })}
             </span>
             <h2 className="text-2xl md:text-3xl font-heading font-bold mb-2">
-              Welcome back, {profile?.full_name?.split(' ')[0] || 'Student'}! 👋
+              Welcome back, {profile?.full_name?.split(' ')[0] || 'Freelancer'}! 👋
             </h2>
             <p className="text-white/85 max-w-xl">
-              Your career engine is running. Keep learning, building & shipping — placements love consistency.
+              Your freelance dashboard is live. Find projects, submit bids, and track your earnings all in one place.
             </p>
           </div>
           <div className="flex items-center gap-3 bg-white/10 backdrop-blur rounded-xl p-3 border border-white/20">
             <Flame className="h-8 w-8 text-orange-300" />
             <div>
-              <div className="text-2xl font-bold">{Math.max(stats.overallProgress, 1)}🔥</div>
-              <div className="text-[10px] uppercase tracking-wider text-white/80">Day Streak</div>
+              <div className="text-2xl font-bold">₹{stats.earnings}</div>
+              <div className="text-[10px] uppercase tracking-wider text-white/80">Total Earned</div>
             </div>
           </div>
         </div>
@@ -125,10 +126,10 @@ const DashboardHome = () => {
 
       {/* Colorful Stats Grid */}
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
-        <StatCard label="Enrolled" value={stats.enrolledCourses} note="Active courses" Icon={BookOpen} gradient="from-tech to-blue-600" />
-        <StatCard label="Completed" value={stats.completedCourses} note="Courses finished" Icon={Trophy} gradient="from-healthcare to-emerald-600" />
-        <StatCard label="Certificates" value={stats.certificates} note="Verified by QR" Icon={Award} gradient="from-marketing to-orange-600" />
-        <StatCard label="Progress" value={`${stats.overallProgress}%`} note={<Progress value={stats.overallProgress} className="mt-1 h-1.5" />} Icon={TrendingUp} gradient="from-design to-pink-600" />
+        <StatCard label="Total Bids" value={stats.totalBids} note="Applications sent" Icon={FileText} gradient="from-tech to-blue-600" />
+        <StatCard label="Active Projects" value={stats.activeProjects} note="Currently working on" Icon={Briefcase} gradient="from-healthcare to-emerald-600" />
+        <StatCard label="Milestones" value={stats.milestonesCompleted} note="Successfully delivered" Icon={Target} gradient="from-marketing to-orange-600" />
+        <StatCard label="Total Earnings" value={`₹${stats.earnings}`} note="Lifetime cleared" Icon={TrendingUp} gradient="from-design to-pink-600" />
       </div>
 
       {/* Career Progress Tracker */}
@@ -147,12 +148,11 @@ const DashboardHome = () => {
           </div>
         </CardHeader>
         <CardContent>
-          <div className="grid grid-cols-2 md:grid-cols-5 gap-3">
-            <Milestone Icon={GraduationCap} label="Course" done={stats.enrolledCourses > 0} color="text-tech bg-tech/10" />
-            <Milestone Icon={Target} label="Learning" done={stats.overallProgress > 30} color="text-marketing bg-marketing/10" />
-            <Milestone Icon={Briefcase} label="Internship" done={stats.overallProgress > 60} color="text-design bg-design/10" />
-            <Milestone Icon={FileText} label="Resume" done={stats.overallProgress > 80} color="text-hr bg-hr/10" />
-            <Milestone Icon={Trophy} label="Placement" done={stats.completedCourses > 0} color="text-healthcare bg-healthcare/10" />
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
+            <Milestone Icon={FileText} label="First Bid" done={stats.totalBids > 0} color="text-tech bg-tech/10" />
+            <Milestone Icon={Briefcase} label="First Project" done={stats.activeProjects > 0} color="text-marketing bg-marketing/10" />
+            <Milestone Icon={Target} label="First Milestone" done={stats.milestonesCompleted > 0} color="text-design bg-design/10" />
+            <Milestone Icon={Trophy} label="First Earnings" done={stats.earnings > 0} color="text-healthcare bg-healthcare/10" />
           </div>
         </CardContent>
       </Card>
@@ -164,12 +164,10 @@ const DashboardHome = () => {
             <CardTitle className="font-heading">Quick Actions</CardTitle>
           </CardHeader>
           <CardContent className="grid grid-cols-2 gap-3">
-            <ActionTile to="/dashboard/interview" Icon={ClipboardCheck} label="Mock Interview" gradient="from-tech/15 to-tech/5" color="text-tech" />
-            <ActionTile to="/dashboard/courses" Icon={BookOpen} label="My Courses" gradient="from-marketing/15 to-marketing/5" color="text-marketing" />
-            <ActionTile to="/dashboard/resume" Icon={FileText} label="Build Resume" gradient="from-design/15 to-design/5" color="text-design" />
-            <ActionTile to="/dashboard/portfolio" Icon={Sparkles} label="Portfolio" gradient="from-healthcare/15 to-healthcare/5" color="text-healthcare" />
-            <ActionTile to="/dashboard/internship" Icon={Briefcase} label="Internship" gradient="from-hr/15 to-hr/5" color="text-hr" />
-            <ActionTile to="/dashboard/placement" Icon={Trophy} label="Placement" gradient="from-primary/15 to-primary/5" color="text-primary" />
+            <ActionTile to="/freelancer-dashboard/projects" Icon={Briefcase} label="Find Projects" gradient="from-tech/15 to-tech/5" color="text-tech" />
+            <ActionTile to="/freelancer-dashboard/bids" Icon={FileText} label="My Bids" gradient="from-marketing/15 to-marketing/5" color="text-marketing" />
+            <ActionTile to="/freelancer-dashboard/earnings" Icon={TrendingUp} label="Earnings" gradient="from-design/15 to-design/5" color="text-design" />
+            <ActionTile to="/freelancer-dashboard/portfolio" Icon={Sparkles} label="Portfolio" gradient="from-healthcare/15 to-healthcare/5" color="text-healthcare" />
           </CardContent>
         </Card>
 
@@ -184,9 +182,9 @@ const DashboardHome = () => {
                   1
                 </div>
                 <div>
-                  <h4 className="font-medium">Select Your Course</h4>
+                  <h4 className="font-medium">Complete Your Portfolio</h4>
                   <p className="text-sm text-muted-foreground">
-                    Choose from IT, HR, Digital Marketing, Design, or Nursing
+                    Showcase your best work to increase your chances of winning bids.
                   </p>
                 </div>
               </div>
@@ -195,9 +193,9 @@ const DashboardHome = () => {
                   2
                 </div>
                 <div>
-                  <h4 className="font-medium">Pay Evaluation Fee (₹499)</h4>
+                  <h4 className="font-medium">Browse Live Projects</h4>
                   <p className="text-sm text-muted-foreground">
-                    Complete the entrance test to unlock course enrollment
+                    Find projects that match your skills and submit competitive bids.
                   </p>
                 </div>
               </div>
@@ -206,9 +204,9 @@ const DashboardHome = () => {
                   3
                 </div>
                 <div>
-                  <h4 className="font-medium">Start Learning</h4>
+                  <h4 className="font-medium">Deliver & Earn</h4>
                   <p className="text-sm text-muted-foreground">
-                    Access video lessons, complete assignments & earn certificates
+                    Complete project milestones and get paid securely.
                   </p>
                 </div>
               </div>

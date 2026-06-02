@@ -100,12 +100,13 @@ const InternshipEnrollPage = () => {
       });
 
       // Create internship record
-      await supabase.from("internships").insert({
+      const { error: internshipError } = await supabase.from("internships").insert({
         user_id: user.id,
         course_id: selectedCourse.id,
         status: "active",
         start_date: new Date().toISOString().slice(0, 10),
       });
+      if (internshipError) throw internshipError;
 
       setStep(4);
       toast({ title: "Enrollment successful!", description: "Your internship is now active." });

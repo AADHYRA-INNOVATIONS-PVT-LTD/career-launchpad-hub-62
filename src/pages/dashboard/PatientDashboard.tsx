@@ -30,7 +30,7 @@ interface PatientStats {
   upcomingAppointments: number;
   completedVisits: number;
   medicalRecords: number;
-  pendingInvoices: number;
+  prescriptionsCount: number;
   healthProfileCompletion: number;
 }
 
@@ -40,7 +40,7 @@ const PatientDashboard = () => {
     upcomingAppointments: 0,
     completedVisits: 0,
     medicalRecords: 0,
-    pendingInvoices: 0,
+    prescriptionsCount: 0,
     healthProfileCompletion: 0,
   });
   const [loading, setLoading] = useState(true);
@@ -65,12 +65,11 @@ const PatientDashboard = () => {
     .select('id')
     .eq('user_id', user.id);
 
-  // Fetch billing/invoice statuses
-  const { data: invoices } = await supabaseAny
-    .from('medical_invoices')
+  // Fetch prescriptions
+  const { data: prescriptionsData } = await supabaseAny
+    .from('prescriptions')
     .select('id')
-    .eq('user_id', user.id)
-    .eq('status', 'pending');
+    .eq('patient_id', user.id);
 
         const upcoming = appointments?.filter(a => a.status === 'confirmed' || a.status === 'pending').length || 0;
         const completed = appointments?.filter(a => a.status === 'completed').length || 0;
@@ -84,7 +83,7 @@ const PatientDashboard = () => {
           upcomingAppointments: upcoming,
           completedVisits: completed,
           medicalRecords: records?.length || 0,
-          pendingInvoices: invoices?.length || 0,
+          prescriptionsCount: prescriptionsData?.length || 0,
           healthProfileCompletion: Math.min(completionScore, 100),
         });
       } catch (error) {
@@ -94,7 +93,7 @@ const PatientDashboard = () => {
           upcomingAppointments: 2,
           completedVisits: 1,
           medicalRecords: 4,
-          pendingInvoices: 0,
+          prescriptionsCount: 2,
           healthProfileCompletion: 65,
         });
       } finally {
@@ -184,7 +183,7 @@ const PatientDashboard = () => {
           <CardContent className="grid grid-cols-2 gap-3">
             <ActionTile to="/patient-dashboard/appointments" Icon={Calendar} label="Book Session" gradient="from-tech/15 to-tech/5" color="text-tech" />
             <ActionTile to="/patient-dashboard/records" Icon={FileText} label="Medical Records" gradient="from-marketing/15 to-marketing/5" color="text-marketing" />
-            <ActionTile to="/patient-dashboard/billing" Icon={CreditCard} label="Invoices & Pay" gradient="from-design/15 to-design/5" color="text-design" />
+            <ActionTile to="/patient-dashboard/prescriptions" Icon={ClipboardCheck} label="Prescriptions" gradient="from-design/15 to-design/5" color="text-design" />
             <ActionTile to="/patient-dashboard/profile" Icon={User} label="Update Profile" gradient="from-healthcare/15 to-healthcare/5" color="text-healthcare" />
           </CardContent>
         </Card>
