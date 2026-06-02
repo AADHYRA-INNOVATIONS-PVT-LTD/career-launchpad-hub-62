@@ -2,7 +2,7 @@ import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { AuthProvider } from "@/contexts/AuthContext";
 
 // Public Pages
@@ -148,6 +148,7 @@ const App = () => (
             <Route path="/employer/register" element={<EmployerRegister />} />
 
             {/* Employer Dashboard Routes */}
+            <Route path="/employer/dashboard/*" element={<Navigate to="/employer" replace />} />
             <Route path="/employer" element={<EmployerLayout />}>
               <Route index element={<EmployerDashboard />} />
               <Route path="jobs" element={<EmployerJobs />} />
@@ -179,18 +180,25 @@ const App = () => (
             {/* Freelancer Dashboard Routes */} 
             <Route path="/freelancer-dashboard" element={<DashboardLayout role="freelancer" />}>
               <Route index element={<FreelancerDashboard />} />
+              <Route path="projects" element={<ComingSoon />} />
+              <Route path="bids" element={<ComingSoon />} />
+              <Route path="portfolio" element={<ComingSoon />} />
+              <Route path="earnings" element={<ComingSoon />} />
             </Route>
 
             {/* Patient Dashboard Routes */}
           <Route path="/patient-dashboard" element={<DashboardLayout role="patient" />}>
             <Route index element={<PatientDashboardHome />} /> 
-            {/* Add other patient sub-routes here (e.g., appointments, records) */}
+            <Route path="appointments" element={<ComingSoon />} />
+            <Route path="records" element={<ComingSoon />} />
+            <Route path="prescriptions" element={<ComingSoon />} />
           </Route>
 
           {/* Doctor Dashboard Routes */}
           <Route path="/doctor-dashboard" element={<DashboardLayout role="doctor" />}>
             <Route index element={<DoctorDashboardHome />} /> 
-            {/* Sub-routes like /appointments, /prescriptions go here */}
+            <Route path="consult/:id" element={<ComingSoon />} />
+            <Route path="appointments" element={<ComingSoon />} />
           </Route>
 
             {/* Admin Dashboard Routes */}

@@ -28,12 +28,14 @@ const EmployerLayout = () => {
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [employer, setEmployer] = useState<EmployerData | null>(null);
   const [loading, setLoading] = useState(true);
-  const { user, signOut } = useAuth();
+  const { user, signOut, loading: authLoading } = useAuth();
   const navigate = useNavigate();
   const location = useLocation();
 
   useEffect(() => {
     const checkEmployerStatus = async () => {
+      if (authLoading) return;
+
       if (!user) {
         navigate('/employer/auth');
         return;
@@ -60,7 +62,7 @@ const EmployerLayout = () => {
     };
 
     checkEmployerStatus();
-  }, [user, navigate]);
+  }, [user, authLoading, navigate]);
 
   const handleSignOut = async () => {
     await signOut();
@@ -76,7 +78,7 @@ const EmployerLayout = () => {
     { icon: Settings, label: 'Settings', path: '/employer/settings' },
   ];
 
-  if (loading) {
+  if (loading || authLoading) {
     return (
       <div className="min-h-screen bg-background flex items-center justify-center">
         <Loader2 className="h-8 w-8 animate-spin text-primary" />
