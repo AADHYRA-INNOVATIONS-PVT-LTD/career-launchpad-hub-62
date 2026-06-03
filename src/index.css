@@ -170,7 +170,7 @@
   
   .text-gradient {
     @apply bg-clip-text text-transparent;
-    background: var(--gradient-primary);
+    background-image: var(--gradient-primary);
   }
 
   /* Animated mesh / blob background for hub pages */

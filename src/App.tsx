@@ -68,6 +68,13 @@ import DashboardHRTasks from "./pages/dashboard/DashboardHRTasks";
 import FreelancerDashboard from "./pages/freelancer/FreelancerDashboard";
 import PatientDashboardHome from "./pages/dashboard/PatientDashboard";
 import DoctorDashboardHome from "./pages/dashboard/DoctorDashboard";
+import PatientAppointments from "./pages/health/PatientAppointments";
+import DoctorConsultation from "./pages/health/DoctorConsultation";
+import FreelancerProjects from "./pages/freelancer/FreelancerProjects";
+import FreelancerBids from "./pages/freelancer/FreelancerBids";
+import FreelancerEarnings from "./pages/freelancer/FreelancerEarnings";
+import FreelancerContracts from "./pages/freelancer/FreelancerContracts";
+import FreelancerPortfolio from "./pages/freelancer/FreelancerPortfolio";
 
 // Admin Pages
 import AdminDashboard from "./pages/admin/AdminDashboard";
@@ -180,16 +187,17 @@ const App = () => (
             {/* Freelancer Dashboard Routes */} 
             <Route path="/freelancer-dashboard" element={<DashboardLayout role="freelancer" />}>
               <Route index element={<FreelancerDashboard />} />
-              <Route path="projects" element={<ComingSoon />} />
-              <Route path="bids" element={<ComingSoon />} />
-              <Route path="portfolio" element={<ComingSoon />} />
-              <Route path="earnings" element={<ComingSoon />} />
+              <Route path="projects" element={<FreelancerProjects />} />
+              <Route path="bids" element={<FreelancerBids />} />
+              <Route path="portfolio" element={<FreelancerPortfolio />} />
+              <Route path="earnings" element={<FreelancerEarnings />} />
+              <Route path="contracts" element={<FreelancerContracts />} />
             </Route>
 
             {/* Patient Dashboard Routes */}
           <Route path="/patient-dashboard" element={<DashboardLayout role="patient" />}>
             <Route index element={<PatientDashboardHome />} /> 
-            <Route path="appointments" element={<ComingSoon />} />
+            <Route path="appointments" element={<PatientAppointments />} />
             <Route path="records" element={<ComingSoon />} />
             <Route path="prescriptions" element={<ComingSoon />} />
           </Route>
@@ -197,7 +205,7 @@ const App = () => (
           {/* Doctor Dashboard Routes */}
           <Route path="/doctor-dashboard" element={<DashboardLayout role="doctor" />}>
             <Route index element={<DoctorDashboardHome />} /> 
-            <Route path="consult/:id" element={<ComingSoon />} />
+            <Route path="consult/:id" element={<DoctorConsultation />} />
             <Route path="appointments" element={<ComingSoon />} />
           </Route>
 

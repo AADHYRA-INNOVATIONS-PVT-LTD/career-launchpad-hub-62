@@ -16,7 +16,7 @@ const HeroSection = () => {
         <div className="absolute top-1/2 left-1/2 w-80 h-80 bg-accent/20 rounded-full blur-3xl animate-pulse" style={{ animationDelay: "3s" }} />
       </div>
 
-      <div className="container relative py-16 lg:py-24">
+      <div className="container relative z-10 pt-16 pb-32 lg:pt-24 lg:pb-48">
         <div className="max-w-4xl mx-auto text-center mb-12">
           <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/10 backdrop-blur-sm mb-6 animate-fade-in">
             <span className="flex h-2 w-2 rounded-full bg-healthcare animate-pulse" />
