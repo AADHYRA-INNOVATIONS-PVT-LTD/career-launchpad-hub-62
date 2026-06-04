@@ -1,6 +1,3 @@
-// Pre-seeded HR Internship Tasks — sequential lock flow
-// Task-1 must be completed (with proof + payment screenshot) to unlock Task-2, etc.
-
 export interface HRTaskSeed {
   id: string;
   number: number;
@@ -22,80 +19,79 @@ export const HR_TASKS: HRTaskSeed[] = [
   {
     id: "task-1-course-hiring",
     number: 1,
-    title: "Task 1 — Course Hiring (IT / Non-IT)",
+    title: "TASK 1 — Mandatory Course Hiring",
     shortTitle: "Course Hiring",
-    videoUrl: "https://www.youtube.com/embed/dQw4w9WgXcQ",
+    videoUrl: "https://www.youtube.com/embed/dQw4w9WgXcQ", // Placeholder video
     paragraph:
-      "In this first task, your goal is simple: bring real candidates who enroll in any AADHYRA course — IT or Non-IT (Nursing, HR, Marketing, Graphic Design). Reach out to your network: friends, college groups, LinkedIn, WhatsApp communities. Share the AADHYRA course page and explain the benefits — placement, internship, certification. Once a candidate joins and pays the course fee, collect their full name and the payment screenshot. Submit them below to unlock Task 2.",
+      "Promote AADHYRA internship programs, training courses, and placement programs. Share posters, do WhatsApp promotions, follow-up calls, and lead generation. You must achieve a minimum of 2 admissions to successfully complete this task and unlock Task 2.",
     steps: [
-      "Watch the explainer video above carefully",
-      "Share AADHYRA course links with your network",
-      "Convince at least 2 candidates to enroll in any course",
-      "Collect their full names + payment screenshot",
-      "Upload proof here to unlock Task 2",
+      "Phase 1 (Day 1-5): Complete Training & Orientation",
+      "Phase 2 (Day 6-15): Task Execution & Lead Generation",
+      "Share posters and promotional materials in WhatsApp and social media",
+      "Follow up with leads and coordinate their joining process",
+      "Achieve minimum 2 admissions and submit their details below",
     ],
     durationDays: 15,
-    payout: "₹500 per candidate joined",
+    payout: "Beginner: ₹1,000 – ₹3,000 | Average: ₹4,000 – ₹8,000",
     proofRequirements: {
       candidates: {
-        label: "Joined Candidate Names",
-        placeholder: "1. Ravi Kumar\n2. Priya Sharma\n3. ...",
+        label: "Admissions Generated (Min 2 required)",
+        placeholder: "1. Candidate Name (Course Name)\n2. Candidate Name (Course Name)",
       },
-      payment: { label: "Payment Screenshot (proof of enrollment)", required: true },
-      notes: { label: "Additional Notes", placeholder: "Course chosen, batch, contact, etc." },
+      payment: { label: "Payment Screenshots (Combine into one file/PDF)", required: true },
+      notes: { label: "Lead Generation Strategy Used", placeholder: "e.g., WhatsApp groups, LinkedIn outreach..." },
     },
   },
   {
-    id: "task-2-hr-hiring",
+    id: "task-2-choose-option",
     number: 2,
-    title: "Task 2 — HR Internship Hiring",
-    shortTitle: "HR Hiring",
+    title: "TASK 2 — Connect Specialization (Choose ONE)",
+    shortTitle: "Specialization",
     videoUrl: "https://www.youtube.com/embed/dQw4w9WgXcQ",
     paragraph:
-      "Now you've proven you can hire candidates. In Task 2, hire fresh HR Interns — people who will work under YOU, doing Task 1 (course hiring). The more HR interns you bring in, the bigger your team grows. Pitch the AADHYRA HR internship: real work, stipend, certificate, experience letter. Once they register and pay the HR internship fee, collect their names and payment proof here.",
+      "For Task 2, you must choose and execute ANY ONE of the following connect options:\n\nOption A – HR Internship Hiring (Hire interns under you)\nOption B – Employer Connect (Bring companies for placements)\nOption C – Freelancing Project Connect (Bring client projects)\nOption D – Health Connect (Hospital partnerships/nursing admissions)\n\nExecute Phase 3 (Day 16-25): Hiring / Conversion / Coordination for your chosen option.",
     steps: [
-      "Watch the team-building video above",
-      "Promote the AADHYRA HR Internship program",
-      "Recruit at least 3 fresh HR interns into your team",
-      "Collect each new HR intern's name + payment screenshot",
-      "Submit proof to unlock Task 3 (Team Handling)",
+      "Select your preferred Connect Option (A, B, C, or D)",
+      "Reach out to target audience (interns, employers, clients, or hospitals)",
+      "Successfully close the required targets for your chosen domain",
+      "Collect confirmation (emails, MoUs, or payment screenshots)",
+      "Submit the proof below to proceed to the final task",
     ],
-    durationDays: 20,
-    payout: "₹1,000 per HR intern joined + ₹500 override per their conversion",
+    durationDays: 10,
+    payout: "Best Performer: Up to ₹10,000 – ₹20,000+",
     proofRequirements: {
       candidates: {
-        label: "Hired HR Intern Names",
-        placeholder: "1. Anjali Verma\n2. Suresh Reddy\n3. ...",
+        label: "Selected Option & Results",
+        placeholder: "Option B - Employer Connect\nCompany: TechCorp Ltd\nContact: HR Manager name...",
       },
-      payment: { label: "Payment Screenshot (proof of HR intern enrollment)", required: true },
-      notes: { label: "Team Notes", placeholder: "Contact details, joining date, etc." },
+      payment: { label: "Proof of Connect (Email screenshot, Agreement, etc)", required: true },
+      notes: { label: "Execution Details", placeholder: "How did you close this connect?" },
     },
   },
   {
-    id: "task-3-team-handling",
+    id: "task-3-team-contribution",
     number: 3,
-    title: "Task 3 — Team Handling (Lead Your HR Interns)",
-    shortTitle: "Team Handling",
+    title: "TASK 3 — Team Contribution & Final Evaluation",
+    shortTitle: "Team Contribution",
     videoUrl: "https://www.youtube.com/embed/dQw4w9WgXcQ",
     paragraph:
-      "Final task — lead the HR interns YOU hired in Task 2. Each one must complete Task 1 (course hiring) and then Task 2 (HR hiring) under your guidance. You earn an override commission on every candidate THEY bring in. Track their progress, do daily standups, motivate them. Submit a weekly report with each intern's name, their performance, and total candidates converted by your team.",
+      "Phase 4 (Day 26-30): Final Target Completion & Evaluation. In this final task, you will be evaluated on your daily reporting, team coordination, meeting participation, and how well you supported new interns. Complete your final reports to graduate and receive your internship benefits.",
     steps: [
-      "Watch the leadership video above",
-      "Ensure each of your HR interns starts and completes Task 1",
-      "Guide them through Task 2 (HR hiring)",
-      "Track total team conversions weekly",
-      "Submit weekly team report + payment screenshots collected by team",
+      "Ensure all daily reporting logs are complete",
+      "Participate actively in final evaluation meetings",
+      "Support and guide new interns joining the program",
+      "Submit your consolidated 30-day performance report",
+      "Claim your Certificate, Experience Letter, and Job Opportunities",
     ],
-    durationDays: 30,
-    payout: "₹2,000 base + ₹300 override per team-converted candidate",
+    durationDays: 5,
+    payout: "Full-Time Job Opportunity / Team Leader Role",
     proofRequirements: {
       candidates: {
-        label: "Your Team's Performance Report",
-        placeholder:
-          "HR Intern 1: Anjali — 5 course candidates, 2 HR interns hired\nHR Intern 2: Suresh — 3 course candidates, 1 HR intern hired\n...",
+        label: "Team Contribution Summary",
+        placeholder: "Helped 3 new interns onboard. Attended all daily syncs...",
       },
-      payment: { label: "Combined Payment Screenshot of all team conversions", required: true },
-      notes: { label: "Leadership Notes", placeholder: "Challenges, wins, intern feedback..." },
+      payment: { label: "Final Performance Report (PDF)", required: true },
+      notes: { label: "Internship Feedback", placeholder: "What did you learn? How can we improve?" },
     },
   },
 ];

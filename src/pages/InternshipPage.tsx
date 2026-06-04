@@ -3,7 +3,7 @@ import Footer from "@/components/layout/Footer";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
 import { Badge } from "@/components/ui/badge";
-import { Clock, MapPin, Briefcase, IndianRupee, Users, ArrowRight, Filter, Star, TrendingUp, Building2 } from "lucide-react";
+import { Clock, MapPin, Briefcase, IndianRupee, Users, ArrowRight, Filter, Star, TrendingUp, Building2, GraduationCap, Target, Award, CheckCircle2, DollarSign } from "lucide-react";
 import { useState } from "react";
 import DemoVideoSection from "@/components/shared/DemoVideoSection";
 
@@ -89,6 +89,62 @@ const InternshipPage = () => {
               <div className="flex items-center gap-2"><TrendingUp className="h-4 w-4 text-primary" /><span className="font-semibold text-foreground">10,000+</span><span className="text-muted-foreground">applications</span></div>
               <div className="flex items-center gap-2"><Building2 className="h-4 w-4 text-primary" /><span className="font-semibold text-foreground">500+</span><span className="text-muted-foreground">companies hiring</span></div>
               <div className="flex items-center gap-2"><Star className="h-4 w-4 text-accent" /><span className="font-semibold text-foreground">95%</span><span className="text-muted-foreground">offer rate</span></div>
+            </div>
+          </div>
+        </section>
+
+        {/* 30 Days HR Internship Spotlight Section */}
+        <section className="py-12 bg-muted/20 border-b">
+          <div className="container">
+            <div className="bg-card border rounded-2xl p-6 md:p-10 shadow-sm relative overflow-hidden">
+              <div className="absolute top-0 right-0 p-8 opacity-5 pointer-events-none">
+                <Briefcase className="w-64 h-64" />
+              </div>
+              <div className="relative z-10">
+                <Badge className="bg-primary/10 text-primary border-primary/20 mb-4">⭐ Featured Program</Badge>
+                <h2 className="font-heading text-3xl md:text-4xl font-bold mb-4">30 Days HR Internship Program</h2>
+                <p className="text-muted-foreground text-lg mb-8 max-w-3xl">
+                  Learn practical HR work, earn incentives, gain real-time experience, and receive full-time opportunities based on your performance.
+                </p>
+
+                <div className="grid md:grid-cols-3 gap-8 mb-8">
+                  <div className="space-y-4">
+                    <h3 className="font-bold flex items-center gap-2"><Target className="h-5 w-5 text-primary" /> The 3 Core Tasks</h3>
+                    <ul className="space-y-2 text-sm text-muted-foreground">
+                      <li className="flex items-start gap-2"><CheckCircle2 className="h-4 w-4 text-green-500 mt-0.5 shrink-0" /> Mandatory Course Hiring (Min 2 admissions)</li>
+                      <li className="flex items-start gap-2"><CheckCircle2 className="h-4 w-4 text-green-500 mt-0.5 shrink-0" /> Specialization (HR, Employer, Freelance, or Health)</li>
+                      <li className="flex items-start gap-2"><CheckCircle2 className="h-4 w-4 text-green-500 mt-0.5 shrink-0" /> Team Contribution & Daily Reporting</li>
+                    </ul>
+                  </div>
+
+                  <div className="space-y-4">
+                    <h3 className="font-bold flex items-center gap-2"><DollarSign className="h-5 w-5 text-green-600" /> Earnings Structure</h3>
+                    <div className="space-y-2 text-sm">
+                      <div className="flex justify-between border-b pb-1"><span>Beginner</span><span className="font-medium">₹1k – ₹3k</span></div>
+                      <div className="flex justify-between border-b pb-1"><span>Average</span><span className="font-medium">₹4k – ₹8k</span></div>
+                      <div className="flex justify-between"><span>Best Performer</span><span className="font-bold text-green-600">₹10k – ₹20k+</span></div>
+                    </div>
+                  </div>
+
+                  <div className="space-y-4">
+                    <h3 className="font-bold flex items-center gap-2"><Award className="h-5 w-5 text-accent" /> Completion Benefits</h3>
+                    <div className="flex flex-wrap gap-2 text-xs font-medium">
+                      <Badge variant="secondary">Certificate</Badge>
+                      <Badge variant="secondary">Experience Letter</Badge>
+                      <Badge variant="secondary">Incentives</Badge>
+                      <Badge variant="secondary">Team Leader Role</Badge>
+                      <Badge className="bg-primary/10 text-primary border-primary/20">Full-Time Job</Badge>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="flex items-center gap-4">
+                  <Link to="/internships/enroll?course=hr-internship">
+                    <Button size="lg" className="gap-2">Apply for HR Internship <ArrowRight className="h-4 w-4" /></Button>
+                  </Link>
+                  <p className="text-sm text-muted-foreground hidden sm:block">Learn • Earn • Build Career</p>
+                </div>
+              </div>
             </div>
           </div>
         </section>

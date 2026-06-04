@@ -20,6 +20,7 @@ import {
   Palette,
   Heart,
   AlertCircle,
+  Mail,
 } from 'lucide-react';
 import PaymentModal from '@/components/shared/PaymentModal';
 
@@ -427,19 +428,57 @@ const DashboardInterview = () => {
                 </div>
               </div>
 
-              {/* Final Status */}
+              {/* Final Status (Email Format) */}
               {interviewStatus?.finalStatus === 'selected' && (
-                <div className="p-6 bg-healthcare/10 border border-healthcare/20 rounded-lg text-center">
-                  <CheckCircle className="h-12 w-12 text-healthcare mx-auto mb-3" />
-                  <h3 className="text-xl font-bold text-healthcare mb-2">
-                    Congratulations! You're Selected! 🎉
-                  </h3>
-                  <p className="text-muted-foreground mb-4">
-                    You can now enroll in {selectedCategory.name} courses
-                  </p>
-                  <Button className="bg-healthcare hover:bg-healthcare/90">
-                    Proceed to Course Enrollment
-                  </Button>
+                <div className="border rounded-xl overflow-hidden bg-background shadow-sm">
+                  {/* Email Header Mock */}
+                  <div className="bg-muted p-4 border-b flex items-center justify-between">
+                    <div className="flex items-center gap-3">
+                      <div className="h-10 w-10 rounded-full bg-primary text-primary-foreground flex items-center justify-center font-bold text-lg">
+                        A
+                      </div>
+                      <div>
+                        <h3 className="font-semibold text-foreground">AADHYRA Recruitment</h3>
+                        <p className="text-xs text-muted-foreground">to me</p>
+                      </div>
+                    </div>
+                    <Badge variant="outline" className="bg-blue-50 text-blue-700 border-blue-200">Inbox</Badge>
+                  </div>
+                  
+                  {/* Email Body */}
+                  <div className="p-6 md:p-8 space-y-6 text-sm text-foreground/90">
+                    <p>Dear <span className="font-semibold">{user?.email?.split('@')[0] || 'Candidate'}</span>,</p>
+                    
+                    <p>
+                      Congratulations! We are delighted to inform you that you have successfully completed our initial selection process. We are pleased to share the AADHYRA Offer Letter with you.
+                    </p>
+                    
+                    <p>
+                      Your Offer Letter is available in your Career Launchpad Hub account.
+                    </p>
+                    
+                    <div>
+                      <p className="mb-2">Follow the instructions given below to accept your Offer Letter:</p>
+                      <ol className="list-decimal list-inside space-y-1.5 ml-2">
+                        <li>Connect to the internet and click on the link: <a href="#" className="text-blue-600 hover:underline">https://career.aadhyrainnovations.com/</a></li>
+                        <li>Login to the system using your Login Credentials.</li>
+                        <li>To accept the offer letter, go to your <strong>Dashboard</strong>.</li>
+                        <li>Click on the <strong>I Accept</strong> button to accept the offer.</li>
+                        <li>Once you accept the offer letter, you can download the same.</li>
+                      </ol>
+                    </div>
+
+                    <div>
+                      <p>We will be in touch with you to keep you abreast of the latest happenings at AADHYRA.</p>
+                      <p>Looking forward to hearing from you soon!</p>
+                    </div>
+
+                    <div className="pt-6 border-t mt-8 flex justify-center">
+                      <Button size="lg" className="bg-healthcare hover:bg-healthcare/90 gap-2">
+                        I Accept Offer Letter <CheckCircle className="h-4 w-4" />
+                      </Button>
+                    </div>
+                  </div>
                 </div>
               )}
 

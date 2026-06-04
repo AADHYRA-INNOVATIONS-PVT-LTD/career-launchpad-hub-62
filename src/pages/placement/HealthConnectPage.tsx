@@ -11,7 +11,9 @@ import {
   Video, MapPin, Star, Heart, FileText, Phone, Brain, Activity, Eye,
   Pill, FlaskConical, Home, Globe, Bot, Apple, Scissors, Dumbbell,
   Smile, Moon, Scale, Droplets, Thermometer, Truck, CreditCard,
-  Flame, Footprints, GlassWater, Crown, Zap, Trophy, Sparkles
+  Flame, Footprints, GlassWater, Crown, Zap, Trophy, Sparkles, Building,
+  Accessibility, Cross, ActivitySquare, Map, Target, Server, Network,
+  BrainCircuit, ShieldCheck, Laptop, Cpu
 } from "lucide-react";
 import { Progress } from "@/components/ui/progress";
 
@@ -137,6 +139,95 @@ const HealthConnectPage = () => {
                     <Button variant="outline" size="xl" className="gap-2 border-white/30 text-white hover:bg-white/10"><Stethoscope className="h-5 w-5" /> Doctor Login</Button>
                   </Link>
             </div>
+            </div>
+          </div>
+        </section>
+
+        {/* ── Pan India Healthcare Support Services ── */}
+        <section className="py-16 bg-muted/20 border-b">
+          <div className="container">
+            <div className="text-center max-w-3xl mx-auto mb-12">
+              <Badge className="bg-primary/10 text-primary mb-3">Care • Support • Recovery • Connection</Badge>
+              <h2 className="font-heading text-3xl md:text-4xl font-bold mb-4">Pan India Healthcare Support Services</h2>
+              <p className="text-lg text-muted-foreground">
+                Providing healthcare support, elder care coordination, home care services, rehabilitation support, and patient assistance across India through trusted partners and top rehabilitation centres.
+              </p>
+            </div>
+
+            <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
+              <div className="bg-card p-6 rounded-2xl border shadow-sm">
+                <Accessibility className="h-10 w-10 text-primary mb-4" />
+                <h3 className="font-heading font-bold text-lg mb-3">Elder Care / Senior Care</h3>
+                <ul className="space-y-2 text-sm text-muted-foreground">
+                  <li className="flex items-start gap-2"><CheckCircle2 className="h-4 w-4 text-primary mt-0.5" />Senior citizen care support</li>
+                  <li className="flex items-start gap-2"><CheckCircle2 className="h-4 w-4 text-primary mt-0.5" />Assisted living coordination</li>
+                  <li className="flex items-start gap-2"><CheckCircle2 className="h-4 w-4 text-primary mt-0.5" />Elder wellness support</li>
+                  <li className="flex items-start gap-2"><CheckCircle2 className="h-4 w-4 text-primary mt-0.5" />Daily care assistance</li>
+                  <li className="flex items-start gap-2"><CheckCircle2 className="h-4 w-4 text-primary mt-0.5" />Dementia & Palliative care</li>
+                </ul>
+              </div>
+
+              <div className="bg-card p-6 rounded-2xl border shadow-sm">
+                <Home className="h-10 w-10 text-primary mb-4" />
+                <h3 className="font-heading font-bold text-lg mb-3">In-Home Care Services</h3>
+                <ul className="space-y-2 text-sm text-muted-foreground">
+                  <li className="flex items-start gap-2"><CheckCircle2 className="h-4 w-4 text-primary mt-0.5" />Home nursing support</li>
+                  <li className="flex items-start gap-2"><CheckCircle2 className="h-4 w-4 text-primary mt-0.5" />Caregiver support</li>
+                  <li className="flex items-start gap-2"><CheckCircle2 className="h-4 w-4 text-primary mt-0.5" />ICU setup coordination</li>
+                  <li className="flex items-start gap-2"><CheckCircle2 className="h-4 w-4 text-primary mt-0.5" />Bedridden patient support</li>
+                  <li className="flex items-start gap-2"><CheckCircle2 className="h-4 w-4 text-primary mt-0.5" />Post-hospitalization care</li>
+                </ul>
+              </div>
+
+              <div className="bg-card p-6 rounded-2xl border shadow-sm">
+                <ActivitySquare className="h-10 w-10 text-primary mb-4" />
+                <h3 className="font-heading font-bold text-lg mb-3">Rehabilitation Support</h3>
+                <ul className="space-y-2 text-sm text-muted-foreground">
+                  <li className="flex items-start gap-2"><CheckCircle2 className="h-4 w-4 text-primary mt-0.5" />Rehab centre coordination</li>
+                  <li className="flex items-start gap-2"><CheckCircle2 className="h-4 w-4 text-primary mt-0.5" />Neuro & Stroke rehab</li>
+                  <li className="flex items-start gap-2"><CheckCircle2 className="h-4 w-4 text-primary mt-0.5" />Orthopedic & Spine rehab</li>
+                  <li className="flex items-start gap-2"><CheckCircle2 className="h-4 w-4 text-primary mt-0.5" />Sports injury recovery</li>
+                  <li className="flex items-start gap-2"><CheckCircle2 className="h-4 w-4 text-primary mt-0.5" />Physiotherapy coordination</li>
+                </ul>
+              </div>
+
+              <div className="bg-card p-6 rounded-2xl border shadow-sm">
+                <Stethoscope className="h-10 w-10 text-primary mb-4" />
+                <h3 className="font-heading font-bold text-lg mb-3">Patient Support Services</h3>
+                <ul className="space-y-2 text-sm text-muted-foreground">
+                  <li className="flex items-start gap-2"><CheckCircle2 className="h-4 w-4 text-primary mt-0.5" />Appointment coordination</li>
+                  <li className="flex items-start gap-2"><CheckCircle2 className="h-4 w-4 text-primary mt-0.5" />Hospital support guidance</li>
+                  <li className="flex items-start gap-2"><CheckCircle2 className="h-4 w-4 text-primary mt-0.5" />Consultation coordination</li>
+                  <li className="flex items-start gap-2"><CheckCircle2 className="h-4 w-4 text-primary mt-0.5" />Follow-up support</li>
+                  <li className="flex items-start gap-2"><CheckCircle2 className="h-4 w-4 text-primary mt-0.5" />Medical transportation</li>
+                </ul>
+              </div>
+            </div>
+
+            <div className="grid lg:grid-cols-3 gap-8">
+              <div className="bg-card p-6 rounded-2xl border shadow-sm flex flex-col items-center text-center">
+                <Target className="h-10 w-10 text-accent mb-3" />
+                <h3 className="font-bold text-lg mb-2">TOP 100 Rehab Vision</h3>
+                <p className="text-sm text-muted-foreground">Connecting with the Top 100 Rehabilitation Centres across India for ultimate patient recovery and healthcare coordination support.</p>
+              </div>
+
+              <div className="bg-card p-6 rounded-2xl border shadow-sm flex flex-col items-center text-center">
+                <Building className="h-10 w-10 text-green-600 mb-3" />
+                <h3 className="font-bold text-lg mb-2">Healthcare Partners</h3>
+                <div className="flex flex-wrap justify-center gap-2 mt-2">
+                  <Badge variant="outline" className="text-green-700 bg-green-50">ATHULYA</Badge>
+                  <Badge variant="outline" className="text-green-700 bg-green-50">SUKINO</Badge>
+                  <Badge variant="outline" className="text-green-700 bg-green-50">JEERICARE</Badge>
+                </div>
+              </div>
+
+              <div className="bg-card p-6 rounded-2xl border shadow-sm flex flex-col items-center text-center">
+                <Map className="h-10 w-10 text-blue-600 mb-3" />
+                <h3 className="font-bold text-lg mb-2">Major Cities Focus</h3>
+                <div className="flex flex-wrap justify-center gap-1 mt-2 text-xs text-muted-foreground">
+                  Bangalore • Chennai • Hyderabad • Mumbai • Delhi NCR • Pune • Coimbatore • Kochi • Kolkata • Ahmedabad
+                </div>
+              </div>
             </div>
           </div>
         </section>
@@ -503,27 +594,137 @@ const HealthConnectPage = () => {
           </div>
         </section>
 
+        {/* ── Advanced Billion-Dollar Ecosystem Architecture ── */}
+        <section className="py-20 bg-[#0a0f1c] text-slate-200 relative overflow-hidden border-y border-slate-800">
+          <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_0%,rgba(56,189,248,0.1),transparent_50%)]" />
+          
+          <div className="container relative z-10">
+            <div className="text-center mb-16 max-w-4xl mx-auto">
+              <Badge className="bg-blue-500/10 text-blue-400 border-blue-500/20 mb-4 px-3 py-1 text-xs tracking-widest uppercase">The Next Evolution</Badge>
+              <h2 className="font-heading text-4xl md:text-5xl font-bold mb-6 text-white tracking-tight">
+                A Unified Digital & Physical Healthcare Ecosystem
+              </h2>
+              <p className="text-lg text-slate-400 leading-relaxed">
+                More than an app. We are building the operating system for Pan-India healthcare. Integrating advanced AI automation, D2C subscriptions, B2B SaaS, and physical asset-light care delivery into one billion-dollar unified infrastructure.
+              </p>
+            </div>
+
+            {/* Architecture Grid */}
+            <div className="grid lg:grid-cols-3 gap-6 mb-16">
+              
+              {/* O2O App Ecosystem */}
+              <div className="bg-slate-900/50 border border-slate-800 rounded-3xl p-8 backdrop-blur-sm hover:border-blue-500/50 transition-colors">
+                <div className="h-14 w-14 rounded-2xl bg-blue-500/20 flex items-center justify-center mb-6">
+                  <Laptop className="h-7 w-7 text-blue-400" />
+                </div>
+                <h3 className="text-2xl font-bold text-white mb-4">O2O SuperApp Ecosystem</h3>
+                <ul className="space-y-4">
+                  <li className="flex items-start gap-3">
+                    <CheckCircle2 className="h-5 w-5 text-blue-400 shrink-0 mt-0.5" />
+                    <div><span className="font-semibold text-slate-200 block">AI Health Twin</span><span className="text-sm text-slate-400">Real-time 3D dashboard of patient vitals & lab history</span></div>
+                  </li>
+                  <li className="flex items-start gap-3">
+                    <CheckCircle2 className="h-5 w-5 text-blue-400 shrink-0 mt-0.5" />
+                    <div><span className="font-semibold text-slate-200 block">Care Dispatch System</span><span className="text-sm text-slate-400">Uber-style dispatch for nurses, ICU setup, and ambulances</span></div>
+                  </li>
+                  <li className="flex items-start gap-3">
+                    <CheckCircle2 className="h-5 w-5 text-blue-400 shrink-0 mt-0.5" />
+                    <div><span className="font-semibold text-slate-200 block">NRI Guardian Dashboard</span><span className="text-sm text-slate-400">Allowing families abroad to monitor elder care live</span></div>
+                  </li>
+                </ul>
+              </div>
+
+              {/* B2B SaaS & Franchising */}
+              <div className="bg-slate-900/50 border border-slate-800 rounded-3xl p-8 backdrop-blur-sm hover:border-purple-500/50 transition-colors">
+                <div className="h-14 w-14 rounded-2xl bg-purple-500/20 flex items-center justify-center mb-6">
+                  <Network className="h-7 w-7 text-purple-400" />
+                </div>
+                <h3 className="text-2xl font-bold text-white mb-4">B2B SaaS & Staffing</h3>
+                <ul className="space-y-4">
+                  <li className="flex items-start gap-3">
+                    <CheckCircle2 className="h-5 w-5 text-purple-400 shrink-0 mt-0.5" />
+                    <div><span className="font-semibold text-slate-200 block">Aadhyra CareOS</span><span className="text-sm text-slate-400">White-label OS powering operations in 100+ partner rehabs</span></div>
+                  </li>
+                  <li className="flex items-start gap-3">
+                    <CheckCircle2 className="h-5 w-5 text-purple-400 shrink-0 mt-0.5" />
+                    <div><span className="font-semibold text-slate-200 block">B2B Staffing Marketplace</span><span className="text-sm text-slate-400">Hospitals rent verified contract nurses instantly via API</span></div>
+                  </li>
+                  <li className="flex items-start gap-3">
+                    <CheckCircle2 className="h-5 w-5 text-purple-400 shrink-0 mt-0.5" />
+                    <div><span className="font-semibold text-slate-200 block">Asset-Light Franchising</span><span className="text-sm text-slate-400">Zero CAPEX expansion by franchising the Aadhyra standard</span></div>
+                  </li>
+                </ul>
+              </div>
+
+              {/* Deep AI Automation */}
+              <div className="bg-slate-900/50 border border-slate-800 rounded-3xl p-8 backdrop-blur-sm hover:border-emerald-500/50 transition-colors">
+                <div className="h-14 w-14 rounded-2xl bg-emerald-500/20 flex items-center justify-center mb-6">
+                  <BrainCircuit className="h-7 w-7 text-emerald-400" />
+                </div>
+                <h3 className="text-2xl font-bold text-white mb-4">Predictive Care AI</h3>
+                <ul className="space-y-4">
+                  <li className="flex items-start gap-3">
+                    <CheckCircle2 className="h-5 w-5 text-emerald-400 shrink-0 mt-0.5" />
+                    <div><span className="font-semibold text-slate-200 block">Discharge Prediction</span><span className="text-sm text-slate-400">AI schedules home-care before the patient leaves the hospital</span></div>
+                  </li>
+                  <li className="flex items-start gap-3">
+                    <CheckCircle2 className="h-5 w-5 text-emerald-400 shrink-0 mt-0.5" />
+                    <div><span className="font-semibold text-slate-200 block">Computer Vision Audits</span><span className="text-sm text-slate-400">Privacy-first monitoring ensures bedridden patients are turned</span></div>
+                  </li>
+                  <li className="flex items-start gap-3">
+                    <CheckCircle2 className="h-5 w-5 text-emerald-400 shrink-0 mt-0.5" />
+                    <div><span className="font-semibold text-slate-200 block">Voice-Biomarker Risk Scoring</span><span className="text-sm text-slate-400">Voice analysis detects early signs of stress or neuro-decline</span></div>
+                  </li>
+                </ul>
+              </div>
+
+            </div>
+
+            {/* Corporate & Insurance Strip */}
+            <div className="bg-slate-800/40 rounded-2xl border border-slate-700 p-8 flex flex-col md:flex-row items-center justify-between gap-8">
+              <div>
+                <Badge className="bg-orange-500/20 text-orange-400 border-orange-500/30 mb-2">Corporate & Insurance Integrations</Badge>
+                <h3 className="text-2xl font-bold text-white mb-2">Corporate Wellness & Gamification</h3>
+                <p className="text-slate-400">
+                  Offering "Aadhyra for Work" to IT enterprises to reduce employee burnout. Integrated with major insurance providers (HDFC, Star Health) to lower premiums for users maintaining high Aadhyra Health Scores. Patients earn "Aadhyra Coins" for hitting micro-habits.
+                </p>
+              </div>
+              <div className="shrink-0 flex gap-4">
+                <ShieldCheck className="h-16 w-16 text-slate-500" />
+                <Cpu className="h-16 w-16 text-slate-500" />
+              </div>
+            </div>
+
+          </div>
+        </section>
+
         {/* ── Revenue Model ── */}
         <section className="py-16">
           <div className="container">
             <div className="text-center mb-10">
-              <Badge className="bg-primary/10 text-primary mb-2">Business Model</Badge>
-              <h2 className="font-heading text-3xl font-bold text-foreground">Revenue Streams</h2>
+              <Badge className="bg-primary/10 text-primary mb-2">Business Engine</Badge>
+              <h2 className="font-heading text-3xl font-bold text-foreground">6-Pillar Revenue Model</h2>
             </div>
-            <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
               {[
-                { icon: CreditCard, title: "AI Checkups", desc: "₹29 – ₹399 per test", revenue: "Direct" },
-                { icon: Video, title: "Consultations", desc: "₹50 – ₹150 platform fee", revenue: "Commission" },
-                { icon: Pill, title: "Pharmacy", desc: "10-20% per order", revenue: "Commission" },
-                { icon: Home, title: "Home Services", desc: "₹500 – ₹3,000", revenue: "Service Fee" },
+                { icon: Crown, title: "D2C Subscriptions", desc: "Recurring B2C revenue via Care+ and Elder Guardian tiers.", revenue: "Recurring" },
+                { icon: Laptop, title: "B2B SaaS Licensing", desc: "Charging partner rehabs ₹15k/mo to use Aadhyra CareOS.", revenue: "B2B Tech" },
+                { icon: CreditCard, title: "Marketplace Take-Rates", desc: "15-25% margin on home care, meds, and lab bookings.", revenue: "Commission" },
+                { icon: Users, title: "Staffing Network", desc: "20% margin providing verified nurses to major hospitals.", revenue: "B2B Service" },
+                { icon: Building, title: "Corporate Wellness", desc: "₹500/employee/mo contracts with IT enterprises.", revenue: "B2B2C" },
+                { icon: Network, title: "Data & Pharma", desc: "Anonymized longitudinal data analytics for clinical research.", revenue: "Enterprise Play" },
               ].map((r) => {
                 const Icon = r.icon;
                 return (
-                  <div key={r.title} className="bg-card rounded-xl border p-5 text-center">
-                    <Icon className="h-8 w-8 text-primary mx-auto mb-3" />
-                    <h3 className="font-bold text-foreground mb-1">{r.title}</h3>
-                    <p className="text-sm text-muted-foreground mb-1">{r.desc}</p>
-                    <Badge variant="secondary" className="text-xs">{r.revenue}</Badge>
+                  <div key={r.title} className="bg-card rounded-xl border p-6 hover:border-primary/50 transition-colors">
+                    <div className="flex items-start justify-between mb-4">
+                      <div className="h-12 w-12 rounded-xl bg-primary/10 flex items-center justify-center">
+                        <Icon className="h-6 w-6 text-primary" />
+                      </div>
+                      <Badge variant="secondary" className="text-xs">{r.revenue}</Badge>
+                    </div>
+                    <h3 className="font-bold text-lg text-foreground mb-2">{r.title}</h3>
+                    <p className="text-sm text-muted-foreground">{r.desc}</p>
                   </div>
                 );
               })}
@@ -542,16 +743,16 @@ const HealthConnectPage = () => {
             <div className="grid md:grid-cols-3 gap-6 max-w-5xl mx-auto">
               {[
                 {
-                  name: "Smart", price: "₹399", period: "/month", color: "border-border", badge: "",
-                  features: ["Unlimited AI Health Chatbot", "AI Diet & Workout Planner", "Daily trackers (Calories/Water/Steps)", "1 Doctor video consult/month", "10% off lab tests"],
+                  name: "Care+ Essential", price: "₹999", period: "/month", color: "border-border", badge: "",
+                  features: ["Unlimited telemedicine consults", "AI Diet & Workout Planner", "20% off labs & meds", "Digital health locker", "1 Mental health session"],
                 },
                 {
-                  name: "Pro", price: "₹999", period: "/month", color: "border-primary ring-2 ring-primary", badge: "Most Popular",
-                  features: ["Everything in Smart", "Personal AI Dietitian + Coach", "4 Doctor consults/month", "AI Skin & Hair scan unlimited", "20% off lab tests + free home collection", "Premium yoga & meditation library"],
+                  name: "Elder Guardian", price: "₹4,999", period: "/month", color: "border-primary ring-2 ring-primary", badge: "NRI Focus",
+                  features: ["Everything in Care+", "Daily caregiver AI check-in", "Weekly doctor video rounds", "Automated medicine refills", "Emergency ambulance trigger", "NRI family dashboard"],
                 },
                 {
-                  name: "Elite", price: "₹2,499", period: "/month", color: "border-amber-500", badge: "Premium",
-                  features: ["Everything in Pro", "Dedicated human dietitian", "Unlimited doctor consults", "Quarterly full-body checkup", "Priority specialist appointments", "International second opinion included"],
+                  name: "ICU-at-Home", price: "₹30,000+", period: "/month", color: "border-amber-500", badge: "Post-Op",
+                  features: ["Complete medical setup", "24/7 specialized nursing", "Daily physiotherapist visits", "IoT vitals streaming to Command Center", "Doctor on call 24/7", "Dedicated care coordinator"],
                 },
               ].map((plan) => (
                 <div key={plan.name} className={`relative bg-card rounded-2xl border-2 ${plan.color} p-6 shadow-card hover:shadow-card-hover transition`}>

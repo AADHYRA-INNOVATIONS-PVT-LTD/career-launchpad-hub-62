@@ -5,7 +5,7 @@ import { supabase } from '@/integrations/supabase/client';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { useToast } from '@/hooks/use-toast';
-import { ArrowLeft, Loader2, CheckCircle, XCircle, Trophy } from 'lucide-react';
+import { ArrowLeft, Loader2, CheckCircle, XCircle, Trophy, Mail } from 'lucide-react';
 import MCQTest from '@/components/interview/MCQTest';
 import CodingTest from '@/components/interview/CodingTest';
 import AIHRInterview from '@/components/interview/AIHRInterview';
@@ -44,6 +44,16 @@ const InterviewRoundPage = () => {
   const [hrQuestions, setHrQuestions] = useState<{ id: string; question_text: string; time_limit: number }[]>([]);
   const [attemptId, setAttemptId] = useState<string | null>(null);
   const [result, setResult] = useState<{ passed: boolean; score: number; maxScore: number } | null>(null);
+
+  useEffect(() => {
+    if (result?.passed && round === 'hr') {
+      toast({
+        title: "Shortlisted! 📧",
+        description: "An email has been sent with further instructions for the next process.",
+        duration: 6000,
+      });
+    }
+  }, [result, round, toast]);
 
   useEffect(() => {
     if (!user || !categoryId || !round) return;
