@@ -8,6 +8,9 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from 
 import { Brain, AlertTriangle, CheckCircle2, ArrowRight, Loader2, Stethoscope, Shield, Activity } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { toast } from "sonner";
+import { useAuth } from "@/contexts/AuthContext";
+import { useNavigate } from "react-router-dom";
+import PaymentModal from "@/components/shared/PaymentModal";
 
 interface Condition {
   name: string;
@@ -41,16 +44,16 @@ const SymptomChecker = () => {
   const [symptoms, setSymptoms] = useState("");
   const [age, setAge] = useState("");
   const [gender, setGender] = useState("");
-  const [loading, setLoading] = useState(false);
-  const [result, setResult] = useState<AnalysisResult | null>(null);
   const [open, setOpen] = useState(false);
+  const [hasPaid, setHasPaid] = useState(false);
+  const [showPayment, setShowPayment] = useState(false);
+  const { user } = useAuth();
+  const navigate = useNavigate();
 
   const handleAnalyze = async () => {
     if (symptoms.trim().length < 10) {
       toast.error("Please describe your symptoms in more detail (at least 10 characters)");
       return;
-    }
-
     setLoading(true);
     setResult(null);
 
@@ -77,6 +80,32 @@ const SymptomChecker = () => {
     setGender("");
     setResult(null);
   };
+
+  if (!user) {
+    return (
+      <Button size="sm" variant="outline" className="gap-1 text-xs" onClick={() => navigate("/auth?redirect=/placement/health-connect")}>
+        Sign In to Check <ArrowRight className="h-3 w-3" />
+      </Button>
+    );
+  }
+
+  if (!hasPaid) {
+    return (
+      <>
+        <Button size="sm" variant="outline" className="gap-1 text-xs" onClick={() => setShowPayment(true)}>
+          Unlock (₹99) <ArrowRight className="h-3 w-3" />
+        </Button>
+        <PaymentModal
+          isOpen={showPayment}
+          onClose={() => setShowPayment(false)}
+          amount={99}
+          title="Unlock AI Symptom Checker"
+          description="Get unlimited lifetime access to AI health insights."
+          onSuccess={() => setHasPaid(true)}
+        />
+      </>
+    );
+  }
 
   return (
     <Dialog open={open} onOpenChange={(v) => { setOpen(v); if (!v) resetForm(); }}>
@@ -126,8 +155,6 @@ const SymptomChecker = () => {
                   </SelectContent>
                 </Select>
               </div>
-            </div>
-
             <Button onClick={handleAnalyze} disabled={loading || symptoms.trim().length < 10} className="w-full gap-2" size="lg">
               {loading ? <><Loader2 className="h-4 w-4 animate-spin" /> Analyzing...</> : <><Activity className="h-4 w-4" /> Analyze Symptoms</>}
             </Button>

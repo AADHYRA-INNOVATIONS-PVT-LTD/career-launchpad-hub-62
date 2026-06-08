@@ -3,7 +3,15 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } f
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { CreditCard, Loader2, CheckCircle2, ShieldCheck, Smartphone } from "lucide-react";
+import { CreditCard, Loader2, CheckCircle2, ShieldCheck, Zap } from "lucide-react";
+import { supabase } from "@/integrations/supabase/client";
+
+// Add Razorpay typing to Window
+declare global {
+  interface Window {
+    Razorpay: any;
+  }
+}
 
 interface PaymentModalProps {
   isOpen: boolean;
@@ -27,17 +35,92 @@ const PaymentModal = ({ isOpen, onClose, amount, onSuccess, title = "Complete Pa
     }
   }, [isOpen]);
 
-  const handlePay = () => {
-    setProcessing(true);
-    // Simulate payment gateway delay
-    setTimeout(() => {
+  const loadRazorpayScript = () => {
+    return new Promise((resolve) => {
+      const script = document.createElement("script");
+      script.src = "https://checkout.razorpay.com/v1/checkout.js";
+      script.onload = () => resolve(true);
+      script.onerror = () => resolve(false);
+      document.body.appendChild(script);
+    });
+  };
+
+  const handlePay = async () => {
+    try {
+      setProcessing(true);
+      
+      const res = await loadRazorpayScript();
+      if (!res) {
+        alert("Razorpay SDK failed to load. Are you online?");
+        setProcessing(false);
+        return;
+      }
+
+      // Create order via edge function
+      const { data: orderData, error: orderError } = await supabase.functions.invoke('create-razorpay-order', {
+        body: { amount }
+      });
+
+      if (orderError || !orderData) {
+        throw new Error(orderError?.message || "Failed to create order");
+      }
+
+      const options = {
+        key: import.meta.env.VITE_RAZORPAY_KEY_ID || 'rzp_test_mock_key', // Uses env var or fallback for UI testing
+        amount: orderData.amount,
+        currency: orderData.currency,
+        name: "AADHYRA INNOVATIONS",
+        description: title,
+        order_id: orderData.id,
+        handler: async function (response: any) {
+          try {
+            setProcessing(true);
+            // Verify payment
+            const { data: verificationData, error: verificationError } = await supabase.functions.invoke('verify-razorpay-payment', {
+              body: {
+                razorpay_order_id: response.razorpay_order_id,
+                razorpay_payment_id: response.razorpay_payment_id,
+                razorpay_signature: response.razorpay_signature
+              }
+            });
+
+            if (verificationError || !verificationData?.success) {
+              throw new Error("Payment verification failed");
+            }
+
+            setSuccess(true);
+            setTimeout(() => {
+              onSuccess();
+              onClose();
+            }, 1500);
+          } catch (err) {
+            console.error("Verification error:", err);
+            alert("Payment verification failed. Please contact support.");
+            setProcessing(false);
+          }
+        },
+        prefill: {
+          name: "User Name", // You can pass actual user details here
+          email: "user@example.com",
+          contact: "9999999999"
+        },
+        theme: {
+          color: "#38bdf8"
+        },
+        modal: {
+          ondismiss: function() {
+            setProcessing(false);
+          }
+        }
+      };
+
+      const paymentObject = new window.Razorpay(options);
+      paymentObject.open();
+    } catch (err) {
+      console.error(err);
+      alert("Something went wrong initializing the payment.");
       setProcessing(false);
-      setSuccess(true);
-      setTimeout(() => {
-        onSuccess();
-        onClose();
-      }, 1500);
-    }, 2000);
+    }
   };
 
   return (
@@ -67,86 +150,38 @@ const PaymentModal = ({ isOpen, onClose, amount, onSuccess, title = "Complete Pa
           ) : (
             <div className="space-y-6">
               {/* Amount Display */}
-              <div className="bg-muted/50 p-4 rounded-xl flex items-center justify-between border border-border/50">
-                <span className="text-sm font-medium text-muted-foreground">Total Amount</span>
-                <span className="text-2xl font-bold">₹{amount}</span>
+              <div className="bg-muted/50 p-6 rounded-xl flex flex-col items-center justify-center border border-border/50">
+                <span className="text-sm font-medium text-muted-foreground mb-1">Total Amount Due</span>
+                <span className="text-4xl font-bold">₹{amount}</span>
               </div>
 
-              {/* Payment Methods */}
-              <div className="grid grid-cols-2 gap-3">
-                <button
-                  onClick={() => setMethod("upi")}
-                  className={`flex flex-col items-center gap-2 p-3 rounded-xl border-2 transition-all ${
-                    method === "upi" ? "border-primary bg-primary/5" : "border-transparent bg-muted/50 hover:bg-muted"
-                  }`}
+              <div className="pt-4">
+                <Button 
+                  onClick={handlePay}
+                  className="w-full h-14 text-lg font-bold bg-gradient-to-r from-blue-600 to-primary hover:opacity-90 transition-all shadow-lg hover:shadow-xl hover:-translate-y-0.5 gap-2" 
+                  disabled={processing}
                 >
-                  <Smartphone className={`h-6 w-6 ${method === "upi" ? "text-primary" : "text-muted-foreground"}`} />
-                  <span className={`text-sm font-medium ${method === "upi" ? "text-primary" : "text-muted-foreground"}`}>UPI / QR</span>
-                </button>
-                <button
-                  onClick={() => setMethod("card")}
-                  className={`flex flex-col items-center gap-2 p-3 rounded-xl border-2 transition-all ${
-                    method === "card" ? "border-primary bg-primary/5" : "border-transparent bg-muted/50 hover:bg-muted"
-                  }`}
-                >
-                  <CreditCard className={`h-6 w-6 ${method === "card" ? "text-primary" : "text-muted-foreground"}`} />
-                  <span className={`text-sm font-medium ${method === "card" ? "text-primary" : "text-muted-foreground"}`}>Card</span>
-                </button>
-              </div>
-                <form 
-                  onSubmit={(e) => {
-                    e.preventDefault();
-                    handlePay(); 
-                  }} 
-                  className="space-y-6"
-                >
-                  {/* Dynamic Input Form */}
-                  <div className="space-y-4 animate-in fade-in slide-in-from-bottom-2 duration-300">
-                    {method === "upi" ? (
-                      <div className="space-y-2">
-                        <Label>UPI ID</Label>
-                        <Input placeholder="username@upi" className="bg-background/50" required />
-                      </div>
-                    ) : (
-                      <div className="space-y-3">
-                        <div className="space-y-2">
-                          <Label>Card Number</Label>
-                          <Input placeholder="0000 0000 0000 0000" className="bg-background/50" required/>
-                        </div>
-                        <div className="grid grid-cols-2 gap-3">
-                          <div className="space-y-2">
-                            <Label>Expiry</Label>
-                            <Input placeholder="MM/YY" className="bg-background/50" required/>
-                          </div>
-                          <div className="space-y-2">
-                            <Label>CVV</Label>
-                            <Input placeholder="123" type="password" maxLength={3} className="bg-background/50" required />
-                          </div>
-                        </div>
-                      </div>
-                    )}
-                  </div>
+                  {processing ? (
+                    <>
+                      <Loader2 className="mr-2 h-5 w-5 animate-spin" />
+                      Connecting to Razorpay...
+                    </>
+                  ) : (
+                    <>
+                      <Zap className="h-5 w-5" /> Pay Securely
+                    </>
+                  )}
+                </Button>
                 
-                  <Button 
-                    type="submit"
-                    className="w-full h-12 text-lg font-bold bg-gradient-to-r from-primary to-tech hover:opacity-90 transition-opacity" 
-                    // REMOVE THE onClick={handlePay} LINE FROM HERE
-                    disabled={processing}
-                  >
-                    {processing ? (
-                      <>
-                        <Loader2 className="mr-2 h-5 w-5 animate-spin" />
-                        Processing Payment...
-                      </>
-                    ) : (
-                      `Pay ₹${amount}`
-                    )}
-                  </Button>
-                  
-                  <p className="text-center text-xs text-muted-foreground mt-4 flex items-center justify-center gap-1">
-                    <ShieldCheck className="h-3 w-3" /> Secured by MockPay Integration
-                  </p>
-                </form>
+                <div className="flex flex-col items-center justify-center gap-2 mt-6 text-xs text-muted-foreground">
+                  <div className="flex items-center gap-1">
+                    <ShieldCheck className="h-4 w-4 text-green-500" /> 100% Secure Payments by Razorpay
+                  </div>
+                  <div className="flex gap-2 opacity-60">
+                    <span>UPI</span> • <span>Cards</span> • <span>NetBanking</span> • <span>Wallets</span>
+                  </div>
+                </div>
+              </div>
             </div>
           )}
         </div>

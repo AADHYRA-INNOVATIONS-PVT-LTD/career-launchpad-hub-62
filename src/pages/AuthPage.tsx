@@ -19,6 +19,8 @@ import { useAuth } from "@/contexts/AuthContext";
 
 const AuthPage = () => {
   const [searchParams] = useSearchParams();
+  const role = searchParams.get("role") || "student";
+  const redirectUrl = searchParams.get("redirect");
   const navigate = useNavigate();
   const { signIn, signUp } = useAuth(); 
 
@@ -31,8 +33,6 @@ const AuthPage = () => {
   
   const [error, setError] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(false);
-  
-  const role = searchParams.get("role") || "student";
 
   const portalConfig: Record<string, { title: string; subtitle: string; desc: string; icon: React.ComponentType<any>; errorMsg: string }> = {
     student: {
@@ -96,6 +96,12 @@ const AuthPage = () => {
 
     try {
       if (isSignUp) {
+        if (password.length < 6) {
+          setError("Password must be at least 6 characters long.");
+          setIsLoading(false);
+          return;
+        }
+
         if (password !== confirmPassword) {
           setError("Passwords do not match.");
           setIsLoading(false);
@@ -130,8 +136,10 @@ const AuthPage = () => {
           return;
         }
 
-        // Navigate cleanly to the correct portal board
-        if (role === "admin") {
+        // Navigate cleanly to the correct portal board or requested redirect
+        if (redirectUrl) {
+          navigate(redirectUrl, { replace: true });
+        } else if (role === "admin") {
           navigate("/admin", { replace: true });
         } else if (role === "employer" || role === "project_owner") {
           navigate("/employer", { replace: true });

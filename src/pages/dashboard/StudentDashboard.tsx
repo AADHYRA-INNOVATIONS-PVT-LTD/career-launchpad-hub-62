@@ -21,6 +21,7 @@ import {
   Target,
   Trophy,
   Flame,
+  ChevronRight,
 } from 'lucide-react';
 
 interface DashboardStats {
@@ -231,9 +232,14 @@ const DashboardHome = () => {
                 </div>
                 <div>
                   <h4 className="font-medium">Select Your Course</h4>
-                  <p className="text-sm text-muted-foreground">
+                  <p className="text-sm text-muted-foreground mb-2">
                     Choose from IT, HR, Digital Marketing, Design, or Nursing
                   </p>
+                  {stats.enrolledCourses === 0 && (
+                    <Link to="/apply" className="inline-flex items-center text-xs font-semibold text-primary hover:underline">
+                      Explore Courses & Apply <ChevronRight className="h-3 w-3 ml-1" />
+                    </Link>
+                  )}
                 </div>
               </div>
               <div className="flex items-start gap-3">

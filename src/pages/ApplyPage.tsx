@@ -101,13 +101,46 @@ const ApplyPage = () => {
   });
 
   useEffect(() => {
-  // 1. Only run if we have a valid user ID and course label
-    if (user?.id && selectedCourse?.label) {
-      checkEnrollment(user.id, selectedCourse.value).then(res => {
-        if (res.isEnrolled) setIsAlreadyRegistered(true);
-      });
+    // 1. Fetch course ID first, then check enrollment
+    const verifyEnrollment = async () => {
+      if (user?.id && selectedCourse?.value) {
+        // Fetch the actual UUID for the course using the slug
+        const { data: course } = await supabase
+          .from('courses')
+          .select('id')
+          .eq('slug', selectedCourse.value)
+          .maybeSingle();
+
+        if (course?.id) {
+          const res = await checkEnrollment(user.id, course.id);
+          setIsAlreadyRegistered(res.isEnrolled);
+        } else {
+          setIsAlreadyRegistered(false);
+        }
+      }
+    };
+    verifyEnrollment();
+
+    // 2. Restore pending application if user just logged in
+    const saved = localStorage.getItem('pendingApplication');
+    if (saved) {
+      try {
+        const data = JSON.parse(saved);
+        setFormData(data.formData);
+        setAgreements(data.agreements);
+        if (data.courseValue) {
+           setCurrentStep(3); // Take them straight to payment
+        }
+        localStorage.removeItem('pendingApplication');
+        
+        if (user) {
+          toast({ title: "Welcome back!", description: "Your progress has been restored. You can now complete your payment." });
+        }
+      } catch (e) {
+        console.error("Failed to parse pending application", e);
+      }
     }
-  }, [user?.id, selectedCourse?.label]); // 2. Track the primitive string, not the object
+  }, [user?.id, selectedCourse?.label, toast]);
 
 
   const handleStep1Submit = async (e: React.FormEvent) => {
@@ -215,6 +248,16 @@ const ApplyPage = () => {
 //     }, 2000);
 //   };
 
+const loadRazorpayScript = () => {
+  return new Promise((resolve) => {
+    const script = document.createElement("script");
+    script.src = "https://checkout.razorpay.com/v1/checkout.js";
+    script.onload = () => resolve(true);
+    script.onerror = () => resolve(false);
+    document.body.appendChild(script);
+  });
+};
+
 const handlePaymentGuard = () => {
   if (isAlreadyRegistered) {
     toast({
@@ -230,15 +273,30 @@ const handlePaymentGuard = () => {
 };
 
 const handlePayment = async () => {
+  if (!user) {
+    // Save progress to local storage
+    localStorage.setItem('pendingApplication', JSON.stringify({
+      formData,
+      agreements,
+      courseValue: selectedCourse?.value
+    }));
+
+    toast({ 
+      title: "Authentication Required", 
+      description: "We've saved your progress. Please log in to complete your payment.", 
+    });
+    navigate("/auth?redirect=/apply");
+    return;
+  }
+
   setIsProcessingPayment(true);
-  console.log("DEBUG: Current selectedCourse object:", selectedCourse);
 
   // 1. Fetch the course ID from your database
   const { data: course, error: fetchError } = await supabase
     .from('courses')
     .select('id')
     .eq('slug', selectedCourse?.value)
-    .single();
+    .maybeSingle();
 
   if (fetchError || !course) {
     console.error("Course not found:", fetchError);
@@ -247,37 +305,90 @@ const handlePayment = async () => {
     return;
   }
 
-  // 2. Save the enrollment
-  const { error: enrollError } = await createEnrollment(user.id, course.id, selectedCourse.price);
-
-  if (enrollError) {
-    console.error("Enrollment failed:", enrollError);
-    
-    // Check if the error code suggests a duplicate entry/violation
-    // Note: Adjust the condition based on your specific Supabase error code (e.g., '23505')
-    if (enrollError.code === '23505' || enrollError.message.toLowerCase().includes('already')) {
-      toast({ 
-        title: "Already Enrolled", 
-        description: "You have already registered for this course. Please try a different course.", 
-        variant: "destructive" 
-      });
-    } else {
-      toast({ 
-        title: "Enrollment Error", 
-        description: "Something went wrong saving your enrollment.", 
-        variant: "destructive" 
-      });
-    }
-  } else {
-    // 3. SUCCESS! Move to the final step
-    toast({
-        title: "Payment Successful!",
-        description: "Your enrollment is confirmed.",
-    });
-    setCurrentStep(4);
+  // 2. Load Razorpay
+  const res = await loadRazorpayScript();
+  if (!res) {
+    toast({ title: "Error", description: "Razorpay SDK failed to load. Are you online?", variant: "destructive" });
+    setIsProcessingPayment(false);
+    return;
   }
-  
-  setIsProcessingPayment(false);
+
+  try {
+    // 3. Create order via edge function
+    const { data: orderData, error: orderError } = await supabase.functions.invoke('create-razorpay-order', {
+      body: { amount: selectedCourse!.price }
+    });
+
+    if (orderError || !orderData) {
+      throw new Error(orderError?.message || "Failed to initialize payment gateway.");
+    }
+
+    const options = {
+      key: import.meta.env.VITE_RAZORPAY_KEY_ID || 'rzp_test_mock_key',
+      amount: orderData.amount,
+      currency: orderData.currency,
+      name: "AADHYRA INNOVATIONS",
+      description: `Enrollment: ${selectedCourse!.label}`,
+      order_id: orderData.id,
+      handler: async function (response: any) {
+        try {
+          setIsProcessingPayment(true);
+          // Verify payment
+          const { data: verificationData, error: verificationError } = await supabase.functions.invoke('verify-razorpay-payment', {
+            body: {
+              razorpay_order_id: response.razorpay_order_id,
+              razorpay_payment_id: response.razorpay_payment_id,
+              razorpay_signature: response.razorpay_signature
+            }
+          });
+
+          if (verificationError || !verificationData?.success) {
+            throw new Error("Payment verification failed");
+          }
+
+          // 4. Save the enrollment ONLY after successful payment verification
+          const { error: enrollError } = await createEnrollment(user.id, course.id, selectedCourse!.price);
+
+          if (enrollError) {
+            const errorMsg = typeof enrollError === 'string' ? enrollError.toLowerCase() : (enrollError?.message || '').toLowerCase();
+            const errorCode = typeof enrollError === 'object' ? enrollError?.code : null;
+
+            if (errorCode === '23505' || errorMsg.includes('already')) {
+              toast({ title: "Already Enrolled", description: "You are already registered for this course.", variant: "destructive" });
+            } else {
+              toast({ title: "Enrollment Error", description: "Payment succeeded but enrollment failed. Contact support.", variant: "destructive" });
+            }
+          } else {
+            toast({ title: "Payment Successful!", description: "Your enrollment is confirmed." });
+            setCurrentStep(4);
+          }
+        } catch (err) {
+          console.error("Verification error:", err);
+          toast({ title: "Error", description: "Payment verification failed. Please contact support.", variant: "destructive" });
+        } finally {
+          setIsProcessingPayment(false);
+        }
+      },
+      prefill: {
+        name: formData.name,
+        email: formData.email,
+        contact: formData.mobile
+      },
+      theme: { color: "#38bdf8" },
+      modal: {
+        ondismiss: function() {
+          setIsProcessingPayment(false);
+        }
+      }
+    };
+
+    const paymentObject = new window.Razorpay(options);
+    paymentObject.open();
+  } catch (err) {
+    console.error(err);
+    toast({ title: "Error", description: "Could not connect to payment gateway.", variant: "destructive" });
+    setIsProcessingPayment(false);
+  }
 };
 
  const handlePaymentSuccess = async () => {

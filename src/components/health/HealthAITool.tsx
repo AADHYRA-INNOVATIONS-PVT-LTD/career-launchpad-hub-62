@@ -7,6 +7,9 @@ import { Loader2, Sparkles, ArrowRight, Bot, Download, Share2 } from "lucide-rea
 import { supabase } from "@/integrations/supabase/client";
 import { toast } from "sonner";
 import jsPDF from "jspdf";
+import { useAuth } from "@/contexts/AuthContext";
+import { useNavigate } from "react-router-dom";
+import PaymentModal from "@/components/shared/PaymentModal";
 
 type ToolKey = "skin" | "hair" | "bmi" | "diabetes" | "stress" | "sleep" | "diet" | "chat";
 
@@ -25,12 +28,17 @@ const HealthAITool = ({ tool, title, triggerLabel = "Try Now", triggerSize = "sm
   const [input, setInput] = useState("");
   const [loading, setLoading] = useState(false);
   const [result, setResult] = useState<string | null>(null);
+  const [hasPaid, setHasPaid] = useState(false);
+  const [showPayment, setShowPayment] = useState(false);
+  const { user } = useAuth();
+  const navigate = useNavigate();
 
   const run = async () => {
     if (input.trim().length < 5) {
       toast.error("Please add a bit more detail");
       return;
     }
+
     setLoading(true);
     setResult(null);
     try {
@@ -142,6 +150,32 @@ const HealthAITool = ({ tool, title, triggerLabel = "Try Now", triggerSize = "sm
     }
   };
 
+  if (!user) {
+    return (
+      <Button size={triggerSize} variant={triggerVariant} className={`gap-1 ${fullButton ? "w-full" : "text-xs"}`} onClick={() => navigate("/auth?redirect=/placement/health-connect")}>
+        Sign In to Check <ArrowRight className="h-3 w-3" />
+      </Button>
+    );
+  }
+
+  if (!hasPaid) {
+    return (
+      <>
+        <Button size={triggerSize} variant={triggerVariant} className={`gap-1 ${fullButton ? "w-full" : "text-xs"}`} onClick={() => setShowPayment(true)}>
+          Unlock (₹49) <ArrowRight className="h-3 w-3" />
+        </Button>
+        <PaymentModal
+          isOpen={showPayment}
+          onClose={() => setShowPayment(false)}
+          amount={49}
+          title={`Unlock ${title}`}
+          description="Get premium AI health analysis."
+          onSuccess={() => setHasPaid(true)}
+        />
+      </>
+    );
+  }
+
   return (
     <Dialog open={open} onOpenChange={(v) => { setOpen(v); if (!v) reset(); }}>
       <DialogTrigger asChild>
@@ -166,7 +200,7 @@ const HealthAITool = ({ tool, title, triggerLabel = "Try Now", triggerSize = "sm
               rows={5}
               className="resize-none"
             />
-            <Button onClick={run} disabled={loading} className="w-full gap-2" size="lg">
+            <Button onClick={run} disabled={loading || input.trim().length < 5} className="w-full gap-2" size="lg">
               {loading ? <><Loader2 className="h-4 w-4 animate-spin" /> Analyzing...</> : <><Sparkles className="h-4 w-4" /> Get AI Analysis</>}
             </Button>
             <p className="text-xs text-muted-foreground text-center">
