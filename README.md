@@ -1,73 +1,82 @@
-# Welcome to your Lovable project
+# Aadhyra Career Launchpad Hub & Ecosystem
 
-## Project info
+Welcome to the **Aadhyra Career Launchpad Hub** — a comprehensive, multi-vertical digital ecosystem designed to bridge the gap between education, healthcare, and professional freelancing.
 
-**URL**: https://lovable.dev/projects/REPLACE_WITH_PROJECT_ID
+This platform houses four massive pillars under one roof:
 
-## How can I edit this code?
+## 🌐 The Aadhyra Ecosystem
 
-There are several ways of editing your application.
+### 1. Aadhyra Talent Connect (EdTech & Recruitment)
+- **Student Learning Portal (LMS):** 20+ professional courses across IT, HR, Marketing, Design, and Nursing. Features Netflix-style video playback, PDF notes, and automated quizzes.
+- **Mock Interviews & Assessments:** AI-driven interview evaluation and entrance exams.
+- **Employer Portal:** Pan-India job posting, candidate tracking, and AI-driven shortlisting.
+- **University Relations (TPO):** Direct registration portal for colleges to onboard their students for campus drives.
 
-**Use Lovable**
+### 2. Aadhyra Tech Partner (Freelance Marketplace)
+- **Freelancer Dashboard:** Secure project bidding, portfolio showcases, and profile verification.
+- **Project Owner Dashboard:** Post technical projects, evaluate bids, and manage escrow payments securely.
 
-Simply visit the [Lovable Project](https://lovable.dev/projects/REPLACE_WITH_PROJECT_ID) and start prompting.
+### 3. Aadhyra Health Connect (Telemedicine & AI Healthcare)
+- **AI Health Checkups:** AI Symptom Checker, BMI, Stress Level, and Heart Rate analyzers protected by a secure Freemium/Paywall model.
+- **Telemedicine:** 24/7 Online doctor consultations, pharmacy orders, and lab test bookings.
+- **Doctor & Patient Portals:** Dedicated dashboards for managing appointments and digital prescriptions.
 
-Changes made via Lovable will be committed automatically to this repo.
+### 4. Aadhyra Lab (AI Incubation)
+- **AI Project Builder:** Instantly generate tech stacks and code scaffolding from ideas.
+- **Career AI:** Automated resume evaluation and career path insights.
 
-**Use your preferred IDE**
+---
 
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
+## 🛠️ Technology Stack
 
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
+This application is built with modern, high-performance web technologies:
 
-Follow these steps:
+- **Frontend Framework:** React 18 + Vite
+- **Language:** TypeScript
+- **Styling:** Tailwind CSS + [shadcn-ui](https://ui.shadcn.com/)
+- **Backend & Database:** Supabase (PostgreSQL)
+- **Authentication:** Supabase Auth (Multi-role support)
+- **Serverless Compute:** Supabase Edge Functions (Deno)
+- **Payments:** Razorpay API Integration
 
-```sh
-# Step 1: Clone the repository using the project's Git URL.
-git clone <YOUR_GIT_URL>
+---
 
-# Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
+## 🚀 Getting Started
 
-# Step 3: Install the necessary dependencies.
-npm i
+### Prerequisites
+Make sure you have Node.js (v18+) and npm installed.
 
-# Step 4: Start the development server with auto-reloading and an instant preview.
-npm run dev
+### 1. Clone & Install
+```bash
+git clone https://github.com/SushAN766/career-launchpad-hub-62.git
+cd career-launchpad-hub-62
+npm install
 ```
 
-**Edit a file directly in GitHub**
+### 2. Environment Variables
+Ensure your `.env` file is present in the root directory with your Supabase and Razorpay credentials:
+```env
+VITE_SUPABASE_URL=your_supabase_url
+VITE_SUPABASE_ANON_KEY=your_supabase_anon_key
+VITE_RAZORPAY_KEY_ID=your_razorpay_test_or_live_key
+```
 
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
+### 3. Start Development Server
+```bash
+npm run dev
+```
+The application will be available at `http://localhost:8080` (or the port specified in your terminal).
 
-**Use GitHub Codespaces**
+---
 
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
+## 💳 Payment Architecture
+The platform securely integrates Razorpay to handle course enrollments, premium AI health queries, and employer premium features. 
+- Order generation is handled securely via **Supabase Edge Functions** (`create-razorpay-order`) to prevent client-side tampering.
+- Post-payment verification (`verify-razorpay-payment`) automatically provisions database access (e.g., unlocking a course or AI tool).
 
-## What technologies are used for this project?
+---
 
-This project is built with:
+## 👨‍💻 Contributing & Maintenance
+Changes pushed to the `main` branch can be configured to auto-deploy via platforms like Vercel or Netlify. When adding new courses or tools, ensure you update the respective Supabase SQL tables (`courses`, `course_modules`, etc.).
 
-- Vite
-- TypeScript
-- React
-- shadcn-ui
-- Tailwind CSS
-
-## How can I deploy this project?
-
-Simply open [Lovable](https://lovable.dev/projects/REPLACE_WITH_PROJECT_ID) and click on Share -> Publish.
-
-## Can I connect a custom domain to my Lovable project?
-
-Yes, you can!
-
-To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
-
-Read more here: [Setting up a custom domain](https://docs.lovable.dev/features/custom-domain#custom-domain)
+*Built by Aadhyra Innovations Pvt Ltd.*
