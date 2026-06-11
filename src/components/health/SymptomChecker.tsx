@@ -44,6 +44,8 @@ const SymptomChecker = () => {
   const [symptoms, setSymptoms] = useState("");
   const [age, setAge] = useState("");
   const [gender, setGender] = useState("");
+  const [loading, setLoading] = useState(false);
+  const [result, setResult] = useState<AnalysisResult | null>(null);
   const [open, setOpen] = useState(false);
   const [hasPaid, setHasPaid] = useState(false);
   const [showPayment, setShowPayment] = useState(false);
@@ -54,6 +56,8 @@ const SymptomChecker = () => {
     if (symptoms.trim().length < 10) {
       toast.error("Please describe your symptoms in more detail (at least 10 characters)");
       return;
+    }
+
     setLoading(true);
     setResult(null);
 
