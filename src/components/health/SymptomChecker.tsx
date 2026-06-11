@@ -155,6 +155,7 @@ const SymptomChecker = () => {
                   </SelectContent>
                 </Select>
               </div>
+            </div>
             <Button onClick={handleAnalyze} disabled={loading || symptoms.trim().length < 10} className="w-full gap-2" size="lg">
               {loading ? <><Loader2 className="h-4 w-4 animate-spin" /> Analyzing...</> : <><Activity className="h-4 w-4" /> Analyze Symptoms</>}
             </Button>
