@@ -67,9 +67,12 @@ const ApplyPage = () => {
     name: "",
     mobile: "",
     email: "",
+    applicationType: "Course", // "Internship", "Job", "Course"
+    experienceLevel: "Fresher", // "Fresher", "Experienced"
     course: "",
     vertical: "",
   });
+  const [resumeFile, setResumeFile] = useState<File | null>(null);
   
   // Policy agreements
   const [agreements, setAgreements] = useState({
@@ -96,9 +99,18 @@ const ApplyPage = () => {
     name: z.string().trim().min(2, "Name must be at least 2 characters").max(100),
     mobile: z.string().trim().regex(/^[+\d\s-]{7,15}$/, "Enter a valid phone number"),
     email: z.string().trim().email("Enter a valid email").max(255),
-    course: z.string().min(1, "Please select a course"),
+    applicationType: z.string().min(1),
+    experienceLevel: z.string().optional(),
+    course: z.string().min(1, "Please select a course/domain"),
     vertical: z.string().min(1, "Please select a preferred vertical"),
   });
+
+  const getPrice = () => {
+    if (formData.applicationType === "Internship" || formData.applicationType === "Job") {
+      return formData.experienceLevel === "Experienced" ? 700 : 300;
+    }
+    return selectedCourse?.price || 19999;
+  };
 
   useEffect(() => {
     // 1. Fetch course ID first, then check enrollment
@@ -315,8 +327,9 @@ const handlePayment = async () => {
 
   try {
     // 3. Create order via edge function
+    const amountToCharge = getPrice();
     const { data: orderData, error: orderError } = await supabase.functions.invoke('create-razorpay-order', {
-      body: { amount: selectedCourse!.price }
+      body: { amount: amountToCharge }
     });
 
     if (orderError || !orderData) {
@@ -328,7 +341,7 @@ const handlePayment = async () => {
       amount: orderData.amount,
       currency: orderData.currency,
       name: "AADHYRA INNOVATIONS",
-      description: `Enrollment: ${selectedCourse!.label}`,
+      description: `${formData.applicationType} Enrollment: ${selectedCourse!.label}`,
       order_id: orderData.id,
       handler: async function (response: any) {
         try {
@@ -347,7 +360,7 @@ const handlePayment = async () => {
           }
 
           // 4. Save the enrollment ONLY after successful payment verification
-          const { error: enrollError } = await createEnrollment(user.id, course.id, selectedCourse!.price);
+          const { error: enrollError } = await createEnrollment(user.id, course.id, amountToCharge);
 
           if (enrollError) {
             const errorMsg = typeof enrollError === 'string' ? enrollError.toLowerCase() : (enrollError?.message || '').toLowerCase();
@@ -394,8 +407,8 @@ const handlePayment = async () => {
  const handlePaymentSuccess = async () => {
     // Make sure to use the correct label or value
     const courseLabel = selectedCourse?.value || 'Java Full Stack';
-    
-    const { error } = await createEnrollment(user?.id, courseLabel, selectedCourse.price);
+    const amountToCharge = getPrice();
+    const { error } = await createEnrollment(user?.id, courseLabel, amountToCharge);
     
     if (!error) {
       navigate('/dashboard'); // Use the 'navigate' function you already have
@@ -573,19 +586,59 @@ const handlePayment = async () => {
                     </div>
                     
                     <div className="space-y-2">
-                      <Label>Course / Service Selected *</Label>
+                      <Label>I am applying for *</Label>
+                      <Select value={formData.applicationType} onValueChange={(value) => setFormData({ ...formData, applicationType: value })} required>
+                        <SelectTrigger>
+                          <SelectValue placeholder="Select Option" />
+                        </SelectTrigger>
+                        <SelectContent>
+                          <SelectItem value="Internship">Internship</SelectItem>
+                          <SelectItem value="Job">Job</SelectItem>
+                          <SelectItem value="Course">Course</SelectItem>
+                        </SelectContent>
+                      </Select>
+                    </div>
+
+                    {(formData.applicationType === "Internship" || formData.applicationType === "Job") && (
+                      <div className="space-y-2">
+                        <Label>Experience Level *</Label>
+                        <Select value={formData.experienceLevel} onValueChange={(value) => setFormData({ ...formData, experienceLevel: value })} required>
+                          <SelectTrigger>
+                            <SelectValue placeholder="Select Experience" />
+                          </SelectTrigger>
+                          <SelectContent>
+                            <SelectItem value="Fresher">Fresher (₹300 Evaluation Fee)</SelectItem>
+                            <SelectItem value="Experienced">Experienced (₹700 Evaluation Fee)</SelectItem>
+                          </SelectContent>
+                        </Select>
+                      </div>
+                    )}
+                    
+                    <div className="space-y-2">
+                      <Label>Course / Domain Selected *</Label>
                       <Select value={formData.course} onValueChange={(value) => setFormData({ ...formData, course: value })} required>
                         <SelectTrigger>
-                          <SelectValue placeholder="Select a course" />
+                          <SelectValue placeholder="Select a course or domain" />
                         </SelectTrigger>
                         <SelectContent>
                           {courses.map((course) => (
                             <SelectItem key={course.value} value={course.value}>
-                              {course.label} ({course.category}) - ₹{course.price.toLocaleString()}
+                              {course.label} ({course.category}) {formData.applicationType === "Course" ? `- ₹${course.price.toLocaleString()}` : ""}
                             </SelectItem>
                           ))}
                         </SelectContent>
                       </Select>
+                    </div>
+
+                    <div className="space-y-2">
+                      <Label>Resume (PDF Only) *</Label>
+                      <Input
+                        type="file"
+                        accept=".pdf"
+                        onChange={(e) => setResumeFile(e.target.files?.[0] || null)}
+                        required
+                        className="cursor-pointer"
+                      />
                     </div>
 
                     <div className="space-y-2">
