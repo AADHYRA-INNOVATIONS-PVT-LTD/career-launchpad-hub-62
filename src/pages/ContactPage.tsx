@@ -7,6 +7,7 @@ import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { Mail, Phone, MapPin, Clock } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
+import { supabase } from "@/integrations/supabase/client";
 
 const ContactPage = () => {
   const { toast } = useToast();
@@ -23,11 +24,31 @@ const ContactPage = () => {
     e.preventDefault();
     setIsSubmitting(true);
     
-    await new Promise(resolve => setTimeout(resolve, 1500));
+    const { error } = await supabase
+      .from('contact_messages')
+      .insert([
+        {
+          name: formData.name,
+          email: formData.email,
+          phone: formData.phone,
+          subject: formData.subject,
+          message: formData.message,
+        }
+      ]);
+      
+    if (error) {
+      toast({
+        title: "Error Sending Message",
+        description: "Failed to send message. Please try again later.",
+        variant: "destructive",
+      });
+      setIsSubmitting(false);
+      return;
+    }
     
     toast({
-      title: "Message Sent!",
-      description: "We'll get back to you within 24 hours.",
+      title: "Message Sent Successfully!",
+      description: "Notification has been sent to our official email: userinfo@adyarainnovations.com",
     });
     
     setFormData({ name: "", email: "", phone: "", subject: "", message: "" });
@@ -83,7 +104,7 @@ const ContactPage = () => {
                     <Mail className="h-6 w-6 text-primary" />
                   </div>
                   <h3 className="font-heading font-semibold text-foreground mb-2">Email Us</h3>
-                  <a href="mailto:info@Aadhyra Innovations.com" className="text-primary hover:underline">info@Aadhyra Innovations.com</a>
+                  <a href="mailto:userinfo@adyarainnovations.com" className="text-primary hover:underline break-all">userinfo@adyarainnovations.com</a>
                   <p className="text-sm text-muted-foreground mt-1">We respond within 24 hours</p>
                 </div>
                 
