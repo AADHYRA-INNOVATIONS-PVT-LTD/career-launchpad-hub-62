@@ -51,6 +51,7 @@ import AILabPage from "./pages/placement/AILabPage";
 
 // Global Components
 import AIChatbot from "./components/shared/AIChatbot";
+import ScrollToTop from "./components/shared/ScrollToTop";
 
 // Dashboard Layout & Pages
 import DashboardLayout from "./layouts/DashboardLayout";
@@ -113,6 +114,7 @@ const App = () => (
       <Toaster />
       <Sonner />
       <BrowserRouter future={{ v7_startTransition: true, v7_relativeSplatPath: true }}>
+        <ScrollToTop />
         <AuthProvider>
           <Routes>
             {/* Public Routes */}

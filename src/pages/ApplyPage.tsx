@@ -450,18 +450,18 @@ const handlePayment = async () => {
   doc.text(formData.mobile, 14, 66);
 
   // 4. Items Table
-  autoTable(doc, {
+   autoTable(doc, {
     startY: 80,
     head: [['Description', 'Category', 'Amount']],
     body: [
       [
-        selectedCourse.value, 
+        selectedCourse.label, 
         selectedCourse.category, 
-        'Rs. ' + selectedCourse.price.toLocaleString('en-IN')
+        'Rs. ' + getPrice().toLocaleString('en-IN')
       ],
     ],
     foot: [
-      ['', 'Total', 'Rs. ' + selectedCourse.price.toLocaleString('en-IN')]
+      ['', 'Total', 'Rs. ' + getPrice().toLocaleString('en-IN')]
     ],
     theme: 'grid',
     headStyles: { fillColor: [41, 128, 185] },
@@ -901,7 +901,7 @@ const handlePayment = async () => {
                       <div className="border-t pt-3 mt-3">
                         <div className="flex justify-between text-lg font-bold">
                           <span>Total Amount</span>
-                          <span className="text-primary">₹{selectedCourse?.price.toLocaleString()}</span>
+                          <span className="text-primary">₹{getPrice().toLocaleString()}</span>
                         </div>
                       </div>
                     </div>
@@ -978,7 +978,7 @@ const handlePayment = async () => {
                       </div>
                       <div className="flex justify-between">
                         <span className="text-muted-foreground">Amount Paid</span>
-                        <span className="font-semibold text-green-600">₹{selectedCourse?.price.toLocaleString()}</span>
+                        <span className="font-semibold text-green-600">₹{getPrice().toLocaleString()}</span>
                       </div>
                       <div className="flex justify-between">
                         <span className="text-muted-foreground">Date</span>
