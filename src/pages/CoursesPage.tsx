@@ -4,7 +4,7 @@ import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
 import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Clock, Users, Award, CheckCircle2, ArrowRight, PlayCircle, GraduationCap, Building, Globe, BookOpen, Stethoscope, Briefcase, IndianRupee, Shield } from "lucide-react";
+import { Clock, Users, Award, CheckCircle2, ArrowRight, PlayCircle, GraduationCap, Building, Globe, BookOpen, Stethoscope, Briefcase, IndianRupee, Shield, Sparkles } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import AICourseAdvisor from "@/components/courses/AICourseAdvisor";
 import { Badge } from "@/components/ui/badge";
@@ -49,13 +49,13 @@ const courseCategories = {
     description: "Master the latest technologies and frameworks",
     color: "tech",
     courses: [
-      { title: "Java Full Stack", duration: "6 Months", students: "500+", tools: ["Java", "Spring Boot", "React", "MySQL"], features: ["Live Projects", "Internship", "Placement"] },
-      { title: "Python Full Stack", duration: "6 Months", students: "450+", tools: ["Python", "Django", "React", "PostgreSQL"], features: ["Live Projects", "Internship", "Placement"] },
-      { title: "AI / Machine Learning", duration: "4 Months", students: "300+", tools: ["Python", "TensorFlow", "Scikit-learn", "Pandas"], features: ["Research Projects", "Internship", "Placement"] },
-      { title: "Data Analytics", duration: "3 Months", students: "400+", tools: ["Python", "SQL", "Tableau", "Power BI"], features: ["Case Studies", "Internship", "Placement"] },
-      { title: "Data Science", duration: "5 Months", students: "350+", tools: ["Python", "R", "ML", "Deep Learning"], features: ["Live Projects", "Internship", "Placement"] },
-      { title: "AWS & Cloud Computing", duration: "3 Months", students: "350+", tools: ["AWS", "Azure", "Docker", "Kubernetes"], features: ["Certification Prep", "Internship", "Placement"] },
-      { title: "Cyber Security", duration: "4 Months", students: "250+", tools: ["Kali Linux", "Wireshark", "Metasploit"], features: ["Lab Practice", "Internship", "Placement"] },
+      { title: "Java Full Stack", duration: "6 Months", students: "500+", tools: ["Java", "Spring Boot", "React", "MySQL"], features: ["Live Projects", "Internship", "Placement"], originalPrice: 40000, price: 19999 },
+      { title: "Python Full Stack", duration: "6 Months", students: "450+", tools: ["Python", "Django", "React", "PostgreSQL"], features: ["Live Projects", "Internship", "Placement"], originalPrice: 40000, price: 19999 },
+      { title: "AI / Machine Learning", duration: "4 Months", students: "300+", tools: ["Python", "TensorFlow", "Scikit-learn", "Pandas"], features: ["Research Projects", "Internship", "Placement"], originalPrice: 40000, price: 19999 },
+      { title: "Data Analytics", duration: "3 Months", students: "400+", tools: ["Python", "SQL", "Tableau", "Power BI"], features: ["Case Studies", "Internship", "Placement"], originalPrice: 40000, price: 19999 },
+      { title: "Data Science", duration: "5 Months", students: "350+", tools: ["Python", "R", "ML", "Deep Learning"], features: ["Live Projects", "Internship", "Placement"], originalPrice: 40000, price: 19999 },
+      { title: "AWS & Cloud Computing", duration: "3 Months", students: "350+", tools: ["AWS", "Azure", "Docker", "Kubernetes"], features: ["Certification Prep", "Internship", "Placement"], originalPrice: 40000, price: 19999 },
+      { title: "Cyber Security", duration: "4 Months", students: "250+", tools: ["Kali Linux", "Wireshark", "Metasploit"], features: ["Lab Practice", "Internship", "Placement"], originalPrice: 40000, price: 19999 },
     ],
   },
   hr: {
@@ -63,11 +63,11 @@ const courseCategories = {
     description: "Build expertise in human resource management",
     color: "hr",
     courses: [
-      { title: "HR Generalist", duration: "3 Months", students: "300+", tools: ["SAP HR", "Zoho People", "Excel"], features: ["Practical Training", "Internship", "Placement"] },
-      { title: "HR Recruiter (IT & Non-IT)", duration: "2 Months", students: "400+", tools: ["LinkedIn Recruiter", "ATS Systems", "Job Portals"], features: ["Mock Sessions", "Internship", "Placement"] },
-      { title: "Payroll & Statutory Compliance", duration: "2 Months", students: "200+", tools: ["Tally", "Payroll Software", "Excel"], features: ["Real Cases", "Internship", "Placement"] },
-      { title: "Talent Acquisition", duration: "2 Months", students: "250+", tools: ["Sourcing Tools", "Interview Techniques", "ATS"], features: ["Live Hiring", "Internship", "Placement"] },
-      { title: "HR Operations", duration: "2 Months", students: "180+", tools: ["HRMS", "Documentation", "Policies"], features: ["Practical Training", "Internship", "Placement"] },
+      { title: "HR Generalist", duration: "3 Months", students: "300+", tools: ["SAP HR", "Zoho People", "Excel"], features: ["Practical Training", "Internship", "Placement"], originalPrice: 12000, price: 5999 },
+      { title: "HR Recruiter (IT & Non-IT)", duration: "2 Months", students: "400+", tools: ["LinkedIn Recruiter", "ATS Systems", "Job Portals"], features: ["Mock Sessions", "Internship", "Placement"], originalPrice: 12000, price: 5999 },
+      { title: "Payroll & Statutory Compliance", duration: "2 Months", students: "200+", tools: ["Tally", "Payroll Software", "Excel"], features: ["Real Cases", "Internship", "Placement"], originalPrice: 12000, price: 5999 },
+      { title: "Talent Acquisition", duration: "2 Months", students: "250+", tools: ["Sourcing Tools", "Interview Techniques", "ATS"], features: ["Live Hiring", "Internship", "Placement"], originalPrice: 12000, price: 5999 },
+      { title: "HR Operations", duration: "2 Months", students: "180+", tools: ["HRMS", "Documentation", "Policies"], features: ["Practical Training", "Internship", "Placement"], originalPrice: 12000, price: 5999 },
     ],
   },
   marketing: {
@@ -486,6 +486,20 @@ const CoursesPage = () => {
                                 </div>
                               ))}
                             </div>
+
+                            {/* Scholarship Pricing */}
+                            {(course as any).originalPrice && (
+                              <div className="bg-primary/5 rounded-lg p-3 mb-4 border border-primary/10">
+                                <div className="flex items-center gap-2 mb-1">
+                                  <span className="text-sm text-muted-foreground line-through">₹{((course as any).originalPrice).toLocaleString()}</span>
+                                  <Badge className="bg-accent/10 text-accent text-[10px] border-accent/20">{Math.round(100 - ((course as any).price / (course as any).originalPrice * 100))}% Scholarship</Badge>
+                                </div>
+                                <div className="flex items-center gap-1">
+                                  <IndianRupee className="h-4 w-4 text-primary" />
+                                  <span className="text-xl font-heading font-bold text-primary">{((course as any).price).toLocaleString()}</span>
+                                </div>
+                              </div>
+                            )}
                           </div>
 
                           <div className="px-6 py-4 bg-muted/30 border-t flex items-center justify-between">
@@ -504,6 +518,75 @@ const CoursesPage = () => {
                 );
               })}
             </Tabs>
+          </div>
+        </section>
+
+        {/* Free / Special Courses Highlight */}
+        <section className="py-12 bg-muted/30 border-y">
+          <div className="container">
+            <div className="text-center mb-8">
+              <Badge variant="outline" className="mb-3 text-accent border-accent/30 bg-accent/5">
+                <Sparkles className="h-3 w-3 mr-1" />
+                Special Offers
+              </Badge>
+              <h2 className="font-heading text-2xl md:text-3xl font-bold text-foreground">Free & Exclusive Courses</h2>
+              <p className="text-muted-foreground mt-2">Limited-time opportunities for eligible students</p>
+            </div>
+            <div className="grid md:grid-cols-3 gap-6 max-w-4xl mx-auto">
+              <div className="bg-card rounded-2xl border-2 border-primary/30 shadow-card p-6 relative overflow-hidden">
+                <div className="absolute top-3 right-3">
+                  <Badge className="bg-green-500 text-white">FREE</Badge>
+                </div>
+                <div className="h-12 w-12 rounded-xl bg-primary/10 text-primary flex items-center justify-center mb-4">
+                  <Sparkles className="h-6 w-6" />
+                </div>
+                <h3 className="font-heading text-lg font-bold text-foreground mb-2">Machine Learning Fundamentals</h3>
+                <p className="text-sm text-muted-foreground mb-4">Get started with ML basics — regression, classification, and neural networks. Completely free for early joiners.</p>
+                <div className="flex items-center gap-2 mb-4">
+                  <span className="text-sm text-muted-foreground line-through">₹9,999</span>
+                  <span className="text-2xl font-heading font-bold text-green-600">FREE</span>
+                </div>
+                <Link to="/apply">
+                  <Button className="w-full gap-2">Enroll Free <ArrowRight className="h-4 w-4" /></Button>
+                </Link>
+              </div>
+              <div className="bg-card rounded-2xl border-2 border-accent/30 shadow-card p-6 relative overflow-hidden">
+                <div className="absolute top-3 right-3">
+                  <Badge className="bg-accent text-white">NEW</Badge>
+                </div>
+                <div className="h-12 w-12 rounded-xl bg-accent/10 text-accent flex items-center justify-center mb-4">
+                  <Sparkles className="h-6 w-6" />
+                </div>
+                <h3 className="font-heading text-lg font-bold text-foreground mb-2">Generative AI & LLMs</h3>
+                <p className="text-sm text-muted-foreground mb-4">Master ChatGPT, DALL-E, prompt engineering, and LLM integration. The hottest skill in the market today.</p>
+                <div className="flex items-center gap-2 mb-4">
+                  <span className="text-sm text-muted-foreground line-through">₹25,000</span>
+                  <Badge className="bg-accent/10 text-accent text-xs">60% OFF</Badge>
+                  <span className="text-2xl font-heading font-bold text-primary">₹9,999</span>
+                </div>
+                <Link to="/apply">
+                  <Button variant="accent" className="w-full gap-2">Enroll Now <ArrowRight className="h-4 w-4" /></Button>
+                </Link>
+              </div>
+              <div className="bg-card rounded-2xl border-2 border-healthcare/30 shadow-card p-6 relative overflow-hidden">
+                <div className="absolute top-3 right-3">
+                  <Badge className="bg-healthcare text-white">INTERNSHIP</Badge>
+                </div>
+                <div className="h-12 w-12 rounded-xl bg-healthcare/10 text-healthcare flex items-center justify-center mb-4">
+                  <Briefcase className="h-6 w-6" />
+                </div>
+                <h3 className="font-heading text-lg font-bold text-foreground mb-2">Internship + Placement Bundle</h3>
+                <p className="text-sm text-muted-foreground mb-4">Enroll in any IT course and get a guaranteed internship opportunity with stipend and placement support.</p>
+                <div className="flex items-center gap-2 mb-4">
+                  <span className="text-sm text-muted-foreground line-through">₹50,000</span>
+                  <Badge className="bg-healthcare/10 text-healthcare text-xs">50% OFF</Badge>
+                  <span className="text-2xl font-heading font-bold text-primary">₹24,999</span>
+                </div>
+                <Link to="/apply">
+                  <Button className="w-full gap-2">Get Bundle <ArrowRight className="h-4 w-4" /></Button>
+                </Link>
+              </div>
+            </div>
           </div>
         </section>
 

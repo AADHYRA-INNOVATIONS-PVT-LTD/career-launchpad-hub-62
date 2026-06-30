@@ -61,6 +61,7 @@ const Footer = () => {
               <li><Link to="/internships" className="text-sm text-muted-foreground hover:text-primary transition-colors">Internships</Link></li>
               <li><Link to="/placement" className="text-sm text-muted-foreground hover:text-primary transition-colors">Placement Hub</Link></li>
               <li><Link to="/careers" className="text-sm text-muted-foreground hover:text-primary transition-colors">Careers</Link></li>
+              <li><Link to="/student-ambassador" className="text-sm text-muted-foreground hover:text-primary transition-colors">Student Ambassador</Link></li>
               <li><Link to="/contact" className="text-sm text-muted-foreground hover:text-primary transition-colors">Contact</Link></li>
               <li><Link to="/verify" className="text-sm text-muted-foreground hover:text-primary transition-colors">Verify Certificate</Link></li>
             </ul>
@@ -96,7 +97,6 @@ const Footer = () => {
             <ul className="space-y-3">
               <li><Link to="/auth" className="text-sm text-muted-foreground hover:text-primary transition-colors">Student / Candidate</Link></li>
               <li><Link to="/employer/auth" className="text-sm text-muted-foreground hover:text-primary transition-colors">Employer / Project Owner</Link></li>
-              <li><Link to="/admin/login" className="text-sm text-muted-foreground hover:text-primary transition-colors">Admin</Link></li>
             </ul>
           </div>
         </div>

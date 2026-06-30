@@ -4,7 +4,7 @@ import Footer from "@/components/layout/Footer";
 import AnimatedBackground from "@/components/shared/AnimatedBackground";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { Search, Code, Heart, Brain, ArrowRight, Users, Building2, Sparkles, CheckCircle2 } from "lucide-react";
+import { Search, Code, Heart, Brain, ArrowRight, Users, Building2, Sparkles, CheckCircle2, Award, TrendingUp, Star, Target } from "lucide-react";
 
 const products = [
   {
@@ -20,6 +20,9 @@ const products = [
       { label: "Employer Login", to: "/employer/auth", icon: Building2 },
     ],
     bullets: ["AI Skill Matching", "Verified Profiles", "Smart Job Alerts", "In-App Messaging"],
+    purpose: "Bridge the gap between skilled talent and top employers using AI-driven matching technology.",
+    achievements: ["3,000+ candidates placed", "200+ active employers", "AI matching accuracy: 92%"],
+    successStory: "Helped 500+ freshers land their first job within 30 days of registration.",
   },
   {
     title: "AADHYRA TECH PARTNER",
@@ -34,6 +37,9 @@ const products = [
       { label: "Project Owner Login", to: "/employer/auth", icon: Building2 },
     ],
     bullets: ["Project Bidding", "Escrow Payments", "Portfolio Showcase", "Client Reviews"],
+    purpose: "Empower freelancers to find quality projects and deliver world-class solutions with secure payments.",
+    achievements: ["1,500+ projects completed", "₹2Cr+ in freelancer earnings", "4.8★ avg client rating"],
+    successStory: "Our freelancers have built apps for 50+ startups across healthcare, fintech, and e-commerce.",
   },
   {
     title: "AADHYRA HEALTH CONNECT",
@@ -48,6 +54,9 @@ const products = [
       { label: "Doctor / Nurse Login", to: "/employer/auth", icon: Building2 },
     ],
     bullets: ["AI Symptom Checker", "Online Consultations", "Lab + Pharmacy", "Home Nursing"],
+    purpose: "Make healthcare accessible and affordable through AI-powered telemedicine and home care services.",
+    achievements: ["10,000+ patient consultations", "500+ verified doctors", "24/7 AI health support"],
+    successStory: "Delivered home nursing services to 2,000+ patients across Bangalore and Hyderabad.",
   },
   {
     title: "AADHYRA LAB",
@@ -59,6 +68,9 @@ const products = [
     pageRoute: "/placement/ai-lab",
     logins: [{ label: "Open AADHYRA LAB", to: "/placement/ai-lab", icon: Sparkles }],
     bullets: ["AI Project Builder", "Resume Builder", "Mock Interview AI", "Career Path AI"],
+    purpose: "Turn ideas into fully-planned projects using AI — from feature specs to tech stack to data models.",
+    achievements: ["5,000+ projects generated", "AI-powered resume builder", "Mock interview simulations"],
+    successStory: "Students who used AI Lab's mock interviews scored 40% higher in real interviews.",
   },
 ];
 
@@ -123,6 +135,30 @@ const PlacementPage = () => {
                           </div>
                         ))}
                       </div>
+
+                      {/* Purpose */}
+                      {(p as any).purpose && (
+                        <div className="bg-muted/30 rounded-lg p-3 mb-4 border">
+                          <p className="text-xs font-semibold text-primary uppercase tracking-wider mb-1">Our Purpose</p>
+                          <p className="text-sm text-muted-foreground">{(p as any).purpose}</p>
+                        </div>
+                      )}
+
+                      {/* Achievements */}
+                      {(p as any).achievements && (
+                        <div className="mb-5">
+                          <p className="text-xs font-semibold text-primary uppercase tracking-wider mb-2">Key Achievements</p>
+                          <div className="space-y-1.5">
+                            {(p as any).achievements.map((a: string) => (
+                              <div key={a} className="flex items-center gap-2 text-sm text-foreground">
+                                <Award className="h-3.5 w-3.5 text-accent flex-shrink-0" />
+                                <span>{a}</span>
+                              </div>
+                            ))}
+                          </div>
+                        </div>
+                      )}
+
                       <div className="flex flex-wrap gap-2">
                         <Link to={p.pageRoute}>
                           <Button variant="outline" className="gap-2">
@@ -141,6 +177,35 @@ const PlacementPage = () => {
                         })}
                       </div>
                     </div>
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+        </section>
+
+        {/* Success Stories */}
+        <section className="py-12 lg:py-16 bg-card">
+          <div className="container">
+            <div className="text-center mb-8">
+              <Badge variant="outline" className="mb-3 text-primary border-primary/30 bg-primary/5">
+                <Star className="h-3 w-3 mr-1" />
+                Success Stories
+              </Badge>
+              <h2 className="font-heading text-2xl md:text-3xl font-bold text-foreground">Impact Across Verticals</h2>
+            </div>
+            <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-4">
+              {products.map((p) => {
+                const Icon = p.icon;
+                return (
+                  <div key={p.title + "-story"} className="bg-muted/30 rounded-xl border p-5">
+                    <div className="flex items-center gap-2 mb-3">
+                      <div className={`h-8 w-8 rounded-lg bg-gradient-to-br ${p.accent} flex items-center justify-center`}>
+                        <Icon className="h-4 w-4 text-white" />
+                      </div>
+                      <h4 className="font-semibold text-sm text-foreground">{p.title.split(" ").slice(1).join(" ")}</h4>
+                    </div>
+                    <p className="text-sm text-muted-foreground">{(p as any).successStory}</p>
                   </div>
                 );
               })}

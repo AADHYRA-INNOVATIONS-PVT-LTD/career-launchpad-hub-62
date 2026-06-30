@@ -22,6 +22,8 @@ import AdminAuth from "./pages/admin/AdminAuth";
 import CertificateVerifyPage from "./pages/CertificateVerifyPage";
 import InternshipEnrollPage from "./pages/InternshipEnrollPage";
 import CampusDrivePage from "./pages/CampusDrivePage";
+import StudentAmbassadorPage from "./pages/StudentAmbassadorPage";
+import AssessmentResultsPage from "./pages/AssessmentResultsPage";
 
 
 // Services Pages
@@ -46,6 +48,9 @@ import TalentConnectPage from "./pages/placement/TalentConnectPage";
 import TechPartnerPage from "./pages/placement/TechPartnerPage";
 import HealthConnectPage from "./pages/placement/HealthConnectPage";
 import AILabPage from "./pages/placement/AILabPage";
+
+// Global Components
+import AIChatbot from "./components/shared/AIChatbot";
 
 // Dashboard Layout & Pages
 import DashboardLayout from "./layouts/DashboardLayout";
@@ -123,6 +128,8 @@ const App = () => (
             <Route path="/internships/enroll" element={<InternshipEnrollPage />} />
             <Route path="/career" element={<JobPage />} />
             <Route path="/campus-drive" element={<CampusDrivePage />} />
+            <Route path="/student-ambassador" element={<StudentAmbassadorPage />} />
+            <Route path="/career/results" element={<AssessmentResultsPage />} />
             <Route path="/placement/talent-connect" element={<TalentConnectPage />} />
             <Route path="/placement/tech-partner" element={<TechPartnerPage />} />
             <Route path="/placement/health-connect" element={<HealthConnectPage />} />
@@ -226,6 +233,7 @@ const App = () => (
             {/* Catch-all */}
             <Route path="*" element={<NotFound />} />
           </Routes>
+          <AIChatbot />
         </AuthProvider>
       </BrowserRouter>
     </TooltipProvider>

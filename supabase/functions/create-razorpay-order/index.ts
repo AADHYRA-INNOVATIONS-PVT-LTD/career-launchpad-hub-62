@@ -14,12 +14,26 @@ serve(async (req) => {
   try {
     const { amount, currency = 'INR', receipt = 'receipt_1' } = await req.json()
 
+    // Razorpay expects amount in paise (smallest currency unit)
+    const amountInPaise = Math.round(amount * 100);
+    
+    // Validate amount >= 100 paise
+    if (amountInPaise < 100) {
+      return new Response(
+        JSON.stringify({ error: 'Minimum amount must be at least 1 INR (100 paise)' }),
+        { headers: { ...corsHeaders, 'Content-Type': 'application/json' }, status: 400 }
+      )
+    }
+
     // Get Razorpay credentials from environment variables
     const key_id = Deno.env.get('RAZORPAY_KEY_ID')
     const key_secret = Deno.env.get('RAZORPAY_KEY_SECRET')
 
     if (!key_id || !key_secret) {
-      throw new Error('Razorpay credentials not configured in environment variables')
+      return new Response(
+        JSON.stringify({ error: 'Razorpay credentials not configured' }),
+        { headers: { ...corsHeaders, 'Content-Type': 'application/json' }, status: 500 }
+      )
     }
 
     // Call Razorpay API to create an order
@@ -31,7 +45,7 @@ serve(async (req) => {
         'Authorization': `Basic ${auth}`
       },
       body: JSON.stringify({
-        amount: Math.round(amount * 100), // Razorpay expects amount in paise (smallest currency unit)
+        amount: amountInPaise,
         currency,
         receipt,
       })
@@ -40,7 +54,11 @@ serve(async (req) => {
     const order = await response.json()
 
     if (!response.ok) {
-      throw new Error(order.error?.description || 'Failed to create Razorpay order')
+      const statusCode = response.status === 401 ? 401 : 500;
+      return new Response(
+        JSON.stringify({ error: order.error?.description || 'Failed to create Razorpay order' }),
+        { headers: { ...corsHeaders, 'Content-Type': 'application/json' }, status: statusCode }
+      )
     }
 
     return new Response(

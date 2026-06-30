@@ -115,6 +115,12 @@ const PaymentModal = ({ isOpen, onClose, amount, onSuccess, title = "Complete Pa
       };
 
       const paymentObject = new window.Razorpay(options);
+      
+      paymentObject.on('payment.failed', function (response: any) {
+        alert("Payment failed: " + response.error.description);
+        setProcessing(false);
+      });
+      
       paymentObject.open();
     } catch (err) {
       console.error(err);

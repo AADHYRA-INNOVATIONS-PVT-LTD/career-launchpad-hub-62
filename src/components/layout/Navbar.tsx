@@ -172,6 +172,7 @@ const Navbar = () => {
           <Link to="/internships" className={navLinkClass("/internships")}>Internships</Link>
           <Link to="/placement" className={navLinkClass("/placement")}>Placements</Link>
           <Link to="/career" className={navLinkClass("/career")}>Careers</Link>
+          <Link to="/student-ambassador" className={navLinkClass("/student-ambassador")}>Ambassador</Link>
 
           {/* Courses Dropdown */}
           <NavigationMenu>
@@ -230,10 +231,6 @@ const Navbar = () => {
                 <DropdownMenuItem asChild>
                   <Link to="/employer/auth" className="cursor-pointer">Employer Login</Link>
                 </DropdownMenuItem>
-                <DropdownMenuSeparator />
-                <DropdownMenuItem asChild>
-                  <Link to="/admin/login" className="cursor-pointer text-accent focus:text-accent font-medium">Admin Login</Link>
-                </DropdownMenuItem>
               </DropdownMenuContent>
             </DropdownMenu>
           </div>
@@ -284,6 +281,7 @@ const Navbar = () => {
             <Link to="/internships" className="px-4 py-3 rounded-lg hover:bg-muted transition-colors font-medium" onClick={() => setIsMobileMenuOpen(false)}>Internships</Link>
             <Link to="/placement" className="px-4 py-3 rounded-lg hover:bg-muted transition-colors font-medium" onClick={() => setIsMobileMenuOpen(false)}>Placements</Link>
             <Link to="/career" className="px-4 py-3 rounded-lg hover:bg-muted transition-colors font-medium" onClick={() => setIsMobileMenuOpen(false)}>Careers</Link>
+            <Link to="/student-ambassador" className="px-4 py-3 rounded-lg hover:bg-muted transition-colors font-medium" onClick={() => setIsMobileMenuOpen(false)}>Ambassador</Link>
 
             {/* Mobile Courses */}
             <button
