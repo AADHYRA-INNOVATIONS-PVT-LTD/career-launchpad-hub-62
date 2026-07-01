@@ -65,6 +65,9 @@ const PaymentModal = ({ isOpen, onClose, amount, onSuccess, title = "Complete Pa
         throw new Error(orderError?.message || "Failed to create order");
       }
 
+      // Close the dialog BEFORE opening Razorpay so its overlay doesn't block clicks
+      onClose();
+
       const options = {
         key: import.meta.env.VITE_RAZORPAY_KEY_ID || 'rzp_test_mock_key', // Uses env var or fallback for UI testing
         amount: orderData.amount,
@@ -74,7 +77,6 @@ const PaymentModal = ({ isOpen, onClose, amount, onSuccess, title = "Complete Pa
         order_id: orderData.id,
         handler: async function (response: any) {
           try {
-            setProcessing(true);
             // Verify payment
             const { data: verificationData, error: verificationError } = await supabase.functions.invoke('verify-razorpay-payment', {
               body: {
@@ -88,15 +90,10 @@ const PaymentModal = ({ isOpen, onClose, amount, onSuccess, title = "Complete Pa
               throw new Error("Payment verification failed");
             }
 
-            setSuccess(true);
-            setTimeout(() => {
-              onSuccess();
-              onClose();
-            }, 1500);
+            onSuccess();
           } catch (err) {
             console.error("Verification error:", err);
             alert("Payment verification failed. Please contact support.");
-            setProcessing(false);
           }
         },
         prefill: {

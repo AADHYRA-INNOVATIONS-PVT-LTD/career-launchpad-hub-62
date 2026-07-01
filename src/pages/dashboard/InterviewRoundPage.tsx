@@ -67,7 +67,7 @@ const InterviewRoundPage = () => {
           .eq('user_id', user.id)
           .eq('course_id', categoryId)
           .eq('round', round)
-          .single();
+          .maybeSingle();
 
         if (existingAttempt?.status === 'completed') {
           toast({
