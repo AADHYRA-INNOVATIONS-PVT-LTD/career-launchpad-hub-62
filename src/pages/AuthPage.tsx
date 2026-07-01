@@ -149,6 +149,8 @@ const AuthPage = () => {
           navigate("/patient-dashboard", { replace: true });
         } else if (role === "doctor") {
           navigate("/doctor-dashboard", { replace: true });
+        } else if (role === "candidate") {
+          navigate("/employer", { replace: true });
         } else {
           navigate("/dashboard", { replace: true });
         }
