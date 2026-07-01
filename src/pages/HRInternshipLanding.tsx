@@ -126,29 +126,10 @@ const HRInternshipLanding = () => {
           </div>
         </section>
 
-        {/* Earnings & Benefits Grid */}
+        {/* Benefits Section */}
         <section className="py-20 bg-primary/5">
           <div className="container">
-            <div className="grid lg:grid-cols-2 gap-12">
-              {/* Earnings */}
-              <div>
-                <h2 className="font-heading text-3xl font-bold mb-8 flex items-center gap-3">
-                  <DollarSign className="h-8 w-8 text-primary" /> Earnings Structure
-                </h2>
-                <div className="space-y-4">
-                  {[
-                    { tier: "Beginner", range: "₹1,000 – ₹3,000", bg: "bg-white" },
-                    { tier: "Average Performer", range: "₹4,000 – ₹8,000", bg: "bg-white" },
-                    { tier: "Best Performer", range: "₹10,000 – ₹20,000+", bg: "bg-primary text-primary-foreground border-primary" },
-                  ].map((e, i) => (
-                    <div key={i} className={`flex justify-between items-center p-6 rounded-xl border shadow-sm ${e.bg}`}>
-                      <span className="font-semibold text-lg">{e.tier}</span>
-                      <span className="font-bold text-xl">{e.range}</span>
-                    </div>
-                  ))}
-                </div>
-              </div>
-
+            <div className="max-w-2xl mx-auto">
               {/* Benefits */}
               <div>
                 <h2 className="font-heading text-3xl font-bold mb-8 flex items-center gap-3">
@@ -157,7 +138,7 @@ const HRInternshipLanding = () => {
                 <div className="grid sm:grid-cols-2 gap-4">
                   {[
                     "Internship Certificate", "Experience Letter", "Performance Report",
-                    "Incentive Earnings", "Team Leader Opportunity", "Full-Time Job Opportunity"
+                    "Team Leader Opportunity", "Full-Time Job Opportunity", "Letter of Recommendation"
                   ].map((benefit, i) => (
                     <div key={i} className="bg-white border p-4 rounded-xl flex items-center gap-3 shadow-sm">
                       <CheckCircle2 className="h-5 w-5 text-green-500 shrink-0" />
@@ -166,7 +147,7 @@ const HRInternshipLanding = () => {
                   ))}
                 </div>
                 <div className="mt-8 text-center bg-accent text-accent-foreground p-6 rounded-xl font-heading font-bold text-xl">
-                  Learn • Earn • Get Experience • Build Career
+                  Learn • Grow • Get Experience • Build Career
                 </div>
               </div>
             </div>
