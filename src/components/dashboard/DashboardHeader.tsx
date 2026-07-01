@@ -36,7 +36,7 @@ const DashboardHeader = ({ title, role = "student", onMenuToggle }: DashboardHea
         return "Aadhyra Talent Connect (Employer)";
       case "student":
       default:
-        return "Student Learning Portal";
+        return "Aadhyra Talent Connect (Employee)";
     }
   };
 

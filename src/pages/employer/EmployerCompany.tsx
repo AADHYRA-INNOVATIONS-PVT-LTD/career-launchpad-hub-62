@@ -147,8 +147,8 @@ const EmployerCompany = () => {
   return (
     <div className="space-y-6 max-w-3xl">
       <div>
-        <h1 className="text-2xl font-bold">Company Profile</h1>
-        <p className="text-muted-foreground">Manage your company information</p>
+        <h1 className="text-2xl font-bold">Employer Profile</h1>
+        <p className="text-muted-foreground">Manage your employer information</p>
       </div>
 
       {/* Verification Status */}

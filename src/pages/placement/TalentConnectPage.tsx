@@ -34,7 +34,7 @@ const TalentConnectPage = () => {
               {/* Passes candidate role context to the central auth router */}
               <Link to="/auth?role=candidate">
                 <Button variant="accent" size="xl" className="gap-2">
-                  <Users className="h-5 w-5" /> Candidate Login
+                  <Users className="h-5 w-5" /> Employee Login
                 </Button>
               </Link>
               {/* Passes employer role context to trigger the specialized business layout */}
@@ -87,7 +87,7 @@ const TalentConnectPage = () => {
             <div className="grid md:grid-cols-2 gap-8">
               <div className="bg-card rounded-2xl border shadow-card p-8">
                 <div className="text-4xl mb-4">👤</div>
-                <h3 className="font-heading text-2xl font-bold text-foreground mb-3">For Candidates</h3>
+                <h3 className="font-heading text-2xl font-bold text-foreground mb-3">For Employees</h3>
                 <ul className="space-y-3 mb-6">
                   {["Create verified profile", "AI job matching", "Track applications", "In-app messaging", "Interview scheduling"].map((item) => (
                     <li key={item} className="flex items-center gap-2 text-sm text-foreground">
@@ -97,7 +97,7 @@ const TalentConnectPage = () => {
                 </ul>
                 {/* For Candidates Card Button */}
               <Link to="/auth?role=candidate">
-                <Button className="w-full gap-2">Candidate Login <ArrowRight className="h-4 w-4" /></Button>
+                <Button className="w-full gap-2">Employee Login <ArrowRight className="h-4 w-4" /></Button>
               </Link>
               </div>
               <div className="bg-card rounded-2xl border shadow-card p-8">

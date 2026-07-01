@@ -174,7 +174,7 @@ const App = () => (
               <Route path="settings" element={<EmployerSettings />} />
             </Route>
 
-            {/* Student Dashboard Routes */}
+            {/* Employee Dashboard Routes */}
             <Route path="/dashboard" element={<DashboardLayout />}>
               <Route index element={<DashboardHome />} />
               <Route path="courses" element={<DashboardCourses />} />

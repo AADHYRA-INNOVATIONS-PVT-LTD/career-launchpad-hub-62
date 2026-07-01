@@ -99,7 +99,7 @@ const DashboardSidebar = ({ isAdmin = false, role = "student" }: DashboardSideba
     case 'patient':    return 'Patient Portal';
     case 'doctor':     return 'Medical Portal';
     case 'employer':   return 'Employer Portal';
-    default:           return 'Student Portal';
+    default:           return 'Employee Dashboard';
   }
 };
 
@@ -111,7 +111,7 @@ const getRoleBadgeLabel = () => {
     case 'patient':    return 'Patient';
     case 'doctor':     return 'Doctor / Nurse';
     case 'employer':   return 'Employer';
-    default:           return 'Student';
+     default:           return 'Employee';
   }
 };
   const handleLogout = async () => {

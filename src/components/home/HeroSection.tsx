@@ -63,7 +63,7 @@ const HeroSection = () => {
               { icon: Users, text: "Campus & placement drives across India" },
               { icon: Sparkles, text: "Upcoming: Employer onboarding open now" },
             ]}
-            primaryCta={{ label: "Candidate Login", to: "/auth?role=candidate" }}
+            primaryCta={{ label: "Employee Login", to: "/auth?role=candidate" }}
             secondaryCta={{ label: "Employer Login", to: "/auth?role=employer" }}
             learnMore="/placement/talent-connect"
           />

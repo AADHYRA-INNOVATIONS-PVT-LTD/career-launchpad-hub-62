@@ -283,7 +283,7 @@ const EmployerDashboard = () => {
             <Button variant="outline" className="w-full justify-start" asChild>
               <Link to="/employer/company">
                 <TrendingUp className="h-4 w-4 mr-2" />
-                Update Company Profile
+                Update Employer Profile
               </Link>
             </Button>
           </CardContent>

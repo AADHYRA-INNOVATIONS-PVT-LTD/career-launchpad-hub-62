@@ -16,7 +16,7 @@ const products = [
     accent: "from-blue-500 to-primary",
     pageRoute: "/placement/talent-connect",
     logins: [
-      { label: "Candidate Login", to: "/auth", icon: Users },
+      { label: "Employee Login", to: "/auth", icon: Users },
       { label: "Employer Login", to: "/employer/auth", icon: Building2 },
     ],
     bullets: ["AI Skill Matching", "Verified Profiles", "Smart Job Alerts", "In-App Messaging"],

@@ -1,8 +1,10 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { ArrowRight, CreditCard, CheckCircle2, Briefcase, FileText, Camera, Video, IndianRupee } from "lucide-react";
 import PaymentModal from "@/components/shared/PaymentModal";
+import { useToast } from "@/hooks/use-toast";
 
 interface ApplyDialogProps {
   job: { title: string; company: string; experience: string; salary: string };
@@ -20,6 +22,8 @@ const hiringSteps = [
 ];
 
 const ApplyDialog = ({ job, open, onClose }: ApplyDialogProps) => {
+  const navigate = useNavigate();
+  const { toast } = useToast();
   const [experienceLevel, setExperienceLevel] = useState<"fresher" | "experienced" | null>(null);
   const [step, setStep] = useState<"select" | "confirm">("select");
   const [showPaymentModal, setShowPaymentModal] = useState(false);
@@ -37,7 +41,15 @@ const ApplyDialog = ({ job, open, onClose }: ApplyDialogProps) => {
   };
 
   const handlePaymentSuccess = () => {
-    window.location.href = "/auth?message=payment_success";
+    toast({
+      title: "✅ Payment Successful!",
+      description: `Evaluation fee paid for ${job.title}. Redirecting to your dashboard...`,
+    });
+    // Close the dialog and navigate to the employee dashboard
+    handleClose();
+    setTimeout(() => {
+      navigate("/dashboard");
+    }, 1500);
   };
 
   const handleClose = () => {

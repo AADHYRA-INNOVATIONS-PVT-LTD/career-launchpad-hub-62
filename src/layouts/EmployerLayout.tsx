@@ -73,7 +73,7 @@ const EmployerLayout = () => {
     { icon: LayoutDashboard, label: 'Dashboard', path: '/employer' },
     { icon: Briefcase, label: 'Job Postings', path: '/employer/jobs' },
     { icon: Users, label: 'Candidates', path: '/employer/candidates' },
-    { icon: Building2, label: 'Company Profile', path: '/employer/company' },
+    { icon: Building2, label: 'Employer Profile', path: '/employer/company' },
     { icon: FileText, label: 'Documents', path: '/employer/documents' },
     { icon: Settings, label: 'Settings', path: '/employer/settings' },
   ];

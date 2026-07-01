@@ -53,7 +53,7 @@ const DashboardLayout = ({ isAdmin, role = "student" }: DashboardLayoutProps) =>
         return 'Employer Workspace';
       case 'student':
       default:
-        return 'Student Dashboard';
+        return 'Employee Dashboard';
     }
   };
 

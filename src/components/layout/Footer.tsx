@@ -95,7 +95,7 @@ const Footer = () => {
 
             <h3 className="font-heading font-semibold text-lg mt-8 mb-4">Login</h3>
             <ul className="space-y-3">
-              <li><Link to="/auth" className="text-sm text-muted-foreground hover:text-primary transition-colors">Student / Candidate</Link></li>
+              <li><Link to="/auth" className="text-sm text-muted-foreground hover:text-primary transition-colors">Employee</Link></li>
               <li><Link to="/employer/auth" className="text-sm text-muted-foreground hover:text-primary transition-colors">Employer / Project Owner</Link></li>
             </ul>
           </div>

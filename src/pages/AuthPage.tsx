@@ -43,11 +43,11 @@ const AuthPage = () => {
       errorMsg: "This email is not registered as a student. Please check your credentials or sign up."
     },
     candidate: {
-      title: "Candidate Portal",
+      title: "Employee Portal",
       subtitle: "Talent Connect",
       desc: "Sign in to monitor your applications, interviews, and verified skill profiles.",
       icon: Users,
-      errorMsg: "No candidate account found with this email on Talent Connect."
+      errorMsg: "No employee account found with this email on Talent Connect."
     },
     freelancer: {
       title: "Freelancer Portal",
@@ -66,7 +66,7 @@ const AuthPage = () => {
     employer: {
       title: "Employer Portal",
       subtitle: "Recruitment Dashboard",
-      desc: "Sign in to post jobs, evaluate candidate profiles, and schedule corporate interviews.",
+      desc: "Sign in to post jobs, evaluate employee profiles, and schedule corporate interviews.",
       icon: Briefcase,
       errorMsg: "Corporate account not found. Please verify your employer registration."
     },
@@ -177,7 +177,7 @@ const AuthPage = () => {
 
       <div className="bg-card border shadow-card rounded-2xl max-w-md w-full p-8 border-t-4 border-t-primary transition-all duration-300">
         <div className="text-center mb-6">
-        {/* RESTORED: Changes from "Student Portal", "Candidate Portal", etc. based on URL */}
+        {/* RESTORED: Changes from "Student Portal", "Employee Portal", etc. based on URL */}
         <h1 className="font-heading text-2xl font-bold text-foreground mb-1.5 tracking-tight">
           {currentPortal.title}
         </h1>
