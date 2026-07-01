@@ -85,8 +85,9 @@ const ContactPage = () => {
                   </div>
                   <h3 className="font-heading font-semibold text-foreground mb-2">Visit Us</h3>
                   <p className="text-muted-foreground">
-                    123 Tech Park, Electronic City<br />
-                    Bangalore, Karnataka 560001
+                    # 19, Lakshmi Nivas, 5th B Cross<br />
+                    Sarakki Main Road, J P Nagar 1st Phase<br />
+                    Bangalore - 560078
                   </p>
                 </div>
                 
@@ -95,7 +96,7 @@ const ContactPage = () => {
                     <Phone className="h-6 w-6 text-primary" />
                   </div>
                   <h3 className="font-heading font-semibold text-foreground mb-2">Call Us</h3>
-                  <a href="tel:+919876543210" className="text-primary hover:underline">+91 98765 43210</a>
+                  <a href="tel:+918151974736" className="text-primary hover:underline">+91 81519 74736</a>
                   <p className="text-sm text-muted-foreground mt-1">Mon - Sat, 9AM - 7PM</p>
                 </div>
                 

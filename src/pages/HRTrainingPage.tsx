@@ -192,52 +192,6 @@ const hrDemoVideos = [
                  </Card>
                ))}
              </div>
- 
-             {/* Earnings Model */}
-             <div className="bg-gradient-to-r from-hr to-hr/80 rounded-2xl p-8 lg:p-12 text-white">
-               <div className="grid lg:grid-cols-2 gap-8 items-center">
-                 <div>
-                   <h3 className="font-heading text-2xl font-bold mb-4 flex items-center gap-2">
-                     <Wallet className="h-7 w-7" />
-                     HR Internship Earnings Model
-                   </h3>
-                   <div className="space-y-4">
-                     <div className="flex items-center gap-3">
-                       <CheckCircle2 className="h-5 w-5" />
-                       <span>Monthly Stipend Potential: ₹10,000 – ₹20,000</span>
-                     </div>
-                     <div className="flex items-center gap-3">
-                       <CheckCircle2 className="h-5 w-5" />
-                       <span>Internship Duration: 2 Months</span>
-                     </div>
-                     <div className="flex items-center gap-3">
-                       <CheckCircle2 className="h-5 w-5" />
-                       <span>Total Possible Earnings: ₹20,000+</span>
-                     </div>
-                   </div>
-                 </div>
-                 <div className="bg-white/10 rounded-xl p-6">
-                   <h4 className="font-semibold mb-4 flex items-center gap-2">
-                     <Wallet className="h-5 w-5" />
-                     Wallet System (Like Rapido / Uber)
-                   </h4>
-                   <ul className="space-y-3 text-sm text-white/90">
-                     <li className="flex items-start gap-2">
-                       <CheckCircle2 className="h-4 w-4 mt-0.5" />
-                       Earnings credited to in-app wallet
-                     </li>
-                     <li className="flex items-start gap-2">
-                       <CheckCircle2 className="h-4 w-4 mt-0.5" />
-                       Withdrawal available every month on 5th
-                     </li>
-                     <li className="flex items-start gap-2">
-                       <CheckCircle2 className="h-4 w-4 mt-0.5" />
-                       Track: Earnings, Completed Tasks, Withdraw History
-                     </li>
-                   </ul>
-                 </div>
-               </div>
-             </div>
            </div>
          </section>
  

@@ -30,7 +30,7 @@ const Footer = () => {
               </a>
               <a href="#" aria-label="LinkedIn" className="p-2 rounded-lg bg-background/10 hover:bg-primary transition-colors">
                 <Linkedin className="h-5 w-5" />
-              </a>
+              </a> 
               <a href="#" aria-label="Instagram" className="p-2 rounded-lg bg-background/10 hover:bg-primary transition-colors">
                 <Instagram className="h-5 w-5" />
               </a>
@@ -39,15 +39,15 @@ const Footer = () => {
             <ul className="space-y-3 mt-8">
               <li className="flex items-start gap-3">
                 <MapPin className="h-5 w-5 text-primary mt-0.5 flex-shrink-0" />
-                <span className="text-sm text-muted-foreground">123 Tech Park, Electronic City<br />Bangalore, Karnataka 560001</span>
+                <span className="text-sm text-muted-foreground"> 19, Lakshmi Nivas, 5th B Cross<br />Sarakki Main Road, J P Nagar 1st Phase<br />Bangalore - 560078</span>
               </li>
               <li className="flex items-center gap-3">
                 <Phone className="h-5 w-5 text-primary flex-shrink-0" />
-                <a href="tel:+919876543210" className="text-sm text-muted-foreground hover:text-primary transition-colors">+91 98765 43210</a>
+                <a href="tel:+918151974736" className="text-sm text-muted-foreground hover:text-primary transition-colors">+91 81519 74736</a>
               </li>
               <li className="flex items-center gap-3">
                 <Mail className="h-5 w-5 text-primary flex-shrink-0" />
-                <a href="mailto:info@Aadhyra Innovations.com" className="text-sm text-muted-foreground hover:text-primary transition-colors">info@Aadhyra Innovations.com</a>
+                <a href="mailto:aadhyrainnovations@gmail.com" className="text-sm text-muted-foreground hover:text-primary transition-colors">aadhyrainnovations@gmail.com</a>
               </li>
             </ul>
           </div>

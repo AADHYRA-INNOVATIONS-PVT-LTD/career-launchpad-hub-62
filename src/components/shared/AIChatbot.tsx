@@ -166,7 +166,7 @@ const getResponse = (query: string): { content: string; links?: { label: string;
       content:
         "🏢 **AADHYRA INNOVATIONS PVT LTD** operates 4 verticals:\n\n" +
         "🔍 **AADHYRA TALENTS CONECT** — AI-Powered Recruitment Platform (like Apna)\n" +
-        "💻 **AADHYRA TECH PARTNER** — Freelancing Marketplace (like Upwork)\n" +
+        "💻 **AADHYRA TECH PARTNER** — Freelancing Marketplace\n" +
         "🏥 **AADHYRA HEALTH CONECT** — AI Healthcare & Telemedicine\n" +
         "🧠 **AADHYRA LAB** — AI Project Builder (like Lovable)\n\n" +
         "We've placed 5,000+ students, partnered with 500+ companies, and maintain a 95% placement rate.",

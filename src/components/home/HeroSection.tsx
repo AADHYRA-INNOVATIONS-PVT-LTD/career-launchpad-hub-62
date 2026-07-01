@@ -71,7 +71,7 @@ const HeroSection = () => {
           {/* AADHYRA TECH PARTNER */}
           <ProductCard
             title="AADHYRA TECH PARTNER"
-            tagline="Freelance Marketplace · Like Upwork"
+            tagline="Freelance Marketplace"
             icon={Code}
             gradient="from-emerald-400/30 to-teal-500/40"
             ringColor="ring-emerald-300/40"

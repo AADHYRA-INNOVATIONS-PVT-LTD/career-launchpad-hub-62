@@ -429,8 +429,8 @@ const handlePayment = async () => {
   doc.setFontSize(20);
   doc.text("Aadhyra Innovations Private Limited", 14, 20);
   doc.setFontSize(10);
-  doc.text("123 Tech Street, Electronic City Phase 1, Bangalore", 14, 27);
-  doc.text("Email: support@aadhyra.com", 14, 32);
+  doc.text("# 19, Lakshmi Nivas, 5th B Cross, Sarakki Main Road, J P Nagar 1st Phase, Bangalore - 560078", 14, 27);
+  doc.text("Email: aadhyrainnovations@gmail.com | Phone: +91 81519 74736", 14, 32);
   
   // Draw a horizontal line
   doc.line(14, 37, 195, 37);
@@ -910,7 +910,7 @@ const handlePayment = async () => {
                   <div className="bg-amber-50 border border-amber-200 rounded-lg p-4 mb-6">
                     <p className="text-sm text-amber-800">
                       <strong>Note:</strong> This payment is for evaluation/training/placement support services. 
-                      Fees are non-refundable under any circumstances. Payment does not guarantee job placement.
+                      Fees are non-refundable under any circumstances. Your placement success depends on your dedication, performance, and skill development throughout the program.
                     </p>
                   </div>
                   
@@ -988,7 +988,7 @@ const handlePayment = async () => {
                     
                     <div className="mt-4 pt-4 border-t text-xs text-muted-foreground">
                       <p><strong>Note:</strong> This payment is for evaluation/training/placement support services. 
-                      Fees are non-refundable under any circumstances. Payment does not guarantee job placement.
+                      Fees are non-refundable under any circumstances. Your placement success depends on your dedication, performance, and skill development throughout the program.
                       Subject to AADHYRA INNOVATIONS PVT LTD policies agreed digitally.</p>
                     </div>
                   </div>

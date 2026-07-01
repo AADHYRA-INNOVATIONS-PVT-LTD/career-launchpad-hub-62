@@ -194,7 +194,7 @@ const CertificateVerifyPage = () => {
                       <li>• Enter the Certificate ID printed on the certificate</li>
                       <li>• Or scan the QR code on the certificate</li>
                       <li>• Verified certificates show a green badge</li>
-                      <li>• For queries, contact support@Aadhyra Innovations.com</li>
+                      <li>• For queries, contact aadhyrainnovations@gmail.com</li>
                     </ul>
                   </div>
                 </div>

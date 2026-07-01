@@ -26,7 +26,7 @@ const products = [
   },
   {
     title: "AADHYRA TECH PARTNER",
-    tagline: "Freelancing Marketplace — like Upwork",
+    tagline: "Freelancing Marketplace",
     description:
       "Find freelance projects, build your portfolio, win bids, and get paid securely through escrow.",
     icon: Code,

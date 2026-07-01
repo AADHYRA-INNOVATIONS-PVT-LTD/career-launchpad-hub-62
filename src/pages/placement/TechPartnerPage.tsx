@@ -39,7 +39,7 @@ const TechPartnerPage = () => {
                 Freelancing Marketplace
               </h1>
               <p className="text-lg text-muted-foreground mb-8">
-                Like Upwork — find freelance projects, build your portfolio, and earn. Connect freelancers with project owners.
+                Find freelance projects, build your portfolio, and earn. Connect freelancers with project owners.
               </p>
               <div className="flex flex-wrap gap-3 justify-center">
                 {/* Pass freelancer role to render the Freelancer configuration */}

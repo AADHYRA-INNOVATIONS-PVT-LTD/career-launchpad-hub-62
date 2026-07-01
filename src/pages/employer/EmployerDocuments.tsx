@@ -237,8 +237,8 @@ const EmployerDocuments = () => {
         <CardContent className="py-4">
           <p className="text-sm text-muted-foreground">
             <strong>Need help?</strong> Contact our support team at{' '}
-            <a href="mailto:support@Aadhyra Innovations.com" className="text-primary hover:underline">
-              support@Aadhyra Innovations.com
+            <a href="mailto:aadhyrainnovations@gmail.com" className="text-primary hover:underline">
+              aadhyrainnovations@gmail.com
             </a>{' '}
             for assistance with the verification process.
           </p>

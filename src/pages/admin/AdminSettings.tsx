@@ -31,7 +31,7 @@ const AdminSettings = () => {
             </div>
             <div className="space-y-2">
               <Label htmlFor="support_email">Support Email</Label>
-              <Input id="support_email" type="email" defaultValue="support@Aadhyra Innovations.com" />
+              <Input id="support_email" type="email" defaultValue="aadhyrainnovations@gmail.com" />
             </div>
             <div className="space-y-2">
               <Label htmlFor="contact_phone">Contact Phone</Label>
