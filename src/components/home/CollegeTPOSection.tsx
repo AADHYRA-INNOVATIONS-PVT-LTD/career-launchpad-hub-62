@@ -42,12 +42,66 @@ const CollegeTPOSection = () => {
   const [form, setForm] = useState(initial);
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState(false);
+  const [errors, setErrors] = useState<Partial<Record<keyof typeof initial, string>>>({});
 
-  const update = (k: keyof typeof initial, v: string) =>
+  const validate = (k: keyof typeof initial, v: string): string => {
+    switch (k) {
+      case 'first_name':
+      case 'last_name': {
+        const label = k === 'first_name' ? 'First name' : 'Last name';
+        if (!v.trim()) return `${label} is required`;
+        if (/[0-9]/.test(v)) return `${label} must not contain numbers`;
+        return '';
+      }
+      case 'mobile':
+        if (!v.trim()) return 'Mobile number is required';
+        if (!/^[0-9]+$/.test(v)) return 'Mobile must contain only digits';
+        if (v.length < 10) return 'Mobile must be exactly 10 digits';
+        return '';
+      case 'official_email':
+        if (!v.trim()) return 'Email is required';
+        if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v)) return 'Enter a valid email address';
+        return '';
+      case 'college_name':
+        if (!v.trim()) return 'College name is required';
+        return '';
+      case 'designation':
+        if (!v.trim()) return 'Designation is required';
+        return '';
+      case 'department':
+        if (!v.trim()) return 'Department is required';
+        return '';
+      case 'city':
+        if (!v.trim()) return 'City is required';
+        if (/[0-9]/.test(v)) return 'City must not contain numbers';
+        return '';
+      default:
+        return '';
+    }
+  };
+
+  const update = (k: keyof typeof initial, v: string) => {
     setForm((f) => ({ ...f, [k]: v }));
+    if (errors[k]) setErrors((e) => ({ ...e, [k]: '' }));
+  };
+  const onBlur = (k: keyof typeof initial) => {
+    const err = validate(k, form[k]);
+    if (err) setErrors((e) => ({ ...e, [k]: err }));
+  };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    // Run all field validations first
+    const newErrors: Partial<Record<keyof typeof initial, string>> = {};
+    (Object.keys(form) as (keyof typeof initial)[]).forEach((k) => {
+      const err = validate(k, form[k]);
+      if (err) newErrors[k] = err;
+    });
+    if (Object.keys(newErrors).length > 0) {
+      setErrors(newErrors);
+      toast({ title: 'Please fix the errors', description: 'Check highlighted fields above.', variant: 'destructive' });
+      return;
+    }
     const parsed = schema.safeParse(form);
     if (!parsed.success) {
       toast({
@@ -128,25 +182,36 @@ const CollegeTPOSection = () => {
                     <Input
                       value={form.college_name}
                       onChange={(e) => update("college_name", e.target.value)}
+                      onBlur={() => onBlur('college_name')}
+                      className={errors.college_name ? 'border-destructive' : ''}
                       placeholder="e.g. Anna University"
                       required
                     />
+                    {errors.college_name && <p className="text-xs text-destructive mt-1">{errors.college_name}</p>}
                   </div>
                   <div>
                     <Label>First Name *</Label>
                     <Input
                       value={form.first_name}
                       onChange={(e) => update("first_name", e.target.value)}
+                      onBlur={() => onBlur('first_name')}
+                      className={errors.first_name ? 'border-destructive' : ''}
+                      placeholder="e.g. Rahul"
                       required
                     />
+                    {errors.first_name && <p className="text-xs text-destructive mt-1">{errors.first_name}</p>}
                   </div>
                   <div>
                     <Label>Last Name *</Label>
                     <Input
                       value={form.last_name}
                       onChange={(e) => update("last_name", e.target.value)}
+                      onBlur={() => onBlur('last_name')}
+                      className={errors.last_name ? 'border-destructive' : ''}
+                      placeholder="e.g. Sharma"
                       required
                     />
+                    {errors.last_name && <p className="text-xs text-destructive mt-1">{errors.last_name}</p>}
                   </div>
                   <div className="md:col-span-2">
                     <Label>Official Email *</Label>
@@ -154,20 +219,30 @@ const CollegeTPOSection = () => {
                       type="email"
                       value={form.official_email}
                       onChange={(e) => update("official_email", e.target.value)}
+                      onBlur={() => onBlur('official_email')}
+                      className={errors.official_email ? 'border-destructive' : ''}
                       placeholder="placement@college_name.com"
                       required
                     />
+                    {errors.official_email && <p className="text-xs text-destructive mt-1">{errors.official_email}</p>}
                   </div>
                   <div>
                     <Label>Mobile Number *</Label>
                     <Input
                       type="tel"
+                      inputMode="numeric"
                       value={form.mobile}
-                      onChange={(e) => update("mobile", e.target.value)}
+                      onChange={(e) => {
+                        const val = e.target.value.replace(/[^0-9]/g, '').slice(0, 10);
+                        update("mobile", val);
+                      }}
+                      onBlur={() => onBlur('mobile')}
+                      className={errors.mobile ? 'border-destructive' : ''}
                       placeholder="10-digit mobile"
                       maxLength={10}
                       required
                     />
+                    {errors.mobile && <p className="text-xs text-destructive mt-1">{errors.mobile}</p>}
                   </div>
                   <div>
                     <Label>Designation *</Label>

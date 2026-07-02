@@ -2,14 +2,15 @@ import { useEffect } from "react";
 import { useLocation } from "react-router-dom";
 
 /**
- * ScrollToTop - scrolls the window to the top on every route change.
- * Place this inside <BrowserRouter> so it picks up location changes.
+ * ScrollToTop — instantly jumps to top on every route change.
  */
 const ScrollToTop = () => {
   const { pathname } = useLocation();
 
   useEffect(() => {
-    window.scrollTo({ top: 0, left: 0, behavior: "instant" });
+    window.scrollTo(0, 0);
+    document.documentElement.scrollTop = 0;
+    document.body.scrollTop = 0;
   }, [pathname]);
 
   return null;

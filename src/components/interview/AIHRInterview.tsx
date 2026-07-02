@@ -5,6 +5,7 @@ import { Progress } from '@/components/ui/progress';
 import { Badge } from '@/components/ui/badge';
 import { 
   Video, 
+  VideoOff,
   Mic, 
   MicOff,
   Play,
@@ -40,6 +41,7 @@ const AIHRInterview = ({ questions, onComplete, onDisqualify }: AIHRInterviewPro
   const [recordingTime, setRecordingTime] = useState(0);
   const [isProcessing, setIsProcessing] = useState(false);
   const [interviewStarted, setInterviewStarted] = useState(false);
+  const [cameraHidden, setCameraHidden] = useState(false);
   
   const mediaRecorderRef = useRef<MediaRecorder | null>(null);
   const chunksRef = useRef<Blob[]>([]);
@@ -59,6 +61,17 @@ const AIHRInterview = ({ questions, onComplete, onDisqualify }: AIHRInterviewPro
       onDisqualify();
     },
   });
+
+  // Ensure video element gets the stream when it mounts
+  useEffect(() => {
+    if (videoRef.current && state.cameraEnabled) {
+      // Re-attach stream if srcObject was lost during re-render
+      if (!videoRef.current.srcObject && (videoRef.current as any)._stream) {
+        videoRef.current.srcObject = (videoRef.current as any)._stream;
+        videoRef.current.play().catch(() => {});
+      }
+    }
+  }, [interviewStarted, cameraHidden, state.cameraEnabled, videoRef]);
 
   const currentQuestion = currentIndex >= 0 ? questions[currentIndex] : null;
   const maxTime = currentQuestion?.time_limit || 120;
@@ -303,14 +316,40 @@ const AIHRInterview = ({ questions, onComplete, onDisqualify }: AIHRInterviewPro
 
             {/* Video Preview */}
             <div className="relative aspect-video bg-black rounded-lg overflow-hidden">
+              {/* Camera toggle button (physical-button style) */}
+              <button
+                type="button"
+                onClick={() => setCameraHidden((h) => !h)}
+                className={`absolute top-3 right-3 z-10 flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-medium transition-all shadow-lg ${
+                  cameraHidden
+                    ? 'bg-destructive text-destructive-foreground'
+                    : 'bg-black/60 text-white hover:bg-black/80'
+                }`}
+                title={cameraHidden ? 'Show Camera' : 'Hide Camera'}
+              >
+                {cameraHidden ? <VideoOff className="h-3.5 w-3.5" /> : <Video className="h-3.5 w-3.5" />}
+                {cameraHidden ? 'Camera Hidden' : 'Hide Camera'}
+              </button>
+
               <video
                 ref={videoRef}
                 autoPlay
                 playsInline
                 muted
-                className="w-full h-full object-cover"
+                className={`w-full h-full object-cover transition-opacity duration-300 ${
+                  cameraHidden ? 'opacity-0' : 'opacity-100'
+                }`}
               />
               <canvas ref={canvasRef} className="hidden" />
+
+              {/* Camera hidden overlay */}
+              {cameraHidden && (
+                <div className="absolute inset-0 bg-muted flex flex-col items-center justify-center gap-2">
+                  <VideoOff className="h-10 w-10 text-muted-foreground" />
+                  <p className="text-sm text-muted-foreground">Camera feed hidden</p>
+                  <p className="text-xs text-muted-foreground/70">Camera is still active for proctoring</p>
+                </div>
+              )}
               
               {/* Recording indicator */}
               {isRecording && (

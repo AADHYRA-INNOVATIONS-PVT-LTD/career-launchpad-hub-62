@@ -55,13 +55,70 @@ const CampusDrivePage = () => {
     expected_students: '', preferred_date: '', drive_mode: 'on-campus' as const,
     notes: '',
   });
+  const [errors, setErrors] = useState<Record<string, string>>({});
 
-  const update = (k: string, v: string) => setForm((p) => ({ ...p, [k]: v }));
+  const validate = (field: string, value: string): string => {
+    switch (field) {
+      case 'contact_person':
+        if (!value.trim()) return 'Contact person is required';
+        if (/[0-9]/.test(value)) return 'Name must not contain numbers';
+        if (value.trim().length < 2) return 'Name is too short';
+        return '';
+      case 'college_name':
+        if (!value.trim()) return 'College name is required';
+        if (value.trim().length < 2) return 'College name is too short';
+        return '';
+      case 'phone':
+        if (!value.trim()) return 'Phone number is required';
+        if (!/^[0-9+\-\s()]+$/.test(value)) return 'Phone must contain only numbers';
+        const digits = value.replace(/\D/g, '');
+        if (digits.length < 10) return 'Phone must be at least 10 digits';
+        return '';
+      case 'email':
+        if (!value.trim()) return 'Email is required';
+        if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value)) return 'Please enter a valid email address';
+        return '';
+      case 'city':
+        if (!value.trim()) return 'City is required';
+        if (/[0-9]/.test(value)) return 'City name must not contain numbers';
+        return '';
+      case 'state':
+        if (!value.trim()) return 'State is required';
+        if (/[0-9]/.test(value)) return 'State name must not contain numbers';
+        return '';
+      default:
+        return '';
+    }
+  };
+
+  const update = (k: string, v: string) => {
+    setForm((p) => ({ ...p, [k]: v }));
+    // Clear error when user starts typing
+    if (errors[k]) {
+      setErrors((e) => ({ ...e, [k]: '' }));
+    }
+  };
+  const onBlur = (k: string) => {
+    const err = validate(k, form[k as keyof typeof form] as string);
+    if (err) setErrors((e) => ({ ...e, [k]: err }));
+  };
   const toggleDept = (d: string) =>
     setSelectedDepts((p) => p.includes(d) ? p.filter((x) => x !== d) : [...p, d]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    // Run all validations before submit
+    const fieldsToValidate = ['college_name', 'contact_person', 'email', 'phone', 'city', 'state'];
+    const newErrors: Record<string, string> = {};
+    fieldsToValidate.forEach((f) => {
+      const err = validate(f, form[f as keyof typeof form] as string);
+      if (err) newErrors[f] = err;
+    });
+    if (Object.keys(newErrors).length > 0) {
+      setErrors(newErrors);
+      toast({ title: 'Please fix the errors', description: 'Check highlighted fields above.', variant: 'destructive' });
+      return;
+    }
     setLoading(true);
     try {
       const parsed = driveSchema.parse({
@@ -188,14 +245,20 @@ const CampusDrivePage = () => {
                   <Label htmlFor="college_name">College / University Name *</Label>
                   <Input id="college_name" required maxLength={200}
                     placeholder="ABC Institute of Technology"
-                    value={form.college_name} onChange={(e) => update('college_name', e.target.value)} />
+                    className={errors.college_name ? 'border-destructive' : ''}
+                    value={form.college_name} onChange={(e) => update('college_name', e.target.value)}
+                    onBlur={() => onBlur('college_name')} />
+                  {errors.college_name && <p className="text-xs text-destructive">{errors.college_name}</p>}
                 </div>
                 <div className="grid sm:grid-cols-2 gap-4">
                   <div className="space-y-2">
                     <Label htmlFor="contact_person">Contact Person *</Label>
                     <Input id="contact_person" required maxLength={100}
                       placeholder="Dr. Rajesh Kumar"
-                      value={form.contact_person} onChange={(e) => update('contact_person', e.target.value)} />
+                      className={errors.contact_person ? 'border-destructive' : ''}
+                      value={form.contact_person} onChange={(e) => update('contact_person', e.target.value)}
+                      onBlur={() => onBlur('contact_person')} />
+                    {errors.contact_person && <p className="text-xs text-destructive">{errors.contact_person}</p>}
                   </div>
                   <div className="space-y-2">
                     <Label htmlFor="designation">Designation</Label>
@@ -209,13 +272,24 @@ const CampusDrivePage = () => {
                     <Label htmlFor="email">Email *</Label>
                     <Input id="email" type="email" required maxLength={255}
                       placeholder="placement@college.edu.in"
-                      value={form.email} onChange={(e) => update('email', e.target.value)} />
+                      className={errors.email ? 'border-destructive' : ''}
+                      value={form.email} onChange={(e) => update('email', e.target.value)}
+                      onBlur={() => onBlur('email')} />
+                    {errors.email && <p className="text-xs text-destructive">{errors.email}</p>}
                   </div>
                   <div className="space-y-2">
                     <Label htmlFor="phone">Phone *</Label>
                     <Input id="phone" required maxLength={20}
                       placeholder="+91 98765 43210"
-                      value={form.phone} onChange={(e) => update('phone', e.target.value)} />
+                      inputMode="tel"
+                      className={errors.phone ? 'border-destructive' : ''}
+                      value={form.phone} onChange={(e) => {
+                        // Only allow digits, +, -, spaces, parentheses
+                        const val = e.target.value.replace(/[^0-9+\-\s()]/g, '');
+                        update('phone', val);
+                      }}
+                      onBlur={() => onBlur('phone')} />
+                    {errors.phone && <p className="text-xs text-destructive">{errors.phone}</p>}
                   </div>
                 </div>
               </div>
@@ -236,13 +310,19 @@ const CampusDrivePage = () => {
                     <Label htmlFor="city">City *</Label>
                     <Input id="city" required maxLength={100}
                       placeholder="Chennai"
-                      value={form.city} onChange={(e) => update('city', e.target.value)} />
+                      className={errors.city ? 'border-destructive' : ''}
+                      value={form.city} onChange={(e) => update('city', e.target.value)}
+                      onBlur={() => onBlur('city')} />
+                    {errors.city && <p className="text-xs text-destructive">{errors.city}</p>}
                   </div>
                   <div className="space-y-2">
                     <Label htmlFor="state">State *</Label>
                     <Input id="state" required maxLength={100}
                       placeholder="Tamil Nadu"
-                      value={form.state} onChange={(e) => update('state', e.target.value)} />
+                      className={errors.state ? 'border-destructive' : ''}
+                      value={form.state} onChange={(e) => update('state', e.target.value)}
+                      onBlur={() => onBlur('state')} />
+                    {errors.state && <p className="text-xs text-destructive">{errors.state}</p>}
                   </div>
                 </div>
               </div>

@@ -2,7 +2,6 @@ import { useState, useRef, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
-import { ScrollArea } from "@/components/ui/scroll-area";
 import {
   MessageCircle,
   X,
@@ -466,7 +465,11 @@ const AIChatbot = () => {
       </div>
 
       {/* Messages */}
-      <ScrollArea className="flex-1 p-4" ref={scrollRef}>
+      <div
+        ref={scrollRef}
+        className="flex-1 p-4 overflow-y-auto"
+        style={{ scrollbarWidth: 'thin' }}
+      >
         <div className="space-y-4">
           {messages.map((msg) => (
             <div key={msg.id} className={`flex gap-2 ${msg.role === "user" ? "justify-end" : "justify-start"}`}>
@@ -536,7 +539,8 @@ const AIChatbot = () => {
             </div>
           )}
         </div>
-      </ScrollArea>
+        <div className="h-2" />
+      </div>
 
       {/* Quick Topics */}
       {messages.length <= 2 && (

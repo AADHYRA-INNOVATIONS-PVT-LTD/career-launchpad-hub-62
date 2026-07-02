@@ -91,20 +91,20 @@ const Navbar = () => {
 
   return (
     <header className="sticky top-0 z-50 w-full border-b border-border/40 bg-card/95 backdrop-blur supports-[backdrop-filter]:bg-card/80">
-      <div className="container flex h-16 items-center justify-between">
+      <div className="container flex h-16 items-center gap-2">
         {/* Logo */}
-        <Link to="/" className="flex items-center gap-2">
-          <img src={shikshaLogo} alt="AADHYRA INNOVATIONS PVT LTD" className="h-12 w-auto" />
-          <div className="flex flex-col">
-            <span className="text-[10px] leading-tight sm:text-lg font-heading font-bold text-foreground max-w-[140px] sm:max-w-none whitespace-normal sm:whitespace-nowrap">
+        <Link to="/" className="flex items-center gap-2 flex-shrink-0 min-w-0">
+          <img src={shikshaLogo} alt="AADHYRA INNOVATIONS PVT LTD" className="h-10 w-auto flex-shrink-0" />
+          <div className="hidden sm:flex flex-col">
+            <span className="text-sm font-heading font-bold text-foreground whitespace-nowrap">
               AADHYRA INNOVATIONS PVT LTD
             </span>
-            <span className="hidden sm:block text-xs text-muted-foreground">Innovating Tomorrow, Today</span>
+            <span className="text-[10px] text-muted-foreground whitespace-nowrap">Innovating Tomorrow, Today</span>
           </div>
         </Link>
 
         {/* Desktop Navigation */}
-        <nav className="hidden lg:flex items-center gap-0.5">
+        <nav className="hidden lg:flex items-center gap-0.5 flex-1 justify-center">
           <Link to="/" className={navLinkClass("/")}>Home</Link>
           <Link to="/about" className={navLinkClass("/about")}>About Us</Link>
 
@@ -215,7 +215,7 @@ const Navbar = () => {
         </nav>
 
         {/* CTA Buttons */}
-        <div className="flex items-center gap-3">
+        <div className="flex items-center gap-3 flex-shrink-0 ml-auto">
           <Link to="/apply" className="hidden sm:block">
             <Button variant="accent" size="sm">Apply Now</Button>
           </Link>
