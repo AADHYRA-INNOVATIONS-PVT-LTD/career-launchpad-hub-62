@@ -64,14 +64,11 @@ const AIHRInterview = ({ questions, onComplete, onDisqualify }: AIHRInterviewPro
 
   // Ensure video element gets the stream when it mounts
   useEffect(() => {
-    if (videoRef.current && state.cameraEnabled) {
-      // Re-attach stream if srcObject was lost during re-render
-      if (!videoRef.current.srcObject && (videoRef.current as any)._stream) {
-        videoRef.current.srcObject = (videoRef.current as any)._stream;
-        videoRef.current.play().catch(() => {});
-      }
+    if (videoRef.current && state.stream && videoRef.current.srcObject !== state.stream) {
+      videoRef.current.srcObject = state.stream;
+      videoRef.current.play().catch(() => {});
     }
-  }, [interviewStarted, cameraHidden, state.cameraEnabled, videoRef]);
+  }, [interviewStarted, cameraHidden, state.stream, videoRef]);
 
   const currentQuestion = currentIndex >= 0 ? questions[currentIndex] : null;
   const maxTime = currentQuestion?.time_limit || 120;

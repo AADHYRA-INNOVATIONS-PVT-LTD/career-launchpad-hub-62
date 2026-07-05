@@ -602,11 +602,11 @@ const CoursesPage = () => {
                   Let our AI-powered career advisor recommend the perfect courses based on your interests, qualifications, and career goals.
                 </p>
                 <div className="flex flex-col sm:flex-row gap-4">
-                  <Link to="/apply">
-                    <Button variant="hero" size="lg">Apply Now</Button>
+                  <Link to="/apply" className="w-full sm:w-auto">
+                    <Button variant="hero" size="lg" className="w-full sm:w-auto">Apply Now</Button>
                   </Link>
-                  <a href="tel:+919876543210">
-                    <Button variant="outline" size="lg">Call Counselor</Button>
+                  <a href="tel:+919876543210" className="w-full sm:w-auto">
+                    <Button variant="outline" size="lg" className="w-full sm:w-auto">Call Counselor</Button>
                   </a>
                 </div>
               </div>

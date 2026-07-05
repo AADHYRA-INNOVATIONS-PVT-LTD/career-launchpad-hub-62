@@ -30,16 +30,16 @@ const TalentConnectPage = () => {
               <p className="text-lg text-primary-foreground/80 mb-8">
                 Like Apna — connecting trained professionals with top companies through smart job matching and verified candidate profiles.
               </p>
-              <div className="flex flex-wrap gap-4 justify-center">
+              <div className="flex flex-col sm:flex-row gap-4 justify-center mt-6">
               {/* Passes candidate role context to the central auth router */}
-              <Link to="/auth?role=candidate">
-                <Button variant="accent" size="xl" className="gap-2">
+              <Link to="/auth?role=candidate" className="w-full sm:w-auto">
+                <Button variant="accent" size="xl" className="w-full sm:w-auto gap-2">
                   <Users className="h-5 w-5" /> Employee Login
                 </Button>
               </Link>
               {/* Passes employer role context to trigger the specialized business layout */}
-              <Link to="/auth?role=employer">
-                  <Button variant="outline" className="w-full gap-2">Employer Login <ArrowRight className="h-4 w-4" /></Button>
+              <Link to="/auth?role=employer" className="w-full sm:w-auto">
+                  <Button variant="outline" size="xl" className="w-full sm:w-auto gap-2">Employer Login <ArrowRight className="h-4 w-4" /></Button>
               </Link>
             </div>
             </div>

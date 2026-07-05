@@ -12,6 +12,13 @@ interface WebcamMonitorProps {
 }
 
 const WebcamMonitor = ({ videoRef, canvasRef, state, compact = false }: WebcamMonitorProps) => {
+  useEffect(() => {
+    if (videoRef.current && state.stream && videoRef.current.srcObject !== state.stream) {
+      videoRef.current.srcObject = state.stream;
+      videoRef.current.play().catch(console.error);
+    }
+  }, [videoRef, state.stream]);
+
   if (compact) {
     return (
       <div className="relative">

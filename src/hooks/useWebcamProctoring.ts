@@ -8,6 +8,7 @@ export interface ProctoringState {
   violations: number;
   isDisqualified: boolean;
   error: string | null;
+  stream: MediaStream | null;
 }
 
 interface UseWebcamProctoringOptions {
@@ -38,6 +39,7 @@ export const useWebcamProctoring = (options: UseWebcamProctoringOptions = {}) =>
     violations: 0,
     isDisqualified: false,
     error: null,
+    stream: null,
   });
 
   const addViolation = useCallback((type: string) => {
@@ -168,7 +170,7 @@ export const useWebcamProctoring = (options: UseWebcamProctoringOptions = {}) =>
         await videoRef.current.play();
       }
       
-      setState(prev => ({ ...prev, cameraEnabled: true, error: null }));
+      setState(prev => ({ ...prev, cameraEnabled: true, error: null, stream }));
       
       // Start face detection interval
       intervalRef.current = setInterval(detectFace, checkInterval);
@@ -193,7 +195,7 @@ export const useWebcamProctoring = (options: UseWebcamProctoringOptions = {}) =>
       intervalRef.current = null;
     }
     
-    setState(prev => ({ ...prev, cameraEnabled: false }));
+    setState(prev => ({ ...prev, cameraEnabled: false, stream: null }));
   }, []);
 
   // Get current video frame as base64

@@ -216,9 +216,9 @@ const JobPage = () => {
                               ))}
                             </div>
                           </div>
-                          <div className="flex flex-col items-end gap-2">
+                          <div className="flex flex-col items-start sm:items-end gap-2 w-full sm:w-auto mt-3 sm:mt-0">
                             <span className="text-xs text-muted-foreground flex items-center gap-1"><Users className="h-3 w-3" />{job.applicants} applicants</span>
-                            <Button size="sm" variant="outline" onClick={() => setSelectedJob(selectedJob?.title === job.title ? null : job)}>
+                            <Button size="sm" variant="outline" className="w-full sm:w-auto" onClick={() => setSelectedJob(selectedJob?.title === job.title ? null : job)}>
                               {selectedJob?.title === job.title ? 'Hide Details' : 'View Details'}
                             </Button>
                           </div>
@@ -256,11 +256,11 @@ const JobPage = () => {
                             </div>
                           </div>
 
-                          <div className="flex flex-wrap gap-3">
-                            <Button className="gap-2" onClick={() => setApplyJob(job)}>
+                          <div className="flex flex-col sm:flex-row flex-wrap gap-3">
+                            <Button className="w-full sm:w-auto gap-2" onClick={() => setApplyJob(job)}>
                               Apply Now <ArrowRight className="h-4 w-4" />
                             </Button>
-                            <Button variant="outline" className="gap-2">
+                            <Button variant="outline" className="w-full sm:w-auto gap-2">
                               <Mail className="h-4 w-4" /> Get Email Alerts
                             </Button>
                           </div>

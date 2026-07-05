@@ -33,14 +33,14 @@ const HeroSection = () => {
           </p>
 
           <div className="flex flex-col sm:flex-row gap-3 justify-center items-center animate-fade-in-up" style={{ animationDelay: "0.3s" }}>
-            <Link to="/apply">
-              <Button variant="accent" size="xl" className="group">
+            <Link to="/apply" className="w-full sm:w-auto">
+              <Button variant="accent" size="xl" className="group w-full sm:w-auto">
                 Apply Now
                 <ArrowRight className="h-5 w-5 transition-transform group-hover:translate-x-1" />
               </Button>
             </Link>
-            <Link to="/placement">
-              <Button variant="heroOutline" size="xl">
+            <Link to="/placement" className="w-full sm:w-auto">
+              <Button variant="heroOutline" size="xl" className="w-full sm:w-auto">
                 Explore Ecosystem
               </Button>
             </Link>
@@ -211,13 +211,13 @@ const ProductCard = ({
           })}
         </ul>
 
-        <div className="flex flex-wrap gap-2">
-          <Link to={primaryCta.to} className="flex-1 min-w-[140px]">
+        <div className="flex flex-col sm:flex-row flex-wrap gap-2">
+          <Link to={primaryCta.to} className="flex-1 w-full sm:w-auto">
             <Button variant="accent" size="sm" className="w-full">
               {primaryCta.label}
             </Button>
           </Link>
-          <Link to={secondaryCta.to} className="flex-1 min-w-[140px]">
+          <Link to={secondaryCta.to} className="flex-1 w-full sm:w-auto">
             <Button variant="heroOutline" size="sm" className="w-full">
               {secondaryCta.label}
             </Button>
