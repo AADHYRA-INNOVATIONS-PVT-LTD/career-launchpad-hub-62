@@ -93,13 +93,26 @@ const Navbar = () => {
     <header className="sticky top-0 z-50 w-full border-b border-border/40 bg-card/95 backdrop-blur supports-[backdrop-filter]:bg-card/80">
       <div className="container flex h-16 items-center gap-2">
         {/* Logo */}
-        <Link to="/" className="flex items-center gap-2 shrink-0">
-          <img src={shikshaLogo} alt="Logo" className="h-8 sm:h-10 w-auto shrink-0" />
-          <div className="flex flex-col w-[140px] sm:w-auto">
-            <span className="text-[11px] sm:text-sm font-heading font-bold text-slate-900 dark:text-white leading-tight break-words">
+        <Link to="/" className="flex items-center gap-2" style={{ flex: "1 1 auto", minWidth: 0 }}>
+          <img src={shikshaLogo} alt="Logo" className="h-8 sm:h-10 w-auto" style={{ flexShrink: 0 }} />
+          <div className="flex flex-col" style={{ flexShrink: 1, minWidth: 0 }}>
+            <span style={{ 
+              color: "hsl(var(--foreground))", 
+              fontWeight: "bold", 
+              fontSize: "clamp(11px, 3.5vw, 14px)",
+              lineHeight: "1.2",
+              whiteSpace: "normal",
+              wordBreak: "break-word",
+              fontFamily: "var(--font-heading, inherit)"
+            }}>
               AADHYRA INNOVATIONS PVT LTD
             </span>
-            <span className="text-[9px] text-slate-500 dark:text-slate-400 hidden sm:block mt-0.5">
+            <span style={{ 
+              color: "hsl(var(--muted-foreground))", 
+              fontSize: "clamp(9px, 2.5vw, 11px)",
+              marginTop: "2px",
+              whiteSpace: "normal"
+            }}>
               Innovating Tomorrow, Today
             </span>
           </div>
