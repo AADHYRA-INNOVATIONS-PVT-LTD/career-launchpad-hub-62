@@ -18,10 +18,14 @@ const HeroSection = () => {
 
       <div className="container relative z-10 pt-16 pb-32 lg:pt-24 lg:pb-48">
         <div className="max-w-4xl mx-auto text-center mb-12">
-          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/10 backdrop-blur-sm mb-6 animate-fade-in">
+          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/10 backdrop-blur-sm mb-4 animate-fade-in">
             <span className="flex h-2 w-2 rounded-full bg-healthcare animate-pulse" />
             <span className="text-sm font-medium">One Unified Platform · 4 Powerful Products</span>
           </div>
+
+          <h2 className="text-sm sm:text-base md:text-lg font-bold text-white/90 mb-2 uppercase tracking-[0.2em] animate-fade-in-up" style={{ animationDelay: "0.05s" }}>
+            AADHYRA INNOVATIONS PVT LTD
+          </h2>
 
           <h1 className="font-heading text-3xl md:text-5xl lg:text-6xl font-bold leading-tight mb-5 animate-fade-in-up" style={{ animationDelay: "0.1s" }}>
             The Complete{" "}
