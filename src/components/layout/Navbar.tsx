@@ -93,13 +93,15 @@ const Navbar = () => {
     <header className="sticky top-0 z-50 w-full border-b border-border/40 bg-card/95 backdrop-blur supports-[backdrop-filter]:bg-card/80">
       <div className="container flex h-16 items-center gap-2">
         {/* Logo */}
-        <Link to="/" className="flex items-center gap-1.5 sm:gap-2 flex-shrink-0">
-          <img src={shikshaLogo} alt="AADHYRA INNOVATIONS PVT LTD" className="h-8 sm:h-10 w-auto flex-shrink-0" />
-          <div className="flex flex-col">
-            <span className="text-[10px] sm:text-sm font-heading font-bold text-foreground leading-tight whitespace-normal max-w-[150px] sm:max-w-none">
+        <Link to="/" className="flex items-center gap-2 flex-1 min-w-0">
+          <img src={shikshaLogo} alt="Logo" className="h-8 sm:h-10 w-auto flex-shrink-0" />
+          <div className="flex flex-col flex-1 min-w-0">
+            <span className="text-[11px] sm:text-sm font-heading font-bold text-foreground leading-tight whitespace-normal">
               AADHYRA INNOVATIONS PVT LTD
             </span>
-            <span className="text-[8px] sm:text-[10px] text-muted-foreground whitespace-normal">Innovating Tomorrow, Today</span>
+            <span className="text-[9px] text-muted-foreground hidden sm:block mt-0.5">
+              Innovating Tomorrow, Today
+            </span>
           </div>
         </Link>
 
