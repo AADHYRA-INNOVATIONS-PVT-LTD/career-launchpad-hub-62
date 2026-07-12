@@ -6,7 +6,7 @@
     <script>
       // GitHub Pages SPA redirect hack
       // Converts the path to a query string so index.html can pick it up
-      var pathSegmentsToKeep = 1; // Keep /career-launchpad-hub-62/ prefix
+      var pathSegmentsToKeep = 0; // Custom domain — no repo prefix to keep
       var l = window.location;
       l.replace(
         l.protocol + '//' + l.hostname + (l.port ? ':' + l.port : '') +
