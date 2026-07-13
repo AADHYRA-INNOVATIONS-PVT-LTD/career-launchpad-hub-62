@@ -85,7 +85,7 @@ const Navbar = () => {
 
   const navLinkClass = (path: string) =>
     cn(
-      "px-3 py-2 text-sm font-medium rounded-md transition-colors",
+      "px-2 xl:px-3 py-1.5 text-xs xl:text-sm font-medium rounded-md transition-colors whitespace-nowrap",
       isActive(path) ? "text-primary bg-primary/5" : "text-foreground/80 hover:text-primary hover:bg-primary/5"
     );
 
@@ -93,22 +93,22 @@ const Navbar = () => {
     <header className="sticky top-0 z-50 w-full border-b border-border/40 bg-card/95 backdrop-blur supports-[backdrop-filter]:bg-card/80">
       <div className="container flex h-16 items-center gap-2">
         {/* Logo */}
-        <Link to="/" className="flex items-center gap-2 mr-auto overflow-visible">
-          <img src={shikshaLogo} alt="Logo" className="h-9 sm:h-10 w-auto shrink-0" />
-          <div className="flex flex-col w-[160px] sm:w-auto shrink-0">
-            <span className="text-[12px] sm:text-sm font-heading font-bold text-slate-900 dark:text-white leading-tight">
-              AADHYRA INNOVATIONS<br className="sm:hidden" /> PVT LTD
+        <Link to="/" className="flex items-center gap-2 shrink-0 overflow-visible">
+          <img src={shikshaLogo} alt="Logo" className="h-8 lg:h-9 w-auto shrink-0" />
+          <div className="flex flex-col shrink-0">
+            <span className="text-[11px] lg:text-[12px] xl:text-sm font-heading font-bold text-slate-900 dark:text-white leading-tight whitespace-nowrap">
+              AADHYRA INNOVATIONS PVT LTD
             </span>
-            <span className="text-[10px] text-slate-500 hidden sm:block mt-0.5">
+            <span className="text-[9px] xl:text-[10px] text-slate-500 hidden xl:block mt-0.5">
               Innovating Tomorrow, Today
             </span>
           </div>
         </Link>
 
         {/* Desktop Navigation */}
-        <nav className="hidden lg:flex items-center gap-0.5 flex-1 justify-center">
+        <nav className="hidden lg:flex items-center gap-0 flex-1 justify-center overflow-hidden">
           <Link to="/" className={navLinkClass("/")}>Home</Link>
-          <Link to="/about" className={navLinkClass("/about")}>About Us</Link>
+          <Link to="/about" className={navLinkClass("/about")}>About</Link>
 
           {/* Services Mega Menu */}
           <NavigationMenu>
@@ -174,7 +174,7 @@ const Navbar = () => {
           <Link to="/internships" className={navLinkClass("/internships")}>Internships</Link>
           <Link to="/placement" className={navLinkClass("/placement")}>Placements</Link>
           <Link to="/career" className={navLinkClass("/career")}>Careers</Link>
-          <Link to="/student-ambassador" className={navLinkClass("/student-ambassador")}>Ambassador</Link>
+          <Link to="/student-ambassador" className={cn(navLinkClass("/student-ambassador"), "hidden xl:inline-flex")}>Ambassador</Link>
 
           {/* Courses Dropdown */}
           <NavigationMenu>
@@ -217,11 +217,11 @@ const Navbar = () => {
         </nav>
 
         {/* CTA Buttons */}
-        <div className="flex items-center gap-3 flex-shrink-0 ml-auto">
-          <Link to="/apply" className="hidden sm:block">
+        <div className="flex items-center gap-2 flex-shrink-0 ml-auto">
+          <Link to="/apply" className="hidden xl:block">
             <Button variant="accent" size="sm">Apply Now</Button>
           </Link>
-          <div className="hidden sm:block">
+          <div className="hidden xl:block">
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
                 <Button variant="outline" size="sm">Login</Button>
@@ -236,6 +236,10 @@ const Navbar = () => {
               </DropdownMenuContent>
             </DropdownMenu>
           </div>
+          {/* Apply Now visible at lg (compact desktop) but not xl+ */}
+          <Link to="/apply" className="hidden lg:block xl:hidden">
+            <Button variant="accent" size="sm" className="text-xs px-3">Apply Now</Button>
+          </Link>
           <button
             className="lg:hidden p-2 rounded-md hover:bg-muted"
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
