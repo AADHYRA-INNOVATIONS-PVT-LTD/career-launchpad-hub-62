@@ -218,10 +218,10 @@ const Navbar = () => {
 
         {/* CTA Buttons */}
         <div className="flex items-center gap-3 flex-shrink-0 ml-auto">
-          <Link to="/apply" className="hidden sm:block">
+          <Link to="/apply" className="hidden md:block">
             <Button variant="accent" size="sm">Apply Now</Button>
           </Link>
-          <div className="hidden sm:block">
+          <div className="hidden md:block">
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
                 <Button variant="outline" size="sm">Login</Button>
