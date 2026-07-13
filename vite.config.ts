@@ -5,7 +5,7 @@ import { componentTagger } from "lovable-tagger";
 
 // https://vitejs.dev/config/
 export default defineConfig(({ mode }) => ({
-  base: "/career-launchpad-hub-62/",
+  base: "/",
   build: {
     outDir: "docs",
   },
