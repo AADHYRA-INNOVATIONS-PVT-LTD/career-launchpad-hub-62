@@ -85,7 +85,7 @@ const Navbar = () => {
 
   const navLinkClass = (path: string) =>
     cn(
-      "px-2 xl:px-3 py-1.5 text-xs xl:text-sm font-medium rounded-md transition-colors whitespace-nowrap",
+      "px-3 py-2 text-sm font-medium rounded-md transition-colors whitespace-nowrap",
       isActive(path) ? "text-primary bg-primary/5" : "text-foreground/80 hover:text-primary hover:bg-primary/5"
     );
 
@@ -106,9 +106,9 @@ const Navbar = () => {
         </Link>
 
         {/* Desktop Navigation */}
-        <nav className="hidden lg:flex items-center gap-0 flex-1 justify-center overflow-hidden">
+        <nav className="hidden xl:flex items-center gap-1 flex-1 justify-center">
           <Link to="/" className={navLinkClass("/")}>Home</Link>
-          <Link to="/about" className={navLinkClass("/about")}>About</Link>
+          <Link to="/about" className={navLinkClass("/about")}>About Us</Link>
 
           {/* Services Mega Menu */}
           <NavigationMenu>
@@ -174,7 +174,7 @@ const Navbar = () => {
           <Link to="/internships" className={navLinkClass("/internships")}>Internships</Link>
           <Link to="/placement" className={navLinkClass("/placement")}>Placements</Link>
           <Link to="/career" className={navLinkClass("/career")}>Careers</Link>
-          <Link to="/student-ambassador" className={cn(navLinkClass("/student-ambassador"), "hidden xl:inline-flex")}>Ambassador</Link>
+          <Link to="/student-ambassador" className={navLinkClass("/student-ambassador")}>Ambassador</Link>
 
           {/* Courses Dropdown */}
           <NavigationMenu>
@@ -217,11 +217,11 @@ const Navbar = () => {
         </nav>
 
         {/* CTA Buttons */}
-        <div className="flex items-center gap-2 flex-shrink-0 ml-auto">
-          <Link to="/apply" className="hidden xl:block">
+        <div className="flex items-center gap-3 flex-shrink-0 ml-auto">
+          <Link to="/apply" className="hidden sm:block">
             <Button variant="accent" size="sm">Apply Now</Button>
           </Link>
-          <div className="hidden xl:block">
+          <div className="hidden sm:block">
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
                 <Button variant="outline" size="sm">Login</Button>
@@ -236,12 +236,8 @@ const Navbar = () => {
               </DropdownMenuContent>
             </DropdownMenu>
           </div>
-          {/* Apply Now visible at lg (compact desktop) but not xl+ */}
-          <Link to="/apply" className="hidden lg:block xl:hidden">
-            <Button variant="accent" size="sm" className="text-xs px-3">Apply Now</Button>
-          </Link>
           <button
-            className="lg:hidden p-2 rounded-md hover:bg-muted"
+            className="xl:hidden p-2 rounded-md hover:bg-muted"
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
           >
             {isMobileMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
@@ -251,7 +247,7 @@ const Navbar = () => {
 
       {/* Mobile Menu */}
       {isMobileMenuOpen && (
-        <div className="lg:hidden border-t bg-card animate-fade-in max-h-[80vh] overflow-y-auto">
+        <div className="xl:hidden border-t bg-card animate-fade-in max-h-[80vh] overflow-y-auto">
           <nav className="container py-4 flex flex-col gap-1">
             <Link to="/" className="px-4 py-3 rounded-lg hover:bg-muted transition-colors font-medium" onClick={() => setIsMobileMenuOpen(false)}>Home</Link>
             <Link to="/about" className="px-4 py-3 rounded-lg hover:bg-muted transition-colors font-medium" onClick={() => setIsMobileMenuOpen(false)}>About Us</Link>
