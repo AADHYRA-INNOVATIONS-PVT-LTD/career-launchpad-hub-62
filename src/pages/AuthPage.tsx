@@ -22,9 +22,30 @@ const AuthPage = () => {
   const role = searchParams.get("role") || "student";
   const redirectUrl = searchParams.get("redirect");
   const navigate = useNavigate();
-  const { signIn, signUp } = useAuth(); 
-
+  const { signIn, signUp, user } = useAuth(); 
   const [isSignUp, setIsSignUp] = useState(false);
+
+  React.useEffect(() => {
+    if (user && !isLoading) {
+      if (redirectUrl) {
+        navigate(redirectUrl, { replace: true });
+      } else if (role === "admin") {
+        navigate("/admin", { replace: true });
+      } else if (role === "employer" || role === "project_owner") {
+        navigate("/employer", { replace: true });
+      } else if (role === "freelancer") {
+        navigate("/freelancer-dashboard", { replace: true });
+      } else if (role === "patient") {
+        navigate("/patient-dashboard", { replace: true });
+      } else if (role === "doctor") {
+        navigate("/doctor-dashboard", { replace: true });
+      } else if (role === "candidate") {
+        navigate("/employer", { replace: true });
+      } else {
+        navigate("/dashboard", { replace: true });
+      }
+    }
+  }, [user, isLoading, navigate, redirectUrl, role]);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState(""); // Restored state
@@ -136,24 +157,7 @@ const AuthPage = () => {
           return;
         }
 
-        // Navigate cleanly to the correct portal board or requested redirect
-        if (redirectUrl) {
-          navigate(redirectUrl, { replace: true });
-        } else if (role === "admin") {
-          navigate("/admin", { replace: true });
-        } else if (role === "employer" || role === "project_owner") {
-          navigate("/employer", { replace: true });
-        } else if (role === "freelancer") {
-          navigate("/freelancer-dashboard", { replace: true });
-        } else if (role === "patient") {
-          navigate("/patient-dashboard", { replace: true });
-        } else if (role === "doctor") {
-          navigate("/doctor-dashboard", { replace: true });
-        } else if (role === "candidate") {
-          navigate("/employer", { replace: true });
-        } else {
-          navigate("/dashboard", { replace: true });
-        }
+        // The useEffect will handle navigation once the user state is updated
       }
     } catch (err: any) {
       setError(err.message || "An unexpected error occurred.");

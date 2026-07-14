@@ -21,7 +21,7 @@ const DashboardHome = () => {
         const { data, error } = await (supabase
           .from('profiles')
           .select('user_type')
-          .eq('id', user.id)
+          .eq('user_id', user.id)
           .maybeSingle() as any);
 
         if (error) throw error;
