@@ -14,6 +14,7 @@ import ContactPage from "./pages/ContactPage";
 import CareersPage from "./pages/CareersPage";
 import ApplyPage from "./pages/ApplyPage";
 import AuthPage from "./pages/AuthPage";
+import ForgotPasswordPage from "./pages/ForgotPasswordPage";
 import NotFound from "./pages/NotFound";
 import HRTrainingPage from "./pages/HRTrainingPage";
 import InternshipPage from "./pages/InternshipPage";
@@ -139,6 +140,7 @@ const App = () => (
             <Route path="/apply" element={<ApplyPage />} />
             <Route path="/verify" element={<CertificateVerifyPage />} />
             <Route path="/auth" element={<AuthPage />} />
+            <Route path="/forgot-password" element={<ForgotPasswordPage />} />
             <Route path="/admin/login" element={<AdminAuth />} />
             <Route path="/update-password" element={<UpdatePassword />} />
 

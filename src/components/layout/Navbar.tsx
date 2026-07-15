@@ -228,7 +228,7 @@ const Navbar = () => {
               </DropdownMenuTrigger>
               <DropdownMenuContent align="end" className="w-48">
                 <DropdownMenuItem asChild>
-                  <Link to="/auth" className="cursor-pointer">Student Login</Link>
+                  <Link to="/auth?role=student" className="cursor-pointer">Student Login</Link>
                 </DropdownMenuItem>
                 <DropdownMenuItem asChild>
                   <Link to="/employer/auth" className="cursor-pointer">Employer Login</Link>
@@ -304,6 +304,14 @@ const Navbar = () => {
             )}
 
             <Link to="/contact" className="px-4 py-3 rounded-lg hover:bg-muted transition-colors font-medium" onClick={() => setIsMobileMenuOpen(false)}>Contact</Link>
+
+            {/* Mobile Login Buttons */}
+            <div className="border-t border-border pt-3 mt-2 flex flex-col gap-2">
+              <p className="px-4 text-xs font-bold uppercase tracking-wider text-muted-foreground">Login Portal</p>
+              <Link to="/auth?role=student" className="px-4 py-3 rounded-lg bg-primary/10 text-primary font-medium text-sm hover:bg-primary/20 transition-colors" onClick={() => setIsMobileMenuOpen(false)}>Student Login</Link>
+              <Link to="/employer/auth" className="px-4 py-3 rounded-lg hover:bg-muted transition-colors font-medium text-sm" onClick={() => setIsMobileMenuOpen(false)}>Employer Login</Link>
+            </div>
+
             <Link to="/apply" className="mt-2" onClick={() => setIsMobileMenuOpen(false)}>
               <Button variant="accent" className="w-full" size="lg">Apply Now</Button>
             </Link>

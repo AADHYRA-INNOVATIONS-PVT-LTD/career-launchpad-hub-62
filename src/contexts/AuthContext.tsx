@@ -3,7 +3,7 @@ import { User, Session } from '@supabase/supabase-js';
 import { supabase } from '@/integrations/supabase/client';
 import { useToast } from '@/hooks/use-toast';
 
-type UserRoleType = "admin" | "employer" | "student";
+type UserRoleType = "admin" | "employer" | "student" | "freelancer" | "patient" | "doctor" | "project_owner";
 
 interface AuthContextType {
   user: User | null;
@@ -145,10 +145,11 @@ export function AuthProvider({ children }: { children: ReactNode }) {
           .eq('user_id', data.user.id);
       }
 
-      // Safe matching for Supabase's literal type constraints
-      // If the passed role string isn't employer or admin, default it to 'student'
-      const sanitizedRole: UserRoleType = (role === 'employer' || role === 'admin') 
-        ? role 
+      // Preserve the exact role the user signed up under.
+      // Only fall back to 'student' if an unknown role string is passed.
+      const validRoles: UserRoleType[] = ['admin', 'employer', 'student', 'freelancer', 'patient', 'doctor', 'project_owner'];
+      const sanitizedRole: UserRoleType = validRoles.includes(role as UserRoleType)
+        ? (role as UserRoleType)
         : 'student';
 
       // We wrap the object as a single record explicitly to satisfy the compiler overload check

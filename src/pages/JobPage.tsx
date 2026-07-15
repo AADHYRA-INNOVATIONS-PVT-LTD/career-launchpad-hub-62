@@ -3,7 +3,7 @@ import Footer from "@/components/layout/Footer";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
 import { Badge } from "@/components/ui/badge";
-import { Clock, MapPin, Briefcase, IndianRupee, Users, ArrowRight, Filter, Star, Building2, TrendingUp, Camera, Mail, CheckCircle2, FileText, CreditCard, Video } from "lucide-react";
+import { Clock, MapPin, Briefcase, IndianRupee, Users, ArrowRight, Filter, Star, Building2, TrendingUp, Mail, Camera, CheckCircle2, FileText, CreditCard, Video } from "lucide-react";
 import { useState } from "react";
 import DemoVideoSection from "@/components/shared/DemoVideoSection";
 import ApplyDialog from "@/components/career/ApplyDialog";
@@ -92,41 +92,6 @@ const JobPage = () => {
           </div>
         </section>
 
-        {/* Hiring Process */}
-        <section className="py-10 bg-muted/30 border-b">
-          <div className="container">
-            <div className="text-center mb-8">
-              <h2 className="font-heading text-2xl font-bold text-foreground mb-2">How Our Hiring Process Works</h2>
-              <p className="text-muted-foreground text-sm">Every step includes email updates • All tests require webcam proctoring</p>
-            </div>
-            <div className="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6 gap-4">
-              {hiringSteps.map((s) => (
-                <div key={s.step} className="relative bg-card rounded-xl border p-4 text-center hover:border-primary/50 transition-colors">
-                  <div className={`h-10 w-10 rounded-full ${s.color} flex items-center justify-center mx-auto mb-3`}>
-                    <s.icon className="h-5 w-5" />
-                  </div>
-                  <Badge variant="outline" className="mb-2 text-xs">Step {s.step}</Badge>
-                  <h3 className="font-semibold text-sm text-foreground mb-1">{s.title}</h3>
-                  <p className="text-xs text-muted-foreground">{s.description}</p>
-                </div>
-              ))}
-            </div>
-            <div className="mt-6 flex flex-wrap justify-center gap-4 text-xs text-muted-foreground">
-              <div className="flex items-center gap-1.5 bg-card rounded-full border px-3 py-1.5">
-                <Camera className="h-3.5 w-3.5 text-primary" />
-                <span>Webcam required for all tests</span>
-              </div>
-              <div className="flex items-center gap-1.5 bg-card rounded-full border px-3 py-1.5">
-                <Mail className="h-3.5 w-3.5 text-primary" />
-                <span>Email updates at every step</span>
-              </div>
-              <div className="flex items-center gap-1.5 bg-card rounded-full border px-3 py-1.5">
-                <IndianRupee className="h-3.5 w-3.5 text-primary" />
-                <span>Fresher: ₹300 | Experienced: ₹700</span>
-              </div>
-            </div>
-          </div>
-        </section>
 
         {/* Demo Videos */}
         <DemoVideoSection
