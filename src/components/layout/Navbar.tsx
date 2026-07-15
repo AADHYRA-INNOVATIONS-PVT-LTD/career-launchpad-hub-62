@@ -85,7 +85,7 @@ const Navbar = () => {
 
   const navLinkClass = (path: string) =>
     cn(
-      "px-3 py-2 text-sm font-medium rounded-md transition-colors",
+      "px-3 py-2 text-sm font-medium rounded-md transition-colors whitespace-nowrap",
       isActive(path) ? "text-primary bg-primary/5" : "text-foreground/80 hover:text-primary hover:bg-primary/5"
     );
 
@@ -93,20 +93,20 @@ const Navbar = () => {
     <header className="sticky top-0 z-50 w-full border-b border-border/40 bg-card/95 backdrop-blur supports-[backdrop-filter]:bg-card/80">
       <div className="container flex h-16 items-center gap-2">
         {/* Logo */}
-        <Link to="/" className="flex items-center gap-2 mr-auto overflow-visible">
-          <img src={shikshaLogo} alt="Logo" className="h-9 sm:h-10 w-auto shrink-0" />
-          <div className="flex flex-col w-[160px] sm:w-auto shrink-0">
-            <span className="text-[12px] sm:text-sm font-heading font-bold text-slate-900 dark:text-white leading-tight">
-              AADHYRA INNOVATIONS<br className="sm:hidden" /> PVT LTD
+        <Link to="/" className="flex items-center gap-2 shrink-0 overflow-visible">
+          <img src={shikshaLogo} alt="Logo" className="h-8 lg:h-9 w-auto shrink-0" />
+          <div className="flex flex-col shrink-0">
+            <span className="text-[11px] lg:text-[12px] xl:text-sm font-heading font-bold text-slate-900 dark:text-white leading-tight whitespace-nowrap">
+              AADHYRA INNOVATIONS PVT LTD
             </span>
-            <span className="text-[10px] text-slate-500 hidden sm:block mt-0.5">
+            <span className="text-[9px] xl:text-[10px] text-slate-500 hidden xl:block mt-0.5">
               Innovating Tomorrow, Today
             </span>
           </div>
         </Link>
 
         {/* Desktop Navigation */}
-        <nav className="hidden lg:flex items-center gap-0.5 flex-1 justify-center">
+        <nav className="hidden xl:flex items-center gap-1 flex-1 justify-center">
           <Link to="/" className={navLinkClass("/")}>Home</Link>
           <Link to="/about" className={navLinkClass("/about")}>About Us</Link>
 
@@ -218,10 +218,10 @@ const Navbar = () => {
 
         {/* CTA Buttons */}
         <div className="flex items-center gap-3 flex-shrink-0 ml-auto">
-          <Link to="/apply" className="hidden sm:block">
+          <Link to="/apply" className="hidden md:block">
             <Button variant="accent" size="sm">Apply Now</Button>
           </Link>
-          <div className="hidden sm:block">
+          <div className="hidden md:block">
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
                 <Button variant="outline" size="sm">Login</Button>
@@ -237,7 +237,7 @@ const Navbar = () => {
             </DropdownMenu>
           </div>
           <button
-            className="lg:hidden p-2 rounded-md hover:bg-muted"
+            className="xl:hidden p-2 rounded-md hover:bg-muted"
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
           >
             {isMobileMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
@@ -247,7 +247,7 @@ const Navbar = () => {
 
       {/* Mobile Menu */}
       {isMobileMenuOpen && (
-        <div className="lg:hidden border-t bg-card animate-fade-in max-h-[80vh] overflow-y-auto">
+        <div className="xl:hidden border-t bg-card animate-fade-in max-h-[80vh] overflow-y-auto">
           <nav className="container py-4 flex flex-col gap-1">
             <Link to="/" className="px-4 py-3 rounded-lg hover:bg-muted transition-colors font-medium" onClick={() => setIsMobileMenuOpen(false)}>Home</Link>
             <Link to="/about" className="px-4 py-3 rounded-lg hover:bg-muted transition-colors font-medium" onClick={() => setIsMobileMenuOpen(false)}>About Us</Link>
