@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useSearchParams, Link, useNavigate } from "react-router-dom";
 import { 
   GraduationCap, 
@@ -15,17 +15,81 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
-import { useAuth } from "@/contexts/AuthContext"; 
+import { useAuth } from "@/contexts/AuthContext";
+
+// Portal config defined outside the component to avoid re-creation on every render
+// and to prevent TDZ issues with minifiers in production builds.
+const PORTAL_CONFIG: Record<string, { title: string; subtitle: string; desc: string; icon: React.ComponentType<any>; errorMsg: string }> = {
+  student: {
+    title: "Student Portal",
+    subtitle: "Student Portal",
+    desc: "Sign in to access your student portal or create a new account",
+    icon: GraduationCap,
+    errorMsg: "This email is not registered as a student. Please check your credentials or sign up."
+  },
+  candidate: {
+    title: "Employee Portal",
+    subtitle: "Talent Connect",
+    desc: "Sign in to monitor your applications, interviews, and verified skill profiles.",
+    icon: Users,
+    errorMsg: "No employee account found with this email on Talent Connect."
+  },
+  freelancer: {
+    title: "Freelancer Portal",
+    subtitle: "Tech Partner",
+    desc: "Sign in to view active milestones, place bids, and manage project escrow.",
+    icon: Briefcase,
+    errorMsg: "This email is not registered as a freelancer on Tech Partner."
+  },
+  patient: {
+    title: "Patient Portal",
+    subtitle: "Health Connect",
+    desc: "Sign in to manage appointments, access medical records, and track health vitals.",
+    icon: Users,
+    errorMsg: "No patient record found matching this email on Health Connect."
+  },
+  employer: {
+    title: "Employer Portal",
+    subtitle: "Recruitment Dashboard",
+    desc: "Sign in to post jobs, evaluate employee profiles, and schedule corporate interviews.",
+    icon: Briefcase,
+    errorMsg: "Corporate account not found. Please verify your employer registration."
+  },
+  project_owner: {
+    title: "Project Owner Portal",
+    subtitle: "Project Management",
+    desc: "Sign in to fund escrow contracts, review deliverables, and collaborate with freelancers.",
+    icon: Briefcase,
+    errorMsg: "No Project Owner profile associated with this email address."
+  },
+  doctor: {
+    title: "Medical Practitioner Portal",
+    subtitle: "Health Connect",
+    desc: "Sign in to manage patient queues, e-prescriptions, and clinical records.",
+    icon: Stethoscope,
+    errorMsg: "No medical practitioner account found with this email."
+  },
+};
 
 const AuthPage = () => {
   const [searchParams] = useSearchParams();
   const role = searchParams.get("role") || "student";
   const redirectUrl = searchParams.get("redirect");
   const navigate = useNavigate();
-  const { signIn, signUp, user } = useAuth(); 
-  const [isSignUp, setIsSignUp] = useState(false);
+  const { signIn, signUp, user } = useAuth();
 
-  React.useEffect(() => {
+  // ALL state declarations first — before any useEffect or logic
+  const [isSignUp, setIsSignUp] = useState(false);
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
+  const [name, setName] = useState("");
+  const [mobile, setMobile] = useState("");
+  const [error, setError] = useState<string | null>(null);
+  const [isLoading, setIsLoading] = useState(false);
+
+  // Redirect already-logged-in users to their dashboard
+  useEffect(() => {
     if (user && !isLoading) {
       if (redirectUrl) {
         navigate(redirectUrl, { replace: true });
@@ -46,68 +110,8 @@ const AuthPage = () => {
       }
     }
   }, [user, isLoading, navigate, redirectUrl, role]);
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [confirmPassword, setConfirmPassword] = useState(""); // Restored state
-  const [name, setName] = useState("");
-  const [mobile, setMobile] = useState(""); // Restored state
-  
-  const [error, setError] = useState<string | null>(null);
-  const [isLoading, setIsLoading] = useState(false);
 
-  const portalConfig: Record<string, { title: string; subtitle: string; desc: string; icon: React.ComponentType<any>; errorMsg: string }> = {
-    student: {
-      title: "Student Portal",
-      subtitle: "Student Portal",
-      desc: "Sign in to access your student portal or create a new account",
-      icon: GraduationCap,
-      errorMsg: "This email is not registered as a student. Please check your credentials or sign up."
-    },
-    candidate: {
-      title: "Employee Portal",
-      subtitle: "Talent Connect",
-      desc: "Sign in to monitor your applications, interviews, and verified skill profiles.",
-      icon: Users,
-      errorMsg: "No employee account found with this email on Talent Connect."
-    },
-    freelancer: {
-      title: "Freelancer Portal",
-      subtitle: "Tech Partner",
-      desc: "Sign in to view active milestones, place bids, and manage project escrow.",
-      icon: Briefcase,
-      errorMsg: "This email is not registered as a freelancer on Tech Partner."
-    },
-    patient: {
-      title: "Patient Portal",
-      subtitle: "Health Connect",
-      desc: "Sign in to manage appointments, access medical records, and track health vitals.",
-      icon: Users,
-      errorMsg: "No patient record found matching this email on Health Connect."
-    },
-    employer: {
-      title: "Employer Portal",
-      subtitle: "Recruitment Dashboard",
-      desc: "Sign in to post jobs, evaluate employee profiles, and schedule corporate interviews.",
-      icon: Briefcase,
-      errorMsg: "Corporate account not found. Please verify your employer registration."
-    },
-    project_owner: {
-      title: "Project Owner Portal",
-      subtitle: "Project Management",
-      desc: "Sign in to fund escrow contracts, review deliverables, and collaborate with freelancers.",
-      icon: Briefcase,
-      errorMsg: "No Project Owner profile associated with this email address."
-    },
-    doctor: {
-    title: "Medical Practitioner Portal",
-    subtitle: "Health Connect",
-    desc: "Sign in to manage patient queues, e-prescriptions, and clinical records.",
-    icon: Stethoscope, // Make sure to import Stethoscope from 'lucide-react'
-    errorMsg: "No medical practitioner account found with this email."
-  },
-  };
-
-  const currentPortal = portalConfig[role] || portalConfig.student;
+  const currentPortal = PORTAL_CONFIG[role] || PORTAL_CONFIG.student;
   const IconComponent = currentPortal.icon;
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -138,7 +142,7 @@ const AuthPage = () => {
         }
 
         alert(`Account registered successfully for the ${currentPortal.title}! Please sign in.`);
-        setIsSignUp(false); 
+        setIsSignUp(false);
         setPassword("");
         setConfirmPassword("");
         setIsLoading(false);
@@ -157,7 +161,24 @@ const AuthPage = () => {
           return;
         }
 
-        // The useEffect will handle navigation once the user state is updated
+        // Navigate cleanly to the correct portal based on role
+        if (redirectUrl) {
+          navigate(redirectUrl, { replace: true });
+        } else if (role === "admin") {
+          navigate("/admin", { replace: true });
+        } else if (role === "employer" || role === "project_owner") {
+          navigate("/employer", { replace: true });
+        } else if (role === "freelancer") {
+          navigate("/freelancer-dashboard", { replace: true });
+        } else if (role === "patient") {
+          navigate("/patient-dashboard", { replace: true });
+        } else if (role === "doctor") {
+          navigate("/doctor-dashboard", { replace: true });
+        } else if (role === "candidate") {
+          navigate("/employer", { replace: true });
+        } else {
+          navigate("/dashboard", { replace: true });
+        }
       }
     } catch (err: any) {
       setError(err.message || "An unexpected error occurred.");
@@ -165,6 +186,7 @@ const AuthPage = () => {
       setIsLoading(false);
     }
   };
+
   return (
     <div className="min-h-screen bg-background flex flex-col items-center justify-center p-4">
       
@@ -173,22 +195,20 @@ const AuthPage = () => {
           <IconComponent className="h-5 w-5" />
         </div>
         <div>
-          <h2 className="font-heading font-bold text-foreground text-lg leading-tight">Aadhya Innovations</h2>
-          {/* RESTORED: This dynamically changes the subtitle underneath the main brand */}
+          <h2 className="font-heading font-bold text-foreground text-lg leading-tight">Aadhyra Innovations</h2>
           <p className="text-xs text-primary font-medium tracking-wide">{currentPortal.subtitle}</p>
         </div>
-    </div>
+      </div>
 
       <div className="bg-card border shadow-card rounded-2xl max-w-md w-full p-8 border-t-4 border-t-primary transition-all duration-300">
         <div className="text-center mb-6">
-        {/* RESTORED: Changes from "Student Portal", "Employee Portal", etc. based on URL */}
-        <h1 className="font-heading text-2xl font-bold text-foreground mb-1.5 tracking-tight">
-          {currentPortal.title}
-        </h1>
-        <p className="text-sm text-muted-foreground px-2">
-          {currentPortal.desc}
-        </p>
-      </div>
+          <h1 className="font-heading text-2xl font-bold text-foreground mb-1.5 tracking-tight">
+            {currentPortal.title}
+          </h1>
+          <p className="text-sm text-muted-foreground px-2">
+            {currentPortal.desc}
+          </p>
+        </div>
 
         {error && (
           <Alert variant="destructive" className="mb-5 animate-in fade-in zoom-in-95 duration-200">
@@ -252,7 +272,6 @@ const AuthPage = () => {
             </div>
           </div>
 
-          {/* RESTORED: Mobile Input Box (Sign Up Only) */}
           {isSignUp && (
             <div className="space-y-1.5">
               <Label htmlFor="mobile">Mobile (Optional)</Label>
@@ -293,7 +312,6 @@ const AuthPage = () => {
             </div>
           </div>
 
-          {/* RESTORED: Confirm Password Input Box (Sign Up Only) */}
           {isSignUp && (
             <div className="space-y-1.5">
               <Label htmlFor="confirmPassword">Confirm Password</Label>
