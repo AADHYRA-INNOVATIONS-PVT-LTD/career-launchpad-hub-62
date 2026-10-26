@@ -92,7 +92,6 @@ const JobPage = () => {
           </div>
         </section>
 
-
         {/* Demo Videos */}
         <DemoVideoSection
           title="Career at Aadhyra Innovations"

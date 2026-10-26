@@ -112,11 +112,20 @@ const Stars = ({ rating }: { rating: number }) => {
   );
 };
 
-const CourseCards = () => {
+interface CourseCardsProps {
+  excludeIT?: boolean;
+  className?: string;
+}
+
+const CourseCards = ({ excludeIT = false, className = "" }: CourseCardsProps) => {
+  const sections = excludeIT
+    ? courseSections.filter((section) => section.title !== "IT Courses")
+    : courseSections;
+
   return (
-    <section className="py-20 lg:py-28 bg-muted/30">
+    <section className={`py-20 lg:py-28 bg-muted/30 ${className}`.trim()}>
       <div className="container">
-        {courseSections.map((section, sectionIndex) => (
+        {sections.map((section, sectionIndex) => (
           <div key={section.title} className={sectionIndex > 0 ? "mt-20" : ""}>
             {/* Section Header */}
             <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-8">

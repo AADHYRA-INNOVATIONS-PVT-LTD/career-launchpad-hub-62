@@ -127,7 +127,6 @@
   html {
     scroll-padding-top: 5rem;
     scroll-behavior: smooth;
-    overflow-x: hidden;
   }
 
   * {
@@ -137,7 +136,6 @@
   body {
     @apply bg-background text-foreground font-sans antialiased;
     font-family: 'Inter', sans-serif;
-    overflow-x: hidden;
   }
   
   h1, h2, h3, h4, h5, h6 {
