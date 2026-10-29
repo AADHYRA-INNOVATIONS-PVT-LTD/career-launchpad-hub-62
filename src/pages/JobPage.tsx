@@ -22,6 +22,90 @@ const categories = ["All", "IT", "HR", "Digital Marketing", "Graphic Design", "N
 const jobTypes = ["All Types", "Full-time", "Part-time", "Contract", "Freelance"];
 
 const jobs = [
+  {
+    title: "Java Full Stack Developer",
+    company: "AADHYRA INNOVATIONS PVT LTD",
+    location: "Bangalore / Hybrid",
+    salary: "₹4.5 - 12 LPA",
+    experience: "0-2 Years",
+    category: "IT",
+    skills: ["Java", "Spring Boot", "React", "REST API", "SQL", "Git"],
+    applicants: 0,
+    isHot: false,
+    type: "Full-time",
+    posted: "Just now",
+    description: "Develop and maintain full-stack web applications using Java, Spring Boot, SQL databases and modern frontend technologies. Work with the development team to build reliable APIs, implement user-facing features, troubleshoot issues and deliver maintainable software.\n\nKey responsibilities:\n• Develop backend services using Java and Spring Boot.\n• Build and maintain REST APIs.\n• Implement frontend features using React or the project's approved frontend technology.\n• Design and query relational databases.\n• Write readable, maintainable code and participate in code reviews.\n• Debug issues and test application functionality.\n\nRequired skills:\n• Core Java and object-oriented programming.\n• Spring Boot and REST API development.\n• SQL and relational database fundamentals.\n• HTML, CSS and JavaScript fundamentals.\n• Git and debugging.\n\nQualifications:\n• Bachelor's degree in Computer Science, Information Technology or a related discipline, or equivalent practical skills.\n• Relevant project experience or internship experience is acceptable for entry-level candidates."
+  },
+  {
+    title: "Python Full Stack Developer",
+    company: "AADHYRA INNOVATIONS PVT LTD",
+    location: "Bangalore / Hybrid",
+    salary: "₹4.5 - 12 LPA",
+    experience: "0-2 Years",
+    category: "IT",
+    skills: ["Python", "Django", "FastAPI", "React", "REST API", "SQL"],
+    applicants: 0,
+    isHot: false,
+    type: "Full-time",
+    posted: "Just now",
+    description: "Develop full-stack applications using Python-based backend technologies, REST APIs, relational databases and modern frontend technologies. Contribute to application design, implementation, testing and maintenance.\n\nKey responsibilities:\n• Develop backend services using Python and an appropriate framework such as Django or FastAPI.\n• Design and maintain REST APIs.\n• Integrate frontend interfaces with backend services.\n• Work with SQL databases and data models.\n• Write unit tests, debug issues and improve application reliability.\n• Collaborate with developers and other stakeholders.\n\nRequired skills:\n• Python programming and object-oriented programming.\n• Django or FastAPI fundamentals.\n• REST APIs and SQL.\n• HTML, CSS and JavaScript fundamentals.\n• Git, testing and debugging.\n\nQualifications:\n• Bachelor's degree in Computer Science, Information Technology or a related discipline, or equivalent practical skills.\n• Relevant projects or internships are acceptable for entry-level candidates."
+  },
+  {
+    title: "Artificial Intelligence Developer",
+    company: "AADHYRA INNOVATIONS PVT LTD",
+    location: "Bangalore / Remote",
+    salary: "₹6 - 12 LPA",
+    experience: "0-3 Years",
+    category: "IT",
+    skills: ["Python", "Machine Learning", "LLMs", "NLP", "AI APIs", "Model Evaluation"],
+    applicants: 0,
+    isHot: false,
+    type: "Full-time",
+    posted: "Just now",
+    description: "Develop and integrate AI-powered features into software applications. Work with Python, machine learning concepts, AI APIs and language-model-based systems to build useful, reliable and testable solutions.\n\nKey responsibilities:\n• Develop backend services and integrate AI functionality into applications.\n• Work with Python, data processing and model APIs.\n• Implement AI-powered search, text processing or automation features where required.\n• Evaluate output quality, reliability and failure cases.\n• Add input validation, error handling and appropriate logging.\n• Collaborate with frontend and backend developers to deliver AI features.\n\nRequired skills:\n• Python programming.\n• Fundamentals of machine learning and AI.\n• Experience with APIs and data handling.\n• Understanding of model evaluation and testing.\n• Familiarity with NLP or large language models is desirable.\n\nQualifications:\n• Bachelor's degree in Computer Science, AI, Data Science or a related field, or equivalent practical experience.\n• Relevant AI projects, coursework or internships are beneficial."
+  },
+  {
+    title: "Data Science Developer",
+    company: "AADHYRA INNOVATIONS PVT LTD",
+    location: "Bangalore / Hybrid",
+    salary: "₹5.5 - 11 LPA",
+    experience: "0-3 Years",
+    category: "Data Science",
+    skills: ["Python", "Pandas", "NumPy", "Statistics", "Machine Learning", "Scikit-learn"],
+    applicants: 0,
+    isHot: false,
+    type: "Full-time",
+    posted: "Just now",
+    description: "Analyze datasets and develop data science solutions to support business decisions. Perform data cleaning, exploratory analysis, feature engineering, model development and evaluation as appropriate to project requirements.\n\nKey responsibilities:\n• Collect, clean and preprocess datasets.\n• Conduct exploratory data analysis.\n• Develop and evaluate statistical or machine learning models.\n• Identify meaningful patterns and trends.\n• Document analytical findings and communicate results.\n• Collaborate with engineering and business teams to apply insights.\n\nRequired skills:\n• Python, Pandas and NumPy.\n• Statistics and data analysis.\n• Data cleaning and visualization.\n• Machine learning fundamentals.\n• SQL and clear technical communication.\n\nQualifications:\n• Bachelor's degree in Data Science, Statistics, Computer Science, Mathematics or a related field, or equivalent skills.\n• Academic, personal or internship projects in data analysis or machine learning are acceptable for entry-level candidates."
+  },
+  {
+    title: "Data Analyst",
+    company: "AADHYRA INNOVATIONS PVT LTD",
+    location: "Bangalore / Hybrid",
+    salary: "₹4 - 8 LPA",
+    experience: "0-2 Years",
+    category: "Data Science",
+    skills: ["SQL", "Excel", "Power BI", "Data Visualization", "Statistics", "Python"],
+    applicants: 0,
+    isHot: false,
+    type: "Full-time",
+    posted: "Just now",
+    description: "Analyze business data, prepare reports and dashboards, monitor key performance indicators and communicate actionable insights to support business decisions.\n\nKey responsibilities:\n• Extract and analyze data using SQL and spreadsheets.\n• Clean and validate data before reporting.\n• Build dashboards and visualizations using an appropriate BI tool.\n• Track business metrics and identify trends or anomalies.\n• Prepare clear reports for stakeholders.\n• Document analytical methods and validate results.\n\nRequired skills:\n• SQL queries and data manipulation.\n• Excel and spreadsheet analysis.\n• Data cleaning and validation.\n• Power BI, Tableau or a comparable visualization tool.\n• Basic statistics and analytical communication.\n\nQualifications:\n• Bachelor's degree in Computer Science, Statistics, Mathematics, Business Analytics or a related discipline, or equivalent practical skills.\n• Relevant analytical projects, coursework or internships are beneficial."
+  },
+  {
+    title: "Embedded Systems Developer",
+    company: "AADHYRA INNOVATIONS PVT LTD",
+    location: "Bangalore",
+    salary: "₹4.5 - 8.5 LPA",
+    experience: "0-2 Years",
+    category: "IT",
+    skills: ["Embedded C/C++", "Microcontrollers", "Firmware", "UART", "SPI", "I2C"],
+    applicants: 0,
+    isHot: false,
+    type: "Full-time",
+    posted: "Just now",
+    description: "Develop and test embedded software and firmware for microcontroller-based systems. Work with low-level programming, hardware interfaces, communication protocols and debugging tools to build reliable embedded applications.\n\nKey responsibilities:\n• Develop firmware using C or C++.\n• Work with microcontrollers and embedded development environments.\n• Integrate and debug hardware communication interfaces.\n• Test firmware behavior and troubleshoot hardware/software issues.\n• Review timing, memory usage and system reliability.\n• Document implementation and testing results.\n\nRequired skills:\n• C/C++ programming fundamentals.\n• Embedded systems and microcontroller concepts.\n• Familiarity with UART, SPI or I2C.\n• Debugging and basic electronics knowledge.\n• Version control and systematic testing.\n\nQualifications:\n• Bachelor's degree in Electronics, Electrical Engineering, Computer Engineering or a related discipline, or equivalent relevant skills.\n• Embedded projects, lab work or internships are beneficial."
+  },
   { title: "Java Full Stack Trainer", company: "AADHYRA INNOVATIONS PVT LTD", location: "Bangalore", salary: "₹4-8 LPA", experience: "1-3 Years", category: "IT", skills: ["Java", "Spring Boot", "React", "Teaching"], applicants: 85, isHot: true, type: "Full-time", posted: "1 day ago", description: "Train students on Java Full Stack Development. Create course content, conduct live sessions, and mentor students through projects and internships." },
   { title: "Python & AI Trainer", company: "AADHYRA INNOVATIONS PVT LTD", location: "Bangalore", salary: "₹5-10 LPA", experience: "1-3 Years", category: "IT", skills: ["Python", "TensorFlow", "ML", "Teaching"], applicants: 62, isHot: true, type: "Full-time", posted: "2 days ago", description: "Teach Python, AI/ML concepts to students. Design curriculum, build projects, and guide students through real-world applications." },
   { title: "HR Training Coordinator", company: "AADHYRA INNOVATIONS PVT LTD", location: "Bangalore", salary: "₹3-5 LPA", experience: "0-2 Years", category: "HR", skills: ["Recruitment", "Training", "HRMS", "Communication"], applicants: 120, isHot: false, type: "Full-time", posted: "3 days ago", description: "Coordinate HR training programs, manage student batches, handle placement coordination and employer relations." },
@@ -194,7 +278,7 @@ const JobPage = () => {
                         <div className="border-t bg-muted/20 p-5 space-y-4">
                           <div>
                             <h4 className="font-semibold text-sm text-foreground mb-2">Job Description</h4>
-                            <p className="text-sm text-muted-foreground">{job.description}</p>
+                            <p className="text-sm text-muted-foreground whitespace-pre-line">{job.description}</p>
                           </div>
                           <div>
                             <h4 className="font-semibold text-sm text-foreground mb-2">Why Evaluation Fee?</h4>
