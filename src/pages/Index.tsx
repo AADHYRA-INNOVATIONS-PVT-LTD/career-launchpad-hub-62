@@ -6,15 +6,11 @@ import ServicesSection from "@/components/home/ServicesSection";
 import ProductsSection from "@/components/home/ProductsSection";
 import VisionSection from "@/components/home/VisionSection";
 import WhyChooseSection from "@/components/home/WhyChooseSection";
-import PopularCourses from "@/components/home/PopularCourses";
-import CourseCards from "@/components/home/CourseCards";
 import InternshipHighlights from "@/components/home/InternshipHighlights";
 import PlacementServicesSection from "@/components/home/PlacementServicesSection";
 import TestimonialsSection from "@/components/home/TestimonialsSection";
 import SuccessStorySection from "@/components/home/SuccessStorySection";
-import LatestJobsSection from "@/components/home/LatestJobsSection";
 import CertificateShowcase from "@/components/home/CertificateShowcase";
-import CollegeTPOSection from "@/components/home/CollegeTPOSection";
 import CTASection from "@/components/home/CTASection";
 
 const Index = () => {
@@ -28,15 +24,11 @@ const Index = () => {
         <ProductsSection />
         <VisionSection />
         <WhyChooseSection />
-        <PopularCourses />
-        <CourseCards excludeIT className="pt-0" />
         <InternshipHighlights />
         <PlacementServicesSection />
         <TestimonialsSection />
         <SuccessStorySection />
-        <LatestJobsSection />
         <CertificateShowcase />
-        <CollegeTPOSection />
         <CTASection />
       </main>
       <Footer />
