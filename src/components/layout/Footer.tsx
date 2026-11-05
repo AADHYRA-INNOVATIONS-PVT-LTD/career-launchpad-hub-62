@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { Mail, Phone, MapPin, Facebook, Twitter, Linkedin, Instagram, ArrowUp } from "lucide-react";
+import { Mail, Phone, MapPin, Facebook, Linkedin, Instagram, ArrowUp } from "lucide-react";
 
 /* ─── Instant scroll to top helper ────────────────────────── */
 const scrollToTop = () => {
@@ -8,6 +8,19 @@ const scrollToTop = () => {
   document.documentElement.scrollTop = 0;
   document.body.scrollTop = 0;
 };
+
+/* ─── Official WhatsApp brand icon ───────────────────────── */
+const WhatsAppIcon = ({ className = "h-5 w-5" }: { className?: string }) => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    viewBox="0 0 24 24"
+    fill="currentColor"
+    className={className}
+    aria-hidden="true"
+  >
+    <path d="M17.472 14.382c-.301-.15-1.78-.878-2.056-.979-.276-.1-.476-.15-.676.15-.2.301-.776.979-.952 1.18-.175.201-.351.226-.652.075-.301-.15-1.27-.468-2.42-1.493-.895-.798-1.5-1.784-1.675-2.085-.175-.301-.019-.464.132-.614.136-.135.301-.351.451-.527.151-.175.201-.3.301-.501.101-.2.05-.376-.025-.526-.075-.15-.676-1.63-1.002-2.233-.25-.6-.5-.5-.676-.511l-.577-.01c-.2 0-.526.075-.802.376-.276.301-1.052 1.028-1.052 2.507 0 1.479 1.077 2.908 1.228 3.109.15.2 2.118 3.235 5.132 4.538.717.31 1.277.495 1.714.634.72.23 1.376.197 1.895.12.578-.087 1.78-.727 2.03-1.43.25-.702.25-1.303.175-1.43-.075-.126-.276-.201-.577-.351zM12.04 2c-5.46 0-9.91 4.45-9.91 9.91 0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38c1.45.79 3.08 1.21 4.74 1.21 5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.816 9.816 0 0 0 12.04 2zm.01 18.06c-1.5 0-2.97-.4-4.26-1.17l-.31-.18-3.15.83.84-3.08-.2-.32a8.04 8.04 0 0 1-1.23-4.23c0-4.46 3.63-8.09 8.09-8.09 2.16 0 4.19.84 5.72 2.37a8.04 8.04 0 0 1 2.37 5.72c0 4.46-3.63 8.09-8.09 8.09z" />
+  </svg>
+);
 
 /* ─── Footer link wrapper ───────────────────────────────── */
 const FLink = ({ to, children }: { to: string; children: React.ReactNode }) => {
@@ -119,14 +132,32 @@ const Footer = () => {
               </p>
               <div className="flex gap-3">
                 {[
-                  { Icon: Facebook, label: "Facebook", href: "#" },
-                  { Icon: Twitter, label: "Twitter", href: "#" },
-                  { Icon: Linkedin, label: "LinkedIn", href: "#" },
-                  { Icon: Instagram, label: "Instagram", href: "#" },
+                  {
+                    Icon: Facebook,
+                    label: "Facebook",
+                    href: "https://www.facebook.com/share/1Dz4CpqsBq/",
+                  },
+                  {
+                    Icon: WhatsAppIcon,
+                    label: "WhatsApp",
+                    href: "https://wa.me/message/YQXNNZ2BZ7ZYH1",
+                  },
+                  {
+                    Icon: Linkedin,
+                    label: "LinkedIn",
+                    href: "https://www.linkedin.com/company/aadhyra-innovations-pvt-ltd/",
+                  },
+                  {
+                    Icon: Instagram,
+                    label: "Instagram",
+                    href: "https://www.instagram.com/aadhyra.innovations?rpxt=MWs0aGF3ZmR4aDU5YQ==",
+                  },
                 ].map(({ Icon, label, href }) => (
                   <a
                     key={label}
                     href={href}
+                    target="_blank"
+                    rel="noopener noreferrer"
                     aria-label={label}
                     className="p-2 rounded-lg bg-background/10 hover:bg-primary hover:scale-110 transition-all duration-200"
                   >
