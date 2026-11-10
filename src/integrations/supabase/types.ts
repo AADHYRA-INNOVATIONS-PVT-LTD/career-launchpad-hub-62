@@ -1704,11 +1704,212 @@ export type Database = {
           },
         ]
       }
+      internship_applications: {
+        Row: {
+          application_code: string
+          created_at: string
+          currency: string
+          duration_months: number
+          id: string
+          mode: string
+          price_inr_snapshot: number
+          program_id: string
+          start_preference: string | null
+          statement: string | null
+          status: string
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          application_code?: string
+          created_at?: string
+          currency?: string
+          duration_months: number
+          id?: string
+          mode?: string
+          price_inr_snapshot: number
+          program_id: string
+          start_preference?: string | null
+          statement?: string | null
+          status?: string
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          application_code?: string
+          created_at?: string
+          currency?: string
+          duration_months?: number
+          id?: string
+          mode?: string
+          price_inr_snapshot?: number
+          program_id?: string
+          start_preference?: string | null
+          statement?: string | null
+          status?: string
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "internship_applications_program_id_fkey"
+            columns: ["program_id"]
+            isOneToOne: false
+            referencedRelation: "internship_programs"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      internship_durations: {
+        Row: {
+          id: string
+          is_active: boolean
+          months: number
+          price_inr: number
+          vertical: string
+        }
+        Insert: {
+          id?: string
+          is_active?: boolean
+          months: number
+          price_inr: number
+          vertical: string
+        }
+        Update: {
+          id?: string
+          is_active?: boolean
+          months?: number
+          price_inr?: number
+          vertical?: string
+        }
+        Relationships: []
+      }
+      internship_programs: {
+        Row: {
+          description: string | null
+          id: string
+          is_active: boolean
+          mode: string
+          slug: string
+          sort_order: number
+          title: string
+          vertical: string
+        }
+        Insert: {
+          description?: string | null
+          id?: string
+          is_active?: boolean
+          mode?: string
+          slug: string
+          sort_order?: number
+          title: string
+          vertical: string
+        }
+        Update: {
+          description?: string | null
+          id?: string
+          is_active?: boolean
+          mode?: string
+          slug?: string
+          sort_order?: number
+          title?: string
+          vertical?: string
+        }
+        Relationships: []
+      }
+      notifications: {
+        Row: {
+          body: string
+          created_at: string
+          id: string
+          link: string | null
+          read_at: string | null
+          title: string
+          type: string
+          user_id: string
+        }
+        Insert: {
+          body: string
+          created_at?: string
+          id?: string
+          link?: string | null
+          read_at?: string | null
+          title: string
+          type: string
+          user_id: string
+        }
+        Update: {
+          body?: string
+          created_at?: string
+          id?: string
+          link?: string | null
+          read_at?: string | null
+          title?: string
+          type?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
+      student_profiles: {
+        Row: {
+          academic_year: number | null
+          branch: string | null
+          college: string | null
+          created_at: string
+          degree: string | null
+          education_completed: boolean
+          graduation_year: number | null
+          resume_path: string | null
+          skills: string[] | null
+          student_code: string
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          academic_year?: number | null
+          branch?: string | null
+          college?: string | null
+          created_at?: string
+          degree?: string | null
+          education_completed?: boolean
+          graduation_year?: number | null
+          resume_path?: string | null
+          skills?: string[] | null
+          student_code?: string
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          academic_year?: number | null
+          branch?: string | null
+          college?: string | null
+          created_at?: string
+          degree?: string | null
+          education_completed?: boolean
+          graduation_year?: number | null
+          resume_path?: string | null
+          skills?: string[] | null
+          student_code?: string
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
     }
     Functions: {
+      cancel_internship_application: {
+        Args: {
+          p_application_id: string
+        }
+        Returns: Database["public"]["Tables"]["internship_applications"]["Row"]
+      }
+      ensure_student_profile: {
+        Args: Record<PropertyKey, never>
+        Returns: Database["public"]["Tables"]["student_profiles"]["Row"]
+      }
       get_employer_id: { Args: never; Returns: string }
       has_role: {
         Args: {
@@ -1720,6 +1921,12 @@ export type Database = {
       is_admin: { Args: never; Returns: boolean }
       is_employer: { Args: never; Returns: boolean }
       is_enrolled_in_course: { Args: { _course_id: string }; Returns: boolean }
+      mark_notifications_read: {
+        Args: {
+          p_ids?: string[] | null
+        }
+        Returns: undefined
+      }
       request_withdrawal: {
         Args: {
           p_amount: number
@@ -1727,6 +1934,15 @@ export type Database = {
           p_wallet_id: string
         }
         Returns: string
+      }
+      submit_internship_application: {
+        Args: {
+          p_program_slug: string
+          p_months: number
+          p_start_preference?: string | null
+          p_statement?: string | null
+        }
+        Returns: Database["public"]["Tables"]["internship_applications"]["Row"]
       }
     }
     Enums: {
