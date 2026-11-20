@@ -65,7 +65,10 @@ export interface AuthContextType {
   refreshProfile: () => Promise<void>;
   resetPassword: (email: string) => Promise<{ error: Error | null }>;
   updatePassword: (password: string) => Promise<{ error: Error | null }>;
-  resendVerification: (email: string) => Promise<{ error: Error | null }>;
+  resendVerification: (
+    email: string,
+    returnTo?: string
+  ) => Promise<{ error: Error | null }>;
 }
 
 function normalizeMobile(mobile?: string | null): string | undefined {
@@ -503,7 +506,13 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       });
 
       if (error) {
-        return { error: new Error(error.message), alreadyRegistered: false };
+        const e = new Error(error.message) as Error & {
+          code?: string;
+          status?: number;
+        };
+        e.code = error.code;
+        e.status = error.status;
+        return { error: e, alreadyRegistered: false };
       }
 
       // Check for email enumeration protection where identities length is 0
@@ -532,7 +541,13 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       });
 
       if (error) {
-        return { error: new Error(error.message) };
+        const e = new Error(error.message) as Error & {
+          code?: string;
+          status?: number;
+        };
+        e.code = error.code;
+        e.status = error.status;
+        return { error: e };
       }
 
       return { error: null };
@@ -574,7 +589,13 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         }
       );
       if (error) {
-        return { error: new Error(error.message) };
+        const e = new Error(error.message) as Error & {
+          code?: string;
+          status?: number;
+        };
+        e.code = error.code;
+        e.status = error.status;
+        return { error: e };
       }
       return { error: null };
     } catch (error) {
@@ -599,19 +620,31 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   };
 
   const resendVerification = async (
-    email: string
+    email: string,
+    returnTo?: string
   ): Promise<{ error: Error | null }> => {
     try {
+      const safeReturnTo = sanitizeReturnTo(returnTo, '/dashboard');
+      const emailRedirectTo = appUrl(
+        `/auth/callback?returnTo=${encodeURIComponent(safeReturnTo)}`
+      );
+
       const { error } = await supabase.auth.resend({
         type: 'signup',
         email: email.trim(),
         options: {
-          emailRedirectTo: appUrl('/auth/callback'),
+          emailRedirectTo,
         },
       });
 
       if (error) {
-        return { error: new Error(error.message) };
+        const e = new Error(error.message) as Error & {
+          code?: string;
+          status?: number;
+        };
+        e.code = error.code;
+        e.status = error.status;
+        return { error: e };
       }
       return { error: null };
     } catch (error) {

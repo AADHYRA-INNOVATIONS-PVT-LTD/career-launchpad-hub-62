@@ -505,4 +505,43 @@ describe('AuthContext', () => {
       vi.useRealTimers();
     }
   });
+
+  it('resendVerification: builds the redirect with a sanitized returnTo and ignores an unsafe one', async () => {
+    vi.mocked(supabase.auth.resend).mockResolvedValue({
+      data: {} as unknown as Awaited<ReturnType<typeof supabase.auth.resend>>['data'],
+      error: null,
+    });
+
+    const { result } = renderHook(() => useAuth(), { wrapper: createWrapper() });
+
+    // 1. Valid safe returnTo
+    await act(async () => {
+      await result.current.resendVerification('student@example.com', '/internships');
+    });
+
+    expect(supabase.auth.resend).toHaveBeenCalledWith(
+      expect.objectContaining({
+        type: 'signup',
+        email: 'student@example.com',
+        options: {
+          emailRedirectTo: expect.stringContaining('/auth/callback?returnTo=%2Finternships'),
+        },
+      })
+    );
+
+    // 2. Unsafe returnTo (evil external link) is sanitized and falls back to /dashboard
+    await act(async () => {
+      await result.current.resendVerification('student@example.com', 'https://malicious-attacker.com');
+    });
+
+    expect(supabase.auth.resend).toHaveBeenCalledWith(
+      expect.objectContaining({
+        type: 'signup',
+        email: 'student@example.com',
+        options: {
+          emailRedirectTo: expect.stringContaining('/auth/callback?returnTo=%2Fdashboard'),
+        },
+      })
+    );
+  });
 });

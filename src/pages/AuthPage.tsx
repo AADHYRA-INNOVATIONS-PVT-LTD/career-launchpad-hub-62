@@ -16,6 +16,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { useAuth } from "@/contexts/AuthContext";
+import { sanitizeReturnTo } from "@/lib/returnTo";
 
 // Portal config defined outside the component to avoid re-creation on every render
 // and to prevent TDZ issues with minifiers in production builds.
@@ -74,7 +75,7 @@ const PORTAL_CONFIG: Record<string, { title: string; subtitle: string; desc: str
 const AuthPage = () => {
   const [searchParams] = useSearchParams();
   const role = searchParams.get("role") || "student";
-  const redirectUrl = searchParams.get("redirect");
+  const redirectUrl = sanitizeReturnTo(searchParams.get("redirect") || "", "");
   const navigate = useNavigate();
   const { signIn, signUp, user } = useAuth();
 

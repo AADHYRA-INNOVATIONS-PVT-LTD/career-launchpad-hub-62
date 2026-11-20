@@ -1,7 +1,16 @@
 import { useState } from "react";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import { Menu, X, ChevronDown, ChevronRight } from "lucide-react";
+import {
+  Menu,
+  X,
+  ChevronDown,
+  ChevronRight,
+  Bell,
+  User,
+  LogOut,
+  LayoutDashboard,
+} from "lucide-react";
 import {
   NavigationMenu,
   NavigationMenuContent,
@@ -17,8 +26,17 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { Skeleton } from "@/components/ui/skeleton";
+import { useQuery } from "@tanstack/react-query";
+import { useAuth } from "@/contexts/AuthContext";
+import { getDisplayName } from "@/lib/displayName";
+import { getRoleHome } from "@/lib/returnTo";
+import { supabase } from "@/integrations/supabase/client";
 import { cn } from "@/lib/utils";
 import shikshaLogo from "@/assets/aadhyra-logo.png";
+
+const NOTIFICATIONS_PATH = "/dashboard";
 
 const courses = [
   { title: "IT Training", href: "/courses/it", description: "Java, Python, AI/ML, Cloud & more" },
@@ -80,24 +98,75 @@ const Navbar = () => {
   const [mobileServicesOpen, setMobileServicesOpen] = useState(false);
   const [mobileCoursesOpen, setMobileCoursesOpen] = useState(false);
   const location = useLocation();
+  const navigate = useNavigate();
+
+  const { user, profile, roles, isStudent, loading, signOut, userRole } = useAuth();
+
+  const getDashboardPath = () => {
+    if (userRole === 'freelancer') {
+      return '/freelancer-dashboard';
+    }
+    if (userRole === 'patient') {
+      return '/patient-dashboard';
+    }
+    if (userRole === 'doctor') {
+      return '/doctor-dashboard';
+    }
+    return getRoleHome(roles);
+  };
+
+  const { data: unreadCount } = useQuery({
+    queryKey: ['unread-notifications-count', user?.id],
+    queryFn: async () => {
+      if (!user) return 0;
+      try {
+        const { count, error } = await supabase
+          .from('notifications')
+          .select('*', { count: 'exact', head: true })
+          .is('read_at', null);
+
+        if (error) return 0;
+        return count ?? 0;
+      } catch {
+        return 0;
+      }
+    },
+    enabled: !!user,
+    retry: false,
+  });
+
+  const displayName = getDisplayName(profile, user);
+  const initials =
+    displayName
+      .split(' ')
+      .map((n) => n[0])
+      .slice(0, 2)
+      .join('')
+      .toUpperCase() || 'U';
+
+  const handleLogout = async () => {
+    await signOut();
+    navigate('/');
+  };
 
   const isActive = (path: string) => location.pathname === path;
 
   const navLinkClass = (path: string) =>
     cn(
-      "px-3 py-2 text-sm font-medium rounded-md transition-colors whitespace-nowrap",
+      "px-2.5 py-1.5 text-sm font-medium rounded-md transition-colors whitespace-nowrap",
       isActive(path) ? "text-primary bg-primary/5" : "text-foreground/80 hover:text-primary hover:bg-primary/5"
     );
 
   return (
     <header className="sticky top-0 z-50 w-full border-b border-border/40 bg-card/95 backdrop-blur supports-[backdrop-filter]:bg-card/80">
-      <div className="container flex h-16 items-center gap-2">
+      <div className="container px-3 sm:px-6 md:px-8 flex h-16 items-center gap-2">
         {/* Logo */}
-        <Link to="/" className="flex items-center gap-2 shrink-0 overflow-visible">
+        <Link to="/" className="flex items-center gap-2 shrink-0 min-w-0">
           <img src={shikshaLogo} alt="Logo" className="h-8 lg:h-9 w-auto shrink-0" />
-          <div className="flex flex-col shrink-0">
-            <span className="text-[11px] lg:text-[12px] xl:text-sm font-heading font-bold text-slate-900 dark:text-white leading-tight whitespace-nowrap">
-              AADHYRA INNOVATIONS PVT LTD
+          <div className="flex flex-col min-w-0">
+            <span className="text-[11px] lg:text-[12px] xl:text-sm font-heading font-bold text-slate-900 dark:text-white leading-tight truncate">
+              <span className="sm:hidden">AADHYRA</span>
+              <span className="hidden sm:inline whitespace-nowrap">AADHYRA INNOVATIONS PVT LTD</span>
             </span>
             <span className="text-[9px] xl:text-[10px] text-slate-500 hidden xl:block mt-0.5">
               Innovating Tomorrow, Today
@@ -216,28 +285,149 @@ const Navbar = () => {
           <Link to="/contact" className={navLinkClass("/contact")}>Contact</Link>
         </nav>
 
-        {/* CTA Buttons */}
-        <div className="flex items-center gap-3 flex-shrink-0 ml-auto">
-          <Link to="/apply" className="hidden md:block">
-            <Button variant="accent" size="sm">Apply Now</Button>
-          </Link>
-          <div className="hidden md:block">
-            <DropdownMenu>
-              <DropdownMenuTrigger asChild>
-                <Button variant="outline" size="sm">Login</Button>
-              </DropdownMenuTrigger>
-              <DropdownMenuContent align="end" className="w-48">
-                <DropdownMenuItem asChild>
-                  <Link to="/auth?role=student" className="cursor-pointer">Student Login</Link>
-                </DropdownMenuItem>
-                <DropdownMenuItem asChild>
-                  <Link to="/employer/auth" className="cursor-pointer">Employer Login</Link>
-                </DropdownMenuItem>
-              </DropdownMenuContent>
-            </DropdownMenu>
-          </div>
+        {/* CTA / Auth Section */}
+        <div className="flex items-center gap-1.5 sm:gap-2.5 md:gap-3 flex-shrink-0 ml-auto">
+          {loading ? (
+            <div className="flex items-center gap-2">
+              <Skeleton className="h-9 w-20 rounded-md" />
+              <Skeleton className="h-9 w-24 rounded-md hidden sm:block" />
+            </div>
+          ) : user ? (
+            <div className="flex items-center gap-1.5 sm:gap-2">
+              <Link to="/apply" className="hidden md:block">
+                <Button variant="accent" size="sm">
+                  Apply Now
+                </Button>
+              </Link>
+              {/* Notification Bell */}
+              <Link
+                to={NOTIFICATIONS_PATH}
+                className="relative p-2 rounded-full hover:bg-muted text-foreground/80 hover:text-foreground transition-colors min-h-[40px] min-w-[40px] flex items-center justify-center"
+                title="Notifications"
+                aria-label="Notifications"
+              >
+                <Bell className="h-5 w-5" />
+                {typeof unreadCount === 'number' && unreadCount > 0 && (
+                  <span className="absolute -top-0.5 -right-0.5 flex h-4 min-w-[16px] items-center justify-center rounded-full bg-destructive px-1 text-[10px] font-bold text-destructive-foreground">
+                    {unreadCount > 99 ? '99+' : unreadCount}
+                  </span>
+                )}
+              </Link>
+
+              {/* User Avatar Menu */}
+              <DropdownMenu>
+                <DropdownMenuTrigger asChild>
+                  <Button
+                    variant="ghost"
+                    className="relative flex items-center gap-1.5 sm:gap-2 p-1 sm:p-1.5 rounded-full hover:bg-muted min-h-[40px] min-w-[40px]"
+                  >
+                    <Avatar className="h-8 w-8 border border-border">
+                      <AvatarImage
+                        src={profile?.avatar_url || undefined}
+                        alt={displayName}
+                      />
+                      <AvatarFallback className="bg-primary/10 text-primary text-xs font-semibold">
+                        {initials}
+                      </AvatarFallback>
+                    </Avatar>
+                    <span className="text-sm font-medium hidden md:inline-block max-w-[100px] truncate">
+                      {displayName}
+                    </span>
+                    <ChevronDown className="h-3.5 w-3.5 text-muted-foreground hidden md:inline-block" />
+                  </Button>
+                </DropdownMenuTrigger>
+                <DropdownMenuContent align="end" className="w-56">
+                  <div className="flex items-center gap-2 p-2 border-b border-border">
+                    <Avatar className="h-9 w-9 border border-border">
+                      <AvatarImage
+                        src={profile?.avatar_url || undefined}
+                        alt={displayName}
+                      />
+                      <AvatarFallback className="bg-primary/10 text-primary text-xs font-semibold">
+                        {initials}
+                      </AvatarFallback>
+                    </Avatar>
+                    <div className="flex flex-col space-y-0.5 truncate">
+                      <p className="text-sm font-medium leading-none truncate">
+                        {displayName}
+                      </p>
+                      <p className="text-xs text-muted-foreground truncate">
+                        {user.email}
+                      </p>
+                    </div>
+                  </div>
+                  <DropdownMenuItem asChild>
+                    <Link
+                      to={getDashboardPath()}
+                      className="cursor-pointer flex items-center gap-2"
+                    >
+                      <LayoutDashboard className="h-4 w-4" />
+                      Dashboard
+                    </Link>
+                  </DropdownMenuItem>
+                  {(isStudent || roles.includes('student')) && (
+                    <DropdownMenuItem asChild>
+                      <Link
+                        to="/dashboard/profile"
+                        className="cursor-pointer flex items-center gap-2"
+                      >
+                        <User className="h-4 w-4" />
+                        My Profile
+                      </Link>
+                    </DropdownMenuItem>
+                  )}
+                  <DropdownMenuSeparator />
+                  <DropdownMenuItem
+                    onClick={handleLogout}
+                    className="cursor-pointer text-destructive focus:text-destructive flex items-center gap-2"
+                  >
+                    <LogOut className="h-4 w-4" />
+                    Log out
+                  </DropdownMenuItem>
+                </DropdownMenuContent>
+              </DropdownMenu>
+            </div>
+          ) : (
+            <div className="flex items-center gap-1.5 sm:gap-2">
+              <Link to="/signup">
+                <Button size="sm" className="h-8 px-2.5 text-xs sm:h-9 sm:px-3 sm:text-sm font-medium">
+                  Sign up
+                </Button>
+              </Link>
+              <div className="hidden md:block">
+                <DropdownMenu>
+                  <DropdownMenuTrigger asChild>
+                    <Button variant="outline" size="sm" className="h-9 px-3 text-sm">
+                      Login
+                    </Button>
+                  </DropdownMenuTrigger>
+                  <DropdownMenuContent align="end" className="w-48">
+                    <DropdownMenuItem asChild>
+                      <Link to="/login" className="cursor-pointer">
+                        Student Login
+                      </Link>
+                    </DropdownMenuItem>
+                    <DropdownMenuItem asChild>
+                      <Link to="/employer/auth" className="cursor-pointer">
+                        Employer Login
+                      </Link>
+                    </DropdownMenuItem>
+                  </DropdownMenuContent>
+                </DropdownMenu>
+              </div>
+              <div className="md:hidden">
+                <Link to="/login">
+                  <Button variant="outline" size="sm" className="h-8 px-2.5 text-xs">
+                    Login
+                  </Button>
+                </Link>
+              </div>
+            </div>
+          )}
+
           <button
-            className="xl:hidden p-2 rounded-md hover:bg-muted"
+            className="xl:hidden p-2 rounded-md hover:bg-muted min-h-[40px] min-w-[40px] flex items-center justify-center"
+            aria-label="Toggle menu"
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
           >
             {isMobileMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
@@ -248,7 +438,7 @@ const Navbar = () => {
       {/* Mobile Menu */}
       {isMobileMenuOpen && (
         <div className="xl:hidden border-t bg-card animate-fade-in max-h-[80vh] overflow-y-auto">
-          <nav className="container py-4 flex flex-col gap-1">
+          <nav className="container px-4 sm:px-6 py-4 flex flex-col gap-1">
             <Link to="/" className="px-4 py-3 rounded-lg hover:bg-muted transition-colors font-medium" onClick={() => setIsMobileMenuOpen(false)}>Home</Link>
             <Link to="/about" className="px-4 py-3 rounded-lg hover:bg-muted transition-colors font-medium" onClick={() => setIsMobileMenuOpen(false)}>About Us</Link>
 
@@ -305,16 +495,105 @@ const Navbar = () => {
 
             <Link to="/contact" className="px-4 py-3 rounded-lg hover:bg-muted transition-colors font-medium" onClick={() => setIsMobileMenuOpen(false)}>Contact</Link>
 
-            {/* Mobile Login Buttons */}
-            <div className="border-t border-border pt-3 mt-2 flex flex-col gap-2">
-              <p className="px-4 text-xs font-bold uppercase tracking-wider text-muted-foreground">Login Portal</p>
-              <Link to="/auth?role=student" className="px-4 py-3 rounded-lg bg-primary/10 text-primary font-medium text-sm hover:bg-primary/20 transition-colors" onClick={() => setIsMobileMenuOpen(false)}>Student Login</Link>
-              <Link to="/employer/auth" className="px-4 py-3 rounded-lg hover:bg-muted transition-colors font-medium text-sm" onClick={() => setIsMobileMenuOpen(false)}>Employer Login</Link>
-            </div>
-
-            <Link to="/apply" className="mt-2" onClick={() => setIsMobileMenuOpen(false)}>
-              <Button variant="accent" className="w-full" size="lg">Apply Now</Button>
-            </Link>
+            {/* Mobile Auth / Profile Section */}
+            {loading ? (
+              <div className="border-t border-border pt-3 mt-2 px-4 space-y-2">
+                <Skeleton className="h-10 w-full rounded-md" />
+              </div>
+            ) : user ? (
+              <div className="border-t border-border pt-3 mt-2 flex flex-col gap-1">
+                <div className="flex items-center gap-3 px-4 py-2">
+                  <Avatar className="h-9 w-9 border border-border">
+                    <AvatarImage
+                      src={profile?.avatar_url || undefined}
+                      alt={displayName}
+                    />
+                    <AvatarFallback className="bg-primary/10 text-primary text-xs font-semibold">
+                      {initials}
+                    </AvatarFallback>
+                  </Avatar>
+                  <div className="flex flex-col truncate">
+                    <span className="text-sm font-semibold truncate">{displayName}</span>
+                    <span className="text-xs text-muted-foreground truncate">{user.email}</span>
+                  </div>
+                </div>
+                <Link
+                  to={NOTIFICATIONS_PATH}
+                  onClick={() => setIsMobileMenuOpen(false)}
+                  className="flex items-center justify-between px-4 py-2.5 rounded-lg hover:bg-muted font-medium text-sm transition-colors"
+                >
+                  <span className="flex items-center gap-2">
+                    <Bell className="h-4 w-4" /> Notifications
+                  </span>
+                  {typeof unreadCount === 'number' && unreadCount > 0 && (
+                    <span className="px-1.5 py-0.5 rounded-full bg-destructive text-destructive-foreground text-[10px] font-bold">
+                      {unreadCount}
+                    </span>
+                  )}
+                </Link>
+                <Link
+                  to={getDashboardPath()}
+                  onClick={() => setIsMobileMenuOpen(false)}
+                  className="flex items-center gap-2 px-4 py-2.5 rounded-lg hover:bg-muted font-medium text-sm transition-colors"
+                >
+                  <LayoutDashboard className="h-4 w-4" /> Dashboard
+                </Link>
+                {(isStudent || roles.includes('student')) && (
+                  <Link
+                    to="/dashboard/profile"
+                    onClick={() => setIsMobileMenuOpen(false)}
+                    className="flex items-center gap-2 px-4 py-2.5 rounded-lg hover:bg-muted font-medium text-sm transition-colors"
+                  >
+                    <User className="h-4 w-4" /> My Profile
+                  </Link>
+                )}
+                <Link
+                  to="/apply"
+                  className="mt-1"
+                  onClick={() => setIsMobileMenuOpen(false)}
+                >
+                  <Button variant="accent" className="w-full" size="lg">
+                    Apply Now
+                  </Button>
+                </Link>
+                <button
+                  onClick={() => {
+                    setIsMobileMenuOpen(false);
+                    handleLogout();
+                  }}
+                  className="flex items-center gap-2 px-4 py-2.5 rounded-lg hover:bg-destructive/10 text-destructive font-medium text-sm transition-colors text-left"
+                >
+                  <LogOut className="h-4 w-4" /> Log out
+                </button>
+              </div>
+            ) : (
+              <div className="border-t border-border pt-3 mt-2 flex flex-col gap-2">
+                <p className="px-4 text-xs font-bold uppercase tracking-wider text-muted-foreground">Login Portal</p>
+                <Link
+                  to="/login"
+                  className="px-4 py-3 rounded-lg bg-primary/10 text-primary font-medium text-sm hover:bg-primary/20 transition-colors"
+                  onClick={() => setIsMobileMenuOpen(false)}
+                >
+                  Student Login
+                </Link>
+                <Link
+                  to="/employer/auth"
+                  className="px-4 py-3 rounded-lg hover:bg-muted transition-colors font-medium text-sm"
+                  onClick={() => setIsMobileMenuOpen(false)}
+                >
+                  Employer Login
+                </Link>
+                <Link
+                  to="/signup"
+                  className="mt-1"
+                  onClick={() => setIsMobileMenuOpen(false)}
+                >
+                  <Button className="w-full" size="lg">
+                    Sign Up
+                  </Button>
+                </Link>
+              </div>
+            )}
           </nav>
         </div>
       )}

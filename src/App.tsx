@@ -15,6 +15,13 @@ import CareersPage from "./pages/CareersPage";
 import ApplyPage from "./pages/ApplyPage";
 import AuthPage from "./pages/AuthPage";
 import ForgotPasswordPage from "./pages/ForgotPasswordPage";
+import LoginPage from "./pages/auth/LoginPage";
+import SignupPage from "./pages/auth/SignupPage";
+import VerifyEmailPage from "./pages/auth/VerifyEmailPage";
+import AuthCallback from "./pages/auth/AuthCallback";
+import LegacyAuthEntry from "./pages/auth/LegacyAuthEntry";
+import ProtectedRoute from "./components/auth/ProtectedRoute";
+import PublicOnlyRoute from "./components/auth/PublicOnlyRoute";
 import NotFound from "./pages/NotFound";
 import HRTrainingPage from "./pages/HRTrainingPage";
 import InternshipPage from "./pages/InternshipPage";
@@ -139,8 +146,12 @@ const App = () => (
             <Route path="/placement/ai-lab" element={<AILabPage />} />
             <Route path="/apply" element={<ApplyPage />} />
             <Route path="/verify" element={<CertificateVerifyPage />} />
-            <Route path="/auth" element={<AuthPage />} />
-            <Route path="/forgot-password" element={<ForgotPasswordPage />} />
+            <Route path="/auth" element={<LegacyAuthEntry />} />
+            <Route path="/login" element={<PublicOnlyRoute><LoginPage /></PublicOnlyRoute>} />
+            <Route path="/signup" element={<PublicOnlyRoute><SignupPage /></PublicOnlyRoute>} />
+            <Route path="/verify-email" element={<PublicOnlyRoute><VerifyEmailPage /></PublicOnlyRoute>} />
+            <Route path="/auth/callback" element={<AuthCallback />} />
+            <Route path="/forgot-password" element={<PublicOnlyRoute><ForgotPasswordPage /></PublicOnlyRoute>} />
             <Route path="/admin/login" element={<AdminAuth />} />
             <Route path="/update-password" element={<UpdatePassword />} />
 
@@ -176,8 +187,8 @@ const App = () => (
               <Route path="settings" element={<EmployerSettings />} />
             </Route>
 
-            {/* Employee Dashboard Routes */}
-            <Route path="/dashboard" element={<DashboardLayout />}>
+            {/* Student Dashboard Routes */}
+            <Route path="/dashboard" element={<ProtectedRoute><DashboardLayout /></ProtectedRoute>}>
               <Route index element={<DashboardHome />} />
               <Route path="courses" element={<DashboardCourses />} />
               <Route path="courses/:courseId/learn" element={<CourseLearning />} />
@@ -195,7 +206,7 @@ const App = () => (
               <Route path="profile" element={<DashboardProfile />} />
             </Route>
 
-            {/* Freelancer Dashboard Routes */} 
+            {/* Freelancer Dashboard Routes */}
             <Route path="/freelancer-dashboard" element={<DashboardLayout role="freelancer" />}>
               <Route index element={<FreelancerDashboard />} />
               <Route path="projects" element={<FreelancerProjects />} />
@@ -206,19 +217,33 @@ const App = () => (
             </Route>
 
             {/* Patient Dashboard Routes */}
-          <Route path="/patient-dashboard" element={<DashboardLayout role="patient" />}>
-            <Route index element={<PatientDashboardHome />} /> 
-            <Route path="appointments" element={<PatientAppointments />} />
-            <Route path="records" element={<ComingSoon />} />
-            <Route path="prescriptions" element={<ComingSoon />} />
-          </Route>
+            <Route path="/patient-dashboard" element={<DashboardLayout role="patient" />}>
+              <Route index element={<PatientDashboardHome />} />
+              <Route
+                path="records"
+                element={<ComingSoon title="Medical Records" />}
+              />
 
-          {/* Doctor Dashboard Routes */}
-          <Route path="/doctor-dashboard" element={<DashboardLayout role="doctor" />}>
-            <Route index element={<DoctorDashboardHome />} /> 
-            <Route path="consult/:id" element={<DoctorConsultation />} />
-            <Route path="appointments" element={<ComingSoon />} />
-          </Route>
+              <Route
+                path="prescriptions"
+                element={<ComingSoon title="Prescriptions" />}
+              />
+
+              <Route
+                path="appointments"
+                element={<ComingSoon title="Appointments" />}
+              />
+            </Route>
+
+            {/* Doctor Dashboard Routes */}
+            <Route path="/doctor-dashboard" element={<DashboardLayout role="doctor" />}>
+              <Route index element={<DoctorDashboardHome />} />
+              <Route path="consult/:id" element={<DoctorConsultation />} />
+              <Route
+                path="appointments"
+                element={<ComingSoon title="Appointments" />}
+              />
+            </Route>
 
             {/* Admin Dashboard Routes */}
             <Route path="/admin" element={<DashboardLayout isAdmin />}>

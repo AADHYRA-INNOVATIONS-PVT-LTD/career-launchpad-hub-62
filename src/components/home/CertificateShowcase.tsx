@@ -48,7 +48,7 @@ const CertificateShowcase = () => {
   }, []);
 
   return (
-    <section className="py-16 lg:py-24 bg-gradient-to-b from-background to-muted/30">
+    <section className="relative overflow-hidden py-16 lg:py-24 bg-gradient-to-b from-background to-muted/30">
       <div className="container">
         <div className="text-center max-w-2xl mx-auto mb-12">
           <Badge variant="outline" className="mb-4">
