@@ -427,31 +427,35 @@ const handlePayment = async () => {
   
   // 1. Company Header
   doc.setFontSize(20);
-  doc.text("Aadhyra Innovations Private Limited", 14, 20);
+  doc.text("AADHYRA TECH VANTA PRIVATE LIMITED", 14, 20);
   doc.setFontSize(10);
-  doc.text("# 19, Lakshmi Nivas, 5th B Cross, Sarakki Main Road, J P Nagar 1st Phase, Bangalore - 560078", 14, 27);
-  doc.text("Email: aadhyrainnovations@gmail.com | Phone: +91 81519 74736", 14, 32);
+  const addressLines = doc.splitTextToSize(
+    "53 (new no.6), 1st cross road, 22nd Main Rd, Marenahalli, 2nd Phase, J. P. Nagar, Bengaluru, Karnataka 560041",
+    140
+  );
+  doc.text(addressLines, 14, 26);
+  doc.text("Email: aadhyrainnovations@gmail.com | Phone: +91 81519 74736", 14, 36);
   
   // Draw a horizontal line
-  doc.line(14, 37, 195, 37);
+  doc.line(14, 41, 195, 41);
 
   // 2. Invoice Metadata
   doc.setFontSize(12);
-  doc.text(`Invoice #: ${invoiceNo}`, 140, 45);
-  doc.text(`Date: ${new Date().toLocaleDateString()}`, 140, 52);
+  doc.text(`Invoice #: ${invoiceNo}`, 140, 49);
+  doc.text(`Date: ${new Date().toLocaleDateString()}`, 140, 56);
 
   // 3. Bill To Section
   doc.setFontSize(12);
   doc.setFont(undefined, 'bold');
-  doc.text("Bill To:", 14, 45);
+  doc.text("Bill To:", 14, 49);
   doc.setFont(undefined, 'normal');
-  doc.text(formData.name, 14, 52);
-  doc.text(formData.email, 14, 59);
-  doc.text(formData.mobile, 14, 66);
+  doc.text(formData.name, 14, 56);
+  doc.text(formData.email, 14, 63);
+  doc.text(formData.mobile, 14, 70);
 
   // 4. Items Table
    autoTable(doc, {
-    startY: 80,
+    startY: 84,
     head: [['Description', 'Category', 'Amount']],
     body: [
       [
@@ -697,7 +701,7 @@ const handlePayment = async () => {
                           </p>
                           
                           <p>
-                            AADHYRA INNOVATIONS PVT LTD does not sell jobs or guarantee employment.
+                            AADHYRA TECH VANTA PRIVATE LIMITED does not sell jobs or guarantee employment.
                           </p>
                           
                           <p className="font-medium text-foreground">All fees collected are strictly for:</p>
@@ -989,7 +993,7 @@ const handlePayment = async () => {
                     <div className="mt-4 pt-4 border-t text-xs text-muted-foreground">
                       <p><strong>Note:</strong> This payment is for evaluation/training/placement support services. 
                       Fees are non-refundable under any circumstances. Your placement success depends on your dedication, performance, and skill development throughout the program.
-                      Subject to AADHYRA INNOVATIONS PVT LTD policies agreed digitally.</p>
+                      Subject to AADHYRA TECH VANTA PRIVATE LIMITED policies agreed digitally.</p>
                     </div>
                   </div>
                   

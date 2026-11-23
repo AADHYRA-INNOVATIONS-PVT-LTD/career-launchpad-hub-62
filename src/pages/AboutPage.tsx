@@ -58,7 +58,7 @@ const AboutPage = () => {
                   Where Dreams Meet <span className="text-yellow-300">Opportunity</span>
                 </h1>
                 <p className="text-lg text-primary-foreground/90 mb-8 leading-relaxed">
-                  AADHYRA INNOVATIONS PVT LTD is more than a training institute — we are a movement that turns
+                  AADHYRA INNOVATIONS is more than a training institute — we are a movement that turns
                   raw talent from every corner of India into skilled, confident professionals ready for the world.
                 </p>
                 <div className="flex flex-wrap gap-3">
@@ -184,7 +184,7 @@ const AboutPage = () => {
                 <img src={shikshaLogo} alt="AADHYRA logo" className="h-16 w-auto mx-auto mb-4" />
                 <Badge className="mb-3 bg-primary/10 text-primary border-primary/20">Our Purpose</Badge>
                 <h2 className="font-heading text-3xl md:text-4xl font-bold text-foreground">
-                  AADHYRA INNOVATIONS PVT LTD
+                  AADHYRA INNOVATIONS
                 </h2>
               </div>
 
@@ -192,7 +192,7 @@ const AboutPage = () => {
                 <Quote className="absolute top-6 left-6 h-12 w-12 text-primary/20" />
                 <div className="space-y-6 text-muted-foreground leading-relaxed relative z-10">
                   <p className="text-lg font-medium text-foreground">
-                    AADHYRA INNOVATIONS PVT LTD was founded with one clear purpose — to transform education into real
+                    AADHYRA INNOVATIONS was founded with one clear purpose — to transform education into real
                     employment, and dignity into every individual's life.
                   </p>
                   <p>

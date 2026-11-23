@@ -27,7 +27,7 @@ const benefits = [
   {
     icon: Award,
     title: "Experience Certificate",
-    description: "Get an official AADHYRA INNOVATIONS PVT LTD Ambassador Certificate to boost your resume and LinkedIn profile.",
+    description: "Get an official AADHYRA INNOVATIONS Ambassador Certificate to boost your resume and LinkedIn profile.",
     color: "bg-primary/10 text-primary",
   },
   {
@@ -45,7 +45,7 @@ const benefits = [
   {
     icon: Briefcase,
     title: "Full-time Opportunity",
-    description: "Top-performing ambassadors are offered full-time roles at AADHYRA INNOVATIONS PVT LTD with competitive salary.",
+    description: "Top-performing ambassadors are offered full-time roles at AADHYRA INNOVATIONS with competitive salary.",
     color: "bg-tech/10 text-tech",
   },
   {
@@ -138,7 +138,7 @@ const StudentAmbassadorPage = () => {
                 <span className="text-accent">Student Ambassador</span>
               </h1>
               <p className="text-lg md:text-xl text-primary-foreground/85 mb-8 max-w-2xl mx-auto">
-                Represent AADHYRA INNOVATIONS PVT LTD at your campus. Earn incentives, gain experience,
+                Represent AADHYRA INNOVATIONS at your campus. Earn incentives, gain experience,
                 get free courses, and unlock full-time career opportunities.
               </p>
               <div className="flex flex-wrap gap-4 justify-center">

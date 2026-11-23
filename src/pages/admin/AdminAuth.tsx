@@ -76,7 +76,7 @@ const AdminAuth = () => {
       <div className="w-full max-w-md">
         <div className="text-center mb-8">
           <Link to="/" className="inline-flex items-center gap-2">
-            <img src={shikshaLogo} alt="AADHYRA INNOVATIONS PVT LTD" className="h-12 w-auto" />
+            <img src={shikshaLogo} alt="AADHYRA INNOVATIONS" className="h-12 w-auto" />
             <div>
               <span className="text-xl font-heading font-bold text-foreground">Aadhyra Innovations</span>
               <span className="block text-xs text-muted-foreground">Admin Portal</span>

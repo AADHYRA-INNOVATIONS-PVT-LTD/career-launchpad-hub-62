@@ -84,11 +84,16 @@ const ContactPage = () => {
                     <MapPin className="h-6 w-6 text-primary" />
                   </div>
                   <h3 className="font-heading font-semibold text-foreground mb-2">Visit Us</h3>
-                  <p className="text-muted-foreground">
-                    # 19, Lakshmi Nivas, 5th B Cross<br />
-                    Sarakki Main Road, J P Nagar 1st Phase<br />
-                    Bangalore - 560078
-                  </p>
+                  <a
+                    href="https://maps.app.goo.gl/iSKKxH6fDzBdbE4k7"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-muted-foreground hover:text-primary transition-colors block"
+                  >
+                    53 (new no.6), 1st cross road, 22nd Main Rd,<br />
+                    Marenahalli, 2nd Phase, J. P. Nagar,<br />
+                    Bengaluru, Karnataka 560041
+                  </a>
                 </div>
                 
                 <div className="bg-card rounded-xl border shadow-card p-6">

@@ -121,9 +121,13 @@ const Footer = () => {
                 <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-primary">
                   <span className="text-lg font-bold text-primary-foreground">SN</span>
                 </div>
-                <div>
-                  <span className="text-lg font-heading font-bold">Aadhyra Innovations</span>
-                  <span className="block text-xs text-muted-foreground">Technologies</span>
+                <div className="min-w-0">
+                  <span className="text-base sm:text-lg font-heading font-bold block leading-tight">
+                    AADHYRA INNOVATIONS
+                  </span>
+                  <span className="block text-xs text-muted-foreground mt-1 leading-snug">
+                    is a brand of AADHYRA TECH VANTA PRIVATE LIMITED.
+                  </span>
                 </div>
               </div>
               <p className="text-sm text-muted-foreground mb-6 max-w-sm">
@@ -169,9 +173,16 @@ const Footer = () => {
               <ul className="space-y-3 mt-8">
                 <li className="flex items-start gap-3">
                   <MapPin className="h-5 w-5 text-primary mt-0.5 flex-shrink-0" />
-                  <span className="text-sm text-muted-foreground">
-                    19, Lakshmi Nivas, 5th B Cross<br />Sarakki Main Road, J P Nagar 1st Phase<br />Bangalore - 560078
-                  </span>
+                  <a
+                    href="https://maps.app.goo.gl/iSKKxH6fDzBdbE4k7"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-sm text-muted-foreground hover:text-primary transition-colors"
+                  >
+                    53 (new no.6), 1st cross road, 22nd Main Rd,<br />
+                    Marenahalli, 2nd Phase, J. P. Nagar,<br />
+                    Bengaluru, Karnataka 560041
+                  </a>
                 </li>
                 <li className="flex items-center gap-3">
                   <Phone className="h-5 w-5 text-primary flex-shrink-0" />
@@ -269,7 +280,7 @@ const Footer = () => {
         <div className="border-t border-background/10">
           <div className="container py-6 flex flex-col sm:flex-row justify-between items-center gap-4">
             <p className="text-sm text-muted-foreground">
-              © {new Date().getFullYear()} AADHYRA INNOVATIONS PVT LTD. All rights reserved.
+              © {new Date().getFullYear()} AADHYRA TECH VANTA PRIVATE LIMITED. All Rights Reserved.
             </p>
             <div className="flex flex-wrap gap-6 justify-center">
               {[

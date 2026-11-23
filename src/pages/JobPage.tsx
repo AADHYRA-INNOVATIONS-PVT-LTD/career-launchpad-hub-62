@@ -13,7 +13,7 @@ import thumbHiring from "@/assets/demo-thumb-hiring-process.jpg";
 import thumbInternship from "@/assets/demo-thumb-internship.jpg";
 
 const careerDemoVideos = [
-  { title: "Life at AADHYRA INNOVATIONS PVT LTD", description: "Explore our work culture, team, and growth opportunities", duration: "4:15", category: "Company Culture", thumbnail: thumbCulture, gradient: "bg-gradient-to-br from-blue-600 to-primary" },
+  { title: "Life at AADHYRA INNOVATIONS", description: "Explore our work culture, team, and growth opportunities", duration: "4:15", category: "Company Culture", thumbnail: thumbCulture, gradient: "bg-gradient-to-br from-blue-600 to-primary" },
   { title: "Our Hiring Process Explained", description: "Step-by-step guide to MCQ, Technical, and AI HR interview rounds", duration: "5:30", category: "Hiring Process", thumbnail: thumbHiring, gradient: "bg-gradient-to-br from-emerald-500 to-teal-700" },
   { title: "Partner Company Placements", description: "How students get placed at TCS, Infosys, and other partner companies", duration: "4:00", category: "Placements", thumbnail: thumbInternship, gradient: "bg-gradient-to-br from-orange-500 to-red-600" },
 ];
@@ -24,7 +24,7 @@ const jobTypes = ["All Types", "Full-time", "Part-time", "Contract", "Freelance"
 const jobs = [
   {
     title: "Java Full Stack Developer",
-    company: "AADHYRA INNOVATIONS PVT LTD",
+    company: "AADHYRA INNOVATIONS",
     location: "Bangalore / Hybrid",
     salary: "₹4.5 - 12 LPA",
     experience: "0-2 Years",
@@ -38,7 +38,7 @@ const jobs = [
   },
   {
     title: "Python Full Stack Developer",
-    company: "AADHYRA INNOVATIONS PVT LTD",
+    company: "AADHYRA INNOVATIONS",
     location: "Bangalore / Hybrid",
     salary: "₹4.5 - 12 LPA",
     experience: "0-2 Years",
@@ -52,7 +52,7 @@ const jobs = [
   },
   {
     title: "Artificial Intelligence Developer",
-    company: "AADHYRA INNOVATIONS PVT LTD",
+    company: "AADHYRA INNOVATIONS",
     location: "Bangalore / Remote",
     salary: "₹6 - 12 LPA",
     experience: "0-3 Years",
@@ -66,7 +66,7 @@ const jobs = [
   },
   {
     title: "Data Science Developer",
-    company: "AADHYRA INNOVATIONS PVT LTD",
+    company: "AADHYRA INNOVATIONS",
     location: "Bangalore / Hybrid",
     salary: "₹5.5 - 11 LPA",
     experience: "0-3 Years",
@@ -80,7 +80,7 @@ const jobs = [
   },
   {
     title: "Data Analyst",
-    company: "AADHYRA INNOVATIONS PVT LTD",
+    company: "AADHYRA INNOVATIONS",
     location: "Bangalore / Hybrid",
     salary: "₹4 - 8 LPA",
     experience: "0-2 Years",
@@ -94,7 +94,7 @@ const jobs = [
   },
   {
     title: "Embedded Systems Developer",
-    company: "AADHYRA INNOVATIONS PVT LTD",
+    company: "AADHYRA INNOVATIONS",
     location: "Bangalore",
     salary: "₹4.5 - 8.5 LPA",
     experience: "0-2 Years",
@@ -106,23 +106,23 @@ const jobs = [
     posted: "Just now",
     description: "Develop and test embedded software and firmware for microcontroller-based systems. Work with low-level programming, hardware interfaces, communication protocols and debugging tools to build reliable embedded applications.\n\nKey responsibilities:\n• Develop firmware using C or C++.\n• Work with microcontrollers and embedded development environments.\n• Integrate and debug hardware communication interfaces.\n• Test firmware behavior and troubleshoot hardware/software issues.\n• Review timing, memory usage and system reliability.\n• Document implementation and testing results.\n\nRequired skills:\n• C/C++ programming fundamentals.\n• Embedded systems and microcontroller concepts.\n• Familiarity with UART, SPI or I2C.\n• Debugging and basic electronics knowledge.\n• Version control and systematic testing.\n\nQualifications:\n• Bachelor's degree in Electronics, Electrical Engineering, Computer Engineering or a related discipline, or equivalent relevant skills.\n• Embedded projects, lab work or internships are beneficial."
   },
-  { title: "Java Full Stack Trainer", company: "AADHYRA INNOVATIONS PVT LTD", location: "Bangalore", salary: "₹4-8 LPA", experience: "1-3 Years", category: "IT", skills: ["Java", "Spring Boot", "React", "Teaching"], applicants: 85, isHot: true, type: "Full-time", posted: "1 day ago", description: "Train students on Java Full Stack Development. Create course content, conduct live sessions, and mentor students through projects and internships." },
-  { title: "Python & AI Trainer", company: "AADHYRA INNOVATIONS PVT LTD", location: "Bangalore", salary: "₹5-10 LPA", experience: "1-3 Years", category: "IT", skills: ["Python", "TensorFlow", "ML", "Teaching"], applicants: 62, isHot: true, type: "Full-time", posted: "2 days ago", description: "Teach Python, AI/ML concepts to students. Design curriculum, build projects, and guide students through real-world applications." },
-  { title: "HR Training Coordinator", company: "AADHYRA INNOVATIONS PVT LTD", location: "Bangalore", salary: "₹3-5 LPA", experience: "0-2 Years", category: "HR", skills: ["Recruitment", "Training", "HRMS", "Communication"], applicants: 120, isHot: false, type: "Full-time", posted: "3 days ago", description: "Coordinate HR training programs, manage student batches, handle placement coordination and employer relations." },
-  { title: "Digital Marketing Executive", company: "AADHYRA INNOVATIONS PVT LTD", location: "Bangalore", salary: "₹3.5-6 LPA", experience: "0-2 Years", category: "Digital Marketing", skills: ["SEO", "Google Ads", "Social Media", "Content"], applicants: 145, isHot: true, type: "Full-time", posted: "1 day ago", description: "Manage Aadhyra Innovations's digital presence. Run campaigns, manage social media, create content, and drive student enrollments." },
-  { title: "Graphic Designer", company: "AADHYRA INNOVATIONS PVT LTD", location: "Bangalore", salary: "₹3-5 LPA", experience: "0-2 Years", category: "Graphic Design", skills: ["Photoshop", "Illustrator", "Figma", "Canva"], applicants: 95, isHot: false, type: "Full-time", posted: "4 days ago", description: "Create marketing creatives, course thumbnails, social media posts, and branding materials for Aadhyra Innovations." },
+  { title: "Java Full Stack Trainer", company: "AADHYRA INNOVATIONS", location: "Bangalore", salary: "₹4-8 LPA", experience: "1-3 Years", category: "IT", skills: ["Java", "Spring Boot", "React", "Teaching"], applicants: 85, isHot: true, type: "Full-time", posted: "1 day ago", description: "Train students on Java Full Stack Development. Create course content, conduct live sessions, and mentor students through projects and internships." },
+  { title: "Python & AI Trainer", company: "AADHYRA INNOVATIONS", location: "Bangalore", salary: "₹5-10 LPA", experience: "1-3 Years", category: "IT", skills: ["Python", "TensorFlow", "ML", "Teaching"], applicants: 62, isHot: true, type: "Full-time", posted: "2 days ago", description: "Teach Python, AI/ML concepts to students. Design curriculum, build projects, and guide students through real-world applications." },
+  { title: "HR Training Coordinator", company: "AADHYRA INNOVATIONS", location: "Bangalore", salary: "₹3-5 LPA", experience: "0-2 Years", category: "HR", skills: ["Recruitment", "Training", "HRMS", "Communication"], applicants: 120, isHot: false, type: "Full-time", posted: "3 days ago", description: "Coordinate HR training programs, manage student batches, handle placement coordination and employer relations." },
+  { title: "Digital Marketing Executive", company: "AADHYRA INNOVATIONS", location: "Bangalore", salary: "₹3.5-6 LPA", experience: "0-2 Years", category: "Digital Marketing", skills: ["SEO", "Google Ads", "Social Media", "Content"], applicants: 145, isHot: true, type: "Full-time", posted: "1 day ago", description: "Manage Aadhyra Innovations's digital presence. Run campaigns, manage social media, create content, and drive student enrollments." },
+  { title: "Graphic Designer", company: "AADHYRA INNOVATIONS", location: "Bangalore", salary: "₹3-5 LPA", experience: "0-2 Years", category: "Graphic Design", skills: ["Photoshop", "Illustrator", "Figma", "Canva"], applicants: 95, isHot: false, type: "Full-time", posted: "4 days ago", description: "Create marketing creatives, course thumbnails, social media posts, and branding materials for Aadhyra Innovations." },
   { title: "Nursing Faculty", company: "AADHYRA HEALTH CONNECT", location: "Bangalore", salary: "₹4-7 LPA", experience: "2-5 Years", category: "Nursing", skills: ["Clinical Training", "ICU", "Patient Care", "Teaching"], applicants: 45, isHot: false, type: "Full-time", posted: "5 days ago", description: "Teach nursing students clinical procedures, hospital management, and patient care. Conduct practical sessions." },
   // { title: "Data Analyst - Partner (TCS)", company: "TCS (via Aadhyra Innovations)", location: "Hyderabad", salary: "₹5-9 LPA", experience: "0-2 Years", category: "Data Science", skills: ["SQL", "Python", "Tableau", "Excel"], applicants: 340, isHot: true, type: "Full-time", posted: "2 days ago", description: "Analyze business data using SQL and Python. Create dashboards and reports. Placed through Aadhyra Innovations hiring network." },
   // { title: "Java Developer - Partner (Infosys)", company: "Infosys (via Aadhyra Innovations)", location: "Bangalore", salary: "₹6-12 LPA", experience: "0-2 Years", category: "IT", skills: ["Java", "Spring Boot", "Microservices", "AWS"], applicants: 420, isHot: true, type: "Full-time", posted: "1 day ago", description: "Build enterprise Java applications. Opportunity through Aadhyra Innovations partner hiring program with Infosys." },
-  { title: "Content Creator & Curriculum Designer", company: "AADHYRA INNOVATIONS PVT LTD", location: "Work From Home", salary: "₹2.5-4 LPA", experience: "0-1 Years", category: "Digital Marketing", skills: ["Content Writing", "Curriculum Design", "Video Script", "Research"], applicants: 210, isHot: false, type: "Full-time", posted: "3 days ago", description: "Create course content, write scripts for training videos, design curriculum for new programs." },
-  { title: "Student Success Manager", company: "AADHYRA INNOVATIONS PVT LTD", location: "Bangalore", salary: "₹3-5 LPA", experience: "0-2 Years", category: "HR", skills: ["Communication", "CRM", "Counseling", "Follow-up"], applicants: 175, isHot: false, type: "Full-time", posted: "2 days ago", description: "Guide enrolled students through their learning journey. Handle queries, track progress, and ensure completion." },
-  { title: "Business Development Executive", company: "AADHYRA INNOVATIONS PVT LTD", location: "Bangalore / Hybrid", salary: "₹3-6 LPA + Incentives", experience: "0-2 Years", category: "Business", skills: ["Sales", "Lead Generation", "Communication", "CRM"], applicants: 230, isHot: true, type: "Full-time", posted: "1 day ago", description: "Drive business growth through client acquisition, lead generation, and partnership development. Attractive incentives on target achievement. Hybrid work mode available." },
-  { title: "Business Development Manager", company: "AADHYRA INNOVATIONS PVT LTD", location: "Bangalore / Hybrid", salary: "₹5-12 LPA + Incentives", experience: "2-5 Years", category: "Business", skills: ["Team Management", "Strategy", "B2B Sales", "Negotiation"], applicants: 110, isHot: true, type: "Full-time", posted: "1 day ago", description: "Lead the business development team, build strategic partnerships, manage key accounts, and drive revenue growth. Incentives + career growth to VP-level roles." },
-  { title: "Academic Counselor", company: "AADHYRA INNOVATIONS PVT LTD", location: "Bangalore / Hybrid", salary: "₹2.5-5 LPA + Incentives", experience: "0-2 Years", category: "Business", skills: ["Counseling", "Communication", "Education", "CRM"], applicants: 290, isHot: true, type: "Full-time", posted: "2 days ago", description: "Guide prospective students in choosing the right courses and career paths. Handle inbound inquiries, conduct counseling sessions, and drive enrollments. Incentives on each successful enrollment." },
-  { title: "Career Counsellor", company: "AADHYRA INNOVATIONS PVT LTD", location: "Bangalore / Work From Home", salary: "₹3-6 LPA + Incentives", experience: "0-3 Years", category: "Business", skills: ["Career Guidance", "Aptitude Assessment", "Mentoring", "Communication"], applicants: 180, isHot: false, type: "Full-time", posted: "3 days ago", description: "Provide career guidance to students and professionals. Conduct aptitude assessments, map career paths, and recommend suitable programs. Great growth opportunities." },
-  { title: "Sales Executive", company: "AADHYRA INNOVATIONS PVT LTD", location: "Bangalore / Hybrid", salary: "₹2.5-5 LPA + Incentives", experience: "0-2 Years", category: "Business", skills: ["Sales", "Cold Calling", "CRM", "Target Achievement"], applicants: 350, isHot: true, type: "Full-time", posted: "1 day ago", description: "Drive course enrollments through inside sales and field sales. Attractive incentive structure — top performers earn ₹8-15 LPA. Hybrid work mode with flexible schedule." },
-  { title: "Sales Manager", company: "AADHYRA INNOVATIONS PVT LTD", location: "Bangalore", salary: "₹6-15 LPA + Incentives", experience: "3-7 Years", category: "Business", skills: ["Team Leadership", "Sales Strategy", "Revenue Management", "P&L"], applicants: 65, isHot: false, type: "Full-time", posted: "2 days ago", description: "Lead a team of sales executives, set targets, build processes, and drive revenue growth. Direct reporting to VP Sales. Fast-track promotion path." },
-  { title: "Sales & Marketing Executive", company: "AADHYRA INNOVATIONS PVT LTD", location: "Bangalore / Hybrid", salary: "₹3-6 LPA + Incentives", experience: "0-3 Years", category: "Business", skills: ["Sales", "Digital Marketing", "Lead Generation", "Social Media"], applicants: 275, isHot: true, type: "Full-time", posted: "1 day ago", description: "Dual role combining sales and marketing — generate leads through digital campaigns and convert them into enrollments. Incentives + marketing budget ownership." },
+  { title: "Content Creator & Curriculum Designer", company: "AADHYRA INNOVATIONS", location: "Work From Home", salary: "₹2.5-4 LPA", experience: "0-1 Years", category: "Digital Marketing", skills: ["Content Writing", "Curriculum Design", "Video Script", "Research"], applicants: 210, isHot: false, type: "Full-time", posted: "3 days ago", description: "Create course content, write scripts for training videos, design curriculum for new programs." },
+  { title: "Student Success Manager", company: "AADHYRA INNOVATIONS", location: "Bangalore", salary: "₹3-5 LPA", experience: "0-2 Years", category: "HR", skills: ["Communication", "CRM", "Counseling", "Follow-up"], applicants: 175, isHot: false, type: "Full-time", posted: "2 days ago", description: "Guide enrolled students through their learning journey. Handle queries, track progress, and ensure completion." },
+  { title: "Business Development Executive", company: "AADHYRA INNOVATIONS", location: "Bangalore / Hybrid", salary: "₹3-6 LPA + Incentives", experience: "0-2 Years", category: "Business", skills: ["Sales", "Lead Generation", "Communication", "CRM"], applicants: 230, isHot: true, type: "Full-time", posted: "1 day ago", description: "Drive business growth through client acquisition, lead generation, and partnership development. Attractive incentives on target achievement. Hybrid work mode available." },
+  { title: "Business Development Manager", company: "AADHYRA INNOVATIONS", location: "Bangalore / Hybrid", salary: "₹5-12 LPA + Incentives", experience: "2-5 Years", category: "Business", skills: ["Team Management", "Strategy", "B2B Sales", "Negotiation"], applicants: 110, isHot: true, type: "Full-time", posted: "1 day ago", description: "Lead the business development team, build strategic partnerships, manage key accounts, and drive revenue growth. Incentives + career growth to VP-level roles." },
+  { title: "Academic Counselor", company: "AADHYRA INNOVATIONS", location: "Bangalore / Hybrid", salary: "₹2.5-5 LPA + Incentives", experience: "0-2 Years", category: "Business", skills: ["Counseling", "Communication", "Education", "CRM"], applicants: 290, isHot: true, type: "Full-time", posted: "2 days ago", description: "Guide prospective students in choosing the right courses and career paths. Handle inbound inquiries, conduct counseling sessions, and drive enrollments. Incentives on each successful enrollment." },
+  { title: "Career Counsellor", company: "AADHYRA INNOVATIONS", location: "Bangalore / Work From Home", salary: "₹3-6 LPA + Incentives", experience: "0-3 Years", category: "Business", skills: ["Career Guidance", "Aptitude Assessment", "Mentoring", "Communication"], applicants: 180, isHot: false, type: "Full-time", posted: "3 days ago", description: "Provide career guidance to students and professionals. Conduct aptitude assessments, map career paths, and recommend suitable programs. Great growth opportunities." },
+  { title: "Sales Executive", company: "AADHYRA INNOVATIONS", location: "Bangalore / Hybrid", salary: "₹2.5-5 LPA + Incentives", experience: "0-2 Years", category: "Business", skills: ["Sales", "Cold Calling", "CRM", "Target Achievement"], applicants: 350, isHot: true, type: "Full-time", posted: "1 day ago", description: "Drive course enrollments through inside sales and field sales. Attractive incentive structure — top performers earn ₹8-15 LPA. Hybrid work mode with flexible schedule." },
+  { title: "Sales Manager", company: "AADHYRA INNOVATIONS", location: "Bangalore", salary: "₹6-15 LPA + Incentives", experience: "3-7 Years", category: "Business", skills: ["Team Leadership", "Sales Strategy", "Revenue Management", "P&L"], applicants: 65, isHot: false, type: "Full-time", posted: "2 days ago", description: "Lead a team of sales executives, set targets, build processes, and drive revenue growth. Direct reporting to VP Sales. Fast-track promotion path." },
+  { title: "Sales & Marketing Executive", company: "AADHYRA INNOVATIONS", location: "Bangalore / Hybrid", salary: "₹3-6 LPA + Incentives", experience: "0-3 Years", category: "Business", skills: ["Sales", "Digital Marketing", "Lead Generation", "Social Media"], applicants: 275, isHot: true, type: "Full-time", posted: "1 day ago", description: "Dual role combining sales and marketing — generate leads through digital campaigns and convert them into enrollments. Incentives + marketing budget ownership." },
 ];
 
 const hiringSteps = [
@@ -159,7 +159,7 @@ const JobPage = () => {
                 Career at Aadhyra Innovations
               </h1>
               <p className="text-lg text-primary-foreground/80">
-                Join our team or get placed with our partner companies. Build your career with AADHYRA INNOVATIONS PVT LTD.
+                Join our team or get placed with our partner companies. Build your career with AADHYRA INNOVATIONS.
               </p>
             </div>
           </div>
