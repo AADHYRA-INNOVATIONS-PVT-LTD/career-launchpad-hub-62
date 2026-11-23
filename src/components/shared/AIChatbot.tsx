@@ -163,7 +163,7 @@ const getResponse = (query: string): { content: string; links?: { label: string;
   if (q.match(/company|aadhyra|about|who|what|organization|talent|tech partner|health|lab/)) {
     return {
       content:
-        "🏢 **AADHYRA INNOVATIONS PVT LTD** operates 4 verticals:\n\n" +
+        "🏢 **AADHYRA INNOVATIONS** operates 4 verticals:\n\n" +
         "🔍 **AADHYRA TALENTS CONECT** — AI-Powered Recruitment Platform (like Apna)\n" +
         "💻 **AADHYRA TECH PARTNER** — Freelancing Marketplace\n" +
         "🏥 **AADHYRA HEALTH CONECT** — AI Healthcare & Telemedicine\n" +
@@ -262,7 +262,7 @@ const getResponse = (query: string): { content: string; links?: { label: string;
   if (q.match(/^(hi|hello|hey|good|namaste|hola|greet)/)) {
     return {
       content:
-        "👋 Hello! Welcome to AADHYRA INNOVATIONS PVT LTD!\n\n" +
+        "👋 Hello! Welcome to AADHYRA INNOVATIONS!\n\n" +
         "I'm your AI Career Assistant. I can help you with:\n\n" +
         "🎯 Placement & Job opportunities\n" +
         "💰 Salary expectations\n" +

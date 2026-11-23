@@ -103,17 +103,22 @@ const ContactSection = () => {
                   <span className="block text-sm text-muted-foreground">+91 98765 43210</span>
                 </span>
               </a>
-              <div className="flex items-start gap-4">
+              <a
+                href="https://maps.app.goo.gl/iSKKxH6fDzBdbE4k7"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-start gap-4 group"
+              >
                 <span className="h-11 w-11 rounded-xl gradient-healthcare flex items-center justify-center flex-shrink-0">
                   <MapPin className="h-5 w-5 text-healthcare-foreground" />
                 </span>
                 <span>
-                  <span className="block font-heading font-semibold text-foreground">Office Address</span>
+                  <span className="block font-heading font-semibold text-foreground group-hover:text-primary transition-colors">Office Address</span>
                   <span className="block text-sm text-muted-foreground">
-                    AADHYRA INNOVATIONS PVT LTD, Chennai, Tamil Nadu, India
+                    53 (new no.6), 1st cross road, 22nd Main Rd, Marenahalli, 2nd Phase, J. P. Nagar, Bengaluru, Karnataka 560041
                   </span>
                 </span>
-              </div>
+              </a>
               <a
                 href="https://wa.me/919876543210"
                 target="_blank"
@@ -127,7 +132,7 @@ const ContactSection = () => {
             <div className="rounded-3xl overflow-hidden border shadow-card h-[280px]">
               <iframe
                 title="AADHYRA INNOVATIONS office location"
-                src="https://www.google.com/maps?q=Chennai,Tamil%20Nadu,India&output=embed"
+                src="https://www.google.com/maps?q=53+(new+no.6),+1st+cross+road,+22nd+Main+Rd,+Marenahalli,+2nd+Phase,+J.+P.+Nagar,+Bengaluru,+Karnataka+560041&output=embed"
                 className="w-full h-full border-0"
                 loading="lazy"
                 referrerPolicy="no-referrer-when-downgrade"
