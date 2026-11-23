@@ -166,7 +166,7 @@ const Navbar = () => {
           <div className="flex flex-col min-w-0">
             <span className="text-[11px] lg:text-[12px] xl:text-sm font-heading font-bold text-slate-900 dark:text-white leading-tight truncate">
               <span className="sm:hidden">AADHYRA</span>
-              <span className="hidden sm:inline whitespace-nowrap">AADHYRA INNOVATIONS PVT LTD</span>
+              <span className="hidden sm:inline whitespace-nowrap">AADHYRA INNOVATIONS</span>
             </span>
             <span className="text-[9px] xl:text-[10px] text-slate-500 hidden xl:block mt-0.5">
               Innovating Tomorrow, Today

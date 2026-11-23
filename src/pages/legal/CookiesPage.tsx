@@ -2,7 +2,7 @@ import LegalPageLayout from "@/components/legal/LegalPageLayout";
 
 const CookiesPage = () => (
   <LegalPageLayout badge="Legal" title="Cookie Policy" lastUpdated="April 2026">
-    <p>This policy explains how AADHYRA INNOVATIONS PVT LTD uses cookies and similar tracking technologies.</p>
+    <p>This policy explains how AADHYRA TECH VANTA PRIVATE LIMITED uses cookies and similar tracking technologies.</p>
 
     <h2>1. What Are Cookies?</h2>
     <p>Cookies are small text files stored on your device that help websites remember information about your visit.</p>

@@ -3,9 +3,9 @@ import LegalPageLayout from "@/components/legal/LegalPageLayout";
 const TermsPage = () => (
   <LegalPageLayout badge="Legal" title="Terms & Conditions" lastUpdated="April 2026">
     <p>
-      Welcome to AADHYRA INNOVATIONS PVT LTD. By accessing or using our website, training programs, internships, placement
+      Welcome to AADHYRA INNOVATIONS, a brand of AADHYRA TECH VANTA PRIVATE LIMITED. By accessing or using our website, training programs, internships, placement
       services, freelancing marketplace (AADHYRA TECH PARTNER), healthcare services (AADHYRA HEALTH CONNECT), AI tools (AADHYRA LAB), or any
-      other product offered by Aadhyra Innovations (collectively, the "Services"), you agree to be bound by these Terms.
+      other product offered by AADHYRA INNOVATIONS (collectively, the "Services"), you agree to be bound by these Terms.
     </p>
 
     <h2>1. Eligibility</h2>
@@ -28,7 +28,7 @@ const TermsPage = () => (
     <p>We facilitate introductions between candidates and employers but do not guarantee placement, salary, role, or specific company. Evaluation/assessment fees (e.g., ₹300 fresher / ₹700 experienced) are non-refundable once the test is started.</p>
 
     <h2>5. Freelancing (AADHYRA TECH PARTNER)</h2>
-    <p>AADHYRA TECH PARTNER connects freelancers and project owners. Project payments are routed through escrow. Aadhyra Innovations charges a service commission per transaction. Disputes are handled per our Refund & Dispute policy.</p>
+    <p>AADHYRA TECH PARTNER connects freelancers and project owners. Project payments are routed through escrow. AADHYRA INNOVATIONS charges a service commission per transaction. Disputes are handled per our Refund & Dispute policy.</p>
 
     <h2>6. Healthcare (AADHYRA HEALTH CONNECT)</h2>
     <p>AADHYRA HEALTH CONNECT provides AI-assisted information and connects you to qualified professionals. AI-generated information (e.g., symptom checker output) is for informational purposes only and is not a substitute for professional medical advice, diagnosis, or treatment.</p>
@@ -48,10 +48,10 @@ const TermsPage = () => (
     </ul>
 
     <h2>10. Intellectual Property</h2>
-    <p>All trademarks, logos, course content, and platform code remain the property of AADHYRA INNOVATIONS PVT LTD or its licensors.</p>
+    <p>All trademarks, logos, course content, and platform code remain the property of AADHYRA TECH VANTA PRIVATE LIMITED or its licensors.</p>
 
     <h2>11. Limitation of Liability</h2>
-    <p>To the maximum extent permitted by law, Aadhyra Innovations shall not be liable for indirect, incidental, special, or consequential damages arising from use of the Services.</p>
+    <p>To the maximum extent permitted by law, AADHYRA TECH VANTA PRIVATE LIMITED shall not be liable for indirect, incidental, special, or consequential damages arising from use of the Services.</p>
 
     <h2>12. Governing Law</h2>
     <p>These Terms are governed by the laws of India. Disputes shall be subject to the exclusive jurisdiction of courts in Bangalore, Karnataka.</p>

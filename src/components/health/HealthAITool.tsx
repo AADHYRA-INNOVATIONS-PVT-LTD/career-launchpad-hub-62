@@ -127,7 +127,7 @@ const HealthAITool = ({ tool, title, triggerLabel = "Try Now", triggerSize = "sm
         margin,
         pageH - 30
       );
-      doc.text(`Page ${i} of ${pageCount}  |  AADHYRA INNOVATIONS PVT LTD`, margin, pageH - 18);
+      doc.text(`Page ${i} of ${pageCount}  |  AADHYRA TECH VANTA PRIVATE LIMITED`, margin, pageH - 18);
     }
 
     const fileName = `aadhyra-health-${tool}-${Date.now()}.pdf`;

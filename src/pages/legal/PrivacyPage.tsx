@@ -3,7 +3,7 @@ import LegalPageLayout from "@/components/legal/LegalPageLayout";
 const PrivacyPage = () => (
   <LegalPageLayout badge="Legal" title="Privacy Policy" lastUpdated="April 2026">
     <p>
-      AADHYRA INNOVATIONS PVT LTD ("we", "us") respects your privacy. This policy explains what data we collect, how we use it,
+      AADHYRA TECH VANTA PRIVATE LIMITED ("we", "us") respects your privacy. This policy explains what data we collect, how we use it,
       and the choices you have.
     </p>
 

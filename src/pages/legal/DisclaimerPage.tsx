@@ -15,7 +15,7 @@ const DisclaimerPage = () => (
     <p>AADHYRA LAB, AI HR Interview, AI symptom checker, AI resume builder, and similar features use machine learning models. AI output may contain inaccuracies, biases, or hallucinations. Always review AI-generated content before relying on it for decisions.</p>
 
     <h2>5. Freelancing & Project Marketplace</h2>
-    <p>Aadhyra Innovations acts as a neutral intermediary on AADHYRA TECH PARTNER. We do not endorse any specific freelancer or project owner and are not party to the contracts they enter.</p>
+    <p>AADHYRA INNOVATIONS acts as a neutral intermediary on AADHYRA TECH PARTNER. We do not endorse any specific freelancer or project owner and are not party to the contracts they enter.</p>
 
     <h2>6. Third-Party Links</h2>
     <p>Our platform may contain links to third-party websites. We are not responsible for the content, privacy practices, or accuracy of such external sites.</p>

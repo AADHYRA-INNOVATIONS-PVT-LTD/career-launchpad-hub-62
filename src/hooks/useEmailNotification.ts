@@ -65,7 +65,7 @@ export const useEmailNotification = () => {
       default:
         return {
           title: "Notification",
-          message: `Hi ${name}, you have a new notification from AADHYRA INNOVATIONS PVT LTD.`,
+          message: `Hi ${name}, you have a new notification from AADHYRA INNOVATIONS.`,
           variant: "default" as const,
         };
     }
