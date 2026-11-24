@@ -217,22 +217,6 @@ const JobPage = () => {
                     </div>
                   </div>
                 </div>
-
-                {/* Evaluation Fee Info */}
-                <div className="bg-primary/5 rounded-xl border border-primary/20 p-5">
-                  <h3 className="font-heading font-semibold text-foreground mb-3 text-sm">Evaluation Fee</h3>
-                  <div className="space-y-3">
-                    <div className="flex justify-between items-center">
-                      <span className="text-sm text-muted-foreground">Fresher (0-1 yr)</span>
-                      <Badge className="bg-primary/10 text-primary font-bold">₹300</Badge>
-                    </div>
-                    <div className="flex justify-between items-center">
-                      <span className="text-sm text-muted-foreground">Experienced (1+ yr)</span>
-                      <Badge className="bg-primary/10 text-primary font-bold">₹700</Badge>
-                    </div>
-                  </div>
-                  <p className="text-xs text-muted-foreground mt-3">One-time fee for assessment & interview access</p>
-                </div>
               </aside>
 
               {/* Job Cards */}

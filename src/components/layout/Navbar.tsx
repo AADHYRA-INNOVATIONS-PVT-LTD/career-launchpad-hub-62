@@ -96,9 +96,8 @@ const Navbar = () => {
         <Link to="/" className="flex items-center gap-2 shrink-0 overflow-visible">
           <img src={shikshaLogo} alt="Logo" className="h-8 lg:h-9 w-auto shrink-0" />
           <div className="flex flex-col min-w-0">
-            <span className="text-[11px] lg:text-[12px] xl:text-sm font-heading font-bold text-slate-900 dark:text-white leading-tight truncate">
-              <span className="sm:hidden">AADHYRA</span>
-              <span className="hidden sm:inline whitespace-nowrap">AADHYRA INNOVATIONS</span>
+            <span className="text-[11px] sm:text-xs lg:text-[12px] xl:text-sm font-heading font-bold text-slate-900 dark:text-white leading-tight whitespace-nowrap">
+              AADHYRA INNOVATIONS
             </span>
             <span className="text-[9px] xl:text-[10px] text-slate-500 hidden xl:block mt-0.5">
               Innovating Tomorrow, Today
